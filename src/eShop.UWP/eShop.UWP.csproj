@@ -143,8 +143,22 @@
     <Compile Include="Converters\StateToBrushConverter.cs" />
     <Compile Include="Converters\StateToOpacityConverter.cs" />
     <Compile Include="Converters\BoolToStateConverter.cs" />
+    <Compile Include="DataProviders\CatalogProvider.cs" />
+    <Compile Include="DataProviders\Contracts\ICatalogProvider.cs" />
+    <Compile Include="DataProviders\Contracts\IOrdersProvider.cs" />
+    <Compile Include="DataProviders\OrdersProvider.cs" />
     <Compile Include="Helpers\DependencyObjectExtensions.cs" />
     <Compile Include="Helpers\Json.cs" />
+    <Compile Include="Models\CatalogBrand.cs" />
+    <Compile Include="Models\CatalogItem.cs" />
+    <Compile Include="Models\CatalogState.cs" />
+    <Compile Include="Models\CatalogType.cs" />
+    <Compile Include="Models\DataPoint.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\Serie.cs" />
+    <Compile Include="Services\Cortana\BackgroundVoiceCommandService.cs" />
+    <Compile Include="Services\Cortana\CatalogVoiceCommand.cs" />
+    <Compile Include="Services\Cortana\VoiceCommandService.cs" />
     <Compile Include="Services\ProtocolService.cs" />
     <Compile Include="Services\ToastNotificationsService.cs" />
     <Compile Include="Helpers\SettingsStorageExtensions.cs" />
@@ -320,20 +334,6 @@
   <ItemGroup>
     <Compile Include="Helpers\ResourceExtensions.cs" />
     <Compile Include="Helpers\Singleton.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\eShop.Cortana\eShop.Cortana.csproj">
-      <Project>{a57cdc79-7d18-4dd4-81c9-e0857d0ea85a}</Project>
-      <Name>eShop.Cortana</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\eShop.Domain\eShop.Domain.csproj">
-      <Project>{e0abd61a-0b8d-4e2b-9f43-d3768307cdba}</Project>
-      <Name>eShop.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\eShop.Providers\eShop.Providers.csproj">
-      <Project>{8d955f8c-6a1f-43fd-ba51-f1e0f9e74874}</Project>
-      <Name>eShop.Providers</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Images\backgroundPhoto.jpg" />

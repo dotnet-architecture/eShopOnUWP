@@ -121,10 +121,6 @@
       <Project>{E0ABD61A-0B8D-4E2B-9F43-D3768307CDBA}</Project>
       <Name>eShop.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\eShop.Providers\eShop.Providers.csproj">
-      <Project>{8D955F8C-6A1F-43FD-BA51-F1E0F9E74874}</Project>
-      <Name>eShop.Providers</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
