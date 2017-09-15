@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.2">
+
+  <CommandSet xml:lang="en-us" Name="EShopContainerCommandSet_en-us">
+    <AppName>shop</AppName>
+    <Example>give me mug type products</Example>
+
+    <Command Name="showItemsSearch">
+      <Example>give me mug type products</Example>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase">give [me] {catalogType} [type] [products]</ListenFor>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase">show [me] {catalogType} [type] [products]</ListenFor>
+      <ListenFor RequireAppName="ExplicitlySpecified">{builtin:AppName} give [me] {catalogType} [type] [products]</ListenFor>
+      <ListenFor RequireAppName="ExplicitlySpecified">{builtin:AppName} show [me] {catalogType} [type] [products]</ListenFor>
+      <Feedback> Looking for {catalogType} type </Feedback>
+      <VoiceCommandService Target="BackgroundVoiceCommandService"/>
+    </Command>
+
+    <PhraseList Label="catalogType">
+      <Item>mug</Item>
+      <Item>shirt</Item>
+      <Item>sheet</Item>
+      <Item>cap</Item>
+      <Item>azure</Item>
+      <Item>.net</Item>
+    </PhraseList>
+
+  </CommandSet>
+
+</VoiceCommands>

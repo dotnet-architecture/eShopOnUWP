@@ -1,0 +1,70 @@
+<base:PageBase
+    x:Class="eShop.UWP.Views.Shell.ShellView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:base="using:eShop.UWP.Views.Base"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    DataContext="{Binding ShellViewModel, Source={StaticResource Locator}}"
+    mc:Ignorable="d">
+    <NavigationView
+        AlwaysShowHeader="False"
+        IsPaneOpen="{Binding IsPaneOpen, Mode=TwoWay}"
+        IsSettingsVisible="False"
+        MenuItemTemplate="{StaticResource NavigationMenuItemDataTemplate}"
+        MenuItemsSource="{Binding PrimaryItems}"
+        SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+        Style="{StaticResource FluentNavigationViewStyle}">
+        <interactivity:Interaction.Behaviors>
+            <core:EventTriggerBehavior EventName="Loaded">
+                <core:InvokeCommandAction Command="{Binding LoadedCommand}" />
+            </core:EventTriggerBehavior>
+        </interactivity:Interaction.Behaviors>
+        <NavigationView.AutoSuggestBox>
+            <AutoSuggestBox x:Uid="Menu_Search"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                QueryIcon="Find"
+                Text="{Binding Query, Mode=TwoWay}"
+                TextBoxStyle="{StaticResource SearchTextBoxStyle}">
+                <interactivity:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="QuerySubmitted">
+                        <core:InvokeCommandAction Command="{Binding SearchCommand}" />
+                    </core:EventTriggerBehavior>
+                </interactivity:Interaction.Behaviors>
+            </AutoSuggestBox>
+        </NavigationView.AutoSuggestBox>
+        <NavigationView.PaneFooter>
+            <Grid Height="48" x:Uid="Menu_Logout">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="48" />
+                </Grid.ColumnDefinitions>
+                <Image 
+                    Width="20"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Source="ms-appx:///Assets/Images/profile.png"
+                    Stretch="Uniform" />
+                <TextBlock
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource BodyTextStyle}"
+                    Text="{Binding UserName}" />
+                <Button
+                    Grid.Column="2"
+                    Width="48"
+                    MinHeight="48"
+                    Command="{Binding LogoutCommand}"
+                    Content="&#xE7E8;"
+                    Style="{StaticResource PaneToggleButtonStyle}" />
+            </Grid>
+        </NavigationView.PaneFooter>
+        <Grid Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
+            <Frame x:Name="shellFrame" />
+        </Grid>
+    </NavigationView>
+</base:PageBase>

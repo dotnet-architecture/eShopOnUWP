@@ -1,0 +1,189 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--  Common texts  -->
+    <Style x:Key="PageTitleStyle" TargetType="TextBlock">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontWeight" Value="SemiLight" />
+        <Setter Property="FontSize" Value="{StaticResource LargeFontSize}" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        <Setter Property="TextWrapping" Value="NoWrap" />
+        <Setter Property="Margin" Value="{StaticResource PageTitleMargin}" />
+    </Style>
+
+    <Style x:Key="BodyTextStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource SegoeRegular}" />
+        <Setter Property="FontSize" Value="{StaticResource MediumFontSize}" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+
+    <Style x:Key="GreetingsCustomAuthenticationHelloStyle" TargetType="TextBlock">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="FontFamily" Value="{StaticResource SegoeSemiBold}" />
+        <Setter Property="FontSize" Value="{StaticResource HugeFontSize}" />
+        <Setter Property="Foreground" Value="{StaticResource TertiaryLightBrush}" />
+    </Style>
+
+    <Style
+        x:Key="GreetingAuthenticationHelloStyle"
+        BasedOn="{StaticResource GreetingsCustomAuthenticationHelloStyle}"
+        TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TertiaryDarkBrush}" />
+        <Setter Property="Margin" Value="{StaticResource LoginPasswordBoxMargin}" />
+        <Setter Property="FontSize" Value="{StaticResource BigFontSize}" />
+    </Style>
+
+    <Style x:Key="GoToAuthenticationUsernameStyle" TargetType="TextBlock">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="FontFamily" Value="{StaticResource SegoeRegular}" />
+        <Setter Property="FontSize" Value="{StaticResource SemiMediumFontSize}" />
+        <Setter Property="Foreground" Value="{StaticResource TertiaryLightBrush}" />
+    </Style>
+
+    <Style x:Key="ContentDialogTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource SegoeRegular}" />
+        <Setter Property="FontSize" Value="{StaticResource SemiMediumFontSize}" />
+        <Setter Property="Opacity" Value="0.5" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+
+    <Style x:Key="TitleDialogTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource SegoeBold}" />
+        <Setter Property="FontSize" Value="{StaticResource MediumFontSize}" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        <Setter Property="TextWrapping" Value="NoWrap" />
+    </Style>
+
+    <Style x:Key="TitleAuthenticationStyle" TargetType="TextBlock">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="FontFamily" Value="{StaticResource SegoeBold}" />
+        <Setter Property="FontSize" Value="{StaticResource SemiSmallFontSize}" />
+        <Setter Property="Foreground" Value="{StaticResource SecondaryDarkBrush}" />
+        <Setter Property="Margin" Value="{StaticResource LoginUserPasswordMargin}" />
+    </Style>
+
+    <Style x:Key="ForgotPasswordStyle" TargetType="TextBlock">
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="FontFamily" Value="{StaticResource SegoeRegular}" />
+        <Setter Property="FontSize" Value="{StaticResource MediumFontSize}" />
+        <Setter Property="Foreground" Value="{StaticResource TertiaryDark}" />
+        <Setter Property="FontStyle" Value="Italic" />
+        <Setter Property="Margin" Value="0,4,0,0" />
+        <Setter Property="Opacity" Value="0.5" />
+    </Style>
+
+    <Style
+        x:Key="NoAccountSignUpStyle"
+        BasedOn="{StaticResource ForgotPasswordStyle}"
+        TargetType="TextBlock">
+        <Setter Property="Margin" Value="{StaticResource CommonAuthenticationMargin}" />
+    </Style>
+
+    <Style
+        x:Key="NoAccountStyle"
+        BasedOn="{StaticResource NoAccountSignUpStyle}"
+        TargetType="TextBlock">
+        <Setter Property="Opacity" Value="1" />
+        <Setter Property="FontStyle" Value="Normal" />
+    </Style>
+
+    <Style
+        x:Key="AuthenticationVersionStyle"
+        BasedOn="{StaticResource NoAccountStyle}"
+        TargetType="TextBlock">
+        <Setter Property="FontStyle" Value="Normal" />
+        <Setter Property="Foreground" Value="{StaticResource SecondaryMediumBrush}" />
+        <Setter Property="Margin" Value="0,8,0,0" />
+    </Style>
+
+    <Style x:Key="CatalogItemTitleStyle" TargetType="TextBlock">
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="FontFamily" Value="{StaticResource SegoeRegular}" />
+        <Setter Property="FontSize" Value="{StaticResource MiniMediumFontSize}" />
+        <Setter Property="TextWrapping" Value="NoWrap" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+    <Style
+        x:Key="CatalogItemDescriptionStyle"
+        BasedOn="{StaticResource CatalogItemTitleStyle}"
+        TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource SegoeRegular}" />
+        <Setter Property="FontSize" Value="{StaticResource SemiMediumFontSize}" />
+        <Setter Property="Opacity" Value="0.7" />
+    </Style>
+
+    <Style
+        x:Key="CatalogItemPriceStyle"
+        BasedOn="{StaticResource CatalogItemTitleStyle}"
+        TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{StaticResource LargeFontSize}" />
+        <Setter Property="VerticalAlignment" Value="Bottom" />
+    </Style>
+
+    <Style x:Key="TitleChartTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource SegoeBold}" />
+        <Setter Property="FontSize" Value="{StaticResource MediumFontSize}" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        <Setter Property="TextWrapping" Value="NoWrap" />
+    </Style>
+
+    <Style x:Key="SalesChartTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource SegoeRegular}" />
+        <Setter Property="FontSize" Value="{StaticResource MediumFontSize}" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        <Setter Property="TextWrapping" Value="NoWrap" />
+        <Setter Property="Opacity" Value="0.5" />
+    </Style>
+
+    <Style x:Key="TotalSalesChartTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource SegoeBold}" />
+        <Setter Property="FontSize" Value="30" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        <Setter Property="TextWrapping" Value="NoWrap" />
+    </Style>
+
+    <Style x:Key="DetailTitlePropertiesStyle" TargetType="TextBlock">
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="FontFamily" Value="{StaticResource SegoeRegular}" />
+        <Setter Property="FontSize" Value="{StaticResource SmallFontSize}" />
+        <Setter Property="Foreground" Value="{StaticResource SecondaryMediumBrush}" />
+        <Setter Property="Margin" Value="0,24,0,5" />
+    </Style>
+
+    <Style
+        x:Key="DetailPercentStyle"
+        BasedOn="{StaticResource DetailTitlePropertiesStyle}"
+        TargetType="TextBlock">
+        <Setter Property="Margin" Value="0,6,10,0" />
+        <Setter Property="Foreground" Value="{StaticResource PrimaryMediumBrush}" />
+        <Setter Property="FontFamily" Value="{StaticResource SegoeLight}" />
+    </Style>
+
+    <Style
+        x:Key="DetailPivotStyle"
+        BasedOn="{StaticResource DetailTitlePropertiesStyle}"
+        TargetType="TextBlock">
+        <Setter Property="Margin" Value="0,12,0,5" />
+    </Style>
+
+    <Style
+        x:Key="DetailPivotBottomStyle"
+        BasedOn="{StaticResource DetailTitlePropertiesStyle}"
+        TargetType="TextBlock">
+        <Setter Property="Margin" Value="0,10,0,5" />
+    </Style>
+
+    <Style x:Key="DetailHeadNameStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TertiaryLight}" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="FontFamily" Value="{StaticResource SegoeLight}" />
+        <Setter Property="FontSize" Value="{StaticResource BigFontSize}" />
+    </Style>
+
+</ResourceDictionary>

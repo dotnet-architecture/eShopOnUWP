@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Main_Title.Text" xml:space="preserve">
+    <value>Main</value>
+  </data>
+  <data name="Statistics_Title.Text" xml:space="preserve">
+    <value>Statistics</value>
+  </data>
+  <data name="DataGrid_Title.Text" xml:space="preserve">
+    <value>DataGrid</value>
+  </data>
+  <data name="Settings_Title.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Settings_Theme.Text" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="Settings_ThemeToggle.OnContent" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="Settings_ThemeToggle.OffContent" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="Settings_About.Text" xml:space="preserve">
+    <value>About this application</value>
+  </data>
+  <data name="Settings_AboutDescription.Text" xml:space="preserve">
+    <value>Settings page placeholder text.  Your app description goes here.</value>
+  </data>
+  <data name="Settings_PrivacyTermsLink.Content" xml:space="preserve">
+    <value>Privacy Terms</value>
+  </data>
+  <data name="Settings_PrivacyTermsLink.NavigateUri" xml:space="preserve">
+    <value>https://YourPrivacyUrlGoesHere/</value>
+  </data>
+  <data name="Shell_Statistics" xml:space="preserve">
+    <value>Statistics &amp; charts</value>
+  </data>
+  <data name="Shell_Catalog" xml:space="preserve">
+    <value>Main catalog</value>
+  </data>
+  <data name="Shell_Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Hello_CreateCredencialError" xml:space="preserve">
+    <value>The key credential could not be created. Please try again.</value>
+  </data>
+  <data name="Hello_SettingsNotFound" xml:space="preserve">
+    <value>To proceed, Windows Hello needs to be configured in Windows Settings (Accounts -&gt; Sign-in options)</value>
+  </data>
+  <data name="Catalog_HeaderImage.Source" xml:space="preserve">
+    <value>https://raw.githubusercontent.com/dotnet-architecture/eShopOnContainers/dev/src/Web/WebSPA/Client/assets/images/brand.png</value>
+  </data>
+  <data name="Hello_Background.Source" xml:space="preserve">
+    <value>ms-appx:///Assets/Images/backgroundPhoto.jpg</value>
+  </data>
+  <data name="Login_Logo.Source" xml:space="preserve">
+    <value>ms-appx:///Assets/Images/LoginLogo.png</value>
+  </data>
+  <data name="Shell_SignOut" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="Authentication_SetUp.Content" xml:space="preserve">
+    <value>Set up Hello</value>
+  </data>
+  <data name="Authentication_SignIn.Content" xml:space="preserve">
+    <value>Sign in</value>
+  </data>
+  <data name="Hello_SignIn.Content" xml:space="preserve">
+    <value>Sing in</value>
+  </data>
+  <data name="Hello_SignOut.Content" xml:space="preserve">
+    <value>Sing out</value>
+  </data>
+  <data name="Hello_Welcome" xml:space="preserve">
+    <value>Welcome!</value>
+  </data>
+  <data name="Authentication_Password.ToolTipService.ToolTip" xml:space="preserve">
+    <value>In this sample, any username and password will work</value>
+  </data>
+  <data name="Authentication_Password.PlaceholderText" xml:space="preserve">
+    <value>password</value>
+  </data>
+  <data name="Authentication_Username.PlaceholderText" xml:space="preserve">
+    <value>username</value>
+  </data>
+  <data name="Forgot_Password.Text" xml:space="preserve">
+    <value>forgot password?</value>
+  </data>
+  <data name="Authentication_NotAccount.Text" xml:space="preserve">
+    <value>Don't have an account?</value>
+  </data>
+  <data name="Authentication_NotAccountSignUp.Text" xml:space="preserve">
+    <value>  Sign up</value>
+  </data>
+  <data name="Hello_SignIn_Text.Text" xml:space="preserve">
+    <value>Sign in with Hello!</value>
+  </data>
+  <data name="Menu_Search.PlaceholderText" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Menu_ProfileName.Text" xml:space="preserve">
+    <value>Lacey Heath</value>
+  </data>
+  <data name="Menu_Logout.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="Menu_SearchIcon.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Catalog_AddNew.Content" xml:space="preserve">
+    <value>ADD NEW</value>
+  </data>
+  <data name="Catalog_Filter.Content" xml:space="preserve">
+    <value>FILTER</value>
+  </data>
+  <data name="Hello_MakingSure" xml:space="preserve">
+    <value>Making sure is you ...</value>
+  </data>
+  <data name="Hello_Success_Custom" xml:space="preserve">
+    <value>Hello, {0}!</value>
+  </data>
+  <data name="Hello_SignIn_Options.Content" xml:space="preserve">
+    <value>Sign in options &gt;</value>
+  </data>
+  <data name="ActiveState" xml:space="preserve">
+    <value>ACTIVE</value>
+  </data>
+  <data name="InactiveState" xml:space="preserve">
+    <value>INACTIVE</value>
+  </data>
+  <data name="Notification_AddedItemTitle" xml:space="preserve">
+    <value>Item successfully added</value>
+  </data>
+  <data name="Notification_DeletedItemTitle" xml:space="preserve">
+    <value>Item successfully deleted</value>
+  </data>
+  <data name="ConfirmationDialog_Cancel" xml:space="preserve">
+    <value>CANCEL</value>
+  </data>
+  <data name="ConfirmationDialog_DeleteItemContent" xml:space="preserve">
+    <value>Are you sure you want to delete the item? If you delete it you will not be able to recover it</value>
+  </data>
+  <data name="ConfirmationDialog_Delete" xml:space="preserve">
+    <value>DELETE</value>
+  </data>
+  <data name="ConfirmationDialog_DeleteItemTitle" xml:space="preserve">
+    <value>DELETING ITEM</value>
+  </data>
+  <data name="Hello_SetUp.Content" xml:space="preserve">
+    <value>Set UP Hello</value>
+  </data>
+  <data name="Shell_AddItem" xml:space="preserve">
+    <value>Add new item</value>
+  </data>
+  <data name="Catalog_AllView" xml:space="preserve">
+    <value>view all</value>
+  </data>
+  <data name="Catalog_Brand.Text" xml:space="preserve">
+    <value>Brand:</value>
+  </data>
+  <data name="Catalog_FilterBy.Text" xml:space="preserve">
+    <value>Filter by:</value>
+  </data>
+  <data name="Cortana_Loading" xml:space="preserve">
+    <value>Loading {0} type products</value>
+  </data>
+  <data name="Cortana_foundNoSearchByType" xml:space="preserve">
+    <value>Don't found {0} type</value>
+  </data>
+  <data name="Cortana_findSomeElements" xml:space="preserve">
+    <value>Here are some {0} type products</value>
+  </data>
+  <data name="Catalog_ItemStatus.Text" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="CommandBar_Cancel.Label" xml:space="preserve">
+    <value>Cancel selection</value>
+  </data>
+  <data name="CommandBar_Cancel.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Cancel selection</value>
+  </data>
+  <data name="CommandBar_Delete.Label" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="CommandBar_Delete.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="CommandBar_SelectAll.Label" xml:space="preserve">
+    <value>Select all</value>
+  </data>
+  <data name="CommandBar_SelectAll.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Select all</value>
+  </data>
+  <data name="CommandBar_CoutItem" xml:space="preserve">
+    <value>1 item selected</value>
+  </data>
+  <data name="CommandBar_CoutItems" xml:space="preserve">
+    <value>{0} items selected</value>
+  </data>
+  <data name="ConfirmationDialog_DeleteItemsContent" xml:space="preserve">
+    <value>Are you sure you want to delete the items? If you delete them you will not be able to recover them</value>
+  </data>
+  <data name="ConfirmationDialog_DeleteItemsTitle" xml:space="preserve">
+    <value>DELETING ITEMS</value>
+  </data>
+  <data name="ContextFlayout_Select.Text" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="Statistics_AreaChartTitle.Text" xml:space="preserve">
+    <value>STATISTICS BY TYPE IN AREAS</value>
+  </data>
+  <data name="Statistics_BarChartTitle.Text" xml:space="preserve">
+    <value>STATISTICS BY TYPE IN BARS</value>
+  </data>
+  <data name="Statistics_FirstTime.Content" xml:space="preserve">
+    <value>past 24h</value>
+  </data>
+  <data name="Statistics_RadialChartTitle.Text" xml:space="preserve">
+    <value>SALES STATISTICS</value>
+  </data>
+  <data name="Statistics_SecondTime.Content" xml:space="preserve">
+    <value>past 7 days</value>
+  </data>
+  <data name="Statistics_ThirdTime.Content" xml:space="preserve">
+    <value>past 30 days</value>
+  </data>
+  <data name="Detail_DeteleItem.Content" xml:space="preserve">
+    <value>DELETE ITEM</value>
+  </data>
+  <data name="Detail_Save.Content" xml:space="preserve">
+    <value>SAVE</value>
+  </data>
+  <data name="Detail_Brand.Text" xml:space="preserve">
+    <value>BRAND</value>
+  </data>
+  <data name="Detail_Description.Text" xml:space="preserve">
+    <value>DESCRIPTION</value>
+  </data>
+  <data name="Detail_EditImage.Content" xml:space="preserve">
+    <value>CHANGE PHOTO</value>
+  </data>
+  <data name="Detail_LastUpdate.Text" xml:space="preserve">
+    <value>LAST UPDATE</value>
+  </data>
+  <data name="Detail_PRICE.Text" xml:space="preserve">
+    <value>PRICE</value>
+  </data>
+  <data name="Detail_ProductName.Text" xml:space="preserve">
+    <value>PRODUCT NAME</value>
+  </data>
+  <data name="Detail_ProductType.Text" xml:space="preserve">
+    <value>PRODUCT TYPE</value>
+  </data>
+  <data name="Detail_RelatedItems.Text" xml:space="preserve">
+    <value>RELATED ITEMS</value>
+  </data>
+  <data name="Detail_Status.Text" xml:space="preserve">
+    <value>STATUS</value>
+  </data>
+  <data name="Detail_Activation.OffContent" xml:space="preserve">
+    <value>INACTIVE</value>
+  </data>
+  <data name="Detail_Activation.OnContent" xml:space="preserve">
+    <value>ACTIVE</value>
+  </data>
+  <data name="Detail_Featured.Text" xml:space="preserve">
+    <value>FEATURED</value>
+  </data>
+  <data name="Detail_Discount.Text" xml:space="preserve">
+    <value>DISCOUNT</value>
+  </data>
+  <data name="Detail_Off.Text" xml:space="preserve">
+    <value>OFF</value>
+  </data>
+  <data name="Detail_20.Content" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="Detail_30.Content" xml:space="preserve">
+    <value>30</value>
+  </data>
+  <data name="Detail_40.Content" xml:space="preserve">
+    <value>40</value>
+  </data>
+  <data name="Detail_50.Content" xml:space="preserve">
+    <value>50</value>
+  </data>
+  <data name="Detail_BecomeInactive.Text" xml:space="preserve">
+    <value>THIS ITEM WILL BECOME INACTIVE IN...</value>
+  </data>
+  <data name="Detail_Day.Content" xml:space="preserve">
+    <value>1 Day</value>
+  </data>
+  <data name="Detail_Month.Content" xml:space="preserve">
+    <value>1 Month</value>
+  </data>
+  <data name="Detail_Week.Content" xml:space="preserve">
+    <value>1 Week</value>
+  </data>
+  <data name="Detail_FinishTo.Text" xml:space="preserve">
+    <value>THE OFFERT FINISH TO</value>
+  </data>
+  <data name="Detail_StartTo.Text" xml:space="preserve">
+    <value>THE OFFERT START TO</value>
+  </data>
+  <data name="Detail_AlignCenter.Content" xml:space="preserve">
+    <value>Center</value>
+  </data>
+  <data name="Detail_AlignJustify.Content" xml:space="preserve">
+    <value>Justify</value>
+  </data>
+  <data name="Detail_AlignLeft.Content" xml:space="preserve">
+    <value>Left</value>
+  </data>
+  <data name="Detail_AlignRight.Content" xml:space="preserve">
+    <value>Right</value>
+  </data>
+  <data name="Detail_Blue.Content" xml:space="preserve">
+    <value>Blue</value>
+  </data>
+  <data name="Detail_Bold.Content" xml:space="preserve">
+    <value>Bold</value>
+  </data>
+  <data name="Detail_BoldItalic.Content" xml:space="preserve">
+    <value>Bold-Italic</value>
+  </data>
+  <data name="Detail_Color.Text" xml:space="preserve">
+    <value>CHOOSE COLORS</value>
+  </data>
+  <data name="Detail_Custom.PlaceholderText" xml:space="preserve">
+    <value>Custom your item</value>
+  </data>
+  <data name="Detail_CustomName.Text" xml:space="preserve">
+    <value>CUSTOM TEXT</value>
+  </data>
+  <data name="Detail_FontWeight.Text" xml:space="preserve">
+    <value>FONT WEIGHT</value>
+  </data>
+  <data name="Detail_Italic.Content" xml:space="preserve">
+    <value>Italic</value>
+  </data>
+  <data name="Detail_Opacity.Text" xml:space="preserve">
+    <value>OPACITY</value>
+  </data>
+  <data name="Detail_Red.Content" xml:space="preserve">
+    <value>Red</value>
+  </data>
+  <data name="Detail_Regular.Content" xml:space="preserve">
+    <value>Regular</value>
+  </data>
+  <data name="Detail_TextAlign.Text" xml:space="preserve">
+    <value>TEXT ALIGN</value>
+  </data>
+  <data name="Detail_Violet.Content" xml:space="preserve">
+    <value>Violet</value>
+  </data>
+  <data name="Detail_White.Content" xml:space="preserve">
+    <value>White</value>
+  </data>
+  <data name="Detail_Digital.Content" xml:space="preserve">
+    <value>Digital printing</value>
+  </data>
+  <data name="Detail_Flexography.Content" xml:space="preserve">
+    <value>Flexography</value>
+  </data>
+  <data name="Detail_PrintingProcesses.Text" xml:space="preserve">
+    <value>PRINTING PROCESSES</value>
+  </data>
+  <data name="Detail_Screen.Content" xml:space="preserve">
+    <value>Screen printing</value>
+  </data>
+  <data name="Detail_NewItemName.PlaceholderText" xml:space="preserve">
+    <value>Add a name</value>
+  </data>
+  <data name="CatalogView_Grid.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Open Grid catalog</value>
+  </data>
+  <data name="CatalogView_List.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Open List catalog</value>
+  </data>
+  <data name="Hello_SetUpToolTip.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Set up Hello</value>
+  </data>
+  <data name="Menu_ToolTip" xml:space="preserve">
+    <value>Open {0}</value>
+  </data>
+  <data name="Statictics_Cap.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Cap</value>
+  </data>
+  <data name="Statictics_Mug.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Mug</value>
+  </data>
+  <data name="Statictics_Sheet.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Sheet</value>
+  </data>
+  <data name="Statictics_Shirt.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Shirt</value>
+  </data>
+  <data name="Authentication_Version" xml:space="preserve">
+    <value>Version {0}</value>
+  </data>
+  <data name="Authentication_PasswordDefault" xml:space="preserve">
+    <value>password</value>
+  </data>
+  <data name="Authentication_UsernameDefault" xml:space="preserve">
+    <value>Lacey Heath</value>
+  </data>
+  <data name="Authentication_GitHub.Content" xml:space="preserve">
+    <value>GitHub</value>
+  </data>
+  <data name="Authentication_GitHub.NavigateUri" xml:space="preserve">
+    <value>https://github.com/dotnet-architecture/eShopOnUWP</value>
+  </data>
+  <data name="Authentication_Username.ToolTipService.ToolTip" xml:space="preserve">
+    <value>In this sample, any username and password will work</value>
+  </data>
+</root>

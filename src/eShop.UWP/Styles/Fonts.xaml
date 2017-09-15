@@ -1,0 +1,10 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <FontFamily x:Key="SegoeRegular">ms-appx:///Assets/Fonts/segoeui.ttf#Segoe UI</FontFamily>
+    <FontFamily x:Key="SegoeLight">ms-appx:///Assets/Fonts/segoeuil.ttf#Segoe UI</FontFamily>
+    <FontFamily x:Key="SegoeSemiBold">ms-appx:///Assets/Fonts/segoesb.ttf#Segoe UI</FontFamily>
+    <FontFamily x:Key="SegoeBold">ms-appx:///Assets/Fonts/segoeuib.ttf#Segoe UI</FontFamily>
+
+</ResourceDictionary>
