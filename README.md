@@ -1,22 +1,27 @@
 # Introduction 
-Sample UWP application targeting Windows 10 fall creators update, focused on LOB. 
+This repo contains a UWP sample application for Windows 10 Fall Creators Update. It is focused on Line of Business Scenarios, showing how to use the latest Windows capabilities in Desktop applications.
 
-This business line application shows the advantages of Fluent Design, the Windows Template Studio and the possibilities that Microsoft's services can offer.
+Some of the features showed in the application are:
 
-The goal of this demo is to encourage the developers to play with the code and check for themselves how they can program an application with a simple code.
+- MVVM Design Pattern created with [Windows Template Studio](http://aka.ms/wts)
+- Use of [Fluent Design System](https://fluent.microsoft.com)
+- Ink Capabilities
+- Windows Hellow
+- Cortana
+- Telerik controls
 
 [![Build status](https://rido.visualstudio.com/_apis/public/build/definitions/989ddbdd-c86a-4fa8-8d80-89eb785d8056/83/badge)](https://rido.visualstudio.com/_apis/public/build/definitions/989ddbdd-c86a-4fa8-8d80-89eb785d8056)
 
 # Prerequisites
 System requirements:
-- __Windows 10 Insider Preview 16278__
-- __SDK 10.0.16267.0__ -> [Download](https://www.microsoft.com/en-us/software-download/windowsinsiderpreviewSDK)
-- __Visual Studio 15.4 Preview__ -> [Download](https://www.visualstudio.com/en-us/news/releasenotes/vs2017-preview-relnotes)
+- Windows 10 Insider Preview. To run the application you should be running a Windows Version greater than 10.0.16275. You can get the latest version from the free [Windows Insider program](http://insider.windows.com)
+- Visual Studio 15.4 Preview__ -> [Download](http://aka.ms/vs/preview)
+	- Latest preview includes the Windows SDK 10.0.16278
 
 
 # Getting Started
 
-Install from
+You can install a working version of the app from
 [http://aka.ms/eshopuwp](http://aka.ms/eshopuwp)
 
 
@@ -26,20 +31,6 @@ The solution is divided into 4 projects. Its visual tree looks like this:
 - eShop.Domain -> Domain model
 - eShop.Providers -> Manages and creates each model
 - eShop.UWP -> Main project
-
-# Intructions
-Before first installation, click right on the appx file, then select properties, digital signatures, View Certificate and install it on LocalMachine/TrustedPeople
-
-## Development
-The following software has to be installed in the development machine to be able to clone the repository.
-- [Git](https://git-scm.com/downloads) -> Installed globally
-
-## Downloading the code
-You have to download the main source code.
-
-```
-git clone https://plainconcepts.visualstudio.com/DefaultCollection/MSFT.eShopContainer.UWP/_git/eShop.UWP
-```
 
 # Features
 
