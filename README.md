@@ -1,12 +1,12 @@
 # Introduction 
-This repo contains a UWP sample application for Windows 10 Fall Creators Update. It is focused on Line of Business Scenarios, showing how to use the latest Windows capabilities in Desktop applications.
+This repo contains a UWP sample application for Windows 10 Fall Creators Update. It is focused on Line of Business scenarios, showing how to use the latest Windows capabilities in Desktop applications.
 
-Some of the features showed in the application are:
+Some of the features showcased by this application include:
 
-- MVVM Design Pattern created with [Windows Template Studio](http://aka.ms/wts)
+- The MVVM Design Pattern
 - Use of [Fluent Design System](https://fluent.microsoft.com)
 - Ink Capabilities
-- Windows Hellow
+- Windows Hello
 - Cortana
 - Telerik controls
 
@@ -14,8 +14,8 @@ Some of the features showed in the application are:
 
 # Prerequisites
 System requirements:
-- Windows 10 Insider Preview. To run the application you should be running a Windows Version greater than 10.0.16275. You can get the latest version from the free [Windows Insider program](http://insider.windows.com)
-- Visual Studio 15.4 Preview__ -> [Download](http://aka.ms/vs/preview)
+- Windows 10 Insider Preview. To run the application you should be running a Windows Version greater than 10.0.16275. You can get the latest version by joining the [Windows Insider program](http://insider.windows.com)
+- Visual Studio 15.4 Preview 2 or higher -> [Download](http://visualstudio.com/preview)
 	- Latest preview includes the Windows SDK 10.0.16278
 
 
@@ -25,42 +25,8 @@ You can install a working version of the app from
 [http://aka.ms/eshopuwp](http://aka.ms/eshopuwp)
 
 
-## Project structure
-The solution is divided into 4 projects. Its visual tree looks like this:
-- eShop.Cortana -> Service
-- eShop.Domain -> Domain model
-- eShop.Providers -> Manages and creates each model
-- eShop.UWP -> Main project
-
 # Features
 
-## Windows Template Studio
-We will work with this template. This is how you can set it up:
-
-- __Windows Template Studio (Universal Windows)__ -> File / Visual C# / Windows Universal
-
-Once the template is selected, set these features:
-- __Project type__ -> Navigation Pane
-- __Framework__ -> MVVM Light
-- __Pages:__
-    - Blank
-    - Grid -> Telerik UI control for UWP
-    - Chart -> Telerik UI control for UWP
-- __Background Task__
-- __User Interaction__ 
-    - Toast Notifications
-    - Live Tile
-
-## Cortana
-You have to run Cortana at least once, because when done it installs the voice command definitions. Once it has been run, you can close the application and start using Cortana's search. 
-
-### Voice Commands
-These are some supported voice commands (Cortana may take time to refresh its voice commands):
-
-- "shop, show me __mug__ type products"
-- "shop, give me __shirt__ type products"
-- "shop, show me __cap__ type products"
-- "shop, show me __sheet__ type products"
 
 ## Windows Ink
 Select and edit multiple products using the Surface Pen. There are several signs with differents functions.
@@ -92,7 +58,6 @@ Depending on how your Windows Hello settings are (Settings/Accounts/Sign-in opti
 ![Acrylic material](/docs/AcrylicFluent.png)
 
 
-
 ### Connected animations
 [Connected animations](https://docs.microsoft.com/es-es/windows/uwp/style/connected-animation) let you create a dynamic and compelling navigation experience by animating the transition of an element between two different views.
 
@@ -106,6 +71,17 @@ Depending on how your Windows Hello settings are (Settings/Accounts/Sign-in opti
 ![Connected animations](/docs/RevealFluent.gif)
 
 ## ShyHeader
-[ShyHeader](https://github.com/Microsoft/WindowsUIDevLabs/tree/master/SampleGallery/Samples/SDK%2014393/ShyHeader) Demonstrates how to use ExpressionAnimations Tookit with a ScrollViewer to create a shinking header tied to scroll position.
+[ShyHeader](https://github.com/Microsoft/WindowsUIDevLabs/tree/master/SampleGallery/Samples/SDK%2014393/ShyHeader) demonstrates how to use ExpressionAnimations Tookit with a ScrollViewer to create a shinking header tied to scroll position.
 
 ![ShyHeader](/docs/ShyHeaderToolkit.gif)
+
+## Cortana
+You have to run Cortana at least once, because when done it installs the voice command definitions. Once it has been run, you can close the application and start using Cortana's search. 
+
+### Voice Commands
+These are some supported voice commands (Cortana may take time to refresh its voice commands):
+
+- "shop, show me __mug__ type products"
+- "shop, give me __shirt__ type products"
+- "shop, show me __cap__ type products"
+- "shop, show me __sheet__ type products"
