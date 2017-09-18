@@ -22,7 +22,7 @@ System requirements:
 # Getting Started
 
 You can install a working version of the app from
-[http://aka.ms/eshopuwp](http://aka.ms/eshopuwp)
+[https://aka.ms/eshopuwp](https://aka.ms/eshopuwp)
 
 
 # Features
