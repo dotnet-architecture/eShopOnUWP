@@ -1,0 +1,32 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--  Custom size margins  -->
+    <Thickness x:Key="PageTitleMargin">0,0,12,7</Thickness>
+    <Thickness x:Key="LoginBackgroundMargin">0</Thickness>
+    <Thickness x:Key="ResetMargin">0</Thickness>
+    <Thickness x:Key="LoginTextBoxMargin">0,0,0,10</Thickness>
+    <Thickness x:Key="LoginPasswordBoxMargin">0,50,0,10</Thickness>
+    <Thickness x:Key="LoginUserPasswordMargin">0,0,0,8</Thickness>
+    <Thickness x:Key="CommonMenuMargin">0,0,0,8</Thickness>
+    <Thickness x:Key="CommonAuthenticationMargin">0,52,0,0</Thickness>
+    <Thickness x:Key="ShellVerticalContentMargin">0,24,0,0</Thickness>
+    <Thickness x:Key="ShellHorizontalContentMargin">24,0</Thickness>
+    <Thickness x:Key="ShellContentMargin">24,24,24,0</Thickness>
+    <Thickness x:Key="GreetingHelloAuthenticationMargin">40</Thickness>
+    <Thickness x:Key="FilterCatalogMargin">0,0,20,0</Thickness>
+    <Thickness x:Key="StatisticsChartMargin">24</Thickness>
+    <Thickness x:Key="DetailColumnMargin">20,0,0,0</Thickness>
+    <Thickness x:Key="AuthenticationGitHubMargin">0,60,50,0</Thickness>
+    <Thickness x:Key="AuthenticationSignInMargin">0,0,40,0</Thickness>
+    <Thickness x:Key="DetailItemPivotMargin">0,4,10,0</Thickness>
+    <Thickness x:Key="DetailEditButtonsMargin">0,40,0,10</Thickness>
+    <Thickness x:Key="DetailEditDataMargin">24,30,24,0</Thickness>
+    <Thickness x:Key="DetailTextContainerHeadMargin">24,170,0,5</Thickness>
+    <Thickness x:Key="DetailContainerMainImageMargen">0,110,0,0</Thickness>
+
+    <!--  Medium size margins  -->
+    <Thickness x:Key="MediumLeftRightMargin">12,0,12,0</Thickness>
+    <Thickness x:Key="MediumLeftTopRightBottomMargin">12,12,12,12</Thickness>
+
+</ResourceDictionary>

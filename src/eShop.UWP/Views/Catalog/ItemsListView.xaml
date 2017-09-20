@@ -1,0 +1,170 @@
+<UserControl
+    x:Class="eShop.UWP.Views.Catalog.ItemsListView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:telerikGrid="using:Telerik.UI.Xaml.Controls.Grid"
+    x:Name="Parent"
+    Loaded="OnLoaded"
+    mc:Ignorable="d">
+
+    <Grid Margin="{StaticResource ShellHorizontalContentMargin}">
+        <telerikGrid:RadDataGrid
+            x:Name="DataGrid"
+            AutoGenerateColumns="False"
+            BorderThickness="0"
+            CanUserChooseColumns="True"
+            EnsureCurrentItemIntoView="True"
+            GridLinesThickness="1"
+            GridLinesVisibility="Horizontal"
+            ItemsSource="{Binding Items}"
+            SelectionChanged="OnSelectionChanged"
+            SelectionMode="Multiple"
+            UserColumnReorderMode="Interactive"
+            UserEditMode="Inline"
+            UserFilterMode="Auto"
+            UserSortMode="Multiple">
+            <telerikGrid:RadDataGrid.Columns>
+                <telerikGrid:DataGridTemplateColumn
+                    Width="122"
+                    CanUserGroup="True"
+                    Header="Picture">
+                    <telerikGrid:DataGridTemplateColumn.CellContentTemplate>
+                        <DataTemplate>
+                            <Image
+                                Height="80"
+                                Margin="2,0"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Source="{Binding PictureUri}"
+                                Stretch="UniformToFill" />
+                        </DataTemplate>
+                    </telerikGrid:DataGridTemplateColumn.CellContentTemplate>
+                </telerikGrid:DataGridTemplateColumn>
+                <telerikGrid:DataGridTextColumn Header="Name" PropertyName="Name">
+                    <telerikGrid:DataGridTextColumn.CellContentStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Left" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                            <Setter Property="Margin" Value="15,0,0,0" />
+                        </Style>
+                    </telerikGrid:DataGridTextColumn.CellContentStyle>
+                    <telerikGrid:DataGridTextColumn.CellEditorStyle>
+                        <Style TargetType="TextBox">
+                            <Setter Property="HorizontalAlignment" Value="Stretch" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                            <Setter Property="Margin" Value="10,0" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                        </Style>
+                    </telerikGrid:DataGridTextColumn.CellEditorStyle>
+                </telerikGrid:DataGridTextColumn>
+
+                <telerikGrid:DataGridComboBoxColumn
+                    DisplayMemberPath="Type"
+                    Header="Type"
+                    ItemsSource="{x:Bind ViewModel.CatalogTypes}"
+                    PropertyName="CatalogType">
+                    <telerikGrid:DataGridComboBoxColumn.CellEditorStyle>
+                        <Style TargetType="ComboBox">
+                            <Setter Property="HorizontalAlignment" Value="Stretch" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                            <Setter Property="Margin" Value="0,0,10,0" />
+                        </Style>
+                    </telerikGrid:DataGridComboBoxColumn.CellEditorStyle>
+                </telerikGrid:DataGridComboBoxColumn>
+                <telerikGrid:DataGridComboBoxColumn
+                    DisplayMemberPath="Brand"
+                    Header="Brand"
+                    ItemsSource="{x:Bind ViewModel.CatalogBrands}"
+                    PropertyName="CatalogBrand">
+                    <telerikGrid:DataGridComboBoxColumn.CellEditorStyle>
+                        <Style TargetType="ComboBox">
+                            <Setter Property="HorizontalAlignment" Value="Stretch" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                            <Setter Property="Margin" Value="0,0,10,0" />
+                        </Style>
+                    </telerikGrid:DataGridComboBoxColumn.CellEditorStyle>
+                </telerikGrid:DataGridComboBoxColumn>
+                <telerikGrid:DataGridTemplateColumn Header="Status">
+                    <telerikGrid:DataGridTemplateColumn.CellContentTemplate>
+                        <DataTemplate>
+                            <StackPanel
+                                Margin="10,1,10,3"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                                <TextBlock
+                                    x:Uid="Catalog_ItemStatus"
+                                    VerticalAlignment="Center"
+                                    Opacity="1"
+                                    Style="{StaticResource CatalogItemDescriptionStyle}" />
+                                <ComboBox
+                                    Margin="6,3,0,0"
+                                    HorizontalAlignment="Stretch"
+                                    Foreground="{Binding CatalogState, Converter={StaticResource StateToBrushConverter}}"
+                                    ItemsSource="{Binding CatalogStates}"
+                                    Opacity="{Binding CatalogState, Converter={StaticResource StateToOpacityConverter}}"
+                                    SelectedItem="{Binding CatalogState, Mode=TwoWay}"
+                                    Style="{StaticResource FilterItemComboBoxStyle}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Converter={StaticResource BoolToStateConverter}}" />
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </StackPanel>
+                        </DataTemplate>
+                    </telerikGrid:DataGridTemplateColumn.CellContentTemplate>
+                </telerikGrid:DataGridTemplateColumn>
+                <telerikGrid:DataGridNumericalColumn Header="Price" PropertyName="Price" />
+                <telerikGrid:DataGridTemplateColumn Header="Actions">
+                    <telerikGrid:DataGridTemplateColumn.CellContentTemplate>
+                        <DataTemplate>
+                            <StackPanel
+                                Margin="24,0"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                                <Button
+                                    Click="OnEditClick"
+                                    Content="&#xE70F;"
+                                    Style="{StaticResource ItemActionButtonStyle}" />
+                                <Button
+                                    Command="{Binding DeleteCommand}"
+                                    Content="&#xE107;"
+                                    Style="{StaticResource ItemActionButtonStyle}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </telerikGrid:DataGridTemplateColumn.CellContentTemplate>
+                </telerikGrid:DataGridTemplateColumn>
+            </telerikGrid:RadDataGrid.Columns>
+        </telerikGrid:RadDataGrid>
+        <CommandBar
+            Margin="-27,0"
+            VerticalAlignment="Bottom"
+            ClosedDisplayMode="{Binding IsMultiselectionEnable, Converter={StaticResource BoolToCommandBarDisplayModeConverter}}"
+            IsOpen="{Binding IsMultiselectionEnable, Mode=OneWay}"
+            RequestedTheme="Dark">
+            <AppBarButton
+                x:Uid="CommandBar_Cancel"
+                Click="OnCancelClick"
+                Icon="Cancel" />
+            <AppBarSeparator />
+            <AppBarButton
+                x:Uid="CommandBar_Delete"
+                Command="{Binding DeleteSelectionCommand}"
+                CommandParameter="{Binding ElementName=DataGrid}"
+                Icon="Delete" />
+            <AppBarButton
+                x:Uid="CommandBar_SelectAll"
+                Click="OnSelectAllClick"
+                Icon="List" />
+            <CommandBar.Content>
+                <TextBlock
+                    Margin="12,14"
+                    VerticalAlignment="Center"
+                    Text="{Binding SelectedItemsCount}" />
+            </CommandBar.Content>
+        </CommandBar>
+    </Grid>
+</UserControl>
+
