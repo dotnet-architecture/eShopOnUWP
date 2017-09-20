@@ -52,6 +52,7 @@ namespace eShop.UWP.ViewModels.Catalog
 
         public virtual async Task DeleteSelection(object control)
         {
+            await Task.Yield();
         }
 
         public async void DeleteItem(ItemViewModel itemViewModel, bool forceDelete = false)
