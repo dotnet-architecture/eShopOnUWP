@@ -1,18 +1,16 @@
 ﻿<ResourceDictionary
-    x:Class="eShop.UWP.Styles.Shell"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:models="using:eShop.UWP.Models">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <DataTemplate x:Key="NavigationMenuItemDataTemplate" x:DataType="models:ShellNavigationItem">
+    <DataTemplate x:Key="NavigationMenuItemDataTemplate">
         <Grid Width="320" Height="{StaticResource PaneToggleButtonSize}"
-              ToolTipService.ToolTip="{x:Bind ToolTipMenu}">
+              ToolTipService.ToolTip="{Binding ToolTipMenu}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="48" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Path Width="16" VerticalAlignment="Center"
-                Data="{x:Bind Symbol}"
+                Data="{Binding Symbol}"
                 Fill="{StaticResource TertiaryDarkBrush}"
                 Stretch="Uniform" />
             <TextBlock
@@ -21,7 +19,7 @@
                 VerticalAlignment="Center"
                 Foreground="{StaticResource TertiaryDarkBrush}"
                 Style="{StaticResource BodyTextStyle}"
-                Text="{x:Bind Label}"
+                Text="{Binding Label}"
                 TextTrimming="None" />
             <VisualStateManager.VisualStateGroups>
                 <VisualStateGroup x:Name="CommonStates">
