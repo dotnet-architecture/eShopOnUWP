@@ -168,7 +168,6 @@
     <Compile Include="Services\NavigationServiceEx.cs" />
     <Compile Include="Services\ThemeSelectorService.cs" />
     <Compile Include="Services\VoiceCommandActivationService.cs" />
-    <Compile Include="Styles\Shell.cs" />
     <Compile Include="TemplateSelectors\CatalogFormatTemplateSelector.cs" />
     <Compile Include="TemplateSelectors\LoginMethodTemplateSelector.cs" />
     <Compile Include="ViewModels\Base\CustomViewModelBase.cs" />

@@ -2,7 +2,6 @@
     x:Class="eShop.UWP.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:styles="using:eShop.UWP.Styles"
     xmlns:base="using:eShop.UWP.ViewModels.Base"
     RequestedTheme="Light">
 
@@ -21,7 +20,7 @@
                 <ResourceDictionary Source="/Styles/Thickness.xaml" />
                 <ResourceDictionary Source="/Styles/Statistics.xaml" />
                 <ResourceDictionary Source="/Styles/Styles.xaml" />
-                <styles:Shell />
+                <ResourceDictionary Source="/Styles/Shell.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
