@@ -10,7 +10,11 @@ Some of the features showcased by this application include:
 - Cortana
 - Telerik controls
 
-[![Build status](https://rido.visualstudio.com/_apis/public/build/definitions/989ddbdd-c86a-4fa8-8d80-89eb785d8056/83/badge)](https://rido.visualstudio.com/_apis/public/build/definitions/989ddbdd-c86a-4fa8-8d80-89eb785d8056)
+**CI Build**
+[![Build status](https://ci.appveyor.com/api/projects/status/wqn7or9m95xjurjy?svg=true)](https://ci.appveyor.com/project/rido-min/eshoponuwp)
+
+**CD Build**
+[![Build status](https://rido.visualstudio.com/_apis/public/build/definitions/989ddbdd-c86a-4fa8-8d80-89eb785d8056/83/badge)](https://aka.ms/eshopuwp)
 
 # Prerequisites
 System requirements:
