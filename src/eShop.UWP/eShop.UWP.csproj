@@ -146,9 +146,12 @@
     <Compile Include="DataProviders\CatalogProvider.cs" />
     <Compile Include="DataProviders\Contracts\ICatalogProvider.cs" />
     <Compile Include="DataProviders\Contracts\IOrdersProvider.cs" />
+    <Compile Include="DataProviders\LocalProviders\LocalCatalogDb.cs" />
+    <Compile Include="DataProviders\LocalProviders\LocalCatalogProvider.cs" />
     <Compile Include="DataProviders\OrdersProvider.cs" />
     <Compile Include="Helpers\DependencyObjectExtensions.cs" />
     <Compile Include="Helpers\Json.cs" />
+    <Compile Include="Helpers\Resources.cs" />
     <Compile Include="Models\CatalogBrand.cs" />
     <Compile Include="Models\CatalogItem.cs" />
     <Compile Include="Models\CatalogState.cs" />
@@ -159,6 +162,7 @@
     <Compile Include="Services\Cortana\BackgroundVoiceCommandService.cs" />
     <Compile Include="Services\Cortana\CatalogVoiceCommand.cs" />
     <Compile Include="Services\Cortana\VoiceCommandService.cs" />
+    <Compile Include="Services\JsonDb.cs" />
     <Compile Include="Services\ProtocolService.cs" />
     <Compile Include="Services\ToastNotificationsService.cs" />
     <Compile Include="Helpers\SettingsStorageExtensions.cs" />
@@ -168,6 +172,7 @@
     <Compile Include="Services\NavigationServiceEx.cs" />
     <Compile Include="Services\ThemeSelectorService.cs" />
     <Compile Include="Services\VoiceCommandActivationService.cs" />
+    <Compile Include="Services\WebApiClient.cs" />
     <Compile Include="TemplateSelectors\CatalogFormatTemplateSelector.cs" />
     <Compile Include="TemplateSelectors\LoginMethodTemplateSelector.cs" />
     <Compile Include="ViewModels\Base\CustomViewModelBase.cs" />
@@ -436,6 +441,7 @@
     <Content Include="Assets\Fonts\segoeuib.ttf" />
     <Content Include="Assets\Fonts\segoeuil.ttf" />
     <Content Include="Assets\Fonts\segoesb.ttf" />
+    <EmbeddedResource Include="Assets\CatalogDb\CatalogDb.json" />
     <None Include="eShop.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

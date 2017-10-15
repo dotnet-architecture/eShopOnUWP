@@ -250,8 +250,10 @@ namespace eShop.UWP.ViewModels.Catalog
             _item.Price = Price;
             _item.Description = Description;
             _item.CatalogType = SelectedCatalogType;
-            _item.IsActive = SelectedCatalogState;
+            _item.CatalogTypeId = SelectedCatalogType.Id;
             _item.CatalogBrand = SelectedCatalogBrand;
+            _item.CatalogBrandId = SelectedCatalogBrand.Id;
+            _item.IsActive = SelectedCatalogState;
 
             _catalogProvider.SaveItem(_item);
             if (itemId == 0)
