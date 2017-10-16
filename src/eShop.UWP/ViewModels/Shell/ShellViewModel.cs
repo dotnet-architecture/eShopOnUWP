@@ -112,7 +112,7 @@ namespace eShop.UWP.ViewModels.Shell
                 var commandSetName = string.Format(Constants.CortanaCommandSetName, countryCode);
                 if (VoiceCommandDefinitionManager.InstalledCommandDefinitions.TryGetValue(commandSetName, out VoiceCommandDefinition commandDefinitions))
                 {
-                    var catalogTypes = _catalogProvider.GetCatalogTypes()?.Select(type => type.Type).ToList();
+                    var catalogTypes = (await _catalogProvider.GetCatalogTypesAsync())?.Select(type => type.Type).ToList();
                     await commandDefinitions.SetPhraseListAsync(Constants.CortanaPhraseListName, catalogTypes);
 
                     Debug.WriteLine("Updating Phrase list for VCDs");

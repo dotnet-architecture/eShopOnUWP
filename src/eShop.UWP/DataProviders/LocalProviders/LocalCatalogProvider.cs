@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using eShop.Domain.Models;
 using eShop.Providers.Contracts;
@@ -9,24 +10,27 @@ namespace eShop.Providers
 {
     public class LocalCatalogProvider : ICatalogProvider
     {
-        public IList<CatalogType> GetCatalogTypes()
+        public async Task<IList<CatalogType>> GetCatalogTypesAsync()
         {
+            await Task.FromResult(true);
             using (var db = new LocalCatalogDb())
             {
                 return db.CatalogTypes;
             }
         }
 
-        public IList<CatalogBrand> GetCatalogBrands()
+        public async Task<IList<CatalogBrand>> GetCatalogBrandsAsync()
         {
+            await Task.FromResult(true);
             using (var db = new LocalCatalogDb())
             {
                 return db.CatalogBrands;
             }
         }
 
-        public CatalogItem GetItemById(int id)
+        public async Task<CatalogItem> GetItemByIdAsync(int id)
         {
+            await Task.FromResult(true);
             using (var db = new LocalCatalogDb())
             {
                 var item = db.CatalogItems.FirstOrDefault(r => r.Id == id);
@@ -35,8 +39,9 @@ namespace eShop.Providers
             }
         }
 
-        public IList<CatalogItem> GetItems(CatalogType selectedCatalogType, CatalogBrand selectedCatalogBrand, string query)
+        public async Task<IList<CatalogItem>> GetItemsAsync(CatalogType selectedCatalogType, CatalogBrand selectedCatalogBrand, string query)
         {
+            await Task.FromResult(true);
             using (var db = new LocalCatalogDb())
             {
                 IEnumerable<CatalogItem> items = db.CatalogItems;
@@ -60,14 +65,35 @@ namespace eShop.Providers
             }
         }
 
-        public IList<CatalogItem> GetItemsByVoiceCommand(string query)
+        public async Task<IList<CatalogItem>> GetItemsByVoiceCommandAsync(string query)
         {
-            // TODO:
-            return new CatalogItem[] { }.ToList();
+            await Task.FromResult(true);
+
+            using (var db = new LocalCatalogDb())
+            {
+                IEnumerable<CatalogItem> items = db.CatalogItems;
+
+                var queryIgnoreUpper = query?.ToUpperInvariant() ?? string.Empty;
+
+                var filterType = db.CatalogTypes.FirstOrDefault(item => item.Type.ToUpperInvariant().Contains(queryIgnoreUpper));
+                if (filterType != null)
+                {
+                    items = items.Where(item => item.CatalogType.Id == filterType.Id);
+                }
+
+                var filterBrand = db.CatalogBrands.FirstOrDefault(item => item.Brand.ToUpperInvariant().Contains(queryIgnoreUpper));
+                if (filterBrand != null)
+                {
+                    items = items.Where(item => item.CatalogBrand.Id == filterBrand.Id);
+                }
+
+                return Populate(db, items.ToArray().OrderBy(r => r.Name)).ToList();
+            }
         }
 
-        public IList<CatalogItem> RelatedItemsByType(int catalogTypeId)
+        public async Task<IList<CatalogItem>> RelatedItemsByTypeAsync(int catalogTypeId)
         {
+            await Task.FromResult(true);
             using (var db = new LocalCatalogDb())
             {
                 var items = catalogTypeId == 0 ? db.CatalogItems : db.CatalogItems.Where(r => r.CatalogTypeId == catalogTypeId);
@@ -75,8 +101,9 @@ namespace eShop.Providers
             }
         }
 
-        public void SaveItem(CatalogItem item)
+        public async Task SaveItemAsync(CatalogItem item)
         {
+            await Task.FromResult(true);
             using (var db = new LocalCatalogDb())
             {
                 var oldItem = db.CatalogItems.FirstOrDefault(r => r.Id == item.Id);
@@ -98,8 +125,9 @@ namespace eShop.Providers
             }
         }
 
-        public void DeleteItem(CatalogItem item)
+        public async Task DeleteItemAsync(CatalogItem item)
         {
+            await Task.FromResult(true);
             using (var db = new LocalCatalogDb())
             {
                 var oldItem = db.CatalogItems.FirstOrDefault(r => r.Id == item.Id);

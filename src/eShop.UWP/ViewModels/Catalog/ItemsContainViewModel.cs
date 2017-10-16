@@ -71,7 +71,7 @@ namespace eShop.UWP.ViewModels.Catalog
                 if (result != ContentDialogResult.Secondary) return;
             }
 
-            CatalogProvider.DeleteItem(itemViewModel.Item);
+            await CatalogProvider.DeleteItemAsync(itemViewModel.Item);
             Items.Remove(itemViewModel);
 
             if (!forceDelete)
@@ -80,10 +80,10 @@ namespace eShop.UWP.ViewModels.Catalog
             }
         }
 
-        public void LoadCatalogItems(CatalogType selectedCatalogType, CatalogBrand selectedCatalogBrand, string query)
+        public async void LoadCatalogItems(CatalogType selectedCatalogType, CatalogBrand selectedCatalogBrand, string query)
         {
             IsMultiselectionEnable = false;
-            var items = CatalogProvider?.GetItems(selectedCatalogType, selectedCatalogBrand, query);
+            var items = await CatalogProvider?.GetItemsAsync(selectedCatalogType, selectedCatalogBrand, query);
             Items = new ObservableCollection<ItemViewModel>(items.Select(item => new ItemViewModel(item, DeleteItem)));
         }
 

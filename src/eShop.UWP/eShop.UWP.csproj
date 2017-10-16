@@ -143,7 +143,6 @@
     <Compile Include="Converters\StateToBrushConverter.cs" />
     <Compile Include="Converters\StateToOpacityConverter.cs" />
     <Compile Include="Converters\BoolToStateConverter.cs" />
-    <Compile Include="DataProviders\CatalogProvider.cs" />
     <Compile Include="DataProviders\Contracts\ICatalogProvider.cs" />
     <Compile Include="DataProviders\Contracts\IOrdersProvider.cs" />
     <Compile Include="DataProviders\LocalProviders\LocalCatalogDb.cs" />

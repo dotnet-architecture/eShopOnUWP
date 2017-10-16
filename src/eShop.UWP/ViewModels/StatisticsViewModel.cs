@@ -160,9 +160,9 @@ namespace eShop.UWP.ViewModels
             LoadSeries();
         }
 
-        private void LoadCatalogTypes()
+        private async void LoadCatalogTypes()
         {
-            var types = _catalogProvider.GetCatalogTypes();
+            var types = await _catalogProvider.GetCatalogTypesAsync();
             _catalogTypes = types.ToList();
 
             foreach (var type in _catalogTypes)

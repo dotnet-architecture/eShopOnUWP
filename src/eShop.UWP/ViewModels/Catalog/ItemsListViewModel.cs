@@ -61,18 +61,18 @@ namespace eShop.UWP.ViewModels.Catalog
             IsMultiselectionEnable = radGridView.SelectedItems.Any();
         }
 
-        private void LoadCatalogBrands()
+        private async void LoadCatalogBrands()
         {
             if (CatalogBrands != null) return;
-            
-            CatalogBrands = CatalogProvider.GetCatalogBrands().ToList();
+
+            CatalogBrands = (await CatalogProvider.GetCatalogBrandsAsync()).ToList();
         }
 
-        private void LoadCatalogTypes()
+        private async void LoadCatalogTypes()
         {
             if (CatalogTypes != null) return;
-            
-            CatalogTypes = CatalogProvider.GetCatalogTypes().ToList();
+
+            CatalogTypes = (await CatalogProvider.GetCatalogTypesAsync()).ToList();
         }
     }
 }
