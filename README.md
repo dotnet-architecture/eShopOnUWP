@@ -18,9 +18,9 @@ Some of the features showcased by this application include:
 
 # Prerequisites
 System requirements:
-- Windows 10 Insider Preview. To run the application you should be running a Windows Version greater than 10.0.16275. You can get the latest version by joining the [Windows Insider program](http://insider.windows.com)
-- Visual Studio 15.4 Preview 2 or higher -> [Download](http://visualstudio.com/preview)
-	- Latest preview includes the Windows SDK 10.0.16278
+- Windows 10 Fall Creators Update. To run the application you should be running a Windows Version greater than 10.0.16299. You can get it as described [here](https://blogs.windows.com/windowsexperience/2017/10/17/get-windows-10-fall-creators-update)
+- Visual Studio 15.4 -> [Download](http://visualstudio.com/)
+	- Including the Windows 10 FCU SDK 10.0.16299
 
 
 # Getting Started
