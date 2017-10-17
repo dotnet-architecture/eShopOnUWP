@@ -148,6 +148,7 @@
     <Compile Include="DataProviders\LocalProviders\LocalCatalogDb.cs" />
     <Compile Include="DataProviders\LocalProviders\LocalCatalogProvider.cs" />
     <Compile Include="DataProviders\OrdersProvider.cs" />
+    <Compile Include="DataProviders\RESTProviders\RESTCatalogProvider.cs" />
     <Compile Include="Helpers\DependencyObjectExtensions.cs" />
     <Compile Include="Helpers\Json.cs" />
     <Compile Include="Helpers\Resources.cs" />
@@ -157,6 +158,7 @@
     <Compile Include="Models\CatalogType.cs" />
     <Compile Include="Models\DataPoint.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\PaginatedItems.cs" />
     <Compile Include="Models\Serie.cs" />
     <Compile Include="Services\Cortana\BackgroundVoiceCommandService.cs" />
     <Compile Include="Services\Cortana\CatalogVoiceCommand.cs" />

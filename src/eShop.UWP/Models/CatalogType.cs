@@ -1,4 +1,6 @@
-﻿namespace eShop.Domain.Models
+﻿using System;
+
+namespace eShop.Domain.Models
 {
     public class CatalogType
     {

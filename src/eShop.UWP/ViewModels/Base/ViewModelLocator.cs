@@ -29,7 +29,7 @@ namespace eShop.UWP.ViewModels.Base
             SimpleIoc.Default.Register<ItemsGridViewModel>();
             SimpleIoc.Default.Register<ItemsListViewModel>();
             SimpleIoc.Default.Register<VoiceCommandService>();
-            SimpleIoc.Default.Register<ICatalogProvider, LocalCatalogProvider>();
+            SimpleIoc.Default.Register<ICatalogProvider, RESTCatalogProvider>();
             SimpleIoc.Default.Register<IOrdersProvider, OrdersProvider>();
 
             Register<LoginViewModel, LoginView>();
@@ -62,4 +62,3 @@ namespace eShop.UWP.ViewModels.Base
         }
     }
 }
-
