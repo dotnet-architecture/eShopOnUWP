@@ -1,4 +1,8 @@
-﻿using eShop.Cortana;
+﻿using Microsoft.Practices.ServiceLocation;
+
+using GalaSoft.MvvmLight.Ioc;
+
+using eShop.Cortana;
 using eShop.Providers;
 using eShop.Providers.Contracts;
 using eShop.UWP.Services;
@@ -9,8 +13,6 @@ using eShop.UWP.Views;
 using eShop.UWP.Views.Catalog;
 using eShop.UWP.Views.Login;
 using eShop.UWP.Views.Shell;
-using GalaSoft.MvvmLight.Ioc;
-using Microsoft.Practices.ServiceLocation;
 
 namespace eShop.UWP.ViewModels.Base
 {
@@ -29,7 +31,13 @@ namespace eShop.UWP.ViewModels.Base
             SimpleIoc.Default.Register<ItemsGridViewModel>();
             SimpleIoc.Default.Register<ItemsListViewModel>();
             SimpleIoc.Default.Register<VoiceCommandService>();
+
+            // Use Local Provider
             SimpleIoc.Default.Register<ICatalogProvider, LocalCatalogProvider>();
+
+            // Use REST Provider
+            //SimpleIoc.Default.Register<ICatalogProvider, RESTCatalogProvider>();
+
             SimpleIoc.Default.Register<IOrdersProvider, OrdersProvider>();
 
             Register<LoginViewModel, LoginView>();

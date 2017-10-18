@@ -143,7 +143,7 @@ namespace eShop.Providers
 
         static public string BaseAddressUri
         {
-            get { return "http://localhost:5101/"; }
+            get { return "http://localhost:11024/"; }
         }
     }
 }
