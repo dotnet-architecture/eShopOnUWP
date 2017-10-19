@@ -32,12 +32,7 @@ namespace eShop.UWP.ViewModels.Base
             SimpleIoc.Default.Register<ItemsListViewModel>();
             SimpleIoc.Default.Register<VoiceCommandService>();
 
-            // Use Local Provider
-            SimpleIoc.Default.Register<ICatalogProvider, LocalCatalogProvider>();
-
-            // Use REST Provider
-            //SimpleIoc.Default.Register<ICatalogProvider, RESTCatalogProvider>();
-
+            SimpleIoc.Default.Register<ICatalogProvider, SwitchProvider>();
             SimpleIoc.Default.Register<IOrdersProvider, OrdersProvider>();
 
             Register<LoginViewModel, LoginView>();
@@ -46,6 +41,7 @@ namespace eShop.UWP.ViewModels.Base
             Register<ItemsListViewModel, ItemsListView>();
             Register<ShellViewModel, ShellView>();
             Register<ItemDetailViewModel, ItemDetailView>();
+            Register<SettingsViewModel, SettingsView>();
         }
 
         public ShellViewModel ShellViewModel => ServiceLocator.Current.GetInstance<ShellViewModel>();
@@ -61,6 +57,8 @@ namespace eShop.UWP.ViewModels.Base
         public StatisticsViewModel StatisticsViewModel => ServiceLocator.Current.GetInstance<StatisticsViewModel>();
 
         public ItemDetailViewModel ItemDetailViewModel => ServiceLocator.Current.GetInstance<ItemDetailViewModel>();
+
+        public SettingsViewModel SettingsViewModel => ServiceLocator.Current.GetInstance<SettingsViewModel>();
 
         public void Register<VM, V>() where VM : class
         {

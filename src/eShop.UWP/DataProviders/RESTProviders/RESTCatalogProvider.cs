@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using eShop.Domain.Models;
 using eShop.Providers.Contracts;
 using eShop.UWP.Services;
+using eShop.UWP;
 
 namespace eShop.Providers
 {
@@ -118,7 +119,7 @@ namespace eShop.Providers
         {
             using (var cli = new WebApiClient(BaseAddressUri))
             {
-                await cli.DeleteAsync($"api/v1/catalog/items/{item.Id}");
+                await cli.DeleteAsync($"api/v1/catalog/{item.Id}");
             }
         }
 
@@ -143,7 +144,7 @@ namespace eShop.Providers
 
         static public string BaseAddressUri
         {
-            get { return "http://localhost:11024/"; }
+            get { return AppSettings.Current.ServiceUrl; }
         }
     }
 }

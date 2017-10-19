@@ -1,0 +1,86 @@
+﻿<Page
+    x:Class="eShop.UWP.Views.SettingsView"
+    DataContext="{Binding SettingsViewModel, Source={StaticResource Locator}}"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    IsEnabled="{Binding IsIdle}"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid x:Name="container">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid x:Name="column0" Margin="16,0,0,32" MinWidth="260">
+                <StackPanel>
+                    <TextBlock Text="{Binding DisplayName}" FontSize="26" LineHeight="40" />
+                    <TextBlock Text="{Binding Version}" LineHeight="26" />
+                    <TextBlock><Hyperlink NavigateUri="https://github.com/dotnet-architecture/eShopOnUWP">dotnet-architecture/eShopOnUWP</Hyperlink></TextBlock>
+                </StackPanel>
+            </Grid>
+
+            <Grid x:Name="column1" Grid.Row="1" Margin="16,0" MinWidth="320">
+                <StackPanel HorizontalAlignment="Left">
+                    <TextBlock Text="Settings" FontSize="26" LineHeight="52" />
+                    <TextBlock Text="Select Data Provider" FontSize="20" LineHeight="40" />
+                    <RadioButton Margin="0,0,0,20" GroupName="providers" IsChecked="{Binding IsLocalProvider, Mode=TwoWay}">
+                        <StackPanel>
+                            <TextBlock Text="Local Data Provider" LineHeight="26" />
+                            <TextBlock Text="Sample local data provider based on a Json file." TextWrapping="Wrap" Opacity="0.5" />
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Margin="0,0,0,20" GroupName="providers" IsChecked="{Binding IsRESTProvider, Mode=TwoWay}">
+                        <StackPanel>
+                            <TextBlock Text="REST Data Provider" LineHeight="26" />
+                            <TextBlock Text="Sample data provider accessing remote services through REST API calls." TextWrapping="Wrap" Opacity="0.5" />
+                            <Border Margin="4" />
+                            <TextBlock Text="Service Url" LineHeight="26" />
+                            <TextBox Text="{Binding ServiceUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsRESTProvider}" />
+                            <Border Margin="8" />
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="Validate connection" IsEnabled="{Binding IsRESTProvider}" Command="{Binding ValidateConnectionCommand}" />
+                                <ProgressRing Margin="16,8" IsActive="{Binding IsBusy}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </RadioButton>
+                    <StackPanel Margin="0,32" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="Save" Width="80" Command="{Binding SaveCommand}" />
+                        <Border Margin="4" />
+                        <Button Content="Cancel" Width="80" Command="{Binding CancelCommand}" />
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="Wide">
+                    <VisualState.Setters>
+                        <Setter Target="container.ColumnDefinitions[0].Width" Value="Auto" />
+                        <Setter Target="container.ColumnDefinitions[1].Width" Value="*" />
+                        <Setter Target="container.RowDefinitions[0].Height" Value="*" />
+                        <Setter Target="container.RowDefinitions[1].Height" Value="Auto" />
+                        <Setter Target="column1.(Grid.Column)" Value="1" />
+                        <Setter Target="column1.(Grid.Row)" Value="0" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="Narrow" />
+
+                <VisualState x:Name="Overlay">
+                    <VisualState.Setters>
+                        <Setter Target="container.Margin" Value="48,0,0,0" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</Page>

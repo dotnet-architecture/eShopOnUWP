@@ -128,7 +128,12 @@
     <Compile Include="Activation\ActivationHandler.cs" />
     <Compile Include="Activation\ActivationHandler{T}.cs" />
     <Compile Include="Activation\DefaultLaunchActivationHandler.cs" />
+    <Compile Include="AppSettings\AppSettings.cs" />
+    <Compile Include="AppSettings\DataProviderType.cs" />
     <Compile Include="Behaviors\TitleBar.cs" />
+    <Compile Include="Common\DeferredNavigation.cs" />
+    <Compile Include="Common\DialogBox.cs" />
+    <Compile Include="Common\Result.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Controls\ButtonControl.cs" />
     <Compile Include="Controls\CatalogItem.xaml.cs">
@@ -149,6 +154,7 @@
     <Compile Include="DataProviders\LocalProviders\LocalCatalogProvider.cs" />
     <Compile Include="DataProviders\OrdersProvider.cs" />
     <Compile Include="DataProviders\RESTProviders\RESTCatalogProvider.cs" />
+    <Compile Include="DataProviders\SwitchProvider.cs" />
     <Compile Include="Helpers\DependencyObjectExtensions.cs" />
     <Compile Include="Helpers\Json.cs" />
     <Compile Include="Helpers\Resources.cs" />
@@ -188,6 +194,7 @@
     <Compile Include="ViewModels\Login\SignInWithHelloViewModel.cs" />
     <Compile Include="ViewModels\Login\LoginViewModel.cs" />
     <Compile Include="Models\ShellNavigationItem.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\Shell\ShellViewModel.cs" />
     <Compile Include="ViewModels\StatisticsViewModel.cs" />
     <Compile Include="Views\Base\PageBase.cs" />
@@ -208,6 +215,9 @@
     </Compile>
     <Compile Include="Views\Login\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shell\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
@@ -315,6 +325,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Login\LoginView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SettingsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
