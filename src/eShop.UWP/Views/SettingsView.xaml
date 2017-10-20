@@ -53,8 +53,8 @@
                     </RadioButton>
                     <StackPanel Margin="0,32" Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button Content="Save" Width="80" Command="{Binding SaveCommand}" />
-                        <Border Margin="4" />
-                        <Button Content="Cancel" Width="80" Command="{Binding CancelCommand}" />
+                        <Border Margin="4" Visibility="{Binding CancelVisibility}" />
+                        <Button Content="Cancel" Width="80" Command="{Binding CancelCommand}" Visibility="{Binding CancelVisibility}" />
                     </StackPanel>
                 </StackPanel>
             </Grid>

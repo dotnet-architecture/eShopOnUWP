@@ -15,6 +15,22 @@ namespace eShop.Providers
         private IList<CatalogType> _catalogTypes = null;
         private IList<CatalogBrand> _catalogBrands = null;
 
+        public async Task<Result> IsAvailableAsync()
+        {
+            try
+            {
+                using (var cli = new WebApiClient(BaseAddressUri))
+                {
+                    await cli.GetAsync<IEnumerable<CatalogType>>("api/v1/catalog/CatalogTypes");
+                    return Result.Ok();
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Error(ex);
+            }
+        }
+
         public async Task<IList<CatalogType>> GetCatalogTypesAsync()
         {
             if (_catalogTypes == null)

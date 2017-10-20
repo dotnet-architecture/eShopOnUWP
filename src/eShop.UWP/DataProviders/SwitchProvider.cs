@@ -10,6 +10,12 @@ namespace eShop.Providers
 {
     public class SwitchProvider : ICatalogProvider
     {
+        static public async Task<Result> IsCurrentProviderAvailableAsync()
+        {
+            var provider = new SwitchProvider();
+            return await provider.IsAvailableAsync();
+        }
+
         public SwitchProvider()
         {
             LocalCatalogProvider = new LocalCatalogProvider();
@@ -19,46 +25,113 @@ namespace eShop.Providers
         public ICatalogProvider LocalCatalogProvider { get; }
         public ICatalogProvider RESTCatalogProvider { get; }
 
-        public ICatalogProvider CurrentProvider => AppSettings.Current.DataProvider == DataProviderType.Local ? LocalCatalogProvider : RESTCatalogProvider;
+        public ICatalogProvider Current => AppSettings.Current.DataProvider == DataProviderType.Local ? LocalCatalogProvider : RESTCatalogProvider;
 
-        public Task DeleteItemAsync(CatalogItem catalogItem)
+        public async Task<Result> IsAvailableAsync()
         {
-            return CurrentProvider.DeleteItemAsync(catalogItem);
+            return await Current.IsAvailableAsync();
         }
 
-        public Task<IList<CatalogBrand>> GetCatalogBrandsAsync()
+        public async Task DeleteItemAsync(CatalogItem catalogItem)
         {
-            return CurrentProvider.GetCatalogBrandsAsync();
+            try
+            {
+                await Current.DeleteItemAsync(catalogItem);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
         }
 
-        public Task<IList<CatalogType>> GetCatalogTypesAsync()
+        public async Task<IList<CatalogBrand>> GetCatalogBrandsAsync()
         {
-            return CurrentProvider.GetCatalogTypesAsync();
+            try
+            {
+                return await Current.GetCatalogBrandsAsync();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                return new List<CatalogBrand>();
+            }
         }
 
-        public Task<CatalogItem> GetItemByIdAsync(int id)
+        public async Task<IList<CatalogType>> GetCatalogTypesAsync()
         {
-            return CurrentProvider.GetItemByIdAsync(id);
+            try
+            {
+                return await Current.GetCatalogTypesAsync();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                return new List<CatalogType>();
+            }
         }
 
-        public Task<IList<CatalogItem>> GetItemsAsync(CatalogType selectedCatalogType, CatalogBrand selectedCatalogBrand, string query)
+        public async Task<CatalogItem> GetItemByIdAsync(int id)
         {
-            return CurrentProvider.GetItemsAsync(selectedCatalogType, selectedCatalogBrand, query);
+            try
+            {
+                return await Current.GetItemByIdAsync(id);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                return null;
+            }
         }
 
-        public Task<IList<CatalogItem>> GetItemsByVoiceCommandAsync(string query)
+        public async Task<IList<CatalogItem>> GetItemsAsync(CatalogType selectedCatalogType, CatalogBrand selectedCatalogBrand, string query)
         {
-            return CurrentProvider.GetItemsByVoiceCommandAsync(query);
+            try
+            {
+                return await Current.GetItemsAsync(selectedCatalogType, selectedCatalogBrand, query);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                return new List<CatalogItem>();
+            }
         }
 
-        public Task<IList<CatalogItem>> RelatedItemsByTypeAsync(int catalogTypeId)
+        public async Task<IList<CatalogItem>> GetItemsByVoiceCommandAsync(string query)
         {
-            return CurrentProvider.RelatedItemsByTypeAsync(catalogTypeId);
+            try
+            {
+                return await Current.GetItemsByVoiceCommandAsync(query);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                return new List<CatalogItem>();
+            }
         }
 
-        public Task SaveItemAsync(CatalogItem item)
+        public async Task<IList<CatalogItem>> RelatedItemsByTypeAsync(int catalogTypeId)
         {
-            return CurrentProvider.SaveItemAsync(item);
+            try
+            {
+                return await Current.RelatedItemsByTypeAsync(catalogTypeId);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                return new List<CatalogItem>();
+            }
+        }
+
+        public async Task SaveItemAsync(CatalogItem item)
+        {
+            try
+            {
+                await Current.SaveItemAsync(item);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
         }
     }
 }

@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using eShop.Domain.Models;
+using eShop.UWP;
 
 namespace eShop.Providers.Contracts
 {
     public interface ICatalogProvider
     {
+        Task<Result> IsAvailableAsync();
+
         Task<IList<CatalogType>> GetCatalogTypesAsync();
         Task<IList<CatalogBrand>> GetCatalogBrandsAsync();
 

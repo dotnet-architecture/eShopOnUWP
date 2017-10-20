@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using System.Threading.Tasks;
 
+using Windows.UI.Xaml;
 using Windows.ApplicationModel;
 
 using GalaSoft.MvvmLight.Command;
@@ -9,6 +10,7 @@ using GalaSoft.MvvmLight.Command;
 using eShop.UWP.Services;
 using eShop.UWP.ViewModels.Base;
 using eShop.UWP.ViewModels.Catalog;
+using eShop.UWP.ViewModels.Shell;
 
 namespace eShop.UWP.ViewModels
 {
@@ -50,6 +52,8 @@ namespace eShop.UWP.ViewModels
             set { Set(ref _serviceUrl, value); }
         }
 
+        public Visibility CancelVisibility => NavigationService.CanGoBack ? Visibility.Visible : Visibility.Collapsed;
+
         private bool _isBusy = false;
         public bool IsBusy
         {
@@ -72,7 +76,14 @@ namespace eShop.UWP.ViewModels
             var result = await ValidateAndApplyChangesAsync();
             if (result.IsOk)
             {
-                NavigationService.Navigate(typeof(CatalogViewModel).FullName);
+                if (NavigationService.Frame == Window.Current.Content)
+                {
+                    NavigationService.Navigate(typeof(ShellViewModel).FullName);
+                }
+                else
+                {
+                    NavigationService.Navigate(typeof(CatalogViewModel).FullName);
+                }
             }
         }
 

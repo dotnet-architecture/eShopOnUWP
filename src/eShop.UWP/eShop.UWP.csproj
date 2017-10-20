@@ -195,6 +195,7 @@
     <Compile Include="ViewModels\Login\LoginViewModel.cs" />
     <Compile Include="Models\ShellNavigationItem.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\Shell\ShellStartup.cs" />
     <Compile Include="ViewModels\Shell\ShellViewModel.cs" />
     <Compile Include="ViewModels\StatisticsViewModel.cs" />
     <Compile Include="Views\Base\PageBase.cs" />

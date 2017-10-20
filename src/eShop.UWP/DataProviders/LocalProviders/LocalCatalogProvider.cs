@@ -5,11 +5,17 @@ using System.Threading.Tasks;
 
 using eShop.Domain.Models;
 using eShop.Providers.Contracts;
+using eShop.UWP;
 
 namespace eShop.Providers
 {
     public class LocalCatalogProvider : ICatalogProvider
     {
+        public Task<Result> IsAvailableAsync()
+        {
+            return Task.FromResult(Result.Ok());
+        }
+
         public async Task<IList<CatalogType>> GetCatalogTypesAsync()
         {
             await Task.FromResult(true);

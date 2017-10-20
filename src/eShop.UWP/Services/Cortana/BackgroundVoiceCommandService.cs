@@ -81,7 +81,7 @@ namespace eShop.Cortana
 
             var store = new CatalogItem();
 
-            // TODOX: Get depending on configuration configuration
+            // TODO: Get depending on configuration configuration
             _catalogProvider = new LocalCatalogProvider();
             var items = await _catalogProvider?.GetItemsByVoiceCommandAsync(filter);
 
@@ -122,7 +122,7 @@ namespace eShop.Cortana
 
         private string WaitingForResult(string filter, int count)
         {
-            return count > 0 ? string.Format(_cortanaResourceMap.GetValue("Cortana_findSomeElements", _cortanaContext).ValueAsString, filter) + count:
+            return count > 0 ? string.Format(_cortanaResourceMap.GetValue("Cortana_findSomeElements", _cortanaContext).ValueAsString, filter) + count :
                 string.Format(_cortanaResourceMap.GetValue("Cortana_foundNoSearchByType", _cortanaContext).ValueAsString, filter);
         }
 
