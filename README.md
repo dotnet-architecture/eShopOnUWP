@@ -16,6 +16,13 @@ Some of the features showcased by this application include:
 **CD Build**
 [![Build status](https://rido.visualstudio.com/_apis/public/build/definitions/989ddbdd-c86a-4fa8-8d80-89eb785d8056/83/badge)](https://aka.ms/eshopuwp)
 
+# What's new in version v0.1.2.0
+- Support for multiple providers
+	- New local provider
+	- New REST API provider
+- Added Settings page
+	- Manage and switch providers
+
 # Prerequisites
 System requirements:
 - Windows 10 Insider Preview. To run the application you should be running a Windows Version greater than 10.0.16275. You can get the latest version by joining the [Windows Insider program](http://insider.windows.com)
