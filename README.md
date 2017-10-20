@@ -22,6 +22,8 @@ Some of the features showcased by this application include:
 	- New REST API provider
 - Added Settings page
 	- Manage and switch providers
+- New project eShop.Server ASP.NET Core 2.0
+	- Emulates a Web API server with CRUD operations
 
 # Prerequisites
 System requirements:
