@@ -16,7 +16,7 @@ Some of the features showcased by this application include:
 **CD Build**
 [![Build status](https://rido.visualstudio.com/_apis/public/build/definitions/989ddbdd-c86a-4fa8-8d80-89eb785d8056/83/badge)](https://aka.ms/eshopuwp)
 
-# What's new in version v0.1.2.0
+# What's new in version v 1.0.94
 - Support for multiple providers
 	- New local provider
 	- New REST API provider
