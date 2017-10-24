@@ -1,17 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Collections.Generic;
 using System.Net.Http;
+using System.Globalization;
 using System.Threading.Tasks;
-using eShop.Domain.Models;
-using eShop.Providers;
+
+using Windows.Storage;
 using Windows.ApplicationModel.AppService;
 using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.Resources.Core;
 using Windows.ApplicationModel.VoiceCommands;
-using Windows.Storage;
+
+using eShop.Domain.Models;
+using eShop.Providers;
+using eShop.Providers.Contracts;
 
 namespace eShop.Cortana
 {
@@ -22,7 +25,7 @@ namespace eShop.Cortana
         private ResourceMap _cortanaResourceMap;
         private ResourceContext _cortanaContext;
         private DateTimeFormatInfo _dateFormatInfo;
-        private CatalogProvider _catalogProvider;
+        private ICatalogProvider _catalogProvider;
 
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
@@ -78,8 +81,9 @@ namespace eShop.Cortana
 
             var store = new CatalogItem();
 
-            _catalogProvider = new CatalogProvider();
-            var items = _catalogProvider?.GetItemsByVoiceCommand(filter);
+            // TODO: Get depending on configuration configuration
+            _catalogProvider = new LocalCatalogProvider();
+            var items = await _catalogProvider?.GetItemsByVoiceCommandAsync(filter);
 
             var userMessage = new VoiceCommandUserMessage();
 
@@ -118,7 +122,7 @@ namespace eShop.Cortana
 
         private string WaitingForResult(string filter, int count)
         {
-            return count > 0 ? string.Format(_cortanaResourceMap.GetValue("Cortana_findSomeElements", _cortanaContext).ValueAsString, filter) + count:
+            return count > 0 ? string.Format(_cortanaResourceMap.GetValue("Cortana_findSomeElements", _cortanaContext).ValueAsString, filter) + count :
                 string.Format(_cortanaResourceMap.GetValue("Cortana_foundNoSearchByType", _cortanaContext).ValueAsString, filter);
         }
 

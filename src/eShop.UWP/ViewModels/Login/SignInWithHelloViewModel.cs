@@ -82,7 +82,7 @@ namespace eShop.UWP.ViewModels.Login
 
             StatusAuthenticationFeedbackToUser(opResult.Status);
 
-            NavigationService.Navigate(typeof(ShellViewModel).FullName, CatalogVoiceCommand);
+            ShellStartup.Start(CatalogVoiceCommand);
             CatalogVoiceCommand = null;
         }
 

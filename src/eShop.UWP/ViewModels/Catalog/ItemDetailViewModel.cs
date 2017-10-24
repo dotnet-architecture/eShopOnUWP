@@ -161,7 +161,7 @@ namespace eShop.UWP.ViewModels.Catalog
 
         public ICommand SelectAllCommand => new RelayCommand<AdaptiveGridView>(SelectAll);
 
-        public override void OnActivate(object parameter, bool isBack)
+        public override async void OnActivate(object parameter, bool isBack)
         {
             base.OnActivate(parameter, isBack);
 
@@ -169,7 +169,7 @@ namespace eShop.UWP.ViewModels.Catalog
             {
                 int.TryParse((parameter as CatalogVoiceCommand).Value, out int itemId);
 
-                var itemSelected = _catalogProvider.GetItemById(itemId);
+                var itemSelected = await _catalogProvider.GetItemByIdAsync(itemId);
                 SaveCatalogItem(itemSelected as CatalogItem ?? new CatalogItem());
             }
             else
@@ -219,7 +219,7 @@ namespace eShop.UWP.ViewModels.Catalog
                 if (result != ContentDialogResult.Secondary) return;
             }
 
-            _catalogProvider.DeleteItem(itemViewModel.Item);
+            await _catalogProvider.DeleteItemAsync(itemViewModel.Item);
             _itemsViewModel.Remove(itemViewModel);
 
             if (!forceDelete)
@@ -228,20 +228,20 @@ namespace eShop.UWP.ViewModels.Catalog
             }
         }
 
-        public void DeleteItem(ItemViewModel itemViewModel)
+        public async void DeleteItem(ItemViewModel itemViewModel)
         {
-            _catalogProvider.DeleteItem(itemViewModel.Item);
+            await _catalogProvider.DeleteItemAsync(itemViewModel.Item);
             _itemsViewModel.Remove(itemViewModel);
         }
 
-        public void Delete()
+        public async void Delete()
         {
-            _catalogProvider.DeleteItem(_item);
+            await _catalogProvider.DeleteItemAsync(_item);
             Singleton<ToastNotificationsService>.Instance.ShowToastNotification(Constants.NotificationDeletedItemTitleKey.GetLocalized(), _item);
             NavigationService.Navigate(typeof(CatalogViewModel).FullName);
         }
 
-        public void Save()
+        public async void Save()
         {
             var itemId = _item.Id;
 
@@ -249,11 +249,13 @@ namespace eShop.UWP.ViewModels.Catalog
             _item.PictureUri = PictureUri;
             _item.Price = Price;
             _item.Description = Description;
-            _item.CatalogType = SelectedCatalogType;
+            _item.CatalogType = SelectedCatalogType ?? new CatalogType();
+            _item.CatalogTypeId = SelectedCatalogType.Id;
+            _item.CatalogBrand = SelectedCatalogBrand ?? new CatalogBrand();
+            _item.CatalogBrandId = SelectedCatalogBrand.Id;
             _item.IsActive = SelectedCatalogState;
-            _item.CatalogBrand = SelectedCatalogBrand;
 
-            _catalogProvider.SaveItem(_item);
+            await _catalogProvider.SaveItemAsync(_item);
             if (itemId == 0)
             {
                 Singleton<ToastNotificationsService>.Instance.ShowToastNotification(Constants.NotificationAddedItemTitleKey.GetLocalized(), _item);
@@ -294,14 +296,14 @@ namespace eShop.UWP.ViewModels.Catalog
             adaptativeGridView.SelectAll();
         }
 
-        private void ShowDetail(ItemClickEventArgs arg)
+        private async void ShowDetail(ItemClickEventArgs arg)
         {
             var selectedId = new CatalogItem();
 
             if (arg.ClickedItem is ItemViewModel)
             {
                 var itemSelected = arg.ClickedItem as ItemViewModel;
-                var itemSelectedId = _catalogProvider.GetItemById(itemSelected.Item.Id);
+                var itemSelectedId = await _catalogProvider.GetItemByIdAsync(itemSelected.Item.Id);
                 SaveCatalogItem(itemSelectedId as CatalogItem ?? new CatalogItem());
             }
             else
@@ -321,11 +323,11 @@ namespace eShop.UWP.ViewModels.Catalog
 
         }
 
-        private void SetAnimation(ItemViewModel itemViewModel, AdaptiveGridView grid)
+        private async void SetAnimation(ItemViewModel itemViewModel, AdaptiveGridView grid)
         {
             if (itemViewModel == null) return;
 
-            var itemSelectedId = _catalogProvider.GetItemById(itemViewModel.Item.Id);
+            var itemSelectedId = await _catalogProvider.GetItemByIdAsync(itemViewModel.Item.Id);
             SaveCatalogItem(itemSelectedId as CatalogItem ?? new CatalogItem());
 
             LastSelectedItem = itemViewModel;
@@ -342,34 +344,34 @@ namespace eShop.UWP.ViewModels.Catalog
             SelectedCatalogBrand = selectedItem.CatalogBrand;
             SelectedCatalogType = selectedItem.CatalogType;
         }
-        
+
         private void OnBackRequested(object sender, BackRequestedEventArgs e)
         {
             e.Handled = true;
             NavigationService.GoBack();
         }
 
-        private void LoadCatalogBrands()
+        private async void LoadCatalogBrands()
         {
             if (CatalogBrands != null) return;
-            
-            CatalogBrands = _catalogProvider.GetCatalogBrands().ToList();
+
+            CatalogBrands = (await _catalogProvider.GetCatalogBrandsAsync()).ToList();
             SelectedCatalogBrand = _item.CatalogBrand ?? CatalogBrands.FirstOrDefault();
         }
 
-        private void LoadCatalogTypes()
+        private async void LoadCatalogTypes()
         {
             if (CatalogTypes != null) return;
-            
-            CatalogTypes = _catalogProvider.GetCatalogTypes().ToList();
+
+            CatalogTypes = (await _catalogProvider.GetCatalogTypesAsync()).ToList();
             SelectedCatalogType = _item.CatalogType ?? CatalogTypes.FirstOrDefault();
         }
 
-        private void LoadRelatedItems()
+        private async void LoadRelatedItems()
         {
             if (SelectedCatalogType == null) return;
 
-            var items = _catalogProvider.RelatedItemsByType(SelectedCatalogType.Id);
+            var items = await _catalogProvider.RelatedItemsByTypeAsync(SelectedCatalogType.Id);
             RelatedItems = items.ToList();
 
             ItemsViewModel = new ObservableCollection<ItemViewModel>(items.Select(item => new ItemViewModel(item, DeleteItem)));

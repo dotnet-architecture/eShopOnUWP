@@ -6,6 +6,7 @@ using eShop.Providers.Contracts;
 using eShop.UWP.Helpers;
 using eShop.UWP.ViewModels.Base;
 using GalaSoft.MvvmLight.Command;
+using System.Threading.Tasks;
 
 namespace eShop.UWP.ViewModels.Catalog
 {
@@ -83,7 +84,7 @@ namespace eShop.UWP.ViewModels.Catalog
 
         public ICommand ShowListCommand => new RelayCommand(ShowList);
 
-        public override void OnActivate(object parameter, bool isBack)
+        public override async void OnActivate(object parameter, bool isBack)
         {
             base.OnActivate(parameter, isBack);
 
@@ -91,12 +92,12 @@ namespace eShop.UWP.ViewModels.Catalog
 
             if (CatalogTypes == null)
             {
-                LoadCatalogTypes();
+                await LoadCatalogTypes();
             }
 
             if (CatalogBrands == null)
             {
-                LoadCatalogBrands();
+                await LoadCatalogBrands();
             }
 
             ResetCatalog();
@@ -137,18 +138,18 @@ namespace eShop.UWP.ViewModels.Catalog
             CatalogFormat.LoadCatalogItems(_selectedCatalogType, _selectedCatalogBrand, _query);
         }
 
-        private void LoadCatalogTypes()
+        private async Task LoadCatalogTypes()
         {
-            var types = _catalogProvider.GetCatalogTypes().ToList();
+            var types = (await _catalogProvider.GetCatalogTypesAsync()).ToList();
             var viewAll = new CatalogType { Id = 0, Type = Constants.CatalogAllViewKey.GetLocalized() };
 
             types.Insert(0, viewAll);
             CatalogTypes = types;
         }
 
-        private void LoadCatalogBrands()
+        private async Task LoadCatalogBrands()
         {
-            var types = _catalogProvider.GetCatalogBrands().ToList();
+            var types = (await _catalogProvider.GetCatalogBrandsAsync()).ToList();
             var viewAll = new CatalogBrand { Id = 0, Brand = Constants.CatalogAllViewKey.GetLocalized() };
 
             types.Insert(0, viewAll);

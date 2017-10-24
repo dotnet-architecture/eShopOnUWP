@@ -96,7 +96,7 @@ namespace eShop.UWP.ViewModels.Login
             Password = string.Empty;
 
             // TODO: Add here the logic to login with your authentication service.
-            NavigationService.Navigate(typeof(ShellViewModel).FullName, CatalogVoiceCommand);
+            ShellStartup.Start(CatalogVoiceCommand);
             CatalogVoiceCommand = null;
         }
 
@@ -110,7 +110,7 @@ namespace eShop.UWP.ViewModels.Login
                 IBuffer publicKeyHash = hashProvider.HashData(publicKey);
                 ApplicationData.Current.LocalSettings.Values[Constants.HelloPublicKeyHintKey] = CryptographicBuffer.EncodeToBase64String(publicKeyHash);
 
-                NavigationService.Navigate(typeof(ShellViewModel).FullName, CatalogVoiceCommand);
+                ShellStartup.Start(CatalogVoiceCommand);
                 CatalogVoiceCommand = null;
             }
         }

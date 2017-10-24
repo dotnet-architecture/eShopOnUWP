@@ -1,4 +1,8 @@
-﻿using eShop.Cortana;
+﻿using Microsoft.Practices.ServiceLocation;
+
+using GalaSoft.MvvmLight.Ioc;
+
+using eShop.Cortana;
 using eShop.Providers;
 using eShop.Providers.Contracts;
 using eShop.UWP.Services;
@@ -9,8 +13,6 @@ using eShop.UWP.Views;
 using eShop.UWP.Views.Catalog;
 using eShop.UWP.Views.Login;
 using eShop.UWP.Views.Shell;
-using GalaSoft.MvvmLight.Ioc;
-using Microsoft.Practices.ServiceLocation;
 
 namespace eShop.UWP.ViewModels.Base
 {
@@ -29,7 +31,8 @@ namespace eShop.UWP.ViewModels.Base
             SimpleIoc.Default.Register<ItemsGridViewModel>();
             SimpleIoc.Default.Register<ItemsListViewModel>();
             SimpleIoc.Default.Register<VoiceCommandService>();
-            SimpleIoc.Default.Register<ICatalogProvider, CatalogProvider>();
+
+            SimpleIoc.Default.Register<ICatalogProvider, SwitchProvider>();
             SimpleIoc.Default.Register<IOrdersProvider, OrdersProvider>();
 
             Register<LoginViewModel, LoginView>();
@@ -38,6 +41,7 @@ namespace eShop.UWP.ViewModels.Base
             Register<ItemsListViewModel, ItemsListView>();
             Register<ShellViewModel, ShellView>();
             Register<ItemDetailViewModel, ItemDetailView>();
+            Register<SettingsViewModel, SettingsView>();
         }
 
         public ShellViewModel ShellViewModel => ServiceLocator.Current.GetInstance<ShellViewModel>();
@@ -54,6 +58,8 @@ namespace eShop.UWP.ViewModels.Base
 
         public ItemDetailViewModel ItemDetailViewModel => ServiceLocator.Current.GetInstance<ItemDetailViewModel>();
 
+        public SettingsViewModel SettingsViewModel => ServiceLocator.Current.GetInstance<SettingsViewModel>();
+
         public void Register<VM, V>() where VM : class
         {
             SimpleIoc.Default.Register<VM>();
@@ -62,4 +68,3 @@ namespace eShop.UWP.ViewModels.Base
         }
     }
 }
-
