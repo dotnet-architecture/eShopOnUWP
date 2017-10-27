@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:genTemplate="http://schemas.microsoft.com/appx/developer/windowsTemplateStudio" IgnorableNamespaces="uap mp genTemplate">
-  <Identity Name="eShopUWP" Publisher="CN=eShopUWPCert" Version="1.0.0.0" />
+  <Identity Name="eShopUWP" Publisher="CN=eShopUWPCert" Version="0.1.2.0" />
   <mp:PhoneIdentity PhoneProductId="578B2EA0-5624-4EB2-83F7-2149CEBB9331" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>eShop UWP Sample</DisplayName>
@@ -21,15 +21,16 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#00A59A" />
       </uap:VisualElements>
       <Extensions>
+        <uap:Extension Category="windows.personalAssistantLaunch" />
         <uap:Extension Category="windows.appService" EntryPoint="eShop.Cortana.BackgroundVoiceCommandService">
           <uap:AppService Name="BackgroundVoiceCommandService" />
         </uap:Extension>
-        <uap:Extension Category="windows.personalAssistantLaunch" />
       </Extensions>
     </Application>
   </Applications>
   <Capabilities>
     <Capability Name="internetClient" />
+    <Capability Name="privateNetworkClientServer" />
   </Capabilities>
   <genTemplate:Metadata>
     <genTemplate:Item Name="generator" Value="Windows Template Studio" />

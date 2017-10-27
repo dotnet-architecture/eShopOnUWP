@@ -160,9 +160,9 @@ namespace eShop.UWP.ViewModels
             LoadSeries();
         }
 
-        private void LoadCatalogTypes()
+        private async void LoadCatalogTypes()
         {
-            var types = _catalogProvider.GetCatalogTypes();
+            var types = await _catalogProvider.GetCatalogTypesAsync();
             _catalogTypes = types.ToList();
 
             foreach (var type in _catalogTypes)
@@ -223,7 +223,7 @@ namespace eShop.UWP.ViewModels
         {
             var offset = GetTotalOffset();
 
-            var list = _catalogTypes.Select((t, i) => _filterValues[t.Id] ? _totalOrders[i] + offset : 0).ToList();
+            var list = _catalogTypes.Take(4).Select((t, i) => _filterValues[t.Id] ? _totalOrders[i] + offset : 0).ToList();
 
             FilteredTotalOrders = list;
         }

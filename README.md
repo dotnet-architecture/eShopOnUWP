@@ -16,6 +16,15 @@ Some of the features showcased by this application include:
 **CD Build**
 [![Build status](https://rido.visualstudio.com/_apis/public/build/definitions/989ddbdd-c86a-4fa8-8d80-89eb785d8056/83/badge)](https://aka.ms/eshopuwp)
 
+# What's new in version v0.1.2.0
+- Support for multiple providers
+	- New local provider
+	- New REST API provider
+- Added Settings page
+	- Manage and switch providers
+- New project eShop.Server ASP.NET Core 2.0
+	- Emulates a Web API server with CRUD operations
+
 # Prerequisites
 System requirements:
 - Windows 10 Fall Creators Update. To run the application you should be running a Windows Version greater than 10.0.16299. You can get it as described [here](https://blogs.windows.com/windowsexperience/2017/10/17/get-windows-10-fall-creators-update)

@@ -95,8 +95,23 @@ namespace eShop.UWP.ViewModels.Shell
         {
             NavigationService.Frame.BackStack.Clear();
             NavigationService.Frame = frame;
+            NavigationService.Frame.Navigating += OnNavigating;
             NavigationService.Frame.Navigated += NavigationServiceOnNavigated;
             PopulateNavItems();
+        }
+
+        static private Type LastSourcePageType { get; set; }
+
+        private void OnNavigating(object sender, NavigatingCancelEventArgs e)
+        {
+            if (e.NavigationMode == NavigationMode.New)
+            {
+                if (e.SourcePageType == LastSourcePageType)
+                {
+                    e.Cancel = true;
+                }
+            }
+            LastSourcePageType = e.SourcePageType;
         }
 
         public async Task UpdateCatalogTypePhraseList()
@@ -112,7 +127,7 @@ namespace eShop.UWP.ViewModels.Shell
                 var commandSetName = string.Format(Constants.CortanaCommandSetName, countryCode);
                 if (VoiceCommandDefinitionManager.InstalledCommandDefinitions.TryGetValue(commandSetName, out VoiceCommandDefinition commandDefinitions))
                 {
-                    var catalogTypes = _catalogProvider.GetCatalogTypes()?.Select(type => type.Type).ToList();
+                    var catalogTypes = (await _catalogProvider.GetCatalogTypesAsync())?.Select(type => type.Type).ToList();
                     await commandDefinitions.SetPhraseListAsync(Constants.CortanaPhraseListName, catalogTypes);
 
                     Debug.WriteLine("Updating Phrase list for VCDs");
@@ -141,7 +156,7 @@ namespace eShop.UWP.ViewModels.Shell
         {
             _primaryItems.Clear();
             _secondaryItems.Clear();
-            
+
             _primaryItems.Add(new ShellNavigationItem(Constants.ShellCatalogKey.GetLocalized(), Application.Current.Resources["CatalogIcon"] as string, typeof(CatalogViewModel).FullName));
             _primaryItems.Add(new ShellNavigationItem(Constants.ShellStatisticsKey.GetLocalized(), Application.Current.Resources["StatisticsIcon"] as string, typeof(StatisticsViewModel).FullName));
             _primaryItems.Add(new ShellNavigationItem(Constants.ShellAddItemKey.GetLocalized(), Application.Current.Resources["AddNewItemIcon"] as string, typeof(ItemDetailViewModel).FullName));

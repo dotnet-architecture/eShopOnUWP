@@ -1,0 +1,252 @@
+{
+  "CatalogTypes": [
+    {
+      "Id": 1,
+      "Type": "Mug"
+    },
+    {
+      "Id": 2,
+      "Type": "T-Shirt"
+    },
+    {
+      "Id": 3,
+      "Type": "Sheet"
+    },
+    {
+      "Id": 4,
+      "Type": "USB Memory Stick"
+    },
+    {
+      "Id": 5,
+      "Type": "CatalogTypeTestOne"
+    },
+    {
+      "Id": 6,
+      "Type": "CatalogTypeTestTwo"
+    }
+  ],
+  "CatalogBrands": [
+    {
+      "Id": 1,
+      "Brand": "Azure"
+    },
+    {
+      "Id": 2,
+      "Brand": ".NET"
+    },
+    {
+      "Id": 3,
+      "Brand": "Visual Studio"
+    },
+    {
+      "Id": 4,
+      "Brand": "SQL Server"
+    },
+    {
+      "Id": 5,
+      "Brand": "Other"
+    },
+    {
+      "Id": 6,
+      "Brand": "CatalogBrandTestOne"
+    },
+    {
+      "Id": 7,
+      "Brand": "CatalogBrandTestTwo"
+    }
+  ],
+  "CatalogItems": [
+    {
+      "Id": 2,
+      "Name": ".NET Black & White Mug",
+      "Description": ".NET Black & White Mug",
+      "Price": 8.5,
+      "PictureFileName": "2.png",
+      "PictureUri": "ms-appx:///Assets/Images/Catalog/2.png",
+      "CatalogTypeId": 1,
+      "CatalogType": null,
+      "CatalogBrandId": 2,
+      "CatalogBrand": null,
+      "AvailableStock": 100,
+      "RestockThreshold": 0,
+      "MaxStockThreshold": 0,
+      "OnReorder": false
+    },
+    {
+      "Id": 6,
+      "Name": ".NET Blue Hoodie",
+      "Description": ".NET Blue Hoodie",
+      "Price": 12.0,
+      "PictureFileName": "6.png",
+      "PictureUri": "ms-appx:///Assets/Images/Catalog/6.png",
+      "CatalogTypeId": 2,
+      "CatalogType": null,
+      "CatalogBrandId": 2,
+      "CatalogBrand": null,
+      "AvailableStock": 100,
+      "RestockThreshold": 0,
+      "MaxStockThreshold": 0,
+      "OnReorder": false
+    },
+    {
+      "Id": 1,
+      "Name": ".NET Bot Black Hoodie",
+      "Description": ".NET Bot Black Hoodie",
+      "Price": 19.5,
+      "PictureFileName": "1.png",
+      "PictureUri": "ms-appx:///Assets/Images/Catalog/1.png",
+      "CatalogTypeId": 2,
+      "CatalogType": null,
+      "CatalogBrandId": 2,
+      "CatalogBrand": null,
+      "AvailableStock": 100,
+      "RestockThreshold": 0,
+      "MaxStockThreshold": 0,
+      "OnReorder": false
+    },
+    {
+      "Id": 10,
+      "Name": ".NET Foundation Sheet",
+      "Description": ".NET Foundation Sheet",
+      "Price": 12.0,
+      "PictureFileName": "10.png",
+      "PictureUri": "ms-appx:///Assets/Images/Catalog/10.png",
+      "CatalogTypeId": 3,
+      "CatalogType": null,
+      "CatalogBrandId": 2,
+      "CatalogBrand": null,
+      "AvailableStock": 100,
+      "RestockThreshold": 0,
+      "MaxStockThreshold": 0,
+      "OnReorder": false
+    },
+    {
+      "Id": 4,
+      "Name": ".NET Foundation T-shirt",
+      "Description": ".NET Foundation T-shirt",
+      "Price": 12.0,
+      "PictureFileName": "4.png",
+      "PictureUri": "ms-appx:///Assets/Images/Catalog/4.png",
+      "CatalogTypeId": 2,
+      "CatalogType": null,
+      "CatalogBrandId": 2,
+      "CatalogBrand": null,
+      "AvailableStock": 100,
+      "RestockThreshold": 0,
+      "MaxStockThreshold": 0,
+      "OnReorder": false
+    },
+    {
+      "Id": 11,
+      "Name": "Cup<T> Sheet",
+      "Description": "Cup<T> Sheet",
+      "Price": 8.5,
+      "PictureFileName": "11.png",
+      "PictureUri": "ms-appx:///Assets/Images/Catalog/11.png",
+      "CatalogTypeId": 3,
+      "CatalogType": null,
+      "CatalogBrandId": 2,
+      "CatalogBrand": null,
+      "AvailableStock": 100,
+      "RestockThreshold": 0,
+      "MaxStockThreshold": 0,
+      "OnReorder": false
+    },
+    {
+      "Id": 9,
+      "Name": "Cup<T> White Mug",
+      "Description": "Cup<T> White Mug",
+      "Price": 12.0,
+      "PictureFileName": "9.png",
+      "PictureUri": "ms-appx:///Assets/Images/Catalog/9.png",
+      "CatalogTypeId": 1,
+      "CatalogType": null,
+      "CatalogBrandId": 5,
+      "CatalogBrand": null,
+      "AvailableStock": 100,
+      "RestockThreshold": 0,
+      "MaxStockThreshold": 0,
+      "OnReorder": false
+    },
+    {
+      "Id": 8,
+      "Name": "Kudu Purple Hoodie",
+      "Description": "Kudu Purple Hoodie",
+      "Price": 8.5,
+      "PictureFileName": "8.png",
+      "PictureUri": "ms-appx:///Assets/Images/Catalog/8.png",
+      "CatalogTypeId": 2,
+      "CatalogType": null,
+      "CatalogBrandId": 5,
+      "CatalogBrand": null,
+      "AvailableStock": 100,
+      "RestockThreshold": 0,
+      "MaxStockThreshold": 0,
+      "OnReorder": false
+    },
+    {
+      "Id": 12,
+      "Name": "Prism White TShirt",
+      "Description": "Prism White TShirt",
+      "Price": 12.0,
+      "PictureFileName": "12.png",
+      "PictureUri": "ms-appx:///Assets/Images/Catalog/12.png",
+      "CatalogTypeId": 2,
+      "CatalogType": null,
+      "CatalogBrandId": 5,
+      "CatalogBrand": null,
+      "AvailableStock": 100,
+      "RestockThreshold": 0,
+      "MaxStockThreshold": 0,
+      "OnReorder": false
+    },
+    {
+      "Id": 3,
+      "Name": "Prism White T-Shirt",
+      "Description": "Prism White T-Shirt",
+      "Price": 12.0,
+      "PictureFileName": "3.png",
+      "PictureUri": "ms-appx:///Assets/Images/Catalog/3.png",
+      "CatalogTypeId": 2,
+      "CatalogType": null,
+      "CatalogBrandId": 5,
+      "CatalogBrand": null,
+      "AvailableStock": 100,
+      "RestockThreshold": 0,
+      "MaxStockThreshold": 0,
+      "OnReorder": false
+    },
+    {
+      "Id": 5,
+      "Name": "Roslyn Red Sheet",
+      "Description": "Roslyn Red Sheet",
+      "Price": 8.5,
+      "PictureFileName": "5.png",
+      "PictureUri": "ms-appx:///Assets/Images/Catalog/5.png",
+      "CatalogTypeId": 3,
+      "CatalogType": null,
+      "CatalogBrandId": 5,
+      "CatalogBrand": null,
+      "AvailableStock": 100,
+      "RestockThreshold": 0,
+      "MaxStockThreshold": 0,
+      "OnReorder": false
+    },
+    {
+      "Id": 7,
+      "Name": "Roslyn Red T-Shirt",
+      "Description": "Roslyn Red T-Shirt",
+      "Price": 12.0,
+      "PictureFileName": "7.png",
+      "PictureUri": "ms-appx:///Assets/Images/Catalog/7.png",
+      "CatalogTypeId": 2,
+      "CatalogType": null,
+      "CatalogBrandId": 5,
+      "CatalogBrand": null,
+      "AvailableStock": 100,
+      "RestockThreshold": 0,
+      "MaxStockThreshold": 0,
+      "OnReorder": false
+    }
+  ]
+}
