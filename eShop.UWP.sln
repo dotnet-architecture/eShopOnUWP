@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShop.UWP", "src\eShop.UWP\eShop.UWP.csproj", "{362627B2-0BD9-4F41-A32B-3568571EBF33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShop.Server", "src\eShop.Server\eShop.Server.csproj", "{338C74E3-7538-4C23-8955-7BDC5103A0D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShop.Server", "src\eShop.Server\eShop.Server.csproj", "{338C74E3-7538-4C23-8955-7BDC5103A0D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShop.SqlProvider", "src\eShop.SqlProvider\eShop.SqlProvider.csproj", "{3795A9F7-5F55-4391-9828-AFE6940C4B5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,22 @@ Global
 		{338C74E3-7538-4C23-8955-7BDC5103A0D1}.Release|x64.Build.0 = Release|Any CPU
 		{338C74E3-7538-4C23-8955-7BDC5103A0D1}.Release|x86.ActiveCfg = Release|Any CPU
 		{338C74E3-7538-4C23-8955-7BDC5103A0D1}.Release|x86.Build.0 = Release|Any CPU
+		{3795A9F7-5F55-4391-9828-AFE6940C4B5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3795A9F7-5F55-4391-9828-AFE6940C4B5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3795A9F7-5F55-4391-9828-AFE6940C4B5A}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{3795A9F7-5F55-4391-9828-AFE6940C4B5A}.Debug|ARM.Build.0 = Debug|Any CPU
+		{3795A9F7-5F55-4391-9828-AFE6940C4B5A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3795A9F7-5F55-4391-9828-AFE6940C4B5A}.Debug|x64.Build.0 = Debug|Any CPU
+		{3795A9F7-5F55-4391-9828-AFE6940C4B5A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3795A9F7-5F55-4391-9828-AFE6940C4B5A}.Debug|x86.Build.0 = Debug|Any CPU
+		{3795A9F7-5F55-4391-9828-AFE6940C4B5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3795A9F7-5F55-4391-9828-AFE6940C4B5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3795A9F7-5F55-4391-9828-AFE6940C4B5A}.Release|ARM.ActiveCfg = Release|Any CPU
+		{3795A9F7-5F55-4391-9828-AFE6940C4B5A}.Release|ARM.Build.0 = Release|Any CPU
+		{3795A9F7-5F55-4391-9828-AFE6940C4B5A}.Release|x64.ActiveCfg = Release|Any CPU
+		{3795A9F7-5F55-4391-9828-AFE6940C4B5A}.Release|x64.Build.0 = Release|Any CPU
+		{3795A9F7-5F55-4391-9828-AFE6940C4B5A}.Release|x86.ActiveCfg = Release|Any CPU
+		{3795A9F7-5F55-4391-9828-AFE6940C4B5A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

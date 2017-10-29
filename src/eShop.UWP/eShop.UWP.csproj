@@ -466,7 +466,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\eShop.SqlProvider\eShop.SqlProvider.csproj">
+      <Project>{3795a9f7-5f55-4391-9828-afe6940c4b5a}</Project>
+      <Name>eShop.SqlProvider</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
