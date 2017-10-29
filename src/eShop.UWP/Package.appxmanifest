@@ -21,16 +21,17 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#00A59A" />
       </uap:VisualElements>
       <Extensions>
-        <uap:Extension Category="windows.personalAssistantLaunch" />
         <uap:Extension Category="windows.appService" EntryPoint="eShop.Cortana.BackgroundVoiceCommandService">
           <uap:AppService Name="BackgroundVoiceCommandService" />
         </uap:Extension>
+        <uap:Extension Category="windows.personalAssistantLaunch" />
       </Extensions>
     </Application>
   </Applications>
   <Capabilities>
     <Capability Name="internetClient" />
     <Capability Name="privateNetworkClientServer" />
+    <uap:Capability Name="enterpriseAuthentication" />
   </Capabilities>
   <genTemplate:Metadata>
     <genTemplate:Item Name="generator" Value="Windows Template Studio" />
