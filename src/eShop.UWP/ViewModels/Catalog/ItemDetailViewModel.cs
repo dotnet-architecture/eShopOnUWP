@@ -245,13 +245,16 @@ namespace eShop.UWP.ViewModels.Catalog
         {
             var itemId = _item.Id;
 
+            SelectedCatalogType = SelectedCatalogType ?? new CatalogType();
+            SelectedCatalogBrand = SelectedCatalogBrand ?? new CatalogBrand();
+
             _item.Name = Name;
             _item.PictureUri = PictureUri;
             _item.Price = Price;
             _item.Description = Description;
-            _item.CatalogType = SelectedCatalogType ?? new CatalogType();
+            _item.CatalogType = SelectedCatalogType;
             _item.CatalogTypeId = SelectedCatalogType.Id;
-            _item.CatalogBrand = SelectedCatalogBrand ?? new CatalogBrand();
+            _item.CatalogBrand = SelectedCatalogBrand;
             _item.CatalogBrandId = SelectedCatalogBrand.Id;
             _item.IsActive = SelectedCatalogState;
 

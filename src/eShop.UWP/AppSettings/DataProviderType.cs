@@ -5,6 +5,7 @@ namespace eShop.UWP
     public enum DataProviderType
     {
         Local,
-        REST
+        REST,
+        Sql
     }
 }

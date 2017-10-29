@@ -23,6 +23,12 @@ namespace eShop.UWP
             set => SetSettingsValue("ServiceUrl", value);
         }
 
+        public string SqlConnectionString
+        {
+            get => GetSettingsValue("SqlConnectionString", @"Data Source=.\SQLExpress;Initial Catalog=eShopDb;Integrated Security=SSPI");
+            set => SetSettingsValue("SqlConnectionString", value);
+        }
+
         private TResult GetSettingsValue<TResult>(string name, TResult defaultValue)
         {
             try

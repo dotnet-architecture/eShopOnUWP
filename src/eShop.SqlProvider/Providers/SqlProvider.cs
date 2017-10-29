@@ -21,11 +21,6 @@ namespace eShop.SqlProvider
 
         public string ConnectionString { get; private set; }
 
-        public bool IsAvailable()
-        {
-            return true;
-        }
-
         public DataSet GetCatalogTypes()
         {
             using (SqlConnection cnn = new SqlConnection(ConnectionString))

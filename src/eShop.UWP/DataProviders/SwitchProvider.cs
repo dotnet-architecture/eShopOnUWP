@@ -20,12 +20,29 @@ namespace eShop.Providers
         {
             LocalCatalogProvider = new LocalCatalogProvider();
             RESTCatalogProvider = new RESTCatalogProvider();
+            SqlCatalogProvider = new SqlCatalogProvider();
         }
 
         public ICatalogProvider LocalCatalogProvider { get; }
         public ICatalogProvider RESTCatalogProvider { get; }
+        public ICatalogProvider SqlCatalogProvider { get; }
 
-        public ICatalogProvider Current => AppSettings.Current.DataProvider == DataProviderType.Local ? LocalCatalogProvider : RESTCatalogProvider;
+        public ICatalogProvider Current
+        {
+            get
+            {
+                switch (AppSettings.Current.DataProvider)
+                {
+                    default:
+                    case DataProviderType.Local:
+                        return LocalCatalogProvider;
+                    case DataProviderType.REST:
+                        return RESTCatalogProvider;
+                    case DataProviderType.Sql:
+                        return SqlCatalogProvider;
+                }
+            }
+        }
 
         public async Task<Result> IsAvailableAsync()
         {
