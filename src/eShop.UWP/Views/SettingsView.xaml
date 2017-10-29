@@ -46,8 +46,22 @@
                             <TextBox Text="{Binding ServiceUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsRESTProvider}" />
                             <Border Margin="8" />
                             <StackPanel Orientation="Horizontal">
-                                <Button Content="Validate connection" IsEnabled="{Binding IsRESTProvider}" Command="{Binding ValidateConnectionCommand}" />
-                                <ProgressRing Margin="16,8" IsActive="{Binding IsBusy}" />
+                                <Button Content="Validate connection" IsEnabled="{Binding IsRESTProvider}" Command="{Binding ValidateRESTConnectionCommand}" />
+                                <ProgressRing Margin="16,8" IsActive="{Binding IsRESTBusy}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Margin="0,0,0,20" GroupName="providers" IsChecked="{Binding IsSqlProvider, Mode=TwoWay}">
+                        <StackPanel>
+                            <TextBlock Text="Sql Data Provider" LineHeight="26" />
+                            <TextBlock Text="Sample data provider accessing Sql Server." TextWrapping="Wrap" Opacity="0.5" />
+                            <Border Margin="4" />
+                            <TextBlock Text="Sql Connection String" LineHeight="26" />
+                            <TextBox Text="{Binding SqlConnectionString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsSqlProvider}" />
+                            <Border Margin="8" />
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="Validate connection" IsEnabled="{Binding IsSqlProvider}" Command="{Binding ValidateSqlConnectionCommand}" />
+                                <ProgressRing Margin="16,8" IsActive="{Binding IsSqlBusy}" />
                             </StackPanel>
                         </StackPanel>
                     </RadioButton>
