@@ -15,7 +15,7 @@ namespace eShop.Providers.Contracts
         Task<IList<CatalogBrand>> GetCatalogBrandsAsync();
 
         Task<CatalogItem> GetItemByIdAsync(int id);
-        Task<IList<CatalogItem>> GetItemsAsync(CatalogType selectedCatalogType, CatalogBrand selectedCatalogBrand, string query);
+        Task<IList<CatalogItem>> GetItemsAsync(CatalogType catalogType, CatalogBrand catalogBrand, string query);
         Task<IList<CatalogItem>> RelatedItemsByTypeAsync(int catalogTypeId);
 
         Task<IList<CatalogItem>> GetItemsByVoiceCommandAsync(string query);

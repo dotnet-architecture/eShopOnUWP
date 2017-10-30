@@ -65,12 +65,23 @@ namespace eShop.Providers
             }
         }
 
-        public async Task<IList<CatalogItem>> GetItemsAsync(CatalogType selectedCatalogType, CatalogBrand selectedCatalogBrand, string query)
+        public async Task<IList<CatalogItem>> GetItemsAsync(CatalogType catalogType, CatalogBrand catalogBrand, string query)
         {
+            int catalogTypeId = catalogType == null ? 0 : catalogType.Id;
+            int catalogBrandId = catalogBrand == null ? 0 : catalogBrand.Id;
+
+            string path = $"api/v1/catalog/items/type/{catalogTypeId}/brand/{catalogBrandId}";
+
             using (var cli = new WebApiClient(BaseAddressUri))
             {
-                var pagination = await cli.GetAsync<PaginatedItems<CatalogItem>>("api/v1/catalog/items", QueryParam.Create("pageSize", 100));
+                var pagination = await cli.GetAsync<PaginatedItems<CatalogItem>>(path, QueryParam.Create("pageSize", 100));
                 var items = pagination.Data;
+
+                if (!String.IsNullOrEmpty(query))
+                {
+                    items = items.Where(r => $"{r.Name}".ToUpper().Contains(query.ToUpper()));
+                }
+
                 await Populate(items);
                 return items.ToList();
             }

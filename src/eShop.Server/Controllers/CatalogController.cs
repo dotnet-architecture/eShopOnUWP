@@ -82,6 +82,35 @@ namespace eShop.Server.Controllers
             }
         }
 
+        // GET api/v1/[controller]/items/type/1/brand/null[?pageSize=3&pageIndex=10]
+        [HttpGet]
+        [Route("[action]/type/{catalogTypeId}/brand/{catalogBrandId}")]
+        [ProducesResponseType(typeof(PaginatedItems<CatalogItem>), (int)HttpStatusCode.OK)]
+        public IActionResult Items(int? catalogTypeId, int? catalogBrandId, [FromQuery]int pageSize = 10, [FromQuery]int pageIndex = 0)
+        {
+            using (var db = new CatalogDb())
+            {
+                IEnumerable<CatalogItem> items = db.CatalogItems;
+
+                if (catalogTypeId != null && catalogTypeId > 0)
+                {
+                    items = items.Where(r => r.CatalogTypeId == catalogTypeId);
+                }
+
+                if (catalogBrandId != null && catalogBrandId > 0)
+                {
+                    items = items.Where(r => r.CatalogBrandId == catalogBrandId);
+                }
+
+                long totalItems = items.LongCount();
+                var itemsOnPage = items.Skip(pageSize * pageIndex).Take(pageSize).ToList();
+                itemsOnPage = ChangeUriPlaceholder(itemsOnPage);
+
+                var model = new PaginatedItems<CatalogItem>(pageIndex, pageSize, totalItems, itemsOnPage);
+                return Ok(model);
+            }
+        }
+
         [HttpGet]
         [Route("items/{id:int}")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]

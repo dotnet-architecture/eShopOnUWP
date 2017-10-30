@@ -45,7 +45,7 @@ namespace eShop.Providers
             }
         }
 
-        public async Task<IList<CatalogItem>> GetItemsAsync(CatalogType selectedCatalogType, CatalogBrand selectedCatalogBrand, string query)
+        public async Task<IList<CatalogItem>> GetItemsAsync(CatalogType catalogType, CatalogBrand catalogBrand, string query)
         {
             await Task.FromResult(true);
             using (var db = new LocalCatalogDb())
@@ -57,14 +57,14 @@ namespace eShop.Providers
                     items = items.Where(r => $"{r.Name}".ToUpper().Contains(query.ToUpper()));
                 }
 
-                if (selectedCatalogType != null && selectedCatalogType.Id != 0)
+                if (catalogType != null && catalogType.Id > 0)
                 {
-                    items = items.Where(r => r.CatalogTypeId == selectedCatalogType.Id);
+                    items = items.Where(r => r.CatalogTypeId == catalogType.Id);
                 }
 
-                if (selectedCatalogBrand != null && selectedCatalogBrand.Id != 0)
+                if (catalogBrand != null && catalogBrand.Id > 0)
                 {
-                    items = items.Where(r => r.CatalogBrandId == selectedCatalogBrand.Id);
+                    items = items.Where(r => r.CatalogBrandId == catalogBrand.Id);
                 }
 
                 return Populate(db, items.ToArray().OrderBy(r => r.Name)).ToList();
