@@ -112,12 +112,15 @@ namespace eShop.Providers
             await Task.FromResult(true);
             using (var db = new LocalCatalogDb())
             {
-                var oldItem = db.CatalogItems.FirstOrDefault(r => r.Id == item.Id);
-                if (oldItem != null)
+                if (item.Id > 0)
                 {
-                    db.CatalogItems.Remove(oldItem);
+                    var oldItem = db.CatalogItems.FirstOrDefault(r => r.Id == item.Id);
+                    if (oldItem != null)
+                    {
+                        db.CatalogItems.Remove(oldItem);
+                    }
                 }
-                if (item.Id == 0)
+                else
                 {
                     item.Id = 1;
                     if (db.CatalogItems.Count > 0)

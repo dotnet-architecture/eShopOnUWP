@@ -152,12 +152,13 @@ namespace eShop.Server.Controllers
                     PictureFileName = product.PictureFileName,
                     Price = product.Price
                 };
+                item.Id = db.CatalogItems.Max(r => r.Id) + 1;
                 ChangeUriPlaceholder(item);
 
                 db.CatalogItems.Add(item);
                 db.SaveChanges();
 
-                return CreatedAtAction(nameof(GetItemById), new { id = item.Id }, null);
+                return CreatedAtAction(nameof(GetItemById), new { id = item.Id }, item);
             }
         }
 
@@ -214,9 +215,12 @@ namespace eShop.Server.Controllers
 
             items.ForEach(item =>
             {
-                if (!item.PictureUri.StartsWith("ms-appx:"))
+                if (item.PictureUri != null)
                 {
-                    item.PictureUri = $"{baseUri}/{item.PictureFileName}";
+                    if (!item.PictureUri.StartsWith("ms-appx:"))
+                    {
+                        item.PictureUri = $"{baseUri}/{item.PictureFileName}";
+                    }
                 }
             });
 
@@ -224,9 +228,12 @@ namespace eShop.Server.Controllers
         }
         private CatalogItem ChangeUriPlaceholder(CatalogItem item)
         {
-            if (!item.PictureUri.StartsWith("ms-appx:"))
+            if (item.PictureUri != null)
             {
-                item.PictureUri = $"{ImageBaseUri}/{item.PictureFileName}";
+                if (!item.PictureUri.StartsWith("ms-appx:"))
+                {
+                    item.PictureUri = $"{ImageBaseUri}/{item.PictureFileName}";
+                }
             }
             return item;
         }

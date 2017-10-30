@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -126,18 +127,27 @@ namespace eShop.Providers
 
         public async Task SaveItemAsync(CatalogItem item)
         {
+            var picture = item.Picture;
+
             using (var cli = new WebApiClient(BaseAddressUri))
             {
-                var oldItem = await GetItemByIdAsync(item.Id);
-                if (oldItem == null)
+                if (item.Id == 0)
                 {
                     // Create (POST)
-                    await cli.PostAsync<string>("api/v1/catalog/items", item);
+                    item = await cli.PostAsync<CatalogItem>("api/v1/catalog/items", item);
                 }
                 else
                 {
                     // Update (PUT)
                     await cli.PutAsync<string>("api/v1/catalog/items", item);
+                }
+
+                if (picture != null)
+                {
+                    using (var stream = new MemoryStream(picture))
+                    {
+                        await cli.PutStreamAsync($"api/v1/catalog/items/{item.Id}/{Path.GetExtension(item.PictureFileName).Replace(".", "")}/pic", stream);
+                    }
                 }
             }
         }

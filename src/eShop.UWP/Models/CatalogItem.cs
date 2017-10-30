@@ -12,6 +12,7 @@ namespace eShop.Domain.Models
 
         public string PictureFileName { get; set; }
         public string PictureUri { get; set; }
+        public byte[] Picture { get; set; }
 
         public int CatalogTypeId { get; set; }
         public CatalogType CatalogType { get; set; }

@@ -59,6 +59,9 @@ namespace eShop.UWP.ViewModels.Catalog
             set => Set(ref _item, value);
         }
 
+        public byte[] Picture { get; private set; }
+        public string PictureFileName { get; set; }
+
         public string PictureUri
         {
             get => _pictureUri;
@@ -192,10 +195,10 @@ namespace eShop.UWP.ViewModels.Catalog
 
         public async void SetImage()
         {
-            var pictureUri = await UploadImageHelper.UploadImageAsync();
-            if (string.IsNullOrEmpty(pictureUri)) return;
-
-            PictureUri = pictureUri;
+            var imagePicker = new ImagePicker();
+            Picture = await imagePicker.GetImageAsync();
+            PictureUri = imagePicker.FilePath;
+            PictureFileName = imagePicker.FileName;
         }
 
         public void ShowDetail(ItemViewModel itemViewModel, AdaptiveGridView grid)
@@ -245,13 +248,18 @@ namespace eShop.UWP.ViewModels.Catalog
         {
             var itemId = _item.Id;
 
+            SelectedCatalogType = SelectedCatalogType ?? new CatalogType();
+            SelectedCatalogBrand = SelectedCatalogBrand ?? new CatalogBrand();
+
             _item.Name = Name;
+            _item.Picture = Picture;
+            _item.PictureFileName = PictureFileName;
             _item.PictureUri = PictureUri;
             _item.Price = Price;
             _item.Description = Description;
-            _item.CatalogType = SelectedCatalogType ?? new CatalogType();
+            _item.CatalogType = SelectedCatalogType;
             _item.CatalogTypeId = SelectedCatalogType.Id;
-            _item.CatalogBrand = SelectedCatalogBrand ?? new CatalogBrand();
+            _item.CatalogBrand = SelectedCatalogBrand;
             _item.CatalogBrandId = SelectedCatalogBrand.Id;
             _item.IsActive = SelectedCatalogState;
 

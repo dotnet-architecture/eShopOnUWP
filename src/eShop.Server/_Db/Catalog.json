@@ -67,10 +67,7 @@
       "CatalogType": null,
       "CatalogBrandId": 2,
       "CatalogBrand": null,
-      "AvailableStock": 100,
-      "RestockThreshold": 0,
-      "MaxStockThreshold": 0,
-      "OnReorder": false
+      "IsActive": false
     },
     {
       "Id": 6,
@@ -83,10 +80,7 @@
       "CatalogType": null,
       "CatalogBrandId": 2,
       "CatalogBrand": null,
-      "AvailableStock": 100,
-      "RestockThreshold": 0,
-      "MaxStockThreshold": 0,
-      "OnReorder": false
+      "IsActive": false
     },
     {
       "Id": 1,
@@ -99,10 +93,7 @@
       "CatalogType": null,
       "CatalogBrandId": 2,
       "CatalogBrand": null,
-      "AvailableStock": 100,
-      "RestockThreshold": 0,
-      "MaxStockThreshold": 0,
-      "OnReorder": false
+      "IsActive": false
     },
     {
       "Id": 10,
@@ -115,10 +106,7 @@
       "CatalogType": null,
       "CatalogBrandId": 2,
       "CatalogBrand": null,
-      "AvailableStock": 100,
-      "RestockThreshold": 0,
-      "MaxStockThreshold": 0,
-      "OnReorder": false
+      "IsActive": false
     },
     {
       "Id": 4,
@@ -131,10 +119,7 @@
       "CatalogType": null,
       "CatalogBrandId": 2,
       "CatalogBrand": null,
-      "AvailableStock": 100,
-      "RestockThreshold": 0,
-      "MaxStockThreshold": 0,
-      "OnReorder": false
+      "IsActive": false
     },
     {
       "Id": 11,
@@ -147,10 +132,7 @@
       "CatalogType": null,
       "CatalogBrandId": 2,
       "CatalogBrand": null,
-      "AvailableStock": 100,
-      "RestockThreshold": 0,
-      "MaxStockThreshold": 0,
-      "OnReorder": false
+      "IsActive": false
     },
     {
       "Id": 9,
@@ -163,10 +145,7 @@
       "CatalogType": null,
       "CatalogBrandId": 5,
       "CatalogBrand": null,
-      "AvailableStock": 100,
-      "RestockThreshold": 0,
-      "MaxStockThreshold": 0,
-      "OnReorder": false
+      "IsActive": false
     },
     {
       "Id": 8,
@@ -179,10 +158,7 @@
       "CatalogType": null,
       "CatalogBrandId": 5,
       "CatalogBrand": null,
-      "AvailableStock": 100,
-      "RestockThreshold": 0,
-      "MaxStockThreshold": 0,
-      "OnReorder": false
+      "IsActive": false
     },
     {
       "Id": 12,
@@ -195,10 +171,7 @@
       "CatalogType": null,
       "CatalogBrandId": 5,
       "CatalogBrand": null,
-      "AvailableStock": 100,
-      "RestockThreshold": 0,
-      "MaxStockThreshold": 0,
-      "OnReorder": false
+      "IsActive": false
     },
     {
       "Id": 3,
@@ -211,10 +184,7 @@
       "CatalogType": null,
       "CatalogBrandId": 5,
       "CatalogBrand": null,
-      "AvailableStock": 100,
-      "RestockThreshold": 0,
-      "MaxStockThreshold": 0,
-      "OnReorder": false
+      "IsActive": false
     },
     {
       "Id": 5,
@@ -227,10 +197,7 @@
       "CatalogType": null,
       "CatalogBrandId": 5,
       "CatalogBrand": null,
-      "AvailableStock": 100,
-      "RestockThreshold": 0,
-      "MaxStockThreshold": 0,
-      "OnReorder": false
+      "IsActive": false
     },
     {
       "Id": 7,
@@ -243,10 +210,7 @@
       "CatalogType": null,
       "CatalogBrandId": 5,
       "CatalogBrand": null,
-      "AvailableStock": 100,
-      "RestockThreshold": 0,
-      "MaxStockThreshold": 0,
-      "OnReorder": false
+      "IsActive": false
     }
   ]
 }
