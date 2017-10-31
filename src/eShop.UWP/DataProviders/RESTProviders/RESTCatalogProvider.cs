@@ -128,6 +128,7 @@ namespace eShop.Providers
         public async Task SaveItemAsync(CatalogItem item)
         {
             var picture = item.Picture;
+            var contentType = item.PictureContentType;
 
             using (var cli = new WebApiClient(BaseAddressUri))
             {
@@ -146,7 +147,7 @@ namespace eShop.Providers
                 {
                     using (var stream = new MemoryStream(picture))
                     {
-                        await cli.PutStreamAsync($"api/v1/catalog/items/{item.Id}/{Path.GetExtension(item.PictureFileName).Replace(".", "")}/pic", stream);
+                        await cli.PutStreamAsync($"api/v1/catalog/items/{item.Id}/pic", stream, contentType);
                     }
                 }
             }

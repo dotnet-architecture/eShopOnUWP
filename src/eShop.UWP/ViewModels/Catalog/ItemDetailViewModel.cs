@@ -60,7 +60,7 @@ namespace eShop.UWP.ViewModels.Catalog
         }
 
         public byte[] Picture { get; private set; }
-        public string PictureFileName { get; set; }
+        public string PictureContentType { get; set; }
 
         public string PictureUri
         {
@@ -198,7 +198,7 @@ namespace eShop.UWP.ViewModels.Catalog
             var imagePicker = new ImagePicker();
             Picture = await imagePicker.GetImageAsync();
             PictureUri = imagePicker.FilePath;
-            PictureFileName = imagePicker.FileName;
+            PictureContentType = imagePicker.ContentType;
         }
 
         public void ShowDetail(ItemViewModel itemViewModel, AdaptiveGridView grid)
@@ -253,7 +253,7 @@ namespace eShop.UWP.ViewModels.Catalog
 
             _item.Name = Name;
             _item.Picture = Picture;
-            _item.PictureFileName = PictureFileName;
+            _item.PictureContentType = PictureContentType;
             _item.PictureUri = PictureUri;
             _item.Price = Price;
             _item.Description = Description;

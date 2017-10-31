@@ -11,7 +11,7 @@ namespace eShop.UWP.Helpers
     public class ImagePicker
     {
         public string FilePath { get; private set; }
-        public string FileName { get; private set; }
+        public string ContentType { get; private set; }
 
         public async Task<byte[]> GetImageAsync()
         {
@@ -35,13 +35,14 @@ namespace eShop.UWP.Helpers
                 return null;
             }
 
+            ContentType = file.ContentType;
+
             var appInstalledFolder = Package.Current.InstalledLocation;
             var assets = await appInstalledFolder.GetFolderAsync("Assets");
 
             var targetFile = await assets.CreateFileAsync(file.Name, CreationCollisionOption.GenerateUniqueName);
             await file.CopyAndReplaceAsync(targetFile);
             FilePath = targetFile.Path;
-            FileName = targetFile.Name;
 
             using (var randomStream = await file.OpenReadAsync())
             {
