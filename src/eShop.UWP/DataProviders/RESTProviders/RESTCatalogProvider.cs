@@ -129,6 +129,7 @@ namespace eShop.Providers
         {
             var picture = item.Picture;
             var contentType = item.PictureContentType;
+            item.Picture = null;
 
             using (var cli = new WebApiClient(BaseAddressUri))
             {

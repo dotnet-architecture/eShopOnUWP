@@ -112,6 +112,7 @@ namespace eShop.Providers
             await Task.FromResult(true);
             using (var db = new LocalCatalogDb())
             {
+                item.Picture = null;
                 if (item.Id > 0)
                 {
                     var oldItem = db.CatalogItems.FirstOrDefault(r => r.Id == item.Id);
