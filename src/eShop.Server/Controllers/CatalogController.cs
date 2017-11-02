@@ -31,7 +31,7 @@ namespace eShop.Server.Controllers
         {
             using (var db = new CatalogDb())
             {
-                return Ok(db.CatalogTypes);
+                return Ok(db.CatalogTypes.OrderBy(r => r.Type));
             }
         }
 
@@ -43,7 +43,7 @@ namespace eShop.Server.Controllers
         {
             using (var db = new CatalogDb())
             {
-                return Ok(db.CatalogBrands);
+                return Ok(db.CatalogBrands.OrderBy(r => r.Brand));
             }
         }
 
@@ -74,7 +74,7 @@ namespace eShop.Server.Controllers
             {
                 long totalItems = db.CatalogItems.Where(c => c.Name.StartsWith(name)).LongCount();
 
-                var itemsOnPage = db.CatalogItems.Where(c => c.Name.StartsWith(name)).Skip(pageSize * pageIndex).Take(pageSize).ToList();
+                var itemsOnPage = db.CatalogItems.Where(c => c.Name.StartsWith(name)).Skip(pageSize * pageIndex).Take(pageSize).OrderBy(c => c.Name).ToList();
                 itemsOnPage = ChangeUriPlaceholder(itemsOnPage);
 
                 var model = new PaginatedItems<CatalogItem>(pageIndex, pageSize, totalItems, itemsOnPage);
@@ -103,7 +103,7 @@ namespace eShop.Server.Controllers
                 }
 
                 long totalItems = items.LongCount();
-                var itemsOnPage = items.Skip(pageSize * pageIndex).Take(pageSize).ToList();
+                var itemsOnPage = items.Skip(pageSize * pageIndex).Take(pageSize).OrderBy(c => c.Name).ToList();
                 itemsOnPage = ChangeUriPlaceholder(itemsOnPage);
 
                 var model = new PaginatedItems<CatalogItem>(pageIndex, pageSize, totalItems, itemsOnPage);

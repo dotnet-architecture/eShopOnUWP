@@ -21,7 +21,7 @@ namespace eShop.Providers
             await Task.FromResult(true);
             using (var db = new LocalCatalogDb())
             {
-                return db.CatalogTypes;
+                return db.CatalogTypes.OrderBy(r => r.Type).ToList();
             }
         }
 
@@ -30,7 +30,7 @@ namespace eShop.Providers
             await Task.FromResult(true);
             using (var db = new LocalCatalogDb())
             {
-                return db.CatalogBrands;
+                return db.CatalogBrands.OrderBy(r => r.Brand).ToList();
             }
         }
 
@@ -103,6 +103,7 @@ namespace eShop.Providers
             using (var db = new LocalCatalogDb())
             {
                 var items = catalogTypeId == 0 ? db.CatalogItems : db.CatalogItems.Where(r => r.CatalogTypeId == catalogTypeId);
+                items = items.OrderBy(r => r.Name);
                 return Populate(db, items).ToList();
             }
         }
