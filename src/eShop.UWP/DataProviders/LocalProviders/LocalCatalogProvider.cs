@@ -21,7 +21,7 @@ namespace eShop.Providers
             await Task.FromResult(true);
             using (var db = new LocalCatalogDb())
             {
-                return db.CatalogTypes.OrderBy(r => r.Type).ToList();
+                return db.CatalogTypes;
             }
         }
 
@@ -30,7 +30,7 @@ namespace eShop.Providers
             await Task.FromResult(true);
             using (var db = new LocalCatalogDb())
             {
-                return db.CatalogBrands.OrderBy(r => r.Brand).ToList();
+                return db.CatalogBrands;
             }
         }
 

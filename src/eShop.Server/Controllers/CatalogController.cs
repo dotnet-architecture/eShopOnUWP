@@ -31,7 +31,7 @@ namespace eShop.Server.Controllers
         {
             using (var db = new CatalogDb())
             {
-                return Ok(db.CatalogTypes.OrderBy(r => r.Type));
+                return Ok(db.CatalogTypes);
             }
         }
 
@@ -43,7 +43,7 @@ namespace eShop.Server.Controllers
         {
             using (var db = new CatalogDb())
             {
-                return Ok(db.CatalogBrands.OrderBy(r => r.Brand));
+                return Ok(db.CatalogBrands);
             }
         }
 

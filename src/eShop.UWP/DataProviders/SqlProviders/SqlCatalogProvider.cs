@@ -47,7 +47,7 @@ namespace eShop.Providers
                 });
             }
 
-            return records.OrderBy(r => r.Type).ToList();
+            return records;
         }
 
         public async Task<IList<CatalogBrand>> GetCatalogBrandsAsync()
@@ -67,7 +67,7 @@ namespace eShop.Providers
                 });
             }
 
-            return records.OrderBy(r => r.Brand).ToList();
+            return records;
         }
 
         public async Task<CatalogItem> GetItemByIdAsync(int id)
