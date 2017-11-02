@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -65,12 +66,23 @@ namespace eShop.Providers
             }
         }
 
-        public async Task<IList<CatalogItem>> GetItemsAsync(CatalogType selectedCatalogType, CatalogBrand selectedCatalogBrand, string query)
+        public async Task<IList<CatalogItem>> GetItemsAsync(CatalogType catalogType, CatalogBrand catalogBrand, string query)
         {
+            int catalogTypeId = catalogType == null ? 0 : catalogType.Id;
+            int catalogBrandId = catalogBrand == null ? 0 : catalogBrand.Id;
+
+            string path = $"api/v1/catalog/items/type/{catalogTypeId}/brand/{catalogBrandId}";
+
             using (var cli = new WebApiClient(BaseAddressUri))
             {
-                var pagination = await cli.GetAsync<PaginatedItems<CatalogItem>>("api/v1/catalog/items", QueryParam.Create("pageSize", 100));
+                var pagination = await cli.GetAsync<PaginatedItems<CatalogItem>>(path, QueryParam.Create("pageSize", 100));
                 var items = pagination.Data;
+
+                if (!String.IsNullOrEmpty(query))
+                {
+                    items = items.Where(r => $"{r.Name}".ToUpper().Contains(query.ToUpper()));
+                }
+
                 await Populate(items);
                 return items.ToList();
             }
@@ -115,18 +127,29 @@ namespace eShop.Providers
 
         public async Task SaveItemAsync(CatalogItem item)
         {
+            var picture = item.Picture;
+            var contentType = item.PictureContentType;
+            item.Picture = null;
+
             using (var cli = new WebApiClient(BaseAddressUri))
             {
-                var oldItem = await GetItemByIdAsync(item.Id);
-                if (oldItem == null)
+                if (item.Id == 0)
                 {
                     // Create (POST)
-                    await cli.PostAsync<string>("api/v1/catalog/items", item);
+                    item = await cli.PostAsync<CatalogItem>("api/v1/catalog/items", item);
                 }
                 else
                 {
                     // Update (PUT)
                     await cli.PutAsync<string>("api/v1/catalog/items", item);
+                }
+
+                if (picture != null)
+                {
+                    using (var stream = new MemoryStream(picture))
+                    {
+                        await cli.PutStreamAsync($"api/v1/catalog/items/{item.Id}/pic", stream, contentType);
+                    }
                 }
             }
         }

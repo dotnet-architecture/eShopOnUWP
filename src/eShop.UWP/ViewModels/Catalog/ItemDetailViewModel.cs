@@ -59,6 +59,9 @@ namespace eShop.UWP.ViewModels.Catalog
             set => Set(ref _item, value);
         }
 
+        public byte[] Picture { get; private set; }
+        public string PictureContentType { get; set; }
+
         public string PictureUri
         {
             get => _pictureUri;
@@ -192,10 +195,10 @@ namespace eShop.UWP.ViewModels.Catalog
 
         public async void SetImage()
         {
-            var pictureUri = await UploadImageHelper.UploadImageAsync();
-            if (string.IsNullOrEmpty(pictureUri)) return;
-
-            PictureUri = pictureUri;
+            var imagePicker = new ImagePicker();
+            Picture = await imagePicker.GetImageAsync();
+            PictureUri = imagePicker.FilePath;
+            PictureContentType = imagePicker.ContentType;
         }
 
         public void ShowDetail(ItemViewModel itemViewModel, AdaptiveGridView grid)
@@ -249,6 +252,8 @@ namespace eShop.UWP.ViewModels.Catalog
             SelectedCatalogBrand = SelectedCatalogBrand ?? new CatalogBrand();
 
             _item.Name = Name;
+            _item.Picture = Picture;
+            _item.PictureContentType = PictureContentType;
             _item.PictureUri = PictureUri;
             _item.Price = Price;
             _item.Description = Description;

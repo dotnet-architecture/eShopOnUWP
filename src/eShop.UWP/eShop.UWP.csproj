@@ -159,6 +159,7 @@
     <Compile Include="Helpers\DependencyObjectExtensions.cs" />
     <Compile Include="Helpers\Json.cs" />
     <Compile Include="Helpers\Resources.cs" />
+    <Compile Include="Helpers\ImagePicker.cs" />
     <Compile Include="Models\CatalogBrand.cs" />
     <Compile Include="Models\CatalogItem.cs" />
     <Compile Include="Models\CatalogState.cs" />
