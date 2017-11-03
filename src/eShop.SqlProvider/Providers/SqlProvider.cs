@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -14,12 +16,94 @@ namespace eShop.SqlProvider
         const string UPDATE_ITEMS = "UPDATE CatalogItems SET [Name] = @Name, [Description] = @Description, [Price] = @Price, [CatalogTypeId] = @CatalogTypeId, [CatalogBrandId] = @CatalogBrandId WHERE [Id] = @Id";
         const string DELETE_ITEM = "DELETE FROM CatalogItems WHERE [Id] = @Id";
 
+        const string QUERY_EXISTSDB = "SELECT count(*) FROM sys.Databases WHERE name = @DbName";
+
         public CatalogProvider(string connectionString)
         {
             ConnectionString = connectionString;
         }
 
         public string ConnectionString { get; private set; }
+
+        public bool DatabaseExists()
+        {
+            SqlConnectionStringBuilder cnnStringBuilder = new SqlConnectionStringBuilder(ConnectionString);
+            string dbName = cnnStringBuilder.InitialCatalog;
+            cnnStringBuilder.InitialCatalog = "master";
+            string masterConnectionString = cnnStringBuilder.ConnectionString;
+
+            using (SqlConnection cnn = new SqlConnection(masterConnectionString))
+            {
+                cnn.Open();
+                using (SqlCommand cmd = new SqlCommand(QUERY_EXISTSDB, cnn))
+                {
+                    SqlParameter param = new SqlParameter("DbName", dbName);
+                    cmd.Parameters.Add(param);
+                    return (int)cmd.ExecuteScalar() == 1;
+                }
+            }
+        }
+
+        public void CreateDatabase()
+        {
+            SqlConnectionStringBuilder cnnStringBuilder = new SqlConnectionStringBuilder(ConnectionString);
+            string dbName = cnnStringBuilder.InitialCatalog;
+            if (dbName == null)
+            {
+                throw new ArgumentNullException("Initial Catalog");
+            }
+            if (dbName.Equals("master", StringComparison.OrdinalIgnoreCase))
+            {
+                throw new ArgumentException("Invalid Initial Catalog 'master'.");
+            }
+            cnnStringBuilder.InitialCatalog = "master";
+            string masterConnectionString = cnnStringBuilder.ConnectionString;
+
+            using (SqlConnection cnn = new SqlConnection(masterConnectionString))
+            {
+                cnn.Open();
+                foreach (string sqlLine in GetSqlScriptLines(dbName))
+                {
+                    using (SqlCommand cmd = new SqlCommand(sqlLine, cnn))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+        }
+
+        private IEnumerable<string> GetSqlScriptLines(string dbName)
+        {
+            string sqlScript = GetSqlScript();
+            sqlScript = sqlScript.Replace("[DATABASE_NAME]", dbName);
+            using (var reader = new StringReader(sqlScript))
+            {
+                string sql = "";
+                string line = reader.ReadLine();
+                while (line != null)
+                {
+                    if (line.Trim() == "GO")
+                    {
+                        yield return sql;
+                        sql = "";
+                    }
+                    else
+                    {
+                        sql += line;
+                    }
+                    line = reader.ReadLine();
+                }
+            }
+        }
+
+        private string GetSqlScript()
+        {
+            Stream stream = System.Reflection.Assembly.GetCallingAssembly().GetManifestResourceStream("eShop.SqlProvider.SqlScripts.CreateDb.sql");
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                return reader.ReadToEnd();
+            }
+        }
 
         public DataSet GetCatalogTypes()
         {
@@ -28,8 +112,10 @@ namespace eShop.SqlProvider
                 using (SqlCommand cmd = new SqlCommand(QUERY_TYPES, cnn))
                 {
                     DataSet dataSet = new DataSet();
-                    SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
-                    dataAdapter.Fill(dataSet, "CatalogTypes");
+                    using (SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd))
+                    {
+                        dataAdapter.Fill(dataSet, "CatalogTypes");
+                    }
                     return dataSet;
                 }
             }
@@ -42,8 +128,10 @@ namespace eShop.SqlProvider
                 using (SqlCommand cmd = new SqlCommand(QUERY_GBRANDS, cnn))
                 {
                     DataSet dataSet = new DataSet();
-                    SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
-                    dataAdapter.Fill(dataSet, "CatalogBrands");
+                    using (SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd))
+                    {
+                        dataAdapter.Fill(dataSet, "CatalogBrands");
+                    }
                     return dataSet;
                 }
             }
@@ -58,8 +146,10 @@ namespace eShop.SqlProvider
                     SqlParameter param = new SqlParameter("id", id);
                     cmd.Parameters.Add(param);
                     DataSet dataSet = new DataSet();
-                    SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
-                    dataAdapter.Fill(dataSet, "CatalogItems");
+                    using (SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd))
+                    {
+                        dataAdapter.Fill(dataSet, "CatalogItems");
+                    }
                     return dataSet;
                 }
             }
@@ -113,8 +203,10 @@ namespace eShop.SqlProvider
                         cmd.Parameters.Add(paramQuery);
                     }
                     DataSet dataSet = new DataSet();
-                    SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
-                    dataAdapter.Fill(dataSet, "CatalogItems");
+                    using (SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd))
+                    {
+                        dataAdapter.Fill(dataSet, "CatalogItems");
+                    }
                     return dataSet;
                 }
             }
@@ -129,8 +221,10 @@ namespace eShop.SqlProvider
                 using (SqlCommand cmd = new SqlCommand(sqlQuery, cnn))
                 {
                     DataSet dataSet = new DataSet();
-                    SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
-                    dataAdapter.Fill(dataSet, "CatalogItems");
+                    using (SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd))
+                    {
+                        dataAdapter.Fill(dataSet, "CatalogItems");
+                    }
                     return dataSet;
                 }
             }
@@ -149,9 +243,11 @@ namespace eShop.SqlProvider
                     cmd.Parameters.Add(new SqlParameter("CatalogTypeId", SqlDbType.Int) { SourceColumn = "CatalogTypeId" });
                     cmd.Parameters.Add(new SqlParameter("CatalogBrandId", SqlDbType.Int) { SourceColumn = "CatalogBrandId" });
 
-                    SqlDataAdapter dataAdapter = new SqlDataAdapter();
-                    dataAdapter.InsertCommand = cmd;
-                    return dataAdapter.Update(dataSet, "CatalogItems");
+                    using (SqlDataAdapter dataAdapter = new SqlDataAdapter())
+                    {
+                        dataAdapter.InsertCommand = cmd;
+                        return dataAdapter.Update(dataSet, "CatalogItems");
+                    }
                 }
             }
         }
@@ -169,9 +265,11 @@ namespace eShop.SqlProvider
                     cmd.Parameters.Add(new SqlParameter("CatalogTypeId", SqlDbType.Int) { SourceColumn = "CatalogTypeId" });
                     cmd.Parameters.Add(new SqlParameter("CatalogBrandId", SqlDbType.Int) { SourceColumn = "CatalogBrandId" });
 
-                    SqlDataAdapter dataAdapter = new SqlDataAdapter();
-                    dataAdapter.UpdateCommand = cmd;
-                    return dataAdapter.Update(dataSet, "CatalogItems");
+                    using (SqlDataAdapter dataAdapter = new SqlDataAdapter())
+                    {
+                        dataAdapter.UpdateCommand = cmd;
+                        return dataAdapter.Update(dataSet, "CatalogItems");
+                    }
                 }
             }
         }

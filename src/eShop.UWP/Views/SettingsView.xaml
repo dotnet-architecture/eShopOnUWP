@@ -62,6 +62,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <Button Content="Validate connection" IsEnabled="{Binding IsSqlProvider}" Command="{Binding ValidateSqlConnectionCommand}" />
                                 <ProgressRing Margin="16,8" IsActive="{Binding IsSqlBusy}" />
+                                <Button Content="Create Database" IsEnabled="{Binding IsSqlProvider}" Command="{Binding CreateDatabaseCommand}" />
                             </StackPanel>
                         </StackPanel>
                     </RadioButton>

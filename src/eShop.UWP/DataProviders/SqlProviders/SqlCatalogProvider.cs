@@ -13,6 +13,36 @@ namespace eShop.Providers
 {
     public class SqlCatalogProvider : ICatalogProvider
     {
+        static public Result<bool> DatabaseExists(string connectionString)
+        {
+            try
+            {
+                var provider = new CatalogProvider(connectionString);
+                return Result<bool>.Ok(provider.DatabaseExists());
+            }
+            catch (Exception ex)
+            {
+                return Result<bool>.Error(ex);
+            }
+        }
+
+        static public async Task<Result> CreateDatabaseAsync(string connectionString)
+        {
+            return await Task.Run<Result>(() =>
+            {
+                try
+                {
+                    var provider = new CatalogProvider(connectionString);
+                    provider.CreateDatabase();
+                    return Result.Ok();
+                }
+                catch (Exception ex)
+                {
+                    return Result.Error(ex);
+                }
+            });
+        }
+
         public Task<Result> IsAvailableAsync()
         {
             return Task<Result>.Run(() =>

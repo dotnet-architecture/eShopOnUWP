@@ -12,6 +12,7 @@ using eShop.UWP.Services;
 using eShop.UWP.ViewModels.Base;
 using eShop.UWP.ViewModels.Catalog;
 using eShop.UWP.ViewModels.Shell;
+using eShop.Providers;
 
 namespace eShop.UWP.ViewModels
 {
@@ -103,6 +104,15 @@ namespace eShop.UWP.ViewModels
         {
             var result = await ValidateAsync();
             await DialogBox.ShowAsync(result);
+        }
+
+        public ICommand CreateDatabaseCommand => new RelayCommand(OnCreateDatabase);
+        private async void OnCreateDatabase()
+        {
+            IsSqlBusy = true;
+            var result = await CreateDatabaseAsync();
+            await DialogBox.ShowAsync(result);
+            IsSqlBusy = false;
         }
 
         public ICommand SaveCommand => new RelayCommand(OnSave);
@@ -229,6 +239,34 @@ namespace eShop.UWP.ViewModels
             finally
             {
                 IsSqlBusy = false;
+            }
+        }
+
+        public async Task<Result> CreateDatabaseAsync()
+        {
+            var result = SqlCatalogProvider.DatabaseExists(SqlConnectionString);
+            if (result.IsOk)
+            {
+                if (result.Value == true)
+                {
+                    if (!await DialogBox.ShowAsync("Database exists", "Database already exists. Do you want to recreate the database with initial data?", "Yes", "Cancel"))
+                    {
+                        return Result.Ok("Canceled", "Create database canceled");
+                    }
+                }
+
+                SqlConnection.ClearAllPools();
+
+                var createResult = await SqlCatalogProvider.CreateDatabaseAsync(SqlConnectionString);
+                if (createResult.IsOk)
+                {
+                    return Result.Ok("Success", "Database created successfully.");
+                }
+                return createResult;
+            }
+            else
+            {
+                return Result.Error(result.Exception);
             }
         }
 
