@@ -3,15 +3,14 @@ using System.IO;
 using System.Collections.Generic;
 
 using eShop.UWP.Services;
-using eShop.Domain.Models;
-using System.Reflection;
 using eShop.UWP.Helpers;
+using eShop.Domain.Models;
 
 namespace eShop.Providers
 {
     public class LocalCatalogDb : JsonDb
     {
-        public LocalCatalogDb() : base("LocalCatalogDb.json")
+        public LocalCatalogDb(string fileName = "LocalCatalogDb.json") : base(fileName)
         {
             if (!File.Exists(base.FileName))
             {

@@ -9,9 +9,12 @@ namespace eShop.SqlProvider
     public class CatalogProvider
     {
         const string QUERY_TYPES = "SELECT * FROM CatalogTypes";
-        const string QUERY_GBRANDS = "SELECT * FROM CatalogBrands";
+        const string QUERY_BRANDS = "SELECT * FROM CatalogBrands";
         const string QUERY_ITEMS = "SELECT [Id], [Name], [Description], [Price], [CatalogTypeId], [CatalogBrandId] FROM CatalogItems";
         const string QUERY_ITEMSBYID = "SELECT [Id], [Name], [Description], [Price], [CatalogTypeId], [CatalogBrandId] FROM CatalogItems WHERE Id=@Id";
+
+        const string CREATE_TYPES = "INSERT INTO CatalogTypes ([Id], [Type]) VALUES (@Id, @Type)";
+        const string CREATE_BRANDS = "INSERT INTO CatalogBrands ([Id], [Brand]) VALUES (@Id, @Brand)";
         const string CREATE_ITEMS = "INSERT INTO CatalogItems ([Name], [Description], [Price], [CatalogTypeId], [CatalogBrandId]) VALUES (@Name, @Description, @Price, @CatalogTypeId, @CatalogBrandId) SET @Id = SCOPE_IDENTITY()";
         const string UPDATE_ITEMS = "UPDATE CatalogItems SET [Name] = @Name, [Description] = @Description, [Price] = @Price, [CatalogTypeId] = @CatalogTypeId, [CatalogBrandId] = @CatalogBrandId WHERE [Id] = @Id";
         const string DELETE_ITEM = "DELETE FROM CatalogItems WHERE [Id] = @Id";
@@ -105,6 +108,27 @@ namespace eShop.SqlProvider
             }
         }
 
+        public DataSet GetDatasetSchema()
+        {
+            string sqlQuery = QUERY_TYPES + " WHERE 1=0; " + QUERY_BRANDS + " WHERE 1=0; " + QUERY_ITEMS + " WHERE 1=0";
+
+            using (SqlConnection cnn = new SqlConnection(ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(sqlQuery, cnn))
+                {
+                    DataSet dataSet = new DataSet();
+                    using (SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd))
+                    {
+                        dataAdapter.Fill(dataSet);
+                        dataSet.Tables[0].TableName = "CatalogTypes";
+                        dataSet.Tables[1].TableName = "CatalogBrands";
+                        dataSet.Tables[2].TableName = "CatalogItems";
+                    }
+                    return dataSet;
+                }
+            }
+        }
+
         public DataSet GetCatalogTypes()
         {
             using (SqlConnection cnn = new SqlConnection(ConnectionString))
@@ -121,11 +145,28 @@ namespace eShop.SqlProvider
             }
         }
 
+        public int CreateCatalogTypes(DataSet dataSet)
+        {
+            using (SqlConnection cnn = new SqlConnection(ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(CREATE_TYPES, cnn))
+                {
+                    cmd.Parameters.Add(new SqlParameter("Id", SqlDbType.Int) { SourceColumn = "Id" });
+                    cmd.Parameters.Add(new SqlParameter("Type", SqlDbType.VarChar) { SourceColumn = "Type" });
+                    using (SqlDataAdapter dataAdapter = new SqlDataAdapter())
+                    {
+                        dataAdapter.InsertCommand = cmd;
+                        return dataAdapter.Update(dataSet, "CatalogTypes");
+                    }
+                }
+            }
+        }
+
         public DataSet GetCatalogBrands()
         {
             using (SqlConnection cnn = new SqlConnection(ConnectionString))
             {
-                using (SqlCommand cmd = new SqlCommand(QUERY_GBRANDS, cnn))
+                using (SqlCommand cmd = new SqlCommand(QUERY_BRANDS, cnn))
                 {
                     DataSet dataSet = new DataSet();
                     using (SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd))
@@ -133,6 +174,23 @@ namespace eShop.SqlProvider
                         dataAdapter.Fill(dataSet, "CatalogBrands");
                     }
                     return dataSet;
+                }
+            }
+        }
+
+        public int CreateCatalogBrands(DataSet dataSet)
+        {
+            using (SqlConnection cnn = new SqlConnection(ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(CREATE_BRANDS, cnn))
+                {
+                    cmd.Parameters.Add(new SqlParameter("Id", SqlDbType.Int) { SourceColumn = "Id" });
+                    cmd.Parameters.Add(new SqlParameter("Brand", SqlDbType.VarChar) { SourceColumn = "Brand" });
+                    using (SqlDataAdapter dataAdapter = new SqlDataAdapter())
+                    {
+                        dataAdapter.InsertCommand = cmd;
+                        return dataAdapter.Update(dataSet, "CatalogBrands");
+                    }
                 }
             }
         }
@@ -212,25 +270,7 @@ namespace eShop.SqlProvider
             }
         }
 
-        public DataSet GetDatasetSchema()
-        {
-            string sqlQuery = QUERY_ITEMS + " WHERE 1=0";
-
-            using (SqlConnection cnn = new SqlConnection(ConnectionString))
-            {
-                using (SqlCommand cmd = new SqlCommand(sqlQuery, cnn))
-                {
-                    DataSet dataSet = new DataSet();
-                    using (SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd))
-                    {
-                        dataAdapter.Fill(dataSet, "CatalogItems");
-                    }
-                    return dataSet;
-                }
-            }
-        }
-
-        public int CreateItem(DataSet dataSet)
+        public int CreateCatalogItems(DataSet dataSet)
         {
             using (SqlConnection cnn = new SqlConnection(ConnectionString))
             {
@@ -252,7 +292,7 @@ namespace eShop.SqlProvider
             }
         }
 
-        public int UpdateItem(DataSet dataSet)
+        public int UpdateCatalogItems(DataSet dataSet)
         {
             using (SqlConnection cnn = new SqlConnection(ConnectionString))
             {

@@ -11,36 +11,16 @@ using eShop.UWP;
 
 namespace eShop.Providers
 {
-    public class SqlCatalogProvider : ICatalogProvider
+    public partial class SqlCatalogProvider : ICatalogProvider
     {
-        static public Result<bool> DatabaseExists(string connectionString)
-        {
-            try
-            {
-                var provider = new CatalogProvider(connectionString);
-                return Result<bool>.Ok(provider.DatabaseExists());
-            }
-            catch (Exception ex)
-            {
-                return Result<bool>.Error(ex);
-            }
-        }
+        static private IList<CatalogType> _catalogTypes = null;
+        static private IList<CatalogBrand> _catalogBrands = null;
 
-        static public async Task<Result> CreateDatabaseAsync(string connectionString)
+        private string _connectionString = null;
+        public string ConnectionString
         {
-            return await Task.Run<Result>(() =>
-            {
-                try
-                {
-                    var provider = new CatalogProvider(connectionString);
-                    provider.CreateDatabase();
-                    return Result.Ok();
-                }
-                catch (Exception ex)
-                {
-                    return Result.Error(ex);
-                }
-            });
+            get => _connectionString ?? (_connectionString = AppSettings.Current.SqlConnectionString);
+            set => _connectionString = value;
         }
 
         public Task<Result> IsAvailableAsync()
@@ -49,7 +29,7 @@ namespace eShop.Providers
             {
                 try
                 {
-                    var provider = new CatalogProvider(AppSettings.Current.SqlConnectionString);
+                    var provider = new CatalogProvider(ConnectionString);
                     provider.GetCatalogTypes();
                     return Result.Ok();
                 }
@@ -62,49 +42,49 @@ namespace eShop.Providers
 
         public async Task<IList<CatalogType>> GetCatalogTypesAsync()
         {
-            List<CatalogType> records = new List<CatalogType>();
+            _catalogTypes = new List<CatalogType>();
 
             await Task.FromResult(true);
-            var provider = new CatalogProvider(AppSettings.Current.SqlConnectionString);
+            var provider = new CatalogProvider(ConnectionString);
             var dataSet = provider.GetCatalogTypes();
 
             foreach (DataRow item in dataSet.Tables["CatalogTypes"].Rows)
             {
-                records.Add(new CatalogType
+                _catalogTypes.Add(new CatalogType
                 {
                     Id = (int)item["Id"],
-                    Type = item["Brand"] as String,
+                    Type = item["Type"] as String,
                 });
             }
 
-            return records;
+            return _catalogTypes;
         }
 
         public async Task<IList<CatalogBrand>> GetCatalogBrandsAsync()
         {
-            List<CatalogBrand> records = new List<CatalogBrand>();
+            _catalogBrands = new List<CatalogBrand>();
 
             await Task.FromResult(true);
-            var provider = new CatalogProvider(AppSettings.Current.SqlConnectionString);
+            var provider = new CatalogProvider(ConnectionString);
             var dataSet = provider.GetCatalogBrands();
 
             foreach (DataRow item in dataSet.Tables["CatalogBrands"].Rows)
             {
-                records.Add(new CatalogBrand
+                _catalogBrands.Add(new CatalogBrand
                 {
                     Id = (int)item["Id"],
                     Brand = item["Brand"] as String,
                 });
             }
 
-            return records;
+            return _catalogBrands;
         }
 
         public async Task<CatalogItem> GetItemByIdAsync(int id)
         {
             await Task.FromResult(true);
 
-            var provider = new CatalogProvider(AppSettings.Current.SqlConnectionString);
+            var provider = new CatalogProvider(ConnectionString);
             var dataSet = provider.GetItemById(id);
             var dataTable = dataSet.Tables["CatalogItems"];
 
@@ -126,7 +106,7 @@ namespace eShop.Providers
 
             await Task.FromResult(true);
 
-            var provider = new CatalogProvider(AppSettings.Current.SqlConnectionString);
+            var provider = new CatalogProvider(ConnectionString);
             var dataSet = provider.GetItems(typeId, brandId, query);
             var dataTable = dataSet.Tables["CatalogItems"];
             foreach (DataRow dataRow in dataTable.Rows)
@@ -165,14 +145,19 @@ namespace eShop.Providers
 
         private CatalogItem CreateCatalogItem(DataRow dataRow)
         {
+            int typeId = (int)dataRow["CatalogTypeId"];
+            int brandId = (int)dataRow["CatalogBrandId"];
+
             return new CatalogItem
             {
                 Id = (int)dataRow["Id"],
                 Price = (double)dataRow["Price"],
                 Name = dataRow["Name"] as String,
                 Description = dataRow["Description"] as String,
-                CatalogBrandId = (int)dataRow["CatalogBrandId"],
-                CatalogTypeId = (int)dataRow["CatalogTypeId"]
+                CatalogTypeId = typeId,
+                CatalogType = _catalogTypes.Where(r => r.Id == typeId).FirstOrDefault(),
+                CatalogBrandId = brandId,
+                CatalogBrand = _catalogBrands.Where(r => r.Id == brandId).FirstOrDefault(),
             };
         }
     }

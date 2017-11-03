@@ -154,6 +154,7 @@
     <Compile Include="DataProviders\LocalProviders\LocalCatalogProvider.cs" />
     <Compile Include="DataProviders\OrdersProvider.cs" />
     <Compile Include="DataProviders\RESTProviders\RESTCatalogProvider.cs" />
+    <Compile Include="DataProviders\SqlProviders\SqlCatalogProvider.DbCreate.cs" />
     <Compile Include="DataProviders\SqlProviders\SqlCatalogProvider.cs" />
     <Compile Include="DataProviders\SwitchProvider.cs" />
     <Compile Include="Helpers\DependencyObjectExtensions.cs" />

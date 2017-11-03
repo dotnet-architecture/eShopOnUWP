@@ -260,6 +260,7 @@ namespace eShop.UWP.ViewModels
                 var createResult = await SqlCatalogProvider.CreateDatabaseAsync(SqlConnectionString);
                 if (createResult.IsOk)
                 {
+                    SqlCatalogProvider.FillDatabase(SqlConnectionString);
                     return Result.Ok("Success", "Database created successfully.");
                 }
                 return createResult;
@@ -268,6 +269,10 @@ namespace eShop.UWP.ViewModels
             {
                 return Result.Error(result.Exception);
             }
+        }
+
+        private void FillDatabase()
+        {
         }
 
         public void ApplyChanges()

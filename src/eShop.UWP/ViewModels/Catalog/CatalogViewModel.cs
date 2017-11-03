@@ -90,15 +90,8 @@ namespace eShop.UWP.ViewModels.Catalog
 
             if (isBack) return;
 
-            if (CatalogTypes == null)
-            {
-                await LoadCatalogTypes();
-            }
-
-            if (CatalogBrands == null)
-            {
-                await LoadCatalogBrands();
-            }
+            await LoadCatalogTypes();
+            await LoadCatalogBrands();
 
             ResetCatalog();
         }
