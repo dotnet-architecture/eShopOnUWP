@@ -80,7 +80,7 @@ namespace eShop.Providers
         {
             var dataSet = provider.GetDatasetSchema();
             var dataTable = dataSet.Tables["CatalogItems"];
-            foreach (var item in catalogItems)
+            foreach (var item in catalogItems.OrderBy(r => r.Id))
             {
                 dataTable.Rows.Add(0, item.Name, item.Description, item.Price, item.CatalogTypeId, item.CatalogBrandId);
             }

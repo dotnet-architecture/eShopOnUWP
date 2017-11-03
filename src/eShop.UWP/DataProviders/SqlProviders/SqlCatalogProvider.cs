@@ -132,25 +132,29 @@ namespace eShop.Providers
         public async Task SaveItemAsync(CatalogItem item)
         {
             await Task.FromResult(true);
-            // TODO: 
-            throw new NotImplementedException();
+            var provider = new CatalogProvider(ConnectionString);
+            var dataSet = provider.GetDatasetSchema();
+            var dataTable = dataSet.Tables["CatalogItems"];
+            dataTable.Rows.Add(0, item.Name, item.Description, item.Price, item.CatalogTypeId, item.CatalogBrandId);
+            provider.CreateCatalogItems(dataSet);
         }
 
         public async Task DeleteItemAsync(CatalogItem item)
         {
             await Task.FromResult(true);
-            // TODO: 
-            throw new NotImplementedException();
+            var provider = new CatalogProvider(ConnectionString);
+            provider.DeleteItem(item.Id);
         }
 
         private CatalogItem CreateCatalogItem(DataRow dataRow)
         {
+            int id = (int)dataRow["Id"];
             int typeId = (int)dataRow["CatalogTypeId"];
             int brandId = (int)dataRow["CatalogBrandId"];
 
             return new CatalogItem
             {
-                Id = (int)dataRow["Id"],
+                Id = id,
                 Price = (double)dataRow["Price"],
                 Name = dataRow["Name"] as String,
                 Description = dataRow["Description"] as String,
@@ -158,6 +162,7 @@ namespace eShop.Providers
                 CatalogType = _catalogTypes.Where(r => r.Id == typeId).FirstOrDefault(),
                 CatalogBrandId = brandId,
                 CatalogBrand = _catalogBrands.Where(r => r.Id == brandId).FirstOrDefault(),
+                PictureUri = $"ms-appx:///Assets/Images/Catalog/{id}.png"
             };
         }
     }
