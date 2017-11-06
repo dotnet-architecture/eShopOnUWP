@@ -82,6 +82,35 @@ namespace eShop.Server.Controllers
             }
         }
 
+        // GET api/v1/[controller]/items/type/1/brand/null[?pageSize=3&pageIndex=10]
+        [HttpGet]
+        [Route("[action]/type/{catalogTypeId}/brand/{catalogBrandId}")]
+        [ProducesResponseType(typeof(PaginatedItems<CatalogItem>), (int)HttpStatusCode.OK)]
+        public IActionResult Items(int? catalogTypeId, int? catalogBrandId, [FromQuery]int pageSize = 10, [FromQuery]int pageIndex = 0)
+        {
+            using (var db = new CatalogDb())
+            {
+                IEnumerable<CatalogItem> items = db.CatalogItems;
+
+                if (catalogTypeId != null && catalogTypeId > 0)
+                {
+                    items = items.Where(r => r.CatalogTypeId == catalogTypeId);
+                }
+
+                if (catalogBrandId != null && catalogBrandId > 0)
+                {
+                    items = items.Where(r => r.CatalogBrandId == catalogBrandId);
+                }
+
+                long totalItems = items.LongCount();
+                var itemsOnPage = items.Skip(pageSize * pageIndex).Take(pageSize).ToList();
+                itemsOnPage = ChangeUriPlaceholder(itemsOnPage);
+
+                var model = new PaginatedItems<CatalogItem>(pageIndex, pageSize, totalItems, itemsOnPage);
+                return Ok(model);
+            }
+        }
+
         [HttpGet]
         [Route("items/{id:int}")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
@@ -123,12 +152,13 @@ namespace eShop.Server.Controllers
                     PictureFileName = product.PictureFileName,
                     Price = product.Price
                 };
+                item.Id = db.CatalogItems.Max(r => r.Id) + 1;
                 ChangeUriPlaceholder(item);
 
                 db.CatalogItems.Add(item);
                 db.SaveChanges();
 
-                return CreatedAtAction(nameof(GetItemById), new { id = item.Id }, null);
+                return CreatedAtAction(nameof(GetItemById), new { id = item.Id }, item);
             }
         }
 
@@ -185,9 +215,12 @@ namespace eShop.Server.Controllers
 
             items.ForEach(item =>
             {
-                if (!item.PictureUri.StartsWith("ms-appx:"))
+                if (item.PictureUri != null)
                 {
-                    item.PictureUri = $"{baseUri}/{item.PictureFileName}";
+                    if (!item.PictureUri.StartsWith("ms-appx:"))
+                    {
+                        item.PictureUri = $"{baseUri}/{item.PictureFileName}";
+                    }
                 }
             });
 
@@ -195,9 +228,12 @@ namespace eShop.Server.Controllers
         }
         private CatalogItem ChangeUriPlaceholder(CatalogItem item)
         {
-            if (!item.PictureUri.StartsWith("ms-appx:"))
+            if (item.PictureUri != null)
             {
-                item.PictureUri = $"{ImageBaseUri}/{item.PictureFileName}";
+                if (!item.PictureUri.StartsWith("ms-appx:"))
+                {
+                    item.PictureUri = $"{ImageBaseUri}/{item.PictureFileName}";
+                }
             }
             return item;
         }

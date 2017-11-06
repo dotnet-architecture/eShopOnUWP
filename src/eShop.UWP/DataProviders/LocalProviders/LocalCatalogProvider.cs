@@ -45,7 +45,7 @@ namespace eShop.Providers
             }
         }
 
-        public async Task<IList<CatalogItem>> GetItemsAsync(CatalogType selectedCatalogType, CatalogBrand selectedCatalogBrand, string query)
+        public async Task<IList<CatalogItem>> GetItemsAsync(CatalogType catalogType, CatalogBrand catalogBrand, string query)
         {
             await Task.FromResult(true);
             using (var db = new LocalCatalogDb())
@@ -57,14 +57,14 @@ namespace eShop.Providers
                     items = items.Where(r => $"{r.Name}".ToUpper().Contains(query.ToUpper()));
                 }
 
-                if (selectedCatalogType != null && selectedCatalogType.Id != 0)
+                if (catalogType != null && catalogType.Id > 0)
                 {
-                    items = items.Where(r => r.CatalogTypeId == selectedCatalogType.Id);
+                    items = items.Where(r => r.CatalogTypeId == catalogType.Id);
                 }
 
-                if (selectedCatalogBrand != null && selectedCatalogBrand.Id != 0)
+                if (catalogBrand != null && catalogBrand.Id > 0)
                 {
-                    items = items.Where(r => r.CatalogBrandId == selectedCatalogBrand.Id);
+                    items = items.Where(r => r.CatalogBrandId == catalogBrand.Id);
                 }
 
                 return Populate(db, items.ToArray().OrderBy(r => r.Name)).ToList();
@@ -112,12 +112,16 @@ namespace eShop.Providers
             await Task.FromResult(true);
             using (var db = new LocalCatalogDb())
             {
-                var oldItem = db.CatalogItems.FirstOrDefault(r => r.Id == item.Id);
-                if (oldItem != null)
+                item.Picture = null;
+                if (item.Id > 0)
                 {
-                    db.CatalogItems.Remove(oldItem);
+                    var oldItem = db.CatalogItems.FirstOrDefault(r => r.Id == item.Id);
+                    if (oldItem != null)
+                    {
+                        db.CatalogItems.Remove(oldItem);
+                    }
                 }
-                if (item.Id == 0)
+                else
                 {
                     item.Id = 1;
                     if (db.CatalogItems.Count > 0)

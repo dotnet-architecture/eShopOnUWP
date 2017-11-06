@@ -126,9 +126,9 @@ namespace eShop.UWP.Services
             return await SendRequestAsync(path, HttpMethod.Post, content, parameters);
         }
 
-        public async Task<string> PostStreamAsync(string path, Stream content, params QueryParam[] parameters)
+        public async Task<string> PostStreamAsync(string path, Stream content, string contentType, params QueryParam[] parameters)
         {
-            return await SendRequestStreamAsync(path, HttpMethod.Post, content, parameters);
+            return await SendRequestStreamAsync(path, HttpMethod.Post, content, contentType, parameters);
         }
 
         // PUT
@@ -149,9 +149,9 @@ namespace eShop.UWP.Services
             return await SendRequestAsync(path, HttpMethod.Put, content, parameters);
         }
 
-        public async Task<string> PutStreamAsync(string path, Stream content, params QueryParam[] parameters)
+        public async Task<string> PutStreamAsync(string path, Stream content, string contentType, params QueryParam[] parameters)
         {
-            return await SendRequestStreamAsync(path, HttpMethod.Put, content, parameters);
+            return await SendRequestStreamAsync(path, HttpMethod.Put, content, contentType, parameters);
         }
 
         // DELETE
@@ -193,7 +193,7 @@ namespace eShop.UWP.Services
             }
         }
 
-        public async Task<string> SendRequestStreamAsync(string path, HttpMethod method, Stream content, QueryParam[] parameters)
+        public async Task<string> SendRequestStreamAsync(string path, HttpMethod method, Stream content, string contentType, QueryParam[] parameters)
         {
             string requestUri = BuildRequestUri(path, parameters);
 
@@ -201,6 +201,10 @@ namespace eShop.UWP.Services
             {
                 using (var stream = new StreamContent(content))
                 {
+                    if (contentType != null)
+                    {
+                        stream.Headers.Add("Content-Type", contentType);
+                    }
                     message.Content = stream;
                     using (var response = await SendRequestAsync(message))
                     {
