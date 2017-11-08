@@ -10,6 +10,7 @@ using GalaSoft.MvvmLight.Command;
 using Telerik.UI.Xaml.Controls.Grid;
 
 using eShop.UWP.Models;
+using eShop.Providers;
 
 namespace eShop.UWP.ViewModels
 {
@@ -22,9 +23,12 @@ namespace eShop.UWP.ViewModels
 
     public class ItemsListViewModel : ViewModelBase
     {
-        public ItemsListViewModel()
+        public ItemsListViewModel(ICatalogProvider catalogProvider)
         {
+            CatalogProvider = catalogProvider;
         }
+
+        public ICatalogProvider CatalogProvider { get; }
 
         public RadDataGrid ItemsControl { get; set; }
 
@@ -132,17 +136,23 @@ namespace eShop.UWP.ViewModels
 
         private async void OnDelete()
         {
-            //ShellViewModel.Current.EnableView(false);
             if (await DialogBox.ShowAsync("Confirm Delete", "Are you sure you want to delete selected items?", "Ok", "Cancel"))
             {
                 _cancelOnSelectionChanged = true;
-                foreach (var item in Items.Where(r => r.IsSelected).ToArray())
+                try
                 {
-                    Items.Remove(item);
+                    foreach (var item in Items.Where(r => r.IsSelected).ToArray())
+                    {
+                        await CatalogProvider.DeleteItemAsync(item);
+                        Items.Remove(item);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    await DialogBox.ShowAsync("Error deleting files", ex);
                 }
                 _cancelOnSelectionChanged = false;
             }
-            //ShellViewModel.Current.EnableView(true);
 
             IsCommandBarOpen = false;
             UpdateCommandBar();

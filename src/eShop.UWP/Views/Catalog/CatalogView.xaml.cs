@@ -4,6 +4,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 using eShop.UWP.ViewModels;
+using eShop.Providers;
 
 namespace eShop.UWP.Views
 {
@@ -12,7 +13,10 @@ namespace eShop.UWP.Views
         public CatalogView()
         {
             InitializeComponent();
+            CatalogProvider = new CatalogProvider();
         }
+
+        public ICatalogProvider CatalogProvider { get; }
 
         public CatalogViewModel ViewModel => DataContext as CatalogViewModel;
 
@@ -20,8 +24,8 @@ namespace eShop.UWP.Views
         {
             base.OnNavigatedTo(e);
 
-            ViewModel.GridViewModel = new ItemsGridViewModel();
-            ViewModel.ListViewModel = new ItemsListViewModel();
+            ViewModel.GridViewModel = new ItemsGridViewModel(CatalogProvider);
+            ViewModel.ListViewModel = new ItemsListViewModel(CatalogProvider);
 
             itemsGrid.Initialize(ViewModel.GridViewModel);
             itemsList.Initialize(ViewModel.ListViewModel);

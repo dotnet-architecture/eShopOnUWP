@@ -12,6 +12,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
 using eShop.UWP.Models;
+using eShop.Providers;
 
 namespace eShop.UWP.ViewModels
 {
@@ -25,10 +26,13 @@ namespace eShop.UWP.ViewModels
 
     public class ItemsGridViewModel : ViewModelBase
     {
-        public ItemsGridViewModel()
+        public ItemsGridViewModel(ICatalogProvider catalogProvider)
         {
+            CatalogProvider = catalogProvider;
             _barItems = new ObservableCollection<CatalogItemModel>();
         }
+
+        public ICatalogProvider CatalogProvider { get; }
 
         public GridView ItemsControl { get; set; }
         public GridView BarItemsControl { get; set; }
@@ -205,14 +209,22 @@ namespace eShop.UWP.ViewModels
             if (await DialogBox.ShowAsync("Confirm Delete", "Are you sure you want to delete selected items?", "Ok", "Cancel"))
             {
                 _cancelOnSelectionChanged = true;
-                foreach (var item in Items.Where(r => r.IsSelected).ToArray())
+                try
                 {
-                    Items.Remove(item);
+                    foreach (var item in Items.Where(r => r.IsSelected).ToArray())
+                    {
+                        await CatalogProvider.DeleteItemAsync(item);
+                        Items.Remove(item);
+                        BarItems.Remove(item);
+                    }
+                    SelectionMode = ListViewSelectionMode.None;
+                    Mode = GridCommandBarMode.Idle;
                 }
-                BarItems.Clear();
+                catch (Exception ex)
+                {
+                    await DialogBox.ShowAsync("Error deleting files", ex);
+                }
                 _cancelOnSelectionChanged = false;
-                SelectionMode = ListViewSelectionMode.None;
-                Mode = GridCommandBarMode.Idle;
             }
             ShellViewModel.Current.EnableView(true);
 

@@ -102,8 +102,6 @@ namespace eShop.Providers
         {
             List<CatalogItemModel> records = new List<CatalogItemModel>();
 
-            await Task.FromResult(true);
-
             var provider = new SqlServerProvider(ConnectionString);
             var dataSet = provider.GetItems(typeId, brandId, query);
             var dataTable = dataSet.Tables["CatalogItems"];
