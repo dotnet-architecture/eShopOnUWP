@@ -8,15 +8,12 @@ using Windows.ApplicationModel;
 
 using GalaSoft.MvvmLight.Command;
 
-using eShop.UWP.Services;
-using eShop.UWP.ViewModels.Base;
-using eShop.UWP.ViewModels.Catalog;
-using eShop.UWP.ViewModels.Shell;
 using eShop.Providers;
+using eShop.UWP.Services;
 
 namespace eShop.UWP.ViewModels
 {
-    public class SettingsViewModel : CustomViewModelBase
+    public class SettingsViewModel : CommonViewModel
     {
         public string DisplayName => Package.Current.DisplayName;
 
@@ -260,7 +257,7 @@ namespace eShop.UWP.ViewModels
                 var createResult = await SqlCatalogProvider.CreateDatabaseAsync(SqlConnectionString);
                 if (createResult.IsOk)
                 {
-                    SqlCatalogProvider.FillDatabase(SqlConnectionString);
+                    await SqlCatalogProvider.FillDatabase(SqlConnectionString);
                     return Result.Ok("Success", "Database created successfully.");
                 }
                 return createResult;

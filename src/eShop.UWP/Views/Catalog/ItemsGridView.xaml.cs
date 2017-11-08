@@ -1,37 +1,60 @@
-using eShop.UWP.ViewModels.Catalog;
+﻿using System;
+using System.Threading.Tasks;
+
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Hosting;
+using Windows.UI.Composition;
 
-namespace eShop.UWP.Views.Catalog
+using eShop.UWP.ViewModels;
+
+namespace eShop.UWP.Views
 {
     public sealed partial class ItemsGridView : UserControl
     {
-        public ItemsGridViewModel ViewModel => DataContext as ItemsGridViewModel;
+        private ExpressionAnimation _expression = null;
 
         public ItemsGridView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
-        private void OnCatalogItemEditClick(object sender, System.EventArgs e)
+        public ItemsGridViewModel ViewModel => DataContext as ItemsGridViewModel;
+
+        private ExpressionAnimation Expression => _expression ?? (_expression = CreateExpression());
+
+        public void Initialize(ItemsGridViewModel viewModel)
         {
-            ViewModel?.ShowDetail(sender as ItemViewModel, AdaptiveGrid);
+            DataContext = viewModel;
+            ViewModel.ItemsControl = gridView;
+            ViewModel.BarItemsControl = target;
         }
 
-        private void OnSelectItemClick(object sender, RoutedEventArgs e)
+        private ExpressionAnimation CreateExpression()
         {
-            AdaptiveGrid.SelectedItems.Add((sender as FrameworkElement)?.DataContext);
+            var compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
+
+            var scrollViewer = gridView.GetChildOfType<ScrollViewer>();
+            var scrollerPropertySet = ElementCompositionPreview.GetScrollViewerManipulationPropertySet(scrollViewer);
+
+            var _expression = compositor.CreateExpressionAnimation("Vector3(0, (-scroller.Translation.Y - container.Offset.Y + 300) * 0.10, 0)");
+            _expression.SetReferenceParameter("scroller", scrollerPropertySet);
+            return _expression;
         }
 
-        private void SelectAll_OnClick(object sender, RoutedEventArgs e)
+        private void OnContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
         {
-            AdaptiveGrid.SelectAll();
-        }
+            if (!args.InRecycleQueue)
+            {
+                var container = args.ItemContainer;
+                var containerVisual = ElementCompositionPreview.GetElementVisual(container);
 
-        private void Cancel_OnClick(object sender, RoutedEventArgs e)
-        {
-            AdaptiveGrid.DeselectRange(new ItemIndexRange(0, (uint)AdaptiveGrid.Items.Count));
+                var item = container.GetChildOfType<Border>();
+                var itemVisual = ElementCompositionPreview.GetElementVisual(item);
+
+                Expression.SetReferenceParameter("container", containerVisual);
+                itemVisual.StartAnimation("Offset", Expression);
+            }
         }
     }
 }

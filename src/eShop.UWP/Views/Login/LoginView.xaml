@@ -1,66 +1,60 @@
-<base:PageBase
-    x:Class="eShop.UWP.Views.Login.LoginView"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:templateSelectors="using:eShop.UWP.TemplateSelectors"
-    xmlns:base="using:eShop.UWP.Views.Base"
-    xmlns:login="using:eShop.UWP.Views.Login"
-    Margin="{StaticResource LoginBackgroundMargin}"
+﻿<Page
+    x:Class="eShop.UWP.Views.LoginView"
     DataContext="{Binding LoginViewModel, Source={StaticResource Locator}}"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:controls="using:eShop.UWP.Controls"
     mc:Ignorable="d">
 
-    <Page.Resources>
-        <DataTemplate x:Key="SignInWithHelloTemplate">
-            <login:SignInWithHelloView />
-        </DataTemplate>
-        <DataTemplate x:Key="SignInWithPasswordTemplate">
-            <login:SignInWithPasswordView />
-        </DataTemplate>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
 
-        <templateSelectors:LoginMethodTemplateSelector
-            x:Key="LoginMethodTemplateSelector"
-            SignInWithHelloTemplate="{StaticResource SignInWithHelloTemplate}"
-            SignInWithPasswordTemplate="{StaticResource SignInWithPasswordTemplate}" />
-    </Page.Resources>
+            <Image Source="ms-appx:///Assets/Images/BackgroundPhoto.jpg" HorizontalAlignment="Center" VerticalAlignment="Top" Stretch="UniformToFill" Opacity="0.8" />
+            <Image Margin="24" Source="ms-appx:///Assets/Images/LoginLogo.png" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="None" />
 
-    <Grid x:Name="ContentArea">
-        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <ContentControl
-                x:Name="LoginHost"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                HorizontalContentAlignment="Stretch"
-                VerticalContentAlignment="Stretch"
-                Content="{Binding LoginMethod}"
-                ContentTemplateSelector="{StaticResource LoginMethodTemplateSelector}" />
+            <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBox x:Uid="Authentication_Username" Style="{StaticResource UserNameBoxStyle}" Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                    <i:Interaction.Behaviors>
+                        <ic:EventTriggerBehavior EventName="KeyDown">
+                            <ic:InvokeCommandAction Command="{Binding KeyDownCommand}" />
+                        </ic:EventTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                
+                <PasswordBox x:Uid="Authentication_Password" Password="{Binding Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" PasswordRevealMode="Peek" Style="{StaticResource PasswordBoxStyle}">
+                    <i:Interaction.Behaviors>
+                        <ic:EventTriggerBehavior EventName="KeyDown">
+                            <ic:InvokeCommandAction Command="{Binding KeyDownCommand}" />
+                        </ic:EventTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                </PasswordBox>
+                
+                <TextBlock x:Uid="Forgot_Password" Style="{StaticResource ForgotPasswordStyle}" />
+                
+                <StackPanel Margin="{StaticResource CommonAuthenticationMargin}" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <controls:ButtonControl x:Uid="Authentication_SetUp" Command="{Binding SetupHelloCommand}" IconSourcePath="{StaticResource HelloIcon}" IsEnabled="{Binding CanSetupHello}" Style="{StaticResource AuthenticationButtonStyle}" />
+                    <controls:ButtonControl x:Uid="Authentication_SignIn" Command="{Binding SignInCommand}" IsEnabled="{Binding CanSignIn}" Style="{StaticResource AuthenticationButtonStyle}" />
+                </StackPanel>
+                
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="{StaticResource AuthenticationGitHubMargin}">
+                    <TextBlock Text="{Binding VersionPackage}" Style="{StaticResource AuthenticationVersionStyle}" />
+                    <Rectangle Style="{StaticResource AutenticationSeparateStyle}" />
+                    <HyperlinkButton x:Uid="Authentication_GitHub" Style="{StaticResource AuthenticationGitHubStyle}" />
+                </StackPanel>
+                
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="{StaticResource AuthenticationSignInMargin}">
+                    <TextBlock x:Uid="Authentication_NotAccount" Style="{StaticResource NoAccountStyle}" />
+                    <TextBlock x:Uid="Authentication_NotAccountSignUp" Style="{StaticResource NoAccountSignUpStyle}" />
+                </StackPanel>
+            </StackPanel>
         </Grid>
-
-        <Image
-            x:Uid="Login_Logo"
-            Margin="40,20,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Stretch="None" />
-
-        <!--  Adaptive triggers  -->
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="WindowStates">
-                <VisualState x:Name="WideState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="900" />
-                    </VisualState.StateTriggers>
-                </VisualState>
-                <VisualState x:Name="NarrowState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="TitlePage.Margin" Value="0" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
     </Grid>
-</base:PageBase>
+</Page>

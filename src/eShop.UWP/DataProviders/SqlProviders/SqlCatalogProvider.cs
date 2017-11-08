@@ -1,20 +1,22 @@
 ﻿using System;
+using System.IO;
 using System.Data;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using eShop.Domain.Models;
-using eShop.Providers.Contracts;
-using eShop.SqlProvider;
 using eShop.UWP;
+using eShop.UWP.Data;
+using eShop.UWP.Models;
+using eShop.SqlProvider;
+using Windows.Storage;
 
 namespace eShop.Providers
 {
     public partial class SqlCatalogProvider : ICatalogProvider
     {
-        static private IList<CatalogType> _catalogTypes = null;
-        static private IList<CatalogBrand> _catalogBrands = null;
+        static private IList<CatalogTypeModel> _catalogTypes = null;
+        static private IList<CatalogBrandModel> _catalogBrands = null;
 
         public string ConnectionString => AppSettings.Current.SqlConnectionString;
 
@@ -35,9 +37,9 @@ namespace eShop.Providers
             });
         }
 
-        public async Task<IList<CatalogType>> GetCatalogTypesAsync()
+        public async Task<IList<CatalogTypeModel>> GetCatalogTypesAsync()
         {
-            _catalogTypes = new List<CatalogType>();
+            _catalogTypes = new List<CatalogTypeModel>();
 
             await Task.FromResult(true);
             var provider = new SqlServerProvider(ConnectionString);
@@ -45,19 +47,20 @@ namespace eShop.Providers
 
             foreach (DataRow item in dataSet.Tables["CatalogTypes"].Rows)
             {
-                _catalogTypes.Add(new CatalogType
+                var record = new CatalogType
                 {
                     Id = (int)item["Id"],
                     Type = item["Type"] as String,
-                });
+                };
+                _catalogTypes.Add(new CatalogTypeModel(record));
             }
 
             return _catalogTypes;
         }
 
-        public async Task<IList<CatalogBrand>> GetCatalogBrandsAsync()
+        public async Task<IList<CatalogBrandModel>> GetCatalogBrandsAsync()
         {
-            _catalogBrands = new List<CatalogBrand>();
+            _catalogBrands = new List<CatalogBrandModel>();
 
             await Task.FromResult(true);
             var provider = new SqlServerProvider(ConnectionString);
@@ -65,17 +68,18 @@ namespace eShop.Providers
 
             foreach (DataRow item in dataSet.Tables["CatalogBrands"].Rows)
             {
-                _catalogBrands.Add(new CatalogBrand
+                var record = new CatalogBrand
                 {
                     Id = (int)item["Id"],
                     Brand = item["Brand"] as String,
-                });
+                };
+                _catalogBrands.Add(new CatalogBrandModel(record));
             }
 
             return _catalogBrands;
         }
 
-        public async Task<CatalogItem> GetItemByIdAsync(int id)
+        public async Task<CatalogItemModel> GetItemByIdAsync(int id)
         {
             await Task.FromResult(true);
 
@@ -86,18 +90,17 @@ namespace eShop.Providers
             if (dataTable.Rows.Count > 0)
             {
                 var dataRow = dataTable.Rows[0];
-                return CreateCatalogItem(dataRow);
+                var item = CreateCatalogItem(dataRow);
+                await PopulateImageAsync(item);
+                return item;
             }
 
             return null;
         }
 
-        public async Task<IList<CatalogItem>> GetItemsAsync(CatalogType catalogType, CatalogBrand catalogBrand, string query)
+        public async Task<IList<CatalogItemModel>> GetItemsAsync(int typeId, int brandId, string query)
         {
-            List<CatalogItem> records = new List<CatalogItem>();
-
-            int typeId = catalogType == null ? -1 : catalogType.Id;
-            int brandId = catalogBrand == null ? -1 : catalogBrand.Id;
+            List<CatalogItemModel> records = new List<CatalogItemModel>();
 
             await Task.FromResult(true);
 
@@ -106,59 +109,100 @@ namespace eShop.Providers
             var dataTable = dataSet.Tables["CatalogItems"];
             foreach (DataRow dataRow in dataTable.Rows)
             {
-                records.Add(CreateCatalogItem(dataRow));
+                var item = CreateCatalogItem(dataRow);
+                await PopulateImageAsync(item);
+                records.Add(item);
             }
 
             return records.OrderBy(r => r.Name).ToList();
         }
 
-        public async Task<IList<CatalogItem>> GetItemsByVoiceCommandAsync(string query)
+        public async Task<IList<CatalogItemModel>> GetItemsByVoiceCommandAsync(string query)
         {
             await Task.FromResult(true);
             // TODO: 
             throw new NotImplementedException();
         }
 
-        public Task<IList<CatalogItem>> RelatedItemsByTypeAsync(int catalogTypeId)
+        public Task<IList<CatalogItemModel>> RelatedItemsByTypeAsync(int catalogTypeId)
         {
-            return GetItemsAsync(new CatalogType { Id = catalogTypeId }, null, null);
+            return GetItemsAsync(catalogTypeId, -1, null);
         }
 
-        public async Task SaveItemAsync(CatalogItem item)
+        public async Task SaveItemAsync(CatalogItemModel model)
         {
             await Task.FromResult(true);
             var provider = new SqlServerProvider(ConnectionString);
             var dataSet = provider.GetDatasetSchema();
             var dataTable = dataSet.Tables["CatalogItems"];
+            var item = model.Source;
             dataTable.Rows.Add(0, item.Name, item.Description, item.Price, item.CatalogTypeId, item.CatalogBrandId);
             provider.CreateCatalogItems(dataSet);
         }
 
-        public async Task DeleteItemAsync(CatalogItem item)
+        public async Task DeleteItemAsync(CatalogItemModel model)
         {
             await Task.FromResult(true);
             var provider = new SqlServerProvider(ConnectionString);
-            provider.DeleteItem(item.Id);
+            provider.DeleteItem(model.Id);
         }
 
-        private CatalogItem CreateCatalogItem(DataRow dataRow)
+        private CatalogItemModel CreateCatalogItem(DataRow dataRow)
         {
             int id = (int)dataRow["Id"];
             int typeId = (int)dataRow["CatalogTypeId"];
             int brandId = (int)dataRow["CatalogBrandId"];
 
-            return new CatalogItem
+            var record = new CatalogItem
             {
                 Id = id,
                 Price = (double)dataRow["Price"],
                 Name = dataRow["Name"] as String,
                 Description = dataRow["Description"] as String,
                 CatalogTypeId = typeId,
-                CatalogType = _catalogTypes.Where(r => r.Id == typeId).FirstOrDefault(),
-                CatalogBrandId = brandId,
-                CatalogBrand = _catalogBrands.Where(r => r.Id == brandId).FirstOrDefault(),
-                PictureUri = $"ms-appx:///Assets/Images/Catalog/{id}.png"
+                CatalogBrandId = brandId
             };
+            return new CatalogItemModel(record);
+        }
+
+        private async Task PopulateImageAsync(CatalogItemModel item)
+        {
+            var provider = new SqlServerProvider(ConnectionString);
+            var dataSet = provider.GetImage(item.Id);
+            var dataTable = dataSet.Tables["CatalogImages"];
+
+            if (dataTable.Rows.Count > 0)
+            {
+                var dataRow = dataTable.Rows[0];
+                var bytes = dataRow["ImageBytes"] as byte[];
+                if (bytes != null)
+                {
+                    string extension = (dataRow["ImageType"] as String) ?? ".jpg";
+                    string fileName = $"{item.Id}{extension}";
+                    await SaveTempImageAsync(fileName, bytes);
+                    item.PictureUri = $"ms-appdata:///temp/{fileName}";
+                }
+            }
+        }
+
+        private async Task SaveTempImageAsync(string fileName, byte[] bytes)
+        {
+            try
+            {
+                var folder = ApplicationData.Current.TemporaryFolder;
+                var storageFile = await folder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
+                using (var randomStream = await storageFile.OpenAsync(FileAccessMode.ReadWrite))
+                {
+                    using (var stream = new BinaryWriter(randomStream.AsStreamForWrite()))
+                    {
+                        stream.Write(bytes);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
         }
     }
 }

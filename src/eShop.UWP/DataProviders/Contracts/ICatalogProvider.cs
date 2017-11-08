@@ -2,25 +2,25 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using eShop.Domain.Models;
 using eShop.UWP;
+using eShop.UWP.Models;
 
-namespace eShop.Providers.Contracts
+namespace eShop.Providers
 {
     public interface ICatalogProvider
     {
         Task<Result> IsAvailableAsync();
 
-        Task<IList<CatalogType>> GetCatalogTypesAsync();
-        Task<IList<CatalogBrand>> GetCatalogBrandsAsync();
+        Task<IList<CatalogTypeModel>> GetCatalogTypesAsync();
+        Task<IList<CatalogBrandModel>> GetCatalogBrandsAsync();
 
-        Task<CatalogItem> GetItemByIdAsync(int id);
-        Task<IList<CatalogItem>> GetItemsAsync(CatalogType catalogType, CatalogBrand catalogBrand, string query);
-        Task<IList<CatalogItem>> RelatedItemsByTypeAsync(int catalogTypeId);
+        Task<CatalogItemModel> GetItemByIdAsync(int id);
+        Task<IList<CatalogItemModel>> GetItemsAsync(int typeId, int brandId, string query);
+        Task<IList<CatalogItemModel>> RelatedItemsByTypeAsync(int catalogTypeId);
 
-        Task<IList<CatalogItem>> GetItemsByVoiceCommandAsync(string query);
+        Task<IList<CatalogItemModel>> GetItemsByVoiceCommandAsync(string query);
 
-        Task SaveItemAsync(CatalogItem item);
-        Task DeleteItemAsync(CatalogItem catalogItem);
+        Task SaveItemAsync(CatalogItemModel item);
+        Task DeleteItemAsync(CatalogItemModel catalogItem);
     }
 }

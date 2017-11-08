@@ -1,35 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using eShop.UWP.Activation;
-using eShop.UWP.Helpers;
-using eShop.UWP.Views.Login;
-using Windows.ApplicationModel.Activation;
+
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
+using Windows.ApplicationModel.Activation;
+
+using eShop.UWP.Activation;
+using eShop.UWP.ViewModels;
 
 namespace eShop.UWP.Services
 {
-    //For more information on application activation see https://github.com/Microsoft/WindowsTemplateStudio/blob/master/docs/activation.md
+    // For more information on application activation see https://github.com/Microsoft/WindowsTemplateStudio/blob/master/docs/activation.md
     internal class ActivationService
     {
         private readonly App _app;
-        private readonly UIElement _shell;
         private readonly Type _defaultNavItem;
+        private readonly ViewState _navParameter;
+        private readonly UIElement _shell;
 
-        private NavigationServiceEx _navigationService => Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<NavigationServiceEx>();
-
-        public bool IsAuthenticated => _navigationService.Frame.CurrentSourcePageType != null && _navigationService.Frame.CurrentSourcePageType != typeof(LoginView);
-
-
-        public ActivationService(App app, Type defaultNavItem, UIElement shell = null)
+        public ActivationService(App app, Type defaultNavItem, ViewState navParameter, UIElement shell)
         {
             _app = app;
-            _shell = shell ?? new Frame();
             _defaultNavItem = defaultNavItem;
+            _navParameter = navParameter ?? new ViewState();
+            _shell = shell ?? new Frame();
         }
+
+        private ViewModelLocator Locator => Application.Current.Resources["Locator"] as ViewModels.ViewModelLocator;
+
+        private NavigationServiceEx NavigationService => Locator.NavigationService;
 
         public async Task ActivateAsync(object activationArgs)
         {
@@ -44,32 +47,30 @@ namespace eShop.UWP.Services
                 {
                     // Create a Frame to act as the navigation context and navigate to the first page
                     Window.Current.Content = _shell;
-                    _navigationService.Frame.NavigationFailed += (sender, e) =>
-                    {
-                        throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
-                    };
+
+                    NavigationService.NavigationFailed += OnNavigationFailed;
+                    NavigationService.Navigated += OnNavigated;
 
                     if (SystemNavigationManager.GetForCurrentView() != null)
                     {
-                        SystemNavigationManager.GetForCurrentView().BackRequested += OnAppViewBackButtonRequested;
+                        SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
                     }
                 }
             }
 
-            var activationHandler = GetActivationHandlers()
-                                                .FirstOrDefault(h => h.CanHandle(activationArgs));
+            var activationHandler = GetActivationHandlers().FirstOrDefault(h => h.CanHandle(activationArgs));
 
             if (activationHandler != null)
             {
-                await activationHandler.HandleAsync(activationArgs, _defaultNavItem);
+                await activationHandler.HandleAsync(activationArgs);
             }
 
             if (IsInteractive(activationArgs))
             {
-                var defaultHandler = new DefaultLaunchActivationHandler();
+                var defaultHandler = new DefaultLaunchActivationHandler(_defaultNavItem, _navParameter);
                 if (defaultHandler.CanHandle(activationArgs))
                 {
-                    await defaultHandler.HandleAsync(activationArgs, _defaultNavItem);
+                    await defaultHandler.HandleAsync(activationArgs);
                 }
 
                 // Ensure the current window is active
@@ -82,24 +83,17 @@ namespace eShop.UWP.Services
 
         private async Task InitializeAsync()
         {
-            await ThemeSelectorService.InitializeAsync();
-            await Singleton<LiveTileService>.Instance.EnableQueueAsync();
             await Task.CompletedTask;
         }
 
         private async Task StartupAsync()
         {
-            ThemeSelectorService.SetRequestedTheme();
-            Singleton<LiveTileService>.Instance.TileUpdate();
             await Task.CompletedTask;
         }
 
         private IEnumerable<ActivationHandler> GetActivationHandlers()
         {
-            yield return Singleton<LiveTileService>.Instance;
-            yield return Singleton<ToastNotificationsService>.Instance;
-            yield return Singleton<ProtocolService>.Instance;
-            yield return Singleton<VoiceCommandActivationService>.Instance;
+            yield break;
         }
 
         private bool IsInteractive(object args)
@@ -107,14 +101,24 @@ namespace eShop.UWP.Services
             return args is IActivatedEventArgs;
         }
 
-        private void OnAppViewBackButtonRequested(object sender, BackRequestedEventArgs e)
+        private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
-            if (_navigationService.CanGoBack)
+            throw e.Exception;
+        }
+
+        private void OnNavigated(object sender, NavigationEventArgs e)
+        {
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = NavigationService.CanGoBack ?
+                AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+        }
+
+        private void OnBackRequested(object sender, BackRequestedEventArgs e)
+        {
+            if (NavigationService.CanGoBack)
             {
-                _navigationService.GoBack();
+                NavigationService.GoBack();
                 e.Handled = true;
             }
         }
     }
 }
-

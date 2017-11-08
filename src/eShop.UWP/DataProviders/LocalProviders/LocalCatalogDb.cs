@@ -2,9 +2,9 @@
 using System.IO;
 using System.Collections.Generic;
 
-using eShop.UWP.Services;
+using eShop.UWP.Data;
 using eShop.UWP.Helpers;
-using eShop.Domain.Models;
+using eShop.UWP.Services;
 
 namespace eShop.Providers
 {

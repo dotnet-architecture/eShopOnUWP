@@ -1,3 +1,5 @@
+﻿using System;
+
 using Windows.ApplicationModel.Resources;
 
 namespace eShop.UWP.Helpers

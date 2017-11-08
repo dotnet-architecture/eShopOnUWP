@@ -10,6 +10,7 @@ namespace eShop.UWP.Helpers
         {
             return LoadString("eShop.UWP.Assets", name);
         }
+
         static public string LoadString(string path, string name)
         {
             var assembly = typeof(Resources).GetTypeInfo().Assembly;
