@@ -10,15 +10,20 @@ namespace eShop.Providers
 {
     public class LocalCatalogDb : JsonDb
     {
+        const string CurrentVersion = "1.0";
+
         public LocalCatalogDb(string fileName = "LocalCatalogDb.json") : base(fileName)
         {
-            if (!File.Exists(base.FileName))
+            if (!File.Exists(base.FileName) || Version != CurrentVersion)
             {
                 string json = Resources.LoadString("CatalogDb.CatalogDb.json");
                 Deserialize(json);
+                Version = CurrentVersion;
                 SaveChanges();
             }
         }
+
+        public string Version { get; set; }
 
         public List<CatalogType> CatalogTypes { get; set; }
         public List<CatalogBrand> CatalogBrands { get; set; }
