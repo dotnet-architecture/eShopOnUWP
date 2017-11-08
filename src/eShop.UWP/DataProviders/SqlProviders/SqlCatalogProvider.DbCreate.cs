@@ -17,7 +17,7 @@ namespace eShop.Providers
         {
             try
             {
-                var provider = new CatalogProvider(connectionString);
+                var provider = new SqlServerProvider(connectionString);
                 return Result<bool>.Ok(provider.DatabaseExists());
             }
             catch (Exception ex)
@@ -32,7 +32,7 @@ namespace eShop.Providers
             {
                 try
                 {
-                    var provider = new CatalogProvider(connectionString);
+                    var provider = new SqlServerProvider(connectionString);
                     provider.CreateDatabase();
                     return Result.Ok();
                 }
@@ -45,7 +45,7 @@ namespace eShop.Providers
 
         static public void FillDatabase(string connectionString)
         {
-            var provider = new CatalogProvider(connectionString);
+            var provider = new SqlServerProvider(connectionString);
             using (var db = new LocalCatalogDb("TempCatalogDb.json"))
             {
                 CreateCatalogTypes(provider, db.CatalogTypes);
@@ -54,7 +54,7 @@ namespace eShop.Providers
             }
         }
 
-        static private void CreateCatalogTypes(CatalogProvider provider, IEnumerable<CatalogType> catalogTypes)
+        static private void CreateCatalogTypes(SqlServerProvider provider, IEnumerable<CatalogType> catalogTypes)
         {
             var dataSet = provider.GetDatasetSchema();
             var dataTable = dataSet.Tables["CatalogTypes"];
@@ -65,7 +65,7 @@ namespace eShop.Providers
             provider.CreateCatalogTypes(dataSet);
         }
 
-        static private void CreateCatalogBrands(CatalogProvider provider, IEnumerable<CatalogBrand> catalogBrands)
+        static private void CreateCatalogBrands(SqlServerProvider provider, IEnumerable<CatalogBrand> catalogBrands)
         {
             var dataSet = provider.GetDatasetSchema();
             var dataTable = dataSet.Tables["CatalogBrands"];
@@ -76,7 +76,7 @@ namespace eShop.Providers
             provider.CreateCatalogBrands(dataSet);
         }
 
-        static private void CreateCatalogItems(CatalogProvider provider, IEnumerable<CatalogItem> catalogItems)
+        static private void CreateCatalogItems(SqlServerProvider provider, IEnumerable<CatalogItem> catalogItems)
         {
             var dataSet = provider.GetDatasetSchema();
             var dataTable = dataSet.Tables["CatalogItems"];

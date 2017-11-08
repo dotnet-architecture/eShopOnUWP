@@ -6,22 +6,24 @@ using System.Data.SqlClient;
 
 namespace eShop.SqlProvider
 {
-    public class CatalogProvider
+    public class SqlServerProvider
     {
         const string QUERY_TYPES = "SELECT * FROM CatalogTypes";
         const string QUERY_BRANDS = "SELECT * FROM CatalogBrands";
-        const string QUERY_ITEMS = "SELECT [Id], [Name], [Description], [Price], [CatalogTypeId], [CatalogBrandId] FROM CatalogItems";
+        const string QUERY_ITEMS = "SELECT [Id], [Name], [Description], [Price], [CatalogTypeId], [CatalogBrandId], [PictureFileName] FROM CatalogItems";
         const string QUERY_ITEMSBYID = "SELECT [Id], [Name], [Description], [Price], [CatalogTypeId], [CatalogBrandId] FROM CatalogItems WHERE Id=@Id";
+        const string QUERY_IMAGEBYID = "SELECT [Id], [ImageType], [ImageBytes] FROM CatalogImages WHERE Id=@Id";
 
         const string CREATE_TYPES = "INSERT INTO CatalogTypes ([Id], [Type]) VALUES (@Id, @Type)";
         const string CREATE_BRANDS = "INSERT INTO CatalogBrands ([Id], [Brand]) VALUES (@Id, @Brand)";
         const string CREATE_ITEMS = "INSERT INTO CatalogItems ([Name], [Description], [Price], [CatalogTypeId], [CatalogBrandId]) VALUES (@Name, @Description, @Price, @CatalogTypeId, @CatalogBrandId) SET @Id = SCOPE_IDENTITY()";
-        const string UPDATE_ITEMS = "UPDATE CatalogItems SET [Name] = @Name, [Description] = @Description, [Price] = @Price, [CatalogTypeId] = @CatalogTypeId, [CatalogBrandId] = @CatalogBrandId WHERE [Id] = @Id";
+        const string UPDATE_ITEMS = "UPDATE CatalogItems SET [Name] = @Name, [Description] = @Description, [Price] = @Price, [CatalogTypeId] = @CatalogTypeId, [CatalogBrandId] = @CatalogBrandId, [PictureFileName] = @PictureFileName WHERE [Id] = @Id";
         const string DELETE_ITEM = "DELETE FROM CatalogItems WHERE [Id] = @Id";
+        const string CREATE_IMAGE = "INSERT INTO CatalogImages ([Id], [ImageType], [ImageBytes]) VALUES (@Id, @ImageType, @ImageBytes)";
 
         const string QUERY_EXISTSDB = "SELECT count(*) FROM sys.Databases WHERE name = @DbName";
 
-        public CatalogProvider(string connectionString)
+        public SqlServerProvider(string connectionString)
         {
             ConnectionString = connectionString;
         }
@@ -222,13 +224,13 @@ namespace eShop.SqlProvider
             string sqlQuery = QUERY_ITEMS;
             string sqlWhere = null;
 
-            if (typeId > 0)
+            if (typeId > -1)
             {
                 paramType = new SqlParameter("typeId", typeId);
                 sqlWhere = "CatalogTypeId = @typeId";
             }
 
-            if (brandId > 0)
+            if (brandId > -1)
             {
                 paramBrand = new SqlParameter("brandId", brandId);
                 sqlWhere = sqlWhere == null ? String.Empty : sqlWhere + " AND ";
@@ -282,6 +284,7 @@ namespace eShop.SqlProvider
                     cmd.Parameters.Add(new SqlParameter("Price", SqlDbType.Decimal) { SourceColumn = "Price" });
                     cmd.Parameters.Add(new SqlParameter("CatalogTypeId", SqlDbType.Int) { SourceColumn = "CatalogTypeId" });
                     cmd.Parameters.Add(new SqlParameter("CatalogBrandId", SqlDbType.Int) { SourceColumn = "CatalogBrandId" });
+                    cmd.Parameters.Add(new SqlParameter("PictureFileName", SqlDbType.VarChar) { SourceColumn = "PictureFileName" });
 
                     using (SqlDataAdapter dataAdapter = new SqlDataAdapter())
                     {
@@ -304,6 +307,7 @@ namespace eShop.SqlProvider
                     cmd.Parameters.Add(new SqlParameter("Price", SqlDbType.Decimal) { SourceColumn = "Price" });
                     cmd.Parameters.Add(new SqlParameter("CatalogTypeId", SqlDbType.Int) { SourceColumn = "CatalogTypeId" });
                     cmd.Parameters.Add(new SqlParameter("CatalogBrandId", SqlDbType.Int) { SourceColumn = "CatalogBrandId" });
+                    cmd.Parameters.Add(new SqlParameter("PictureFileName", SqlDbType.VarChar) { SourceColumn = "PictureFileName" });
 
                     using (SqlDataAdapter dataAdapter = new SqlDataAdapter())
                     {
@@ -321,6 +325,42 @@ namespace eShop.SqlProvider
                 using (SqlCommand cmd = new SqlCommand(DELETE_ITEM, cnn))
                 {
                     SqlParameter param = new SqlParameter("id", id);
+                    cmd.Parameters.Add(param);
+                    cnn.Open();
+                    return cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public DataSet GetImage(int id)
+        {
+            using (SqlConnection cnn = new SqlConnection(ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(QUERY_IMAGEBYID, cnn))
+                {
+                    SqlParameter param = new SqlParameter("id", id);
+                    cmd.Parameters.Add(param);
+                    DataSet dataSet = new DataSet();
+                    using (SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd))
+                    {
+                        dataAdapter.Fill(dataSet, "CatalogImages");
+                    }
+                    return dataSet;
+                }
+            }
+        }
+
+        public int InsertImage(int id, string extension, byte[] image)
+        {
+            using (SqlConnection cnn = new SqlConnection(ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(CREATE_IMAGE, cnn))
+                {
+                    SqlParameter param = new SqlParameter("Id", id);
+                    cmd.Parameters.Add(param);
+                    param = new SqlParameter("ImageType", extension);
+                    cmd.Parameters.Add(param);
+                    param = new SqlParameter("ImageBytes", image);
                     cmd.Parameters.Add(param);
                     cnn.Open();
                     return cmd.ExecuteNonQuery();

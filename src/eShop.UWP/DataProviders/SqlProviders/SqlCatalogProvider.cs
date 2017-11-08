@@ -24,7 +24,7 @@ namespace eShop.Providers
             {
                 try
                 {
-                    var provider = new CatalogProvider(ConnectionString);
+                    var provider = new SqlServerProvider(ConnectionString);
                     provider.GetCatalogTypes();
                     return Result.Ok();
                 }
@@ -40,7 +40,7 @@ namespace eShop.Providers
             _catalogTypes = new List<CatalogType>();
 
             await Task.FromResult(true);
-            var provider = new CatalogProvider(ConnectionString);
+            var provider = new SqlServerProvider(ConnectionString);
             var dataSet = provider.GetCatalogTypes();
 
             foreach (DataRow item in dataSet.Tables["CatalogTypes"].Rows)
@@ -60,7 +60,7 @@ namespace eShop.Providers
             _catalogBrands = new List<CatalogBrand>();
 
             await Task.FromResult(true);
-            var provider = new CatalogProvider(ConnectionString);
+            var provider = new SqlServerProvider(ConnectionString);
             var dataSet = provider.GetCatalogBrands();
 
             foreach (DataRow item in dataSet.Tables["CatalogBrands"].Rows)
@@ -79,7 +79,7 @@ namespace eShop.Providers
         {
             await Task.FromResult(true);
 
-            var provider = new CatalogProvider(ConnectionString);
+            var provider = new SqlServerProvider(ConnectionString);
             var dataSet = provider.GetItemById(id);
             var dataTable = dataSet.Tables["CatalogItems"];
 
@@ -101,7 +101,7 @@ namespace eShop.Providers
 
             await Task.FromResult(true);
 
-            var provider = new CatalogProvider(ConnectionString);
+            var provider = new SqlServerProvider(ConnectionString);
             var dataSet = provider.GetItems(typeId, brandId, query);
             var dataTable = dataSet.Tables["CatalogItems"];
             foreach (DataRow dataRow in dataTable.Rows)
@@ -127,7 +127,7 @@ namespace eShop.Providers
         public async Task SaveItemAsync(CatalogItem item)
         {
             await Task.FromResult(true);
-            var provider = new CatalogProvider(ConnectionString);
+            var provider = new SqlServerProvider(ConnectionString);
             var dataSet = provider.GetDatasetSchema();
             var dataTable = dataSet.Tables["CatalogItems"];
             dataTable.Rows.Add(0, item.Name, item.Description, item.Price, item.CatalogTypeId, item.CatalogBrandId);
@@ -137,7 +137,7 @@ namespace eShop.Providers
         public async Task DeleteItemAsync(CatalogItem item)
         {
             await Task.FromResult(true);
-            var provider = new CatalogProvider(ConnectionString);
+            var provider = new SqlServerProvider(ConnectionString);
             provider.DeleteItem(item.Id);
         }
 
