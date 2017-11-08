@@ -16,12 +16,7 @@ namespace eShop.Providers
         static private IList<CatalogType> _catalogTypes = null;
         static private IList<CatalogBrand> _catalogBrands = null;
 
-        private string _connectionString = null;
-        public string ConnectionString
-        {
-            get => _connectionString ?? (_connectionString = AppSettings.Current.SqlConnectionString);
-            set => _connectionString = value;
-        }
+        public string ConnectionString => AppSettings.Current.SqlConnectionString;
 
         public Task<Result> IsAvailableAsync()
         {
