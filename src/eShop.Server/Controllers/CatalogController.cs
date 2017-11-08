@@ -92,12 +92,12 @@ namespace eShop.Server.Controllers
             {
                 IEnumerable<CatalogItem> items = db.CatalogItems;
 
-                if (catalogTypeId != null && catalogTypeId > 0)
+                if (catalogTypeId != null && catalogTypeId > -1)
                 {
                     items = items.Where(r => r.CatalogTypeId == catalogTypeId);
                 }
 
-                if (catalogBrandId != null && catalogBrandId > 0)
+                if (catalogBrandId != null && catalogBrandId > -1)
                 {
                     items = items.Where(r => r.CatalogBrandId == catalogBrandId);
                 }
