@@ -1,14 +1,15 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Data;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
+using Windows.Storage;
 
 using eShop.UWP;
 using eShop.SqlProvider;
 using eShop.UWP.Data;
-using Windows.Storage;
-using System.Data;
 
 namespace eShop.Providers
 {
@@ -51,57 +52,38 @@ namespace eShop.Providers
             {
                 CreateCatalogTypes(provider, db.CatalogTypes);
                 CreateCatalogBrands(provider, db.CatalogBrands);
-                var dataTableItems = CreateCatalogItems(provider, db.CatalogItems);
-                await CreateCatalogImages(provider, dataTableItems);
+                await CreateCatalogItems(provider, db.CatalogItems);
             }
         }
 
         static private void CreateCatalogTypes(SqlServerProvider provider, IEnumerable<CatalogType> catalogTypes)
         {
-            var dataSet = provider.GetDatasetSchema();
-            var dataTable = dataSet.Tables["CatalogTypes"];
             foreach (var item in catalogTypes)
             {
-                dataTable.Rows.Add(item.Id, item.Type);
+                provider.InsertCatalogType(item.Id, item.Type);
             }
-            provider.CreateCatalogTypes(dataSet);
         }
 
         static private void CreateCatalogBrands(SqlServerProvider provider, IEnumerable<CatalogBrand> catalogBrands)
         {
-            var dataSet = provider.GetDatasetSchema();
-            var dataTable = dataSet.Tables["CatalogBrands"];
             foreach (var item in catalogBrands)
             {
-                dataTable.Rows.Add(item.Id, item.Brand);
+                provider.InsertCatalogBrand(item.Id, item.Brand);
             }
-            provider.CreateCatalogBrands(dataSet);
         }
 
-        static private DataTable CreateCatalogItems(SqlServerProvider provider, IEnumerable<CatalogItem> catalogItems)
+        static private async Task CreateCatalogItems(SqlServerProvider provider, IEnumerable<CatalogItem> catalogItems)
         {
-            var dataSet = provider.GetDatasetSchema();
-            var dataTable = dataSet.Tables["CatalogItems"];
             foreach (var item in catalogItems.OrderBy(r => r.Id))
             {
-                dataTable.Rows.Add(0, item.Name, item.Description, item.Price, item.CatalogTypeId, item.CatalogBrandId, $"{item.Id}.jpg");
-            }
-            provider.CreateCatalogItems(dataSet);
-            return dataTable;
-        }
-
-        static private async Task CreateCatalogImages(SqlServerProvider provider, DataTable catalogItems)
-        {
-            foreach (DataRow row in catalogItems.Rows)
-            {
-                int id = (int)row["Id"];
-                string name = row["PictureFileName"] as String;
-                var image = await LoadImageAsync(id, name);
-                provider.InsertImage(id, ".jpg", image);
+                string pictureName = $"{item.Id}.jpg";
+                provider.InsertCatalogItem(item.Id, item.Name, item.Description, pictureName, item.Price, item.CatalogTypeId, item.CatalogBrandId, item.IsDisabled);
+                var picture = await LoadImageAsync(pictureName);
+                provider.InsertCatalogImage(item.Id, picture);
             }
         }
 
-        static private async Task<byte[]> LoadImageAsync(int id, string name)
+        static private async Task<byte[]> LoadImageAsync(string name)
         {
             string url = $"ms-appx:///Assets/Catalog/{name}";
             var storageFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri(url, UriKind.Absolute));

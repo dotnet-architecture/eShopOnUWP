@@ -130,11 +130,13 @@
     <Compile Include="Activation\DefaultLaunchActivationHandler.cs" />
     <Compile Include="AppSettings\AppSettings.cs" />
     <Compile Include="AppSettings\DataProviderType.cs" />
+    <Compile Include="Common\ContentTypes.cs" />
     <Compile Include="Common\DeferredNavigation.cs" />
     <Compile Include="Common\DialogBox.cs" />
     <Compile Include="Common\ImagePicker.cs" />
     <Compile Include="Common\IShell.cs" />
     <Compile Include="Common\Result.cs" />
+    <Compile Include="Common\FileStorage.cs" />
     <Compile Include="Common\ViewState.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Services\ActivationService.cs" />
