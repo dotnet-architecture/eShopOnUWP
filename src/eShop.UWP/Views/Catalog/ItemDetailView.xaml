@@ -22,12 +22,11 @@
 
                         <StackPanel>
                             <TextBlock Text="Name" LineHeight="20" Foreground="RoyalBlue" />
-                            <TextBox Text="{Binding Item.Name, Mode=TwoWay}" FontSize="20" BorderThickness="0,0,0,1" />
+                            <TextBox Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" BorderThickness="0,0,0,1" />
                         </StackPanel>
                         <StackPanel Margin="16,0,0,0" Grid.Column="1">
                             <TextBlock Text="Price" LineHeight="20" Foreground="RoyalBlue" />
-                            <TextBox Text="{Binding PriceProxy, Mode=TwoWay}" FontSize="20" BorderThickness="0,0,0,1"
-                                     extensions:TextBoxRegex.ValidationType="Decimal" extensions:TextBoxRegex.ValidationMode="Forced" />
+                            <TextBox extensions:TextBoxRegex.ValidationType="Decimal" extensions:TextBoxRegex.ValidationMode="Forced" Text="{Binding Item.PriceString, Mode=TwoWay}" FontSize="20" BorderThickness="0,0,0,1" />
                         </StackPanel>
                     </Grid>
 

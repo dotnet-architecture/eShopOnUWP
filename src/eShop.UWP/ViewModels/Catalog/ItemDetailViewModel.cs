@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-
-using eShop.UWP.Models;
-using eShop.Providers;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
+
 using GalaSoft.MvvmLight.Command;
+
+using eShop.Providers;
+using eShop.UWP.Models;
 
 namespace eShop.UWP.ViewModels
 {
@@ -21,8 +22,19 @@ namespace eShop.UWP.ViewModels
 
         public ItemDetailState State { get; private set; }
 
-        public IList<CatalogTypeModel> CatalogTypes { get; set; }
-        public IList<CatalogBrandModel> CatalogBrands { get; set; }
+        private IList<CatalogTypeModel> _catalogTypes = null;
+        public IList<CatalogTypeModel> CatalogTypes
+        {
+            get { return _catalogTypes; }
+            set { Set(ref _catalogTypes, value); }
+        }
+
+        private IList<CatalogBrandModel> _catalogBrands = null;
+        public IList<CatalogBrandModel> CatalogBrands
+        {
+            get { return _catalogBrands; }
+            set { Set(ref _catalogBrands, value); }
+        }
 
         public override bool AlwaysShowHeader => false;
 
@@ -52,19 +64,6 @@ namespace eShop.UWP.ViewModels
         {
             get { return _isCommandBarOpen; }
             set { Set(ref _isCommandBarOpen, value); }
-        }
-
-        public string PriceProxy
-        {
-            get { return Item?.Price.ToString("#.00"); }
-            set { Item.Price = ParseDecimal(value); }
-        }
-
-        private double ParseDecimal(string value)
-        {
-            double d = 0;
-            Double.TryParse(value, out d);
-            return d;
         }
 
         public bool IsSaveVisible => true;

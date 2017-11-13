@@ -45,6 +45,19 @@ namespace eShop.UWP.Models
 
         public string PriceDesc => $"${Price.ToString("#.00")}";
 
+        public string PriceString
+        {
+            get { return Price.ToString("0.00"); }
+            set { Price = ParseDecimal(value); }
+        }
+
+        private double ParseDecimal(string value)
+        {
+            double d = 0;
+            Double.TryParse(value, out d);
+            return d;
+        }
+
         public string PictureFileName { get; set; }
         public byte[] Picture { get; set; }
         public string PictureContentType { get; set; }
