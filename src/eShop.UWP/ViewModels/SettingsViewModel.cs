@@ -10,6 +10,7 @@ using GalaSoft.MvvmLight.Command;
 
 using eShop.Providers;
 using eShop.UWP.Services;
+using eShop.SqlProvider;
 
 namespace eShop.UWP.ViewModels
 {
@@ -227,7 +228,19 @@ namespace eShop.UWP.ViewModels
                     await cnn.OpenAsync();
                 }
 
-                return Result.Ok("Success", "The connection to the Sql Server succeeded.");
+                var provider = new SqlServerProvider(SqlConnectionString);
+                if (provider.DatabaseExists())
+                {
+                    if (provider.IsLastVersion())
+                    {
+                        return Result.Ok("Success", "The connection to the Sql Server succeeded.");
+                    }
+                    return Result.Error("Version mismatch", "Database version mismatch. Please, press the 'Create' button and try again.");
+                }
+                else
+                {
+                    return Result.Error("Database not found", "Database not found using current connection string. Please, press the 'Create' button and try again.");
+                }
             }
             catch (Exception ex)
             {

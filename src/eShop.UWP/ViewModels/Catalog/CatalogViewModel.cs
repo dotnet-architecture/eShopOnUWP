@@ -64,11 +64,14 @@ namespace eShop.UWP.ViewModels
         {
             State.IsGridChecked = IsGridChecked;
             State.IsListChecked = IsListChecked;
-            foreach (var item in GridViewModel.Items.Where(r => r.HasChanges))
+            if (GridViewModel.Items != null)
             {
-                var provider = new CatalogProvider();
-                item.Commit();
-                await provider.SaveItemAsync(item);
+                foreach (var item in GridViewModel.Items.Where(r => r.HasChanges))
+                {
+                    var provider = new CatalogProvider();
+                    item.Commit();
+                    await provider.SaveItemAsync(item);
+                }
             }
         }
 

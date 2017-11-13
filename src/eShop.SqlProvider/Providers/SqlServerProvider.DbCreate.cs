@@ -7,7 +7,10 @@ namespace eShop.SqlProvider
 {
     public partial class SqlServerProvider
     {
+        const string CurrentVersion = "1.0";
+
         const string QUERY_EXISTSDB = "SELECT count(*) FROM sys.Databases WHERE name = @DbName";
+        const string QUERY_VERSION = "SELECT [Current] FROM [Version]";
 
         public bool DatabaseExists()
         {
@@ -25,6 +28,30 @@ namespace eShop.SqlProvider
                     cmd.Parameters.Add(param);
                     return (int)cmd.ExecuteScalar() == 1;
                 }
+            }
+        }
+
+        public bool IsLastVersion()
+        {
+            return GetVersion() == CurrentVersion;
+        }
+
+        public string GetVersion()
+        {
+            try
+            {
+                using (SqlConnection cnn = new SqlConnection(ConnectionString))
+                {
+                    cnn.Open();
+                    using (SqlCommand cmd = new SqlCommand(QUERY_VERSION, cnn))
+                    {
+                        return cmd.ExecuteScalar() as String;
+                    }
+                }
+            }
+            catch
+            {
+                return String.Empty;
             }
         }
 
@@ -52,6 +79,11 @@ namespace eShop.SqlProvider
                     {
                         cmd.ExecuteNonQuery();
                     }
+                }
+
+                using (SqlCommand cmd = new SqlCommand($"INSERT INTO [Version] ([Current]) VALUES ('{CurrentVersion}')", cnn))
+                {
+                    cmd.ExecuteNonQuery();
                 }
             }
         }

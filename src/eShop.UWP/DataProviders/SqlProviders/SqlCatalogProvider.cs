@@ -28,8 +28,15 @@ namespace eShop.Providers
                 try
                 {
                     var provider = new SqlServerProvider(ConnectionString);
-                    provider.GetCatalogTypes();
-                    return Result.Ok();
+                    if (provider.DatabaseExists())
+                    {
+                        if (provider.IsLastVersion())
+                        {
+                            return Result.Ok();
+                        }
+                        return Result.Error("Version mismatch", "Database version mismatch. Please, press the 'Create' button and try again.");
+                    }
+                    return Result.Error("Database not found", "Database not found using current connection string. Please, press the 'Create' button and try again.");
                 }
                 catch (Exception ex)
                 {
