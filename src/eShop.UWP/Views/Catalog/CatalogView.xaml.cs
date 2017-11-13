@@ -37,10 +37,10 @@ namespace eShop.UWP.Views
             itemsList.CatalogBrands = ViewModel.CatalogBrands;
         }
 
-        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        protected override async void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             base.OnNavigatingFrom(e);
-            ViewModel.Unload();
+            await ViewModel.UnloadAsync();
         }
     }
 }

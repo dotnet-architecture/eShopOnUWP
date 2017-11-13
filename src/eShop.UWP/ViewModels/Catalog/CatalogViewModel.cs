@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -59,10 +60,16 @@ namespace eShop.UWP.ViewModels
             HeaderText = State.Query == null ? "Catalog" : $"Catalog results for \"{State.Query}\"";
         }
 
-        public void Unload()
+        public async Task UnloadAsync()
         {
             State.IsGridChecked = IsGridChecked;
             State.IsListChecked = IsListChecked;
+            foreach (var item in GridViewModel.Items.Where(r => r.HasChanges))
+            {
+                var provider = new CatalogProvider();
+                item.Commit();
+                await provider.SaveItemAsync(item);
+            }
         }
 
         private void ViewSelectionChanged()
