@@ -116,10 +116,14 @@ namespace eShop.UWP.ViewModels
 
         private async void OnSelectPicture()
         {
-            var imagePicker = new ImagePicker();
-            Item.Picture = await imagePicker.GetImageAsync();
-            Item.PictureUri = imagePicker.FilePath;
-            Item.PictureContentType = imagePicker.ContentType;
+            var result = await ImagePicker.OpenAsync();
+            if (result != null)
+            {
+                Item.Picture = result.ImageBytes;
+                Item.PictureFileName = result.FileName;
+                Item.PictureUri = result.ImageUri;
+                Item.PictureContentType = result.ContentType;
+            }
         }
 
         private Result Validate()
