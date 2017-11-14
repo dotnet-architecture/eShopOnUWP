@@ -75,6 +75,9 @@ namespace eShop.UWP.ViewModels
 
         public async Task LoadAsync(CatalogState state)
         {
+            GridViewModel.Items = null;
+            ListViewModel.Items = null;
+
             _cancelRefresh = true;
 
             State = state;
@@ -129,7 +132,6 @@ namespace eShop.UWP.ViewModels
                     await DataProvider.SaveItemAsync(item);
                 }
             }
-            GridViewModel.Items = null;
         }
 
         private bool _cancelRefresh = false;

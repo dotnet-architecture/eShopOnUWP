@@ -47,6 +47,10 @@ namespace eShop.SqlProvider
 
         public DataTable GetCatalogItemsFilter(int typeId = -1, int brandId = -1, string query = null)
         {
+            if (!String.IsNullOrEmpty(query))
+            {
+                query = String.Format("%{0}%", query);
+            }
             CatalogItemsFilterTableAdapter dataAdapter = new CatalogItemsFilterTableAdapter();
             return dataAdapter.GetData(typeId, brandId, query);
         }
