@@ -11,6 +11,8 @@ namespace eShop.Providers
 {
     public class LocalCatalogProvider : ICatalogProvider
     {
+        public string Name => "Local";
+
         public Task<Result> IsAvailableAsync()
         {
             return Task.FromResult(Result.Ok());

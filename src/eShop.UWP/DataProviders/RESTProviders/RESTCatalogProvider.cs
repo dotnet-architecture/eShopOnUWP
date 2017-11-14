@@ -16,6 +16,8 @@ namespace eShop.Providers
         private IList<CatalogTypeModel> _catalogTypes = null;
         private IList<CatalogBrandModel> _catalogBrands = null;
 
+        public string Name => "REST";
+
         public async Task<Result> IsAvailableAsync()
         {
             try

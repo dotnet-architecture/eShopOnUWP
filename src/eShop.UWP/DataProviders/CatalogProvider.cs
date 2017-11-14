@@ -22,6 +22,8 @@ namespace eShop.Providers
             SqlCatalogProvider = new SqlCatalogProvider();
         }
 
+        public string Name => Current.Name;
+
         public ICatalogProvider LocalCatalogProvider { get; }
         public ICatalogProvider RESTCatalogProvider { get; }
         public ICatalogProvider SqlCatalogProvider { get; }

@@ -9,6 +9,8 @@ namespace eShop.Providers
 {
     public interface ICatalogProvider
     {
+        string Name { get; }
+
         Task<Result> IsAvailableAsync();
 
         Task<IList<CatalogTypeModel>> GetCatalogTypesAsync();
