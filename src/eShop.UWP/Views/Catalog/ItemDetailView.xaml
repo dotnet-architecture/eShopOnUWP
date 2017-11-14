@@ -52,7 +52,8 @@
                     <Border Margin="16" />
 
                     <TextBlock Text="Related Items" FontSize="28" LineHeight="60" Foreground="Gray" />
-                    <toolkit:AdaptiveGridView x:Name="gridView" ItemsSource="{Binding RelatedItems}" ItemTemplate="{StaticResource CatalogItemSmall}" DesiredWidth="150" ItemHeight="150" />
+                    <toolkit:AdaptiveGridView x:Name="gridView" ItemsSource="{Binding RelatedItems}" ItemTemplate="{StaticResource CatalogItemSmall}"
+                                              StretchContentForSingleRow="False" DesiredWidth="150" ItemHeight="150" />
                 </StackPanel>
             </Grid>
         </ScrollViewer>

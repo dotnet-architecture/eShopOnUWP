@@ -28,11 +28,11 @@ namespace eShop.UWP.ViewModels
     {
         public ItemsGridViewModel(ICatalogProvider catalogProvider)
         {
-            CatalogProvider = catalogProvider;
+            DataProvider = catalogProvider;
             _barItems = new ObservableCollection<CatalogItemModel>();
         }
 
-        public ICatalogProvider CatalogProvider { get; }
+        public ICatalogProvider DataProvider { get; }
 
         public GridView ItemsControl { get; set; }
         public GridView BarItemsControl { get; set; }
@@ -213,7 +213,7 @@ namespace eShop.UWP.ViewModels
                 {
                     foreach (var item in Items.Where(r => r.IsSelected).ToArray())
                     {
-                        await CatalogProvider.DeleteItemAsync(item);
+                        await DataProvider.DeleteItemAsync(item);
                         Items.Remove(item);
                         BarItems.Remove(item);
                     }

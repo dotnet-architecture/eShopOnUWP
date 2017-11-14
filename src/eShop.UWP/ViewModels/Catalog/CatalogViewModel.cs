@@ -11,9 +11,12 @@ namespace eShop.UWP.ViewModels
 {
     public class CatalogViewModel : CommonViewModel
     {
-        public CatalogViewModel()
+        public CatalogViewModel(ICatalogProvider catalogProvider)
         {
+            DataProvider = catalogProvider;
         }
+
+        public ICatalogProvider DataProvider { get; }
 
         public CatalogState State { get; private set; }
 
@@ -41,12 +44,10 @@ namespace eShop.UWP.ViewModels
         {
             State = state;
 
-            var provider = new CatalogProvider();
+            CatalogTypes = await DataProvider.GetCatalogTypesAsync();
+            CatalogBrands = await DataProvider.GetCatalogBrandsAsync();
 
-            CatalogTypes = await provider.GetCatalogTypesAsync();
-            CatalogBrands = await provider.GetCatalogBrandsAsync();
-
-            var items = await provider.GetItemsAsync(-1, -1, State.Query);
+            var items = await DataProvider.GetItemsAsync(-1, -1, State.Query);
             var collectionItems = new ObservableCollection<CatalogItemModel>(items);
             GridViewModel.Items = collectionItems;
             ListViewModel.Items = collectionItems;

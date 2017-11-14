@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -15,10 +16,10 @@ namespace eShop.UWP.ViewModels
     {
         public ItemDetailViewModel(ICatalogProvider catalogProvider)
         {
-            CatalogProvider = catalogProvider;
+            DataProvider = catalogProvider;
         }
 
-        public ICatalogProvider CatalogProvider { get; }
+        public ICatalogProvider DataProvider { get; }
 
         public ItemDetailState State { get; private set; }
 
@@ -83,7 +84,7 @@ namespace eShop.UWP.ViewModels
                 try
                 {
                     Item.Commit();
-                    await CatalogProvider.SaveItemAsync(Item);
+                    await DataProvider.SaveItemAsync(Item);
                     NavigationService.GoBack();
                 }
                 catch (Exception ex)
@@ -103,7 +104,7 @@ namespace eShop.UWP.ViewModels
             {
                 try
                 {
-                    await CatalogProvider.DeleteItemAsync(Item);
+                    await DataProvider.DeleteItemAsync(Item);
                     NavigationService.GoBack();
                 }
                 catch (Exception ex)
@@ -150,16 +151,14 @@ namespace eShop.UWP.ViewModels
         {
             State = state;
 
-            var provider = new CatalogProvider();
-
-            CatalogTypes = await provider.GetCatalogTypesAsync();
-            CatalogBrands = await provider.GetCatalogBrandsAsync();
+            CatalogTypes = await DataProvider.GetCatalogTypesAsync();
+            CatalogBrands = await DataProvider.GetCatalogBrandsAsync();
 
             int typeId = 0;
 
             if (state.Item != null)
             {
-                var item = await provider.GetItemByIdAsync(state.Item.Id);
+                var item = await DataProvider.GetItemByIdAsync(state.Item.Id);
                 if (item == null)
                 {
                     item = state.Item;
@@ -172,8 +171,9 @@ namespace eShop.UWP.ViewModels
             {
                 Item = new CatalogItemModel();
             }
-            var relatedItems = await provider.GetItemsAsync(typeId, -1, null);
-            RelatedItems = new ObservableCollection<CatalogItemModel>(relatedItems);
+            var relatedItems = await DataProvider.GetItemsAsync(typeId, -1, null);
+            var relatedItemsSkipCurrent = relatedItems.Where(r => r.Id != Item.Id);
+            RelatedItems = new ObservableCollection<CatalogItemModel>(relatedItemsSkipCurrent);
         }
     }
 }
