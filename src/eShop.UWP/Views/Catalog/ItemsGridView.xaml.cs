@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Threading.Tasks;
 
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Composition;
@@ -36,7 +34,7 @@ namespace eShop.UWP.Views
             var scrollViewer = gridView.GetChildOfType<ScrollViewer>();
             var scrollerPropertySet = ElementCompositionPreview.GetScrollViewerManipulationPropertySet(scrollViewer);
 
-            var _expression = compositor.CreateExpressionAnimation("Vector3(0, (-scroller.Translation.Y - container.Offset.Y + 300) * 0.10, 0)");
+            var _expression = compositor.CreateExpressionAnimation("Vector3(0, (-scroller.Translation.Y - container.Offset.Y + 300) * 0.05, 0)");
             _expression.SetReferenceParameter("scroller", scrollerPropertySet);
             return _expression;
         }

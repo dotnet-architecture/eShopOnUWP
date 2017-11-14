@@ -22,7 +22,7 @@ namespace eShop.UWP.Views
             var imageAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("ItemSelected");
             if (imageAnimation != null)
             {
-                imageAnimation.TryStart(picture);
+                imageAnimation.TryStart(pictureContainer);
             }
         }
 

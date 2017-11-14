@@ -7,6 +7,7 @@
              xmlns:i="using:Microsoft.Xaml.Interactivity"
              xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
              xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+             xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
              mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -20,7 +21,8 @@
     <Grid>
         <toolkit:AdaptiveGridView x:Name="gridView" Margin="12,0,12,24" ItemsSource="{Binding Items}" ItemTemplate="{StaticResource CatalogItem}"
                                   SelectionMode="{Binding SelectionMode}" IsItemClickEnabled="True" IsRightTapEnabled="True" StretchContentForSingleRow="False"
-                                  DesiredWidth="300" ItemHeight="300" ContainerContentChanging="OnContainerContentChanging" ItemClickCommand="{Binding ItemClickCommand}">
+                                  DesiredWidth="300" ItemHeight="300" ContainerContentChanging="OnContainerContentChanging" ItemClickCommand="{Binding ItemClickCommand}"
+                                  animations:ReorderGridAnimation.Duration="300">
             <i:Interaction.Behaviors>
                 <ic:EventTriggerBehavior EventName="RightTapped">
                     <ic:InvokeCommandAction Command="{Binding PreSelectCommand}" />
