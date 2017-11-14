@@ -38,6 +38,12 @@ namespace eShop.UWP.Views
             ApplyAnimations();
         }
 
+        protected override async void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            base.OnNavigatingFrom(e);
+            await ViewModel.UnloadAsync();
+        }
+
         private void ApplyAnimations()
         {
             var compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;

@@ -27,5 +27,19 @@ namespace eShop.UWP.Models
             get { return _name; }
             set { Set(ref _name, value); }
         }
+
+        public override int GetHashCode()
+        {
+            return Id;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is CatalogBrandModel instance)
+            {
+                return instance.Id == Id;
+            }
+            return false;
+        }
     }
 }

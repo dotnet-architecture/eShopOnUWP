@@ -1,4 +1,5 @@
 ﻿<UserControl x:Class="eShop.UWP.Views.ItemsListView"
+             DataContext="{Binding ItemsListViewModel, Source={StaticResource Locator}}"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -39,9 +40,9 @@
 
                 <grid:DataGridTextColumn Header="Name" PropertyName="Name" />
 
-                <grid:DataGridComboBoxColumn Header="Type" ItemsSource="{x:Bind CatalogTypes}" PropertyName="CatalogType" DisplayMemberPath="Name" />
+                <grid:DataGridComboBoxColumn Header="Type" ItemsSource="{x:Bind ViewModel.CatalogTypes}" PropertyName="CatalogType" DisplayMemberPath="Name" />
 
-                <grid:DataGridComboBoxColumn Header="Brand" ItemsSource="{x:Bind CatalogBrands}" PropertyName="CatalogBrand" DisplayMemberPath="Name" />
+                <grid:DataGridComboBoxColumn Header="Brand" ItemsSource="{x:Bind ViewModel.CatalogBrands}" PropertyName="CatalogBrand" DisplayMemberPath="Name" />
 
                 <grid:DataGridTextColumn Header="Price" PropertyName="Price" CellContentFormat=" {0:c2}">
                     <grid:DataGridTextColumn.CellContentStyle>

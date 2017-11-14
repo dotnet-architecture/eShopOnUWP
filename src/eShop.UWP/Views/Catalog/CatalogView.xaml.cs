@@ -13,10 +13,7 @@ namespace eShop.UWP.Views
         public CatalogView()
         {
             InitializeComponent();
-            CatalogProvider = new CatalogProvider();
         }
-
-        public ICatalogProvider CatalogProvider { get; }
 
         public CatalogViewModel ViewModel => DataContext as CatalogViewModel;
 
@@ -24,17 +21,14 @@ namespace eShop.UWP.Views
         {
             base.OnNavigatedTo(e);
 
-            ViewModel.GridViewModel = new ItemsGridViewModel(CatalogProvider);
-            ViewModel.ListViewModel = new ItemsListViewModel(CatalogProvider);
+            itemsGrid.Initialize();
+            itemsList.Initialize();
 
-            itemsGrid.Initialize(ViewModel.GridViewModel);
-            itemsList.Initialize(ViewModel.ListViewModel);
+            ViewModel.GridViewModel = itemsGrid.ViewModel;
+            ViewModel.ListViewModel = itemsList.ViewModel;
 
             var state = (e.Parameter as CatalogState) ?? new CatalogState();
             await ViewModel.LoadAsync(state);
-
-            itemsList.CatalogTypes = ViewModel.CatalogTypes;
-            itemsList.CatalogBrands = ViewModel.CatalogBrands;
         }
 
         protected override async void OnNavigatingFrom(NavigatingCancelEventArgs e)

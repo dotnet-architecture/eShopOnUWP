@@ -47,6 +47,9 @@ namespace eShop.UWP.ViewModels
             CatalogTypes = await DataProvider.GetCatalogTypesAsync();
             CatalogBrands = await DataProvider.GetCatalogBrandsAsync();
 
+            ListViewModel.CatalogTypes = CatalogTypes;
+            ListViewModel.CatalogBrands = CatalogBrands;
+
             var items = await DataProvider.GetItemsAsync(-1, -1, State.Query);
             var collectionItems = new ObservableCollection<CatalogItemModel>(items);
             GridViewModel.Items = collectionItems;
@@ -69,11 +72,11 @@ namespace eShop.UWP.ViewModels
             {
                 foreach (var item in GridViewModel.Items.Where(r => r.HasChanges))
                 {
-                    var provider = new CatalogProvider();
                     item.Commit();
-                    await provider.SaveItemAsync(item);
+                    await DataProvider.SaveItemAsync(item);
                 }
             }
+            GridViewModel.Items = null;
         }
 
         private void ViewSelectionChanged()

@@ -25,10 +25,10 @@ namespace eShop.UWP.ViewModels
     {
         public ItemsListViewModel(ICatalogProvider catalogProvider)
         {
-            CatalogProvider = catalogProvider;
+            DataProvider = catalogProvider;
         }
 
-        public ICatalogProvider CatalogProvider { get; }
+        public ICatalogProvider DataProvider { get; }
 
         public RadDataGrid ItemsControl { get; set; }
 
@@ -41,6 +41,20 @@ namespace eShop.UWP.ViewModels
         {
             get { return _items; }
             set { Set(ref _items, value); }
+        }
+
+        private IList<CatalogTypeModel> _catalogTypes = null;
+        public IList<CatalogTypeModel> CatalogTypes
+        {
+            get { return _catalogTypes; }
+            set { Set(ref _catalogTypes, value); }
+        }
+
+        private IList<CatalogBrandModel> _catalogBrands = null;
+        public IList<CatalogBrandModel> CatalogBrands
+        {
+            get { return _catalogBrands; }
+            set { Set(ref _catalogBrands, value); }
         }
 
         private bool _isCommandBarOpen = false;
@@ -143,7 +157,7 @@ namespace eShop.UWP.ViewModels
                 {
                     foreach (var item in Items.Where(r => r.IsSelected).ToArray())
                     {
-                        await CatalogProvider.DeleteItemAsync(item);
+                        await DataProvider.DeleteItemAsync(item);
                         Items.Remove(item);
                     }
                 }

@@ -23,6 +23,8 @@ namespace eShop.UWP.ViewModels
 
             Register<LoginViewModel, LoginView>();
             Register<CatalogViewModel, CatalogView>();
+            Register<ItemsGridViewModel, ItemsGridView>();
+            Register<ItemsListViewModel, ItemsListView>();
             Register<ItemDetailViewModel, ItemDetailView>();
             Register<SettingsViewModel, SettingsView>();
 
@@ -35,6 +37,8 @@ namespace eShop.UWP.ViewModels
 
         public LoginViewModel LoginViewModel => ServiceLocator.Current.GetInstance<LoginViewModel>();
         public CatalogViewModel CatalogViewModel => ServiceLocator.Current.GetInstance<CatalogViewModel>();
+        public ItemsGridViewModel ItemsGridViewModel => ServiceLocator.Current.GetInstance<ItemsGridViewModel>();
+        public ItemsListViewModel ItemsListViewModel => ServiceLocator.Current.GetInstance<ItemsListViewModel>();
         public ItemDetailViewModel ItemDetailViewModel => ServiceLocator.Current.GetInstance<ItemDetailViewModel>();
 
         public StatisticsViewModel StatisticsViewModel => ServiceLocator.Current.GetInstance<StatisticsViewModel>();

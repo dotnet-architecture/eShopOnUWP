@@ -23,9 +23,8 @@ namespace eShop.UWP.Views
 
         private ExpressionAnimation Expression => _expression ?? (_expression = CreateExpression());
 
-        public void Initialize(ItemsGridViewModel viewModel)
+        public void Initialize()
         {
-            DataContext = viewModel;
             ViewModel.ItemsControl = gridView;
             ViewModel.BarItemsControl = target;
         }

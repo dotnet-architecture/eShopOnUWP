@@ -43,7 +43,7 @@ namespace eShop.UWP.Models
             set { Set(ref _price, value); RaisePropertyChanged("PriceDesc"); }
         }
 
-        public string PriceDesc => $"${Price.ToString("#.00")}";
+        public string PriceDesc => $"${Price.ToString("0.00")}";
 
         public string PriceString
         {

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 
 using Windows.UI.Xaml.Controls;
 
-using eShop.UWP.Models;
 using eShop.UWP.ViewModels;
 
 namespace eShop.UWP.Views
@@ -17,12 +15,8 @@ namespace eShop.UWP.Views
 
         public ItemsListViewModel ViewModel => DataContext as ItemsListViewModel;
 
-        public IList<CatalogTypeModel> CatalogTypes { get; set; }
-        public IList<CatalogBrandModel> CatalogBrands { get; set; }
-
-        public void Initialize(ItemsListViewModel viewModel)
+        public void Initialize()
         {
-            DataContext = viewModel;
             ViewModel.ItemsControl = gridView;
         }
     }

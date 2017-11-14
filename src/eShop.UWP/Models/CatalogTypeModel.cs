@@ -6,7 +6,7 @@ using eShop.UWP.Data;
 
 namespace eShop.UWP.Models
 {
-    public class CatalogTypeModel : ObservableObject, IComparable
+    public class CatalogTypeModel : ObservableObject
     {
         public CatalogTypeModel()
         {
@@ -26,11 +26,6 @@ namespace eShop.UWP.Models
         {
             get { return _name; }
             set { Set(ref _name, value); }
-        }
-
-        public int CompareTo(object obj)
-        {
-            return ((CatalogTypeModel)obj).Id - Id;
         }
 
         public override int GetHashCode()

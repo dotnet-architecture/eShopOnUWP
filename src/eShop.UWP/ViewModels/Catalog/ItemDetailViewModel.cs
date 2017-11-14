@@ -175,5 +175,11 @@ namespace eShop.UWP.ViewModels
             var relatedItemsSkipCurrent = relatedItems.Where(r => r.Id != Item.Id);
             RelatedItems = new ObservableCollection<CatalogItemModel>(relatedItemsSkipCurrent);
         }
+
+        public Task UnloadAsync()
+        {
+            RelatedItems = null;
+            return Task.CompletedTask;
+        }
     }
 }
