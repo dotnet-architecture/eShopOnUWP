@@ -5192,7 +5192,7 @@ namespace eShop.SqlProvider.CatalogDSTableAdapters
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[CatalogItems] WHERE (([Id] = @Original_Id) AND ((@IsNull_PictureName = 1 AND [PictureName] IS NULL) OR ([PictureName] = @Original_PictureName)) AND ([Price] = @Original_Price) AND ([CatalogTypeId] = @Original_CatalogTypeId) AND ([CatalogBrandId] = @Original_CatalogBrandId) AND ([IsDisabled] = @Original_IsDisabled) AND ([LastUpdate] = @Original_LastUpdate))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[CatalogItems] WHERE ([Id] = @Original_Id)";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
