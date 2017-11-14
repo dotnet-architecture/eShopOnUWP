@@ -76,18 +76,20 @@ namespace eShop.UWP.ViewModels
 
         public Visibility CancelVisibility => NavigationService.CanGoBack ? Visibility.Visible : Visibility.Collapsed;
 
+        public bool IsBusy => IsRESTBusy | IsSqlBusy;
+
         private bool _isRESTBusy = false;
         public bool IsRESTBusy
         {
             get { return _isRESTBusy; }
-            set { Set(ref _isRESTBusy, value); }
+            set { Set(ref _isRESTBusy, value); RaisePropertyChanged("IsBusy"); }
         }
 
         private bool _isSqlBusy = false;
         public bool IsSqlBusy
         {
             get { return _isSqlBusy; }
-            set { Set(ref _isSqlBusy, value); }
+            set { Set(ref _isSqlBusy, value); RaisePropertyChanged("IsBusy"); }
         }
 
         public ICommand ValidateRESTConnectionCommand => new RelayCommand(OnValidateRESTConnection);
