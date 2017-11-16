@@ -13,18 +13,20 @@ namespace eShop.UWP.Services
     {
         static private object _sync = new Object();
 
-        public JsonDb(string fileName, bool createEmpty = false)
+        public JsonDb(string fileName)
         {
-            FileName = Path.Combine(ApplicationData.Current.LocalFolder.Path, fileName);
+            FilePath = GetFilePath(fileName);
             Initialize();
-            if (!createEmpty)
-            {
-                Deserialize();
-            }
+            Deserialize();
+        }
+
+        static public string GetFilePath(string fileName)
+        {
+            return Path.Combine(ApplicationData.Current.LocalFolder.Path, fileName);
         }
 
         [JsonIgnore]
-        protected string FileName { get; }
+        protected string FilePath { get; }
         [JsonIgnore]
 
         protected Formatting Formatting { get; set; } = Formatting.Indented;
@@ -51,7 +53,7 @@ namespace eShop.UWP.Services
             string json = JsonConvert.SerializeObject(this, Formatting);
             lock (_sync)
             {
-                File.WriteAllText(FileName, json);
+                File.WriteAllText(FilePath, json);
             }
         }
 
@@ -61,9 +63,9 @@ namespace eShop.UWP.Services
 
             lock (_sync)
             {
-                if (File.Exists(FileName))
+                if (File.Exists(FilePath))
                 {
-                    json = File.ReadAllText(FileName);
+                    json = File.ReadAllText(FilePath);
                 }
             }
 

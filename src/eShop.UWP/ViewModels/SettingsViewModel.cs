@@ -92,6 +92,13 @@ namespace eShop.UWP.ViewModels
             set { Set(ref _isSqlBusy, value); RaisePropertyChanged("IsBusy"); }
         }
 
+        public ICommand ResetLocalDataCommand => new RelayCommand(OnResetLocalData);
+        private async void OnResetLocalData()
+        {
+            LocalCatalogDb.ResetData();
+            await DialogBox.ShowAsync("Success", "Local provider restored to default data.");
+        }
+
         public ICommand ValidateRESTConnectionCommand => new RelayCommand(OnValidateRESTConnection);
         private async void OnValidateRESTConnection()
         {

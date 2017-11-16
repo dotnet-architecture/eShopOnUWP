@@ -36,6 +36,8 @@
                             <StackPanel>
                                 <TextBlock Text="Local Data Provider" LineHeight="26" />
                                 <TextBlock Text="Sample local data provider based on a Json file." TextWrapping="Wrap" Opacity="0.5" />
+                                <Border Margin="8" />
+                                <Button Content="Reset data" IsEnabled="{Binding IsLocalProvider}" Command="{Binding ResetLocalDataCommand}" />
                             </StackPanel>
                         </RadioButton>
                         <RadioButton Margin="0,0,0,20" GroupName="providers" IsChecked="{Binding IsRESTProvider, Mode=TwoWay}">

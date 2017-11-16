@@ -10,17 +10,23 @@ namespace eShop.Providers
 {
     public class LocalCatalogDb : JsonDb
     {
-        const string CurrentVersion = "1.0";
+        const string CURRENT_VERSION = "1.0";
+        const string DEFAULT_FILENAME = "LocalCatalogDb.json";
 
-        public LocalCatalogDb(string fileName = "LocalCatalogDb.json") : base(fileName)
+        public LocalCatalogDb(string fileName = DEFAULT_FILENAME) : base(fileName)
         {
-            if (!File.Exists(base.FileName) || Version != CurrentVersion)
+            if (!File.Exists(base.FilePath) || Version != CURRENT_VERSION)
             {
                 string json = Resources.LoadString("CatalogDb.CatalogDb.json");
                 Deserialize(json);
-                Version = CurrentVersion;
+                Version = CURRENT_VERSION;
                 SaveChanges();
             }
+        }
+
+        static public void ResetData(string fileName = DEFAULT_FILENAME)
+        {
+            File.Delete(GetFilePath(fileName));
         }
 
         public string Version { get; set; }
