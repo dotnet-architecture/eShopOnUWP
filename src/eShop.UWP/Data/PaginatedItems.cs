@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace eShop.UWP.Data
+namespace eShop.Data
 {
     public class PaginatedItems<TEntity> where TEntity : class
     {

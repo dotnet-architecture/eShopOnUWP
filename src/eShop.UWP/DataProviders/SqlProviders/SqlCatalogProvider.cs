@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 
 using eShop.UWP;
-using eShop.UWP.Data;
+using eShop.Data;
 using eShop.UWP.Models;
 using eShop.SqlProvider;
 

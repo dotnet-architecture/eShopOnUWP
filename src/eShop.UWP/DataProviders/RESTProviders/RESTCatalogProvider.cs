@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using eShop.UWP;
-using eShop.UWP.Data;
+using eShop.Data;
 using eShop.UWP.Models;
 using eShop.UWP.Services;
 

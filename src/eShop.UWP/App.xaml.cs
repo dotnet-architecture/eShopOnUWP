@@ -1,7 +1,6 @@
 ﻿using System;
 
 using eShop.UWP.Views;
-using eShop.UWP.ViewModels;
 using eShop.UWP.Services;
 
 using Windows.UI.Xaml;
@@ -40,9 +39,7 @@ namespace eShop.UWP
 
         private ActivationService CreateActivationService()
         {
-            // TODO: 
-            //return new ActivationService(this, null, null, new LoginView());
-            return new ActivationService(this, typeof(StatisticsViewModel), null, new ShellView());
+            return new ActivationService(this, null, null, new LoginView());
         }
 
         private static void MaximizeWindowOnLoad()

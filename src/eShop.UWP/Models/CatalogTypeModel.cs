@@ -2,7 +2,7 @@
 
 using GalaSoft.MvvmLight;
 
-using eShop.UWP.Data;
+using eShop.Data;
 
 namespace eShop.UWP.Models
 {

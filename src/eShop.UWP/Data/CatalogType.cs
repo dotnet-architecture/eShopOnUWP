@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace eShop.UWP.Data
+namespace eShop.Data
 {
     public class CatalogType
     {

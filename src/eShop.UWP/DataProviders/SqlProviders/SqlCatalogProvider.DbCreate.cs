@@ -9,7 +9,7 @@ using Windows.Storage;
 
 using eShop.UWP;
 using eShop.SqlProvider;
-using eShop.UWP.Data;
+using eShop.Data;
 
 namespace eShop.Providers
 {

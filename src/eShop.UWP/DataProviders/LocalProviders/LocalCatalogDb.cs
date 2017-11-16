@@ -2,7 +2,7 @@
 using System.IO;
 using System.Collections.Generic;
 
-using eShop.UWP.Data;
+using eShop.Data;
 using eShop.UWP.Helpers;
 using eShop.UWP.Services;
 
