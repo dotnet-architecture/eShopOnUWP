@@ -20,6 +20,7 @@ namespace eShop.UWP.ViewModels
             SimpleIoc.Default.Register<ShellViewModel>();
 
             SimpleIoc.Default.Register<ICatalogProvider, CatalogProvider>();
+            SimpleIoc.Default.Register<IOrdersProvider, OrdersProvider>();
 
             Register<LoginViewModel, LoginView>();
             Register<CatalogViewModel, CatalogView>();
