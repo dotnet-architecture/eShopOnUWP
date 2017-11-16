@@ -11,8 +11,10 @@ using Windows.UI.Xaml.Data;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
-using eShop.UWP.Models;
 using eShop.Providers;
+using eShop.UWP.Models;
+using eShop.UWP.Services;
+using eShop.UWP.Helpers;
 
 namespace eShop.UWP.ViewModels
 {
@@ -211,7 +213,8 @@ namespace eShop.UWP.ViewModels
                 _cancelOnSelectionChanged = true;
                 try
                 {
-                    foreach (var item in Items.Where(r => r.IsSelected).ToArray())
+                    var selectedItems = Items.Where(r => r.IsSelected).ToArray();
+                    foreach (var item in selectedItems)
                     {
                         await DataProvider.DeleteItemAsync(item);
                         Items.Remove(item);
@@ -219,6 +222,12 @@ namespace eShop.UWP.ViewModels
                     }
                     SelectionMode = ListViewSelectionMode.None;
                     Mode = GridCommandBarMode.Idle;
+
+                    if (selectedItems.Length == 1)
+                    {
+                        var item = selectedItems[0];
+                        ToastNotificationsService.Current.ShowToastNotification(Constants.NotificationDeletedItemTitleKey.GetLocalized(), item);
+                    }
                 }
                 catch (Exception ex)
                 {

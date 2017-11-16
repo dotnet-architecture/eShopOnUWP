@@ -145,6 +145,7 @@
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Services\JsonDb.cs" />
     <Compile Include="Services\NavigationServiceEx.cs" />
+    <Compile Include="Services\ToastNotificationsService.cs" />
     <Compile Include="Services\WebApiClient.cs" />
     <Compile Include="ViewModels\Catalog\CatalogState.cs" />
     <Compile Include="ViewModels\Catalog\CatalogViewModel.cs" />

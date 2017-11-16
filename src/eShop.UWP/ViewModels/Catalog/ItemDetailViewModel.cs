@@ -9,6 +9,8 @@ using GalaSoft.MvvmLight.Command;
 
 using eShop.Providers;
 using eShop.UWP.Models;
+using eShop.UWP.Services;
+using eShop.UWP.Helpers;
 
 namespace eShop.UWP.ViewModels
 {
@@ -83,9 +85,14 @@ namespace eShop.UWP.ViewModels
             {
                 try
                 {
+                    bool isNew = Item.Id == 0;
                     Item.Commit();
                     await DataProvider.SaveItemAsync(Item);
                     NavigationService.GoBack();
+                    if (isNew)
+                    {
+                        ToastNotificationsService.Current.ShowToastNotification(Constants.NotificationAddedItemTitleKey.GetLocalized(), Item);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -106,6 +113,7 @@ namespace eShop.UWP.ViewModels
                 {
                     await DataProvider.DeleteItemAsync(Item);
                     NavigationService.GoBack();
+                    ToastNotificationsService.Current.ShowToastNotification(Constants.NotificationDeletedItemTitleKey.GetLocalized(), Item);
                 }
                 catch (Exception ex)
                 {

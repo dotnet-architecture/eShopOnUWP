@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Threading.Tasks;
 
+using eShop.UWP.Services;
+
 namespace eShop.UWP.Activation
 {
     // For more information on application activation see https://github.com/Microsoft/WindowsTemplateStudio/blob/master/docs/activation.md
     internal abstract class ActivationHandler
     {
+        protected NavigationServiceEx NavigationService => Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<NavigationServiceEx>();
+
         public abstract bool CanHandle(object args);
 
         public abstract Task HandleAsync(object args);
