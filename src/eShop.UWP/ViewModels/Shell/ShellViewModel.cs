@@ -163,7 +163,6 @@ namespace eShop.UWP.ViewModels
             NavigationService.Navigate(navigationItem.Key, new ItemDetailState());
         }
 
-
         private async void OnLogout()
         {
             if (await DialogBox.ShowAsync("Confirm Logout", "Are you sure you want to logout?", "Ok", "Cancel"))

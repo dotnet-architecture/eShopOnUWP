@@ -42,7 +42,6 @@ namespace eShop.Providers
             using (var db = new LocalCatalogDb())
             {
                 var item = db.CatalogItems.Where(r => r.Id == id).Select(r => new CatalogItemModel(r)).FirstOrDefault();
-                Populate(db, item);
                 return item;
             }
         }
@@ -145,26 +144,6 @@ namespace eShop.Providers
                 }
                 db.SaveChanges();
             }
-        }
-
-        private IEnumerable<CatalogItemModel> Populate(LocalCatalogDb db, IEnumerable<CatalogItemModel> items)
-        {
-            foreach (var item in items)
-            {
-                Populate(db, item);
-            }
-            return items;
-        }
-
-        private CatalogItemModel Populate(LocalCatalogDb db, CatalogItemModel item)
-        {
-            if (item != null)
-            {
-                // TODO: 
-                //item.CatalogTypeId = db.CatalogTypes.FirstOrDefault(r => r.Id == item.CatalogTypeId);
-                //item.CatalogBrand = db.CatalogBrands.FirstOrDefault(r => r.Id == item.CatalogBrandId);
-            }
-            return item;
         }
     }
 }

@@ -40,9 +40,7 @@ namespace eShop.UWP
 
         private ActivationService CreateActivationService()
         {
-            // TODO: 
-            //return new ActivationService(this, null, null, new LoginView());
-            return new ActivationService(this, typeof(CatalogViewModel), new CatalogState(), new ShellView());
+            return new ActivationService(this, null, null, new LoginView());
         }
 
         private static void MaximizeWindowOnLoad()
