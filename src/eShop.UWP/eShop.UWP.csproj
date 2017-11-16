@@ -138,6 +138,7 @@
     <Compile Include="Common\FileStorage.cs" />
     <Compile Include="Common\ViewState.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Controls\ToggleButtonControl.cs" />
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Services\JsonDb.cs" />
     <Compile Include="Services\NavigationServiceEx.cs" />
@@ -181,8 +182,8 @@
     <Compile Include="Views\Shell\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\StatisticsPage.xaml.cs">
-      <DependentUpon>StatisticsPage.xaml</DependentUpon>
+    <Compile Include="Views\StatisticsView.xaml.cs">
+      <DependentUpon>StatisticsView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -381,6 +382,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Styles\Statistics.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Styles\Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -433,9 +438,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\StatisticsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Views\StatisticsView.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

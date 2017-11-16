@@ -23,6 +23,7 @@
                 <ResourceDictionary Source="/Styles/Page.xaml"/>
                 <ResourceDictionary Source="/Styles/RadioButtons.xaml"/>
                 <ResourceDictionary Source="/Styles/Shell.xaml"/>
+                <ResourceDictionary Source="/Styles/Statistics.xaml"/>
                 <ResourceDictionary Source="/Styles/Styles.xaml"/>
                 <ResourceDictionary Source="/Styles/TextBlock.xaml"/>
                 <ResourceDictionary Source="/Styles/TextBox.xaml"/>

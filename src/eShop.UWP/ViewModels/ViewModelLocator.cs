@@ -28,7 +28,7 @@ namespace eShop.UWP.ViewModels
             Register<ItemDetailViewModel, ItemDetailView>();
             Register<SettingsViewModel, SettingsView>();
 
-            Register<StatisticsViewModel, StatisticsPage>();
+            Register<StatisticsViewModel, StatisticsView>();
         }
 
         public NavigationServiceEx NavigationService => ServiceLocator.Current.GetInstance<NavigationServiceEx>();

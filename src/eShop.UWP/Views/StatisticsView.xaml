@@ -1,0 +1,163 @@
+﻿<Page
+    x:Class="eShop.UWP.Views.StatisticsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:eShop.UWP.Controls"
+    xmlns:tc="using:Telerik.UI.Xaml.Controls.Chart"
+    xmlns:tdv="using:Telerik.UI.Xaml.Controls.DataVisualization"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="6">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        
+        <StackPanel x:Name="FilterPanel" Grid.Row="0" Grid.Column="0" Height="40" Margin="10,20,10,10" Orientation="Horizontal">
+            <controls:ToggleButtonControl x:Uid="Statictics_Mug" Foreground="{StaticResource PrimaryMediumChartBrush}" IsChecked="{Binding FirstFilter, Mode=TwoWay}" PathSource="{StaticResource MugIcon}" Style="{StaticResource FilterToggleButton}" />
+            <controls:ToggleButtonControl x:Uid="Statictics_Shirt" Foreground="{StaticResource SecondaryMediumChartBrush}" IsChecked="{Binding SecondFilter, Mode=TwoWay}" PathSource="{StaticResource ShirtIcon}" Style="{StaticResource FilterToggleButton}" />
+            <controls:ToggleButtonControl x:Uid="Statictics_Sheet" Foreground="{StaticResource TertiaryMediumChartBrush}" IsChecked="{Binding ThirdFilter, Mode=TwoWay}" PathSource="{StaticResource SheetIcon}" Style="{StaticResource FilterToggleButton}" />
+            <controls:ToggleButtonControl x:Uid="Statictics_Cap" Foreground="{StaticResource PrimaryLightChartBrush}" IsChecked="{Binding FourthFilter, Mode=TwoWay}" PathSource="{StaticResource CapIcon}" Style="{StaticResource FilterToggleButton}" />
+        </StackPanel>
+        
+        <StackPanel x:Name="SchedulePanel" Grid.Row="0" Grid.Column="1" Height="40" Margin="10" Orientation="Horizontal">
+            <ToggleButton x:Uid="Statistics_FirstTime" IsChecked="{Binding IsCheckedFirstTime, Mode=TwoWay}" Style="{StaticResource TimeRangeToggleButtonStyle}" />
+            <ToggleButton x:Uid="Statistics_SecondTime" IsChecked="{Binding IsCheckedSecondTime, Mode=TwoWay}" Style="{StaticResource TimeRangeToggleButtonStyle}" />
+            <ToggleButton x:Uid="Statistics_ThirdTime" IsChecked="{Binding IsCheckedThirdTime, Mode=TwoWay}" Style="{StaticResource TimeRangeToggleButtonStyle}" />
+        </StackPanel>
+        
+        <ScrollViewer x:Name="ChartScrollViewer" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition x:Name="AdaptativeRow" Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6*" />
+                    <ColumnDefinition Width="4*" />
+                </Grid.ColumnDefinitions>
+
+                <controls:CompositionShadow x:Name="Chart1" Grid.Row="0" Style="{StaticResource StatisticsShadowStyle}">
+                    <Grid Padding="{StaticResource StatisticsChartMargin}" Background="White">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="24" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock x:Uid="Statistics_BarChartTitle" Style="{StaticResource TitleChartTextBlockStyle}" />
+                        <tc:RadCartesianChart Grid.Row="2" Margin="60,0">
+                            <tc:RadCartesianChart.HorizontalAxis>
+                                <tc:CategoricalAxis />
+                            </tc:RadCartesianChart.HorizontalAxis>
+                            <tc:RadCartesianChart.VerticalAxis>
+                                <tc:LinearAxis />
+                            </tc:RadCartesianChart.VerticalAxis>
+                            <tc:RadCartesianChart.Grid>
+                                <tc:CartesianChartGrid MajorLinesVisibility="Y" />
+                            </tc:RadCartesianChart.Grid>
+                            <tc:BarSeries ItemsSource="{Binding Series[3]}" PointTemplate="{StaticResource FourthPointTemplate}" />
+                            <tc:BarSeries ItemsSource="{Binding Series[2]}" PointTemplate="{StaticResource ThirdPointTemplate}" />
+                            <tc:BarSeries ItemsSource="{Binding Series[1]}" PointTemplate="{StaticResource SecondPointTemplate}" />
+                            <tc:BarSeries ItemsSource="{Binding Series[0]}" PointTemplate="{StaticResource FirstPointTemplate}" />
+                        </tc:RadCartesianChart>
+                    </Grid>
+                </controls:CompositionShadow>
+
+                <controls:CompositionShadow x:Name="Chart2" Grid.Row="0" Grid.Column="1" Style="{StaticResource StatisticsShadowStyle}">
+                    <Grid Padding="{StaticResource StatisticsChartMargin}" Background="White">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="24" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock x:Uid="Statistics_RadialChartTitle" Style="{StaticResource TitleChartTextBlockStyle}" />
+                        <tdv:RadRadialGauge Grid.Row="2" Margin="0,50,0,-50" HorizontalAlignment="Stretch" VerticalAlignment="Center" LabelRadiusScale="1.30" LabelStep="50" MaxValue="100" TickStep="100">
+                            <tdv:RadRadialGauge.LabelTemplate>
+                                <DataTemplate>
+                                    <TextBlock Margin="0,0,0,10" FontSize="14" Foreground="Black" Opacity="0.5" Text="{Binding}" />
+                                </DataTemplate>
+                            </tdv:RadRadialGauge.LabelTemplate>
+                            <tdv:SegmentedRadialGaugeIndicator StartValue="0" Value="100">
+                                <tdv:BarIndicatorSegment Length="100" Stroke="{StaticResource SecondaryLightBrush}" Thickness="32" />
+                            </tdv:SegmentedRadialGaugeIndicator>
+                            <tdv:RadialBarGaugeIndicator Brush="{StaticResource PrimaryLightChartBrush}" Thickness="32" Value="{Binding FilteredTotalOrders[3]}" />
+                            <tdv:RadialBarGaugeIndicator Brush="{StaticResource TertiaryMediumChartBrush}" Thickness="32" Value="{Binding FilteredTotalOrders[2]}" />
+                            <tdv:RadialBarGaugeIndicator Brush="{StaticResource SecondaryMediumChartBrush}" Thickness="32" Value="{Binding FilteredTotalOrders[1]}" />
+                            <tdv:RadialBarGaugeIndicator Brush="{StaticResource PrimaryMediumChartBrush}" Thickness="32" Value="{Binding FilteredTotalOrders[0]}" />
+                        </tdv:RadRadialGauge>
+                        <StackPanel Grid.Row="2" Margin="0,0,0,24" VerticalAlignment="Bottom">
+                            <TextBlock HorizontalAlignment="Center" Style="{StaticResource SalesChartTextBlockStyle}" Text="Sales" />
+                            <TextBlock HorizontalAlignment="Center" Style="{StaticResource TotalSalesChartTextBlockStyle}" Text="$"><Run Text="{Binding TotalSales}" /></TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </controls:CompositionShadow>
+
+                <controls:CompositionShadow x:Name="Chart3" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource StatisticsShadowStyle}">
+                    <Grid Padding="{StaticResource StatisticsChartMargin}" Background="White">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="24" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock x:Uid="Statistics_AreaChartTitle" Style="{StaticResource TitleChartTextBlockStyle}" />
+                        <tc:RadCartesianChart Grid.Row="2" Margin="60,0">
+                            <tc:RadCartesianChart.HorizontalAxis>
+                                <tc:CategoricalAxis />
+                            </tc:RadCartesianChart.HorizontalAxis>
+                            <tc:RadCartesianChart.VerticalAxis>
+                                <tc:LinearAxis />
+                            </tc:RadCartesianChart.VerticalAxis>
+                            <tc:RadCartesianChart.Grid>
+                                <tc:CartesianChartGrid MajorLinesVisibility="XY" />
+                            </tc:RadCartesianChart.Grid>
+                            <tc:SplineAreaSeries Fill="{StaticResource PrimaryLightChartBrush}" ItemsSource="{Binding Series[3]}" />
+                            <tc:SplineAreaSeries Fill="{StaticResource TertiaryMediumChartBrush}" ItemsSource="{Binding Series[2]}" />
+                            <tc:SplineAreaSeries Fill="{StaticResource SecondaryMediumChartBrush}" ItemsSource="{Binding Series[1]}" />
+                            <tc:SplineAreaSeries Fill="{StaticResource PrimaryMediumChartBrush}" ItemsSource="{Binding Series[0]}" />
+                        </tc:RadCartesianChart>
+                    </Grid>
+                </controls:CompositionShadow>
+            </Grid>
+        </ScrollViewer>
+
+        <!--Adaptive triggers-->
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="WindowStates">
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="940" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="CatalogImage.Margin" Value="48,0,0,0" />
+                        <Setter Target="FilterPanel.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="SchedulePanel.(Grid.Row)" Value="2" />
+                        <Setter Target="SchedulePanel.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="SchedulePanel.(Grid.Column)" Value="0" />
+                        <Setter Target="ChartScrollViewer.VerticalScrollBarVisibility" Value="Visible" />
+                        <Setter Target="Chart1.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="Chart1.Height" Value="280" />
+                        <Setter Target="Chart2.(Grid.Row)" Value="1" />
+                        <Setter Target="Chart2.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="Chart2.(Grid.Column)" Value="0" />
+                        <Setter Target="Chart2.Height" Value="400" />
+                        <Setter Target="Chart3.(Grid.Row)" Value="2" />
+                        <Setter Target="Chart3.Height" Value="300" />
+                        <Setter Target="AdaptativeRow.Height" Value="*" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</Page>
