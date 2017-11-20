@@ -22,6 +22,7 @@
         <toolkit:AdaptiveGridView x:Name="gridView" Margin="12,0,12,24" ItemsSource="{Binding Items}" ItemTemplate="{StaticResource CatalogItem}"
                                   SelectionMode="{Binding SelectionMode}" IsItemClickEnabled="True" IsRightTapEnabled="True" StretchContentForSingleRow="False"
                                   DesiredWidth="300" ItemHeight="300" ContainerContentChanging="OnContainerContentChanging" ItemClickCommand="{Binding ItemClickCommand}"
+                                  ItemContainerTransitions="{x:Null}"
                                   animations:ReorderGridAnimation.Duration="300">
             <i:Interaction.Behaviors>
                 <ic:EventTriggerBehavior EventName="RightTapped">
