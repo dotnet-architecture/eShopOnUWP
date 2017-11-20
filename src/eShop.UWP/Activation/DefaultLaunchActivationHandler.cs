@@ -20,8 +20,6 @@ namespace eShop.UWP.Activation
             _navViewState = navViewState;
         }
 
-        private NavigationServiceEx NavigationService => ServiceLocator.Current.GetInstance<NavigationServiceEx>();
-
         protected override bool CanHandleInternal(LaunchActivatedEventArgs args)
         {
             // None of the ActivationHandlers has handled the app activation

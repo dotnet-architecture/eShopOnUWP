@@ -10,6 +10,7 @@ using eShop.UWP.Models;
 using eShop.UWP.ViewModels;
 using eShop.UWP.Activation;
 using eShop.UWP.Helpers;
+using eShop.Providers;
 
 namespace eShop.UWP.Services
 {
@@ -23,10 +24,20 @@ namespace eShop.UWP.Services
             ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(content.GetXml()));
         }
 
-        protected override Task HandleInternalAsync(ToastNotificationActivatedEventArgs args)
+        protected override async Task HandleInternalAsync(ToastNotificationActivatedEventArgs args)
         {
-            NavigationService.Navigate(typeof(CatalogViewModel).FullName, null);
-            return Task.CompletedTask;
+            if (NavigationService.Frame != null)
+            {
+                if (Int32.TryParse(args.Argument, out int id))
+                {
+                    var provider = new CatalogProvider();
+                    var item = await provider.GetItemByIdAsync(id);
+                    if (item != null)
+                    {
+                        NavigationService.Navigate(typeof(ItemDetailViewModel).FullName, new ItemDetailState(item));
+                    }
+                }
+            }
         }
 
         private static ToastContent GenerateToastContent(string title, CatalogItemModel item)
@@ -60,6 +71,7 @@ namespace eShop.UWP.Services
 
             return new ToastContent
             {
+                Launch = item.Id.ToString(),
                 Visual = new ToastVisual
                 {
                     BindingGeneric = binding

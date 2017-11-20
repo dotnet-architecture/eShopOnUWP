@@ -11,6 +11,7 @@ using Windows.ApplicationModel.Activation;
 
 using eShop.UWP.Activation;
 using eShop.UWP.ViewModels;
+using eShop.UWP.Helpers;
 
 namespace eShop.UWP.Services
 {
@@ -93,7 +94,7 @@ namespace eShop.UWP.Services
 
         private IEnumerable<ActivationHandler> GetActivationHandlers()
         {
-            yield break;
+            yield return Singleton<ToastNotificationsService>.Instance;
         }
 
         private bool IsInteractive(object args)
