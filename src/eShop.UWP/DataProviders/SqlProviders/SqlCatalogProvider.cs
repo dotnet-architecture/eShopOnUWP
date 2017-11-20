@@ -121,9 +121,26 @@ namespace eShop.Providers
 
         public async Task<IList<CatalogItemModel>> GetItemsByVoiceCommandAsync(string query)
         {
-            await Task.CompletedTask;
-            // TODO: 
-            throw new NotImplementedException();
+            var catalogTypes = await GetCatalogTypesAsync();
+            var catalogBrands = await GetCatalogBrandsAsync();
+
+            IEnumerable<CatalogItemModel> items = await GetItemsAsync(-1, -1, null);
+
+            var queryIgnoreUpper = query?.ToUpperInvariant() ?? string.Empty;
+
+            var filterType = catalogTypes.FirstOrDefault(item => item.Name.ToUpperInvariant().Contains(queryIgnoreUpper));
+            if (filterType != null)
+            {
+                items = items.Where(item => item.Id == filterType.Id);
+            }
+
+            var filterBrand = catalogBrands.FirstOrDefault(item => item.Name.ToUpperInvariant().Contains(queryIgnoreUpper));
+            if (filterBrand != null)
+            {
+                items = items.Where(item => item.Id == filterBrand.Id);
+            }
+
+            return items.ToList();
         }
 
         public Task<IList<CatalogItemModel>> RelatedItemsByTypeAsync(int catalogTypeId)

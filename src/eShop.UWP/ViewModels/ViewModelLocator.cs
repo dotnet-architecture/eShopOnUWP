@@ -7,6 +7,7 @@ using GalaSoft.MvvmLight.Ioc;
 using eShop.UWP.Views;
 using eShop.UWP.Services;
 using eShop.Providers;
+using eShop.Cortana;
 
 namespace eShop.UWP.ViewModels
 {
@@ -18,9 +19,9 @@ namespace eShop.UWP.ViewModels
 
             SimpleIoc.Default.Register(() => new NavigationServiceEx());
             SimpleIoc.Default.Register<ShellViewModel>();
-
             SimpleIoc.Default.Register<ICatalogProvider, CatalogProvider>();
             SimpleIoc.Default.Register<IOrdersProvider, OrdersProvider>();
+            SimpleIoc.Default.Register<VoiceCommandService>();
 
             Register<LoginViewModel, LoginView>();
             Register<CatalogViewModel, CatalogView>();

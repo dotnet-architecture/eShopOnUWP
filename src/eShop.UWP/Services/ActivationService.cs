@@ -98,6 +98,7 @@ namespace eShop.UWP.Services
         {
             yield return Singleton<LiveTileService>.Instance;
             yield return Singleton<ToastNotificationsService>.Instance;
+            yield return Singleton<VoiceCommandActivationService>.Instance;
         }
 
         private bool IsInteractive(object args)

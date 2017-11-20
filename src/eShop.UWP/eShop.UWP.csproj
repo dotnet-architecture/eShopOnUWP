@@ -143,6 +143,10 @@
     <Compile Include="DataProviders\OrdersProvider.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Services\ActivationService.cs" />
+    <Compile Include="Services\Cortana\BackgroundVoiceCommandService.cs" />
+    <Compile Include="Services\Cortana\CatalogVoiceCommand.cs" />
+    <Compile Include="Services\Cortana\VoiceCommandActivationService.cs" />
+    <Compile Include="Services\Cortana\VoiceCommandService.cs" />
     <Compile Include="Services\JsonDb.cs" />
     <Compile Include="Services\LiveTileService.cs" />
     <Compile Include="Services\NavigationServiceEx.cs" />
@@ -448,6 +452,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
