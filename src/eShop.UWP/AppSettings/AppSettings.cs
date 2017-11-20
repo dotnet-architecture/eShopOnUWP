@@ -29,6 +29,12 @@ namespace eShop.UWP
             set => SetSettingsValue("SqlConnectionString", value);
         }
 
+        public bool IsNotificationQueueEnabled
+        {
+            get => GetSettingsValue<bool>("IsNotificationQueueEnabled", false);
+            set => SetSettingsValue("IsNotificationQueueEnabled", value);
+        }
+
         private TResult GetSettingsValue<TResult>(string name, TResult defaultValue)
         {
             try

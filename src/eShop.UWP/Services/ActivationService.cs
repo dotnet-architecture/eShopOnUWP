@@ -84,16 +84,19 @@ namespace eShop.UWP.Services
 
         private async Task InitializeAsync()
         {
+            Singleton<LiveTileService>.Instance.EnableQueue();
             await Task.CompletedTask;
         }
 
         private async Task StartupAsync()
         {
+            Singleton<LiveTileService>.Instance.TileUpdate();
             await Task.CompletedTask;
         }
 
         private IEnumerable<ActivationHandler> GetActivationHandlers()
         {
+            yield return Singleton<LiveTileService>.Instance;
             yield return Singleton<ToastNotificationsService>.Instance;
         }
 
