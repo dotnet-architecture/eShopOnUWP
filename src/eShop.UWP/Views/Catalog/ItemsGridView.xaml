@@ -33,7 +33,7 @@
             </i:Interaction.Behaviors>
         </toolkit:AdaptiveGridView>
 
-        <CommandBar IsOpen="{Binding IsCommandBarOpen, Mode=TwoWay}" IsSticky="True" RequestedTheme="Dark" ClosedDisplayMode="Minimal" VerticalAlignment="Bottom" IsDynamicOverflowEnabled="False">
+        <CommandBar IsOpen="{Binding IsCommandBarOpen, Mode=TwoWay}" IsSticky="True" RequestedTheme="Dark" ClosedDisplayMode="Minimal" VerticalAlignment="Bottom" IsDynamicOverflowEnabled="False" Style="{StaticResource CommandBarRevealStyle}">
             <CommandBar.Content>
                 <GridView x:Name="target" Margin="4,1,4,0" ItemTemplate="{StaticResource BottomItem}" ItemsSource="{Binding BarItems}" Height="58" IsSwipeEnabled="True"
                           ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden">
@@ -44,12 +44,12 @@
                     </GridView.ItemsPanel>
                 </GridView>
             </CommandBar.Content>
-            <AppBarButton Icon="Delete" Label="Delete" Command="{Binding DeleteCommand}" Visibility="{Binding IsDeleteVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+            <AppBarButton Icon="Delete" Label="Delete" Command="{Binding DeleteCommand}" Visibility="{Binding IsDeleteVisible, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource AppBarButtonRevealStyle}" />
             <AppBarSeparator Visibility="{Binding IsSeparatorVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
-            <AppBarButton Icon="Cancel" Label="Cancel" Command="{Binding CancelCommand}" Visibility="{Binding IsCancelVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
-            <AppBarButton Icon="ClearSelection" Label="Clear" Command="{Binding ClearCommand}" Visibility="{Binding IsClearVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
-            <AppBarButton Icon="SelectAll" Label="Select All" Command="{Binding SelectAllCommand}" Visibility="{Binding IsSelectAllVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
-            <AppBarButton Label="Multi Select" Command="{Binding MultiSelectCommand}" Visibility="{Binding IsMultiSelectVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+            <AppBarButton Icon="Cancel" Label="Cancel" Command="{Binding CancelCommand}" Visibility="{Binding IsCancelVisible, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource AppBarButtonRevealStyle}" />
+            <AppBarButton Icon="ClearSelection" Label="Clear" Command="{Binding ClearCommand}" Visibility="{Binding IsClearVisible, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource AppBarButtonRevealStyle}" />
+            <AppBarButton Icon="SelectAll" Label="Select All" Command="{Binding SelectAllCommand}" Visibility="{Binding IsSelectAllVisible, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource AppBarButtonRevealStyle}" />
+            <AppBarButton Label="Multi Select" Command="{Binding MultiSelectCommand}" Visibility="{Binding IsMultiSelectVisible, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource AppBarButtonRevealStyle}">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xE762;" />
                 </AppBarButton.Icon>

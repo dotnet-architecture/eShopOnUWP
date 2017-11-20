@@ -85,10 +85,10 @@
             </Grid>
         </Grid>
 
-        <CommandBar IsOpen="{Binding IsCommandBarOpen, Mode=TwoWay}" IsSticky="True" RequestedTheme="Dark" ClosedDisplayMode="Minimal" VerticalAlignment="Bottom" IsDynamicOverflowEnabled="False">
-            <AppBarButton Icon="Delete" Label="Delete" Command="{Binding DeleteCommand}" Visibility="{Binding IsDeleteVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+        <CommandBar IsOpen="{Binding IsCommandBarOpen, Mode=TwoWay}" IsSticky="True" ClosedDisplayMode="Minimal" VerticalAlignment="Bottom" IsDynamicOverflowEnabled="False" RequestedTheme="Dark" Style="{StaticResource CommandBarRevealStyle}" >
+            <AppBarButton Icon="Delete" Label="Delete" Command="{Binding DeleteCommand}" Visibility="{Binding IsDeleteVisible, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource AppBarButtonRevealStyle}" />
             <AppBarSeparator Visibility="{Binding IsSeparatorVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
-            <AppBarButton Icon="Save" Label="Save" Command="{Binding SaveCommand}" Visibility="{Binding IsSaveVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+            <AppBarButton Icon="Save" Label="Save" Command="{Binding SaveCommand}" Visibility="{Binding IsSaveVisible, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource AppBarButtonRevealStyle}" />
         </CommandBar>
     </Grid>
 </Page>

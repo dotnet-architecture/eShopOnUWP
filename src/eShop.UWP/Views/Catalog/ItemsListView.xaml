@@ -65,13 +65,12 @@
             </grid:RadDataGrid.Columns>
         </grid:RadDataGrid>
 
-        <CommandBar VerticalAlignment="Bottom" ClosedDisplayMode="Minimal" IsOpen="{Binding IsCommandBarOpen, Mode=TwoWay}" IsSticky="True" RequestedTheme="Dark">
-            <AppBarButton Icon="Delete" Label="Delete" Command="{Binding DeleteCommand}" Visibility="{Binding IsDeleteVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+        <CommandBar VerticalAlignment="Bottom" ClosedDisplayMode="Minimal" IsOpen="{Binding IsCommandBarOpen, Mode=TwoWay}" IsSticky="True" RequestedTheme="Dark" Style="{StaticResource CommandBarRevealStyle}">
+            <AppBarButton Icon="Delete" Label="Delete" Command="{Binding DeleteCommand}" Visibility="{Binding IsDeleteVisible, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource AppBarButtonRevealStyle}" />
             <AppBarSeparator Visibility="{Binding IsSeparatorVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
-
-            <AppBarButton Icon="Cancel" Label="Cancel" Command="{Binding CancelCommand}" Visibility="{Binding IsCancelVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
-            <AppBarButton Icon="ClearSelection" Label="Clear" Command="{Binding ClearCommand}" Visibility="{Binding IsClearVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
-            <AppBarButton Icon="SelectAll" Label="Select All" Command="{Binding SelectAllCommand}" Visibility="{Binding IsSelectAllVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+            <AppBarButton Icon="Cancel" Label="Cancel" Command="{Binding CancelCommand}" Visibility="{Binding IsCancelVisible, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource AppBarButtonRevealStyle}" />
+            <AppBarButton Icon="ClearSelection" Label="Clear" Command="{Binding ClearCommand}" Visibility="{Binding IsClearVisible, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource AppBarButtonRevealStyle}" />
+            <AppBarButton Icon="SelectAll" Label="Select All" Command="{Binding SelectAllCommand}" Visibility="{Binding IsSelectAllVisible, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource AppBarButtonRevealStyle}" />
         </CommandBar>
     </Grid>
 </UserControl>
