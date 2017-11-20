@@ -14,42 +14,46 @@
         <ScrollViewer x:Name="scrollViewer">
             <Grid Margin="320,360,40,20">
                 <StackPanel>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="1*"/>
-                        </Grid.ColumnDefinitions>
+                    <StackPanel x:Name="itemContainer">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
 
-                        <StackPanel>
-                            <TextBlock Text="Name" LineHeight="20" Foreground="RoyalBlue" />
-                            <TextBox Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" BorderThickness="0,0,0,1" />
-                        </StackPanel>
-                        <StackPanel Margin="16,0,0,0" Grid.Column="1">
-                            <TextBlock Text="Price" LineHeight="20" Foreground="RoyalBlue" />
-                            <TextBox extensions:TextBoxRegex.ValidationType="Decimal" extensions:TextBoxRegex.ValidationMode="Forced" Text="{Binding Item.PriceString, Mode=TwoWay}" FontSize="20" BorderThickness="0,0,0,1" />
-                        </StackPanel>
-                    </Grid>
+                            <StackPanel>
+                                <TextBlock Text="Name" LineHeight="20" Foreground="RoyalBlue" />
+                                <TextBox Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" BorderThickness="0,0,0,1" />
+                            </StackPanel>
+                            <StackPanel Margin="16,0,0,0" Grid.Column="1">
+                                <TextBlock Text="Price" LineHeight="20" Foreground="RoyalBlue" />
+                                <TextBox extensions:TextBoxRegex.ValidationType="Decimal" extensions:TextBoxRegex.ValidationMode="Forced" Text="{Binding Item.PriceString, Mode=TwoWay}" FontSize="20" BorderThickness="0,0,0,1" />
+                            </StackPanel>
+                        </Grid>
 
-                    <Grid Margin="0,16">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Margin="0" Grid.Column="0">
-                            <TextBlock Text="Catalog Type" LineHeight="20" Foreground="RoyalBlue" />
-                            <ComboBox ItemsSource="{Binding CatalogTypes}" BorderThickness="0,0,0,1" HorizontalAlignment="Stretch"
+                        <Grid Margin="0,16">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Margin="0" Grid.Column="0">
+                                <TextBlock Text="Catalog Type" LineHeight="20" Foreground="RoyalBlue" />
+                                <ComboBox ItemsSource="{Binding CatalogTypes}" BorderThickness="0,0,0,1" HorizontalAlignment="Stretch"
                                       SelectedValue="{Binding Item.CatalogType.Id, Mode=TwoWay}" SelectedValuePath="Id" DisplayMemberPath="Name" />
-                        </StackPanel>
-                        <StackPanel Margin="16,0,0,0" Grid.Column="1">
-                            <TextBlock Text="Catalog Brand" LineHeight="20" Foreground="RoyalBlue" />
-                            <ComboBox ItemsSource="{Binding CatalogBrands}" BorderThickness="0,0,0,1" HorizontalAlignment="Stretch"
+                            </StackPanel>
+                            <StackPanel Margin="16,0,0,0" Grid.Column="1">
+                                <TextBlock Text="Catalog Brand" LineHeight="20" Foreground="RoyalBlue" />
+                                <ComboBox ItemsSource="{Binding CatalogBrands}" BorderThickness="0,0,0,1" HorizontalAlignment="Stretch"
                                       SelectedValue="{Binding Item.CatalogBrand.Id, Mode=TwoWay}" SelectedValuePath="Id" DisplayMemberPath="Name" />
-                        </StackPanel>
-                    </Grid>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
 
-                    <TextBlock Text="Description" LineHeight="20" Foreground="RoyalBlue" />
-                    <TextBox Text="{Binding Item.Description, Mode=TwoWay}" FontSize="15" TextWrapping="Wrap" AcceptsReturn="True" BorderThickness="0,0,0,1" />
-                    <Border Margin="16" />
+                    <StackPanel>
+                        <TextBlock Text="Description" LineHeight="20" Foreground="RoyalBlue" />
+                        <TextBox Text="{Binding Item.Description, Mode=TwoWay}" FontSize="15" TextWrapping="Wrap" AcceptsReturn="True" BorderThickness="0,0,0,1" />
+                        <Border Margin="16" />
+                    </StackPanel>
 
                     <TextBlock Text="Related Items" FontSize="28" LineHeight="60" Foreground="Gray" />
                     <toolkit:AdaptiveGridView x:Name="gridView" ItemsSource="{Binding RelatedItems}" ItemTemplate="{StaticResource CatalogItemSmall}"

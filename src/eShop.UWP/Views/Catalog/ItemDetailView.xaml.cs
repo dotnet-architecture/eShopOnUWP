@@ -4,8 +4,10 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Hosting;
 
-using eShop.UWP.ViewModels;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Animation;
+
+using eShop.UWP.ViewModels;
 
 namespace eShop.UWP.Views
 {
@@ -22,7 +24,7 @@ namespace eShop.UWP.Views
             var imageAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("ItemSelected");
             if (imageAnimation != null)
             {
-                imageAnimation.TryStart(pictureContainer);
+                imageAnimation.TryStart(pictureContainer, new UIElement[] { itemContainer });
             }
         }
 
