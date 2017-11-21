@@ -56,6 +56,12 @@ namespace eShop.UWP.Views
             var compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
             var scrollerPropertySet = ElementCompositionPreview.GetScrollViewerManipulationPropertySet(scrollViewer);
 
+            var anim = compositor.CreateScalarKeyFrameAnimation();
+            anim.InsertKeyFrame(0.0f, -340.0f);
+            anim.InsertKeyFrame(1.0f, 0.0f);
+            anim.Duration = TimeSpan.FromSeconds(0.250);
+            ElementCompositionPreview.GetElementVisual(headerOffset).StartAnimation("Offset.Y", anim);
+
             brush.BlurAmountExpression = compositor.AnimationExpression("Clamp(scroller.Translation.Y * parallaxFactor, 0, 360/10)")
                 .Parameter("scroller", scrollerPropertySet)
                 .Parameter("parallaxFactor", -0.05f)

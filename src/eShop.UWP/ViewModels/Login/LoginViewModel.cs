@@ -81,8 +81,8 @@ namespace eShop.UWP.ViewModels
         {
             ApplicationData.Current.LocalSettings.Values[Constants.HelloUserIdKey] = UserName;
 
-            UserName = string.Empty;
-            Password = string.Empty;
+            //UserName = string.Empty;
+            //Password = string.Empty;
 
             // TODO: Add here the logic to login with your authentication service.
             Views.ShellView.Startup();
