@@ -1,0 +1,68 @@
+﻿<Window x:Class="eShop.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="eShop WPF Legacy" Width="800" Height="600">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Margin="6,0" MinWidth="320">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" MaxWidth="260" />
+                <ColumnDefinition Width="1*" MaxWidth="160" />
+                <ColumnDefinition Width="1*" MaxWidth="160" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Margin="6">
+                <TextBlock Text="Search" LineHeight="20" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Text="{Binding Query, Mode=TwoWay}" FontSize="15" />
+                    <Button Grid.Column="2" Padding="6,0" Content="Search" IsDefault="True" Click="OnSearchClick" />
+                </Grid>
+            </StackPanel>
+
+            <StackPanel Margin="6" Grid.Column="1">
+                <TextBlock Text="Catalog Type" LineHeight="20" />
+                <ComboBox ItemsSource="{Binding Types}" SelectedValue="{Binding SelectedTypeId, Mode=TwoWay}" SelectedValuePath="Id" DisplayMemberPath="Name" />
+            </StackPanel>
+
+            <StackPanel Margin="6" Grid.Column="2">
+                <TextBlock Text="Catalog Brand" LineHeight="20" />
+                <ComboBox ItemsSource="{Binding Brands}" SelectedValue="{Binding SelectedBrandId, Mode=TwoWay}" SelectedValuePath="Id" DisplayMemberPath="Name" />
+            </StackPanel>
+        </Grid>
+
+        <ListView Grid.Row="1" ItemsSource="{Binding Items}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="160"/>
+                            <ColumnDefinition Width="6"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Margin="4" BorderBrush="#ddd" BorderThickness="1">
+                            <Image Source="{Binding PictureUri}" />
+                        </Border>
+                        <Border Grid.Column="2">
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Name}" FontSize="18" />
+                                <TextBlock Text="{Binding CatalogType.Name}" FontSize="16" />
+                                <TextBlock Text="{Binding CatalogBrand.Name}" FontSize="16" />
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Window>
