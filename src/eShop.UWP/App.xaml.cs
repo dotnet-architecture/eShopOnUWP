@@ -46,7 +46,8 @@ namespace eShop.UWP
 
         private ActivationService CreateActivationService()
         {
-            return new ActivationService(this, null, null, new LoginView());
+            //return new ActivationService(this, null, null, new LoginView());
+            return new ActivationService(this, typeof(ViewModels.CatalogViewModel), new ViewModels.CatalogState(), new ShellView());
         }
     }
 }

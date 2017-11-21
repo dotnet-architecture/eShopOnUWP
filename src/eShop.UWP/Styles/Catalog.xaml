@@ -12,7 +12,7 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
-            <Grid>
+            <Grid x:Name="container">
                 <Grid x:Name="imageContainer">
                     <Border>
                         <Image x:Name="image" Margin="0,-32" Source="{Binding PictureUri}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />

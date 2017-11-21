@@ -11,6 +11,7 @@ namespace eShop.UWP.ViewModels
             IsGridChecked = true;
             IsListChecked = false;
             Query = null;
+            SelectedItemId = 0;
         }
         public CatalogState(string query) : this()
         {
@@ -24,5 +25,7 @@ namespace eShop.UWP.ViewModels
         public bool IsListChecked { get; set; }
 
         public string Query { get; set; }
+
+        public int SelectedItemId { get; set; }
     }
 }

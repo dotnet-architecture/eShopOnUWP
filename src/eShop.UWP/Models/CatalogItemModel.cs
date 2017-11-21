@@ -154,5 +154,21 @@ namespace eShop.UWP.Models
 
             RaisePropertyChanged(nameof(HasChanges));
         }
+
+        public override bool Equals(object obj)
+        {
+            var model = obj as CatalogItemModel;
+            if (model != null)
+            {
+                return model.Id == Id;
+            }
+
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return Id;
+        }
     }
 }

@@ -13,8 +13,8 @@ using GalaSoft.MvvmLight.Command;
 
 using eShop.Providers;
 using eShop.UWP.Models;
-using eShop.UWP.Services;
 using eShop.UWP.Helpers;
+using eShop.UWP.Services;
 
 namespace eShop.UWP.ViewModels
 {
@@ -35,6 +35,8 @@ namespace eShop.UWP.ViewModels
         }
 
         public ICatalogProvider DataProvider { get; }
+
+        public CatalogState CatalogState { get; set; }
 
         public GridView ItemsControl { get; set; }
         public GridView BarItemsControl { get; set; }
@@ -166,6 +168,7 @@ namespace eShop.UWP.ViewModels
             {
                 ItemsControl.PrepareConnectedAnimation("ItemSelected", item, "imageContainer");
                 ShellViewModel.NavigationService.Navigate(typeof(ItemDetailViewModel).FullName, new ItemDetailState(item));
+                CatalogState.SelectedItemId = item.Id;
             }
         }
 

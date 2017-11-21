@@ -42,6 +42,11 @@ namespace eShop.UWP.Views
 
         protected override async void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
+            if (e.NavigationMode == NavigationMode.Back)
+            {
+                ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ItemSelectedBack", picture);
+            }
+
             base.OnNavigatingFrom(e);
             await ViewModel.UnloadAsync();
         }

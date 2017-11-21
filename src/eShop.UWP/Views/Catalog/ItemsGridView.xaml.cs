@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Linq;
 
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Composition;
 
 using eShop.UWP.ViewModels;
@@ -15,6 +18,7 @@ namespace eShop.UWP.Views
         public ItemsGridView()
         {
             this.InitializeComponent();
+            this.Loaded += OnLoaded;
         }
 
         public ItemsGridViewModel ViewModel => DataContext as ItemsGridViewModel;
@@ -25,6 +29,25 @@ namespace eShop.UWP.Views
         {
             ViewModel.ItemsControl = gridView;
             ViewModel.BarItemsControl = target;
+        }
+
+        private async void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            int id = ViewModel.CatalogState.SelectedItemId;
+            if (id > 0)
+            {
+                var item = ViewModel.Items.Where(r => r.Id == id).FirstOrDefault();
+                if (item != null)
+                {
+                    gridView.ScrollIntoView(item);
+                    await System.Threading.Tasks.Task.Delay(10);
+                    var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("ItemSelectedBack");
+                    if (animation != null)
+                    {
+                        await gridView.TryStartConnectedAnimationAsync(animation, item, "container");
+                    }
+                }
+            }
         }
 
         private ExpressionAnimation CreateExpression()

@@ -78,6 +78,8 @@ namespace eShop.UWP.ViewModels
             GridViewModel.Items = null;
             ListViewModel.Items = null;
 
+            GridViewModel.CatalogState = state;
+
             _cancelRefresh = true;
 
             State = state;
