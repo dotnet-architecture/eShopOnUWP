@@ -1,17 +1,18 @@
-﻿using Windows.UI.Xaml;
+﻿using System;
+
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace eShop.UWP.Controls
 {
     public class IconRadioButton : RadioButton
     {
-        public static readonly DependencyProperty PathIconProperty =
-            DependencyProperty.Register("PathIcon", typeof(string), typeof(IconRadioButton), new PropertyMetadata(string.Empty));
-
-        public string PathIcon
+        public Symbol Symbol
         {
-            get => (string)GetValue(PathIconProperty);
-            set => SetValue(PathIconProperty, value);
+            get { return (Symbol)GetValue(SymbolProperty); }
+            set { SetValue(SymbolProperty, value); }
         }
+
+        public static readonly DependencyProperty SymbolProperty = DependencyProperty.Register("Symbol", typeof(Symbol), typeof(IconRadioButton), new PropertyMetadata(Symbol.Stop));
     }
 }

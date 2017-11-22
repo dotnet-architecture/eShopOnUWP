@@ -1,120 +1,34 @@
-<base:PageBase
-    x:Class="eShop.UWP.Views.Catalog.CatalogView"
+﻿<Page
+    x:Class="eShop.UWP.Views.CatalogView"
+    DataContext="{Binding CatalogViewModel, Source={StaticResource Locator}}"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:base="using:eShop.UWP.Views.Base"
-    xmlns:catalog="using:eShop.UWP.Views.Catalog"
-    xmlns:controls="using:eShop.UWP.Controls"
+    xmlns:views="using:eShop.UWP.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:templateSelectors="using:eShop.UWP.TemplateSelectors"
-    DataContext="{Binding CatalogViewModel, Source={StaticResource Locator}}"
     mc:Ignorable="d">
 
-    <base:PageBase.Resources>
-        <DataTemplate x:Key="ItemGridTemplate">
-            <catalog:ItemsGridView />
+    <Page.Resources>
+        <DataTemplate x:Key="HeaderTemplate">
+            <TextBlock Margin="4" Text="{Binding HeaderText}" FontSize="24" FontWeight="SemiLight" HorizontalAlignment="Left" VerticalAlignment="Center" />
         </DataTemplate>
-        <DataTemplate x:Key="ItemListTemplate">
-            <catalog:ItemsListView />
-        </DataTemplate>
+    </Page.Resources>
 
-        <templateSelectors:CatalogFormatTemplateSelector
-            x:Key="CatalogFormatTemplateSelector"
-            ItemsGridTemplate="{StaticResource ItemGridTemplate}"
-            ItemsListTemplate="{StaticResource ItemListTemplate}" />
-    </base:PageBase.Resources>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-    <Grid Margin="{StaticResource ShellVerticalContentMargin}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="36" />
-            <RowDefinition Height="28" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Image
-            x:Name="CatalogImage"
-            x:Uid="Catalog_HeaderImage"
-            Margin="{StaticResource ShellHorizontalContentMargin}"
-            HorizontalAlignment="Left"
-            Stretch="Uniform" />
-        <Grid Grid.Row="2" Margin="{StaticResource ShellHorizontalContentMargin}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="8" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="8" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <TextBlock
-                x:Uid="Catalog_FilterBy"
-                VerticalAlignment="Center"
-                Style="{StaticResource BodyTextStyle}" />
-            <ComboBox
-                Grid.Column="1"
-                DisplayMemberPath="Type"
-                ItemsSource="{Binding CatalogTypes}"
-                SelectedItem="{Binding SelectedCatalogType, Mode=TwoWay}"
-                Style="{StaticResource FilterComboBoxStyle}" />
-            <TextBlock
-                x:Uid="Catalog_Brand"
-                Grid.Column="3"
-                VerticalAlignment="Center"
-                Style="{StaticResource BodyTextStyle}" />
-            <ComboBox
-                Grid.Column="4"
-                DisplayMemberPath="Brand"
-                ItemsSource="{Binding CatalogBrands}"
-                SelectedItem="{Binding SelectedCatalogBrand, Mode=TwoWay}"
-                Style="{StaticResource FilterComboBoxStyle}" />
-            <controls:IconRadioButton
-                x:Uid="CatalogView_Grid"
-                Grid.Column="6"
-                Command="{Binding ShowGridCommand}"
-                IsChecked="{Binding IsGridFormatChecked}"
-                PathIcon="{StaticResource GridIcon}"
-                Style="{StaticResource GridRadioButtonStyle}" />
-            <controls:IconRadioButton
-                x:Uid="CatalogView_List"
-                Grid.Column="8"
-                Command="{Binding ShowListCommand}"
-                IsChecked="{Binding IsGridFormatChecked, Converter={StaticResource BoolNegationConverter}}"
-                PathIcon="{StaticResource ListIcon}"
-                Style="{StaticResource GridRadioButtonStyle}" />
+            <ContentControl Grid.Row="0" Margin="12,6" ContentTemplate="{StaticResource CatalogToolbar}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+
+            <Grid Grid.Row="1" Visibility="{Binding IsGridChecked, Converter={StaticResource BoolToVisibilityConverter}}">
+                <views:ItemsGridView x:Name="itemsGrid" />
+            </Grid>
+            <Grid Grid.Row="1" Visibility="{Binding IsListChecked, Converter={StaticResource BoolToVisibilityConverter}}">
+                <views:ItemsListView x:Name="itemsList" />
+            </Grid>
         </Grid>
-
-        <Grid Grid.Row="4">
-            <ContentControl
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                HorizontalContentAlignment="Stretch"
-                VerticalContentAlignment="Stretch"
-                Content="{Binding CatalogFormat}"
-                ContentTemplateSelector="{StaticResource CatalogFormatTemplateSelector}" />
-        </Grid>
-
-        <!--  Adaptive triggers  -->
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="WindowStates">
-                <VisualState x:Name="WideState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="900" />
-                    </VisualState.StateTriggers>
-                </VisualState>
-                <VisualState x:Name="NarrowState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="CatalogImage.Margin" Value="48,0,0,0" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
     </Grid>
-</base:PageBase>
+</Page>

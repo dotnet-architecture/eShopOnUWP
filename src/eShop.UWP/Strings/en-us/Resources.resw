@@ -271,7 +271,7 @@
     <value>Add new item</value>
   </data>
   <data name="Catalog_AllView" xml:space="preserve">
-    <value>view all</value>
+    <value>View All</value>
   </data>
   <data name="Catalog_Brand.Text" xml:space="preserve">
     <value>Brand:</value>

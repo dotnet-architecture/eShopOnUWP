@@ -1,159 +1,175 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Windows.Input;
-using eShop.Domain.Models;
-using eShop.Providers.Contracts;
-using eShop.UWP.Helpers;
-using eShop.UWP.ViewModels.Base;
-using GalaSoft.MvvmLight.Command;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
-namespace eShop.UWP.ViewModels.Catalog
+using eShop.UWP.Models;
+using eShop.UWP.Helpers;
+using eShop.Providers;
+
+namespace eShop.UWP.ViewModels
 {
-    public class CatalogViewModel : CustomViewModelBase
+    public class CatalogViewModel : CommonViewModel
     {
-        private readonly ICatalogProvider _catalogProvider;
-        private readonly ItemsGridViewModel _itemsGridViewModel;
-        private readonly ItemsListViewModel _itemsListViewModel;
-
-        private string _query;
-        private CatalogType _selectedCatalogType;
-        private CatalogBrand _selectedCatalogBrand;
-        private ItemsContainViewModel _catalogFormat;
-        private List<CatalogType> _catalogTypes;
-        private List<CatalogBrand> _catalogBrands;
-        private Dictionary<int, bool> _filterValues = new Dictionary<int, bool>();
-
-        public CatalogViewModel(ICatalogProvider catalogProvider, ItemsGridViewModel itemsGridViewModel, ItemsListViewModel itemsListViewModel)
+        public CatalogViewModel(ICatalogProvider catalogProvider)
         {
-            _catalogProvider = catalogProvider;
-            _itemsGridViewModel = itemsGridViewModel;
-            _itemsListViewModel = itemsListViewModel;
-
-            ShowGrid();
+            DataProvider = catalogProvider;
         }
 
-        public List<CatalogType> CatalogTypes
+        public ICatalogProvider DataProvider { get; }
+
+        public CatalogState State { get; private set; }
+
+        public ItemsGridViewModel GridViewModel { get; set; }
+        public ItemsListViewModel ListViewModel { get; set; }
+
+        private IList<CatalogTypeModel> _catalogTypes;
+        public IList<CatalogTypeModel> CatalogTypes
         {
-            get => _catalogTypes;
-            private set => Set(ref _catalogTypes, value);
+            get { return _catalogTypes; }
+            set { Set(ref _catalogTypes, value); }
         }
 
-        public List<CatalogBrand> CatalogBrands
+        private IList<CatalogBrandModel> _catalogBrands;
+        public IList<CatalogBrandModel> CatalogBrands
         {
-            get => _catalogBrands;
-            private set => Set(ref _catalogBrands, value);
+            get { return _catalogBrands; }
+            set { Set(ref _catalogBrands, value); }
         }
 
-        public CatalogType SelectedCatalogType
+        private int _filterTypeId = 0;
+        public int FilterTypeId
         {
-            get => _selectedCatalogType;
-            set
+            get { return _filterTypeId; }
+            set { Set(ref _filterTypeId, value); RefreshItems(); }
+        }
+
+        private int _filterBrandId = 0;
+        public int FilterBrandId
+        {
+            get { return _filterBrandId; }
+            set { Set(ref _filterBrandId, value); RefreshItems(); }
+        }
+
+        private string _providerName;
+        public string ProviderName
+        {
+            get { return _providerName; }
+            set { Set(ref _providerName, value); }
+        }
+
+        private bool _isGridChecked = false;
+        public bool IsGridChecked
+        {
+            get { return _isGridChecked; }
+            set { Set(ref _isGridChecked, value); ViewSelectionChanged(); }
+        }
+
+        private bool _isListChecked = false;
+        public bool IsListChecked
+        {
+            get { return _isListChecked; }
+            set { Set(ref _isListChecked, value); ViewSelectionChanged(); }
+        }
+
+        public async Task LoadAsync(CatalogState state)
+        {
+            GridViewModel.Items = null;
+            ListViewModel.Items = null;
+
+            GridViewModel.CatalogState = state;
+
+            _cancelRefresh = true;
+
+            State = state;
+
+            ProviderName = DataProvider.Name;
+
+            FilterTypeId = 0;
+            FilterBrandId = 0;
+
+            var catalogTypes = await DataProvider.GetCatalogTypesAsync();
+            var catalogBrands = await DataProvider.GetCatalogBrandsAsync();
+
+            ListViewModel.CatalogTypes = catalogTypes;
+            ListViewModel.CatalogBrands = catalogBrands;
+
+            catalogTypes = catalogTypes.ToList();
+            catalogTypes.Insert(0, new CatalogTypeModel(new Data.CatalogType { Id = -1, Type = Constants.CatalogAllViewKey.GetLocalized() }));
+            CatalogTypes = catalogTypes;
+
+            catalogBrands = catalogBrands.ToList();
+            catalogBrands.Insert(0, new CatalogBrandModel(new Data.CatalogBrand { Id = -1, Brand = Constants.CatalogAllViewKey.GetLocalized() }));
+            CatalogBrands = catalogBrands;
+
+            FilterTypeId = state.FilterTypeId;
+            FilterBrandId = state.FilterBrandId;
+
+            await RefreshItemsAsync();
+
+            IsGridChecked = State.IsGridChecked;
+            IsListChecked = State.IsListChecked;
+            GridViewModel.Mode = GridCommandBarMode.Idle;
+
+            GridViewModel.UpdateCommandBar();
+
+            HeaderText = State.Query == null ? "Catalog" : $"Catalog results for \"{State.Query}\"";
+
+            _cancelRefresh = false;
+        }
+
+        public async Task UnloadAsync()
+        {
+            State.FilterTypeId = FilterTypeId;
+            State.FilterBrandId = FilterBrandId;
+            State.IsGridChecked = IsGridChecked;
+            State.IsListChecked = IsListChecked;
+
+            if (GridViewModel.Items != null)
             {
-                Set(ref _selectedCatalogType, value);
-                LoadCatalogItems();
+                foreach (var item in GridViewModel.Items.Where(r => r.HasChanges))
+                {
+                    item.Commit();
+                    await DataProvider.SaveItemAsync(item);
+                }
             }
         }
 
-        public CatalogBrand SelectedCatalogBrand
+        private bool _cancelRefresh = false;
+
+        private async void RefreshItems()
         {
-            get => _selectedCatalogBrand;
-            set
+            if (!_cancelRefresh)
             {
-                Set(ref _selectedCatalogBrand, value);
-                LoadCatalogItems();
+                await RefreshItemsAsync();
             }
         }
-
-        public ItemsContainViewModel CatalogFormat
+        private async Task RefreshItemsAsync()
         {
-            get => _catalogFormat;
-            private set
-            {
-                Set(ref _catalogFormat, value);
-                RaisePropertyChanged(() => IsGridFormatChecked);
-            }
+            var items = await DataProvider.GetItemsAsync(FilterTypeId, FilterBrandId, State.Query);
+            var collectionItems = new ObservableCollection<CatalogItemModel>(items);
+            GridViewModel.Items = collectionItems;
+            ListViewModel.Items = collectionItems;
         }
 
-        public bool IsGridFormatChecked
+        private void ViewSelectionChanged()
         {
-            get => CatalogFormat == null || CatalogFormat == _itemsGridViewModel;
-        }
+            GridViewModel.IsCommandBarOpen = false;
+            ListViewModel.IsCommandBarOpen = false;
 
-        public ICommand ShowGridCommand => new RelayCommand(ShowGrid);
+            GridViewModel.IsActive = _isGridChecked && !_isListChecked;
+            ListViewModel.IsActive = _isListChecked && !_isGridChecked;
 
-        public ICommand ShowListCommand => new RelayCommand(ShowList);
-
-        public override async void OnActivate(object parameter, bool isBack)
-        {
-            base.OnActivate(parameter, isBack);
-
-            if (isBack) return;
-
-            if (CatalogTypes == null)
+            if (GridViewModel.IsActive)
             {
-                await LoadCatalogTypes();
+                GridViewModel.UpdateExternalSelection();
             }
 
-            if (CatalogBrands == null)
+            if (ListViewModel.IsActive)
             {
-                await LoadCatalogBrands();
+                ListViewModel.UpdateExternalSelection();
             }
-
-            ResetCatalog();
-        }
-
-        public void ResetCatalog()
-        {
-            SelectedCatalogType = CatalogTypes.FirstOrDefault();
-            SelectedCatalogBrand = CatalogBrands.FirstOrDefault();
-            LoadCatalogItems();
-        }
-
-        public void Search(string query)
-        {
-            _query = query;
-            LoadCatalogItems();
-        }
-
-        public void ShowGrid()
-        {
-            ActivateItemsContain(_itemsGridViewModel);
-        }
-
-        public void ShowList()
-        {
-            ActivateItemsContain(_itemsListViewModel);
-        }
-
-        public void ActivateItemsContain(ItemsContainViewModel itemsContain)
-        {
-            CatalogFormat = itemsContain;
-            LoadCatalogItems();
-        }
-
-        private void LoadCatalogItems()
-        {
-            if (_selectedCatalogType == null || _selectedCatalogBrand == null) return;
-            CatalogFormat.LoadCatalogItems(_selectedCatalogType, _selectedCatalogBrand, _query);
-        }
-
-        private async Task LoadCatalogTypes()
-        {
-            var types = (await _catalogProvider.GetCatalogTypesAsync()).ToList();
-            var viewAll = new CatalogType { Id = 0, Type = Constants.CatalogAllViewKey.GetLocalized() };
-
-            types.Insert(0, viewAll);
-            CatalogTypes = types;
-        }
-
-        private async Task LoadCatalogBrands()
-        {
-            var types = (await _catalogProvider.GetCatalogBrandsAsync()).ToList();
-            var viewAll = new CatalogBrand { Id = 0, Brand = Constants.CatalogAllViewKey.GetLocalized() };
-
-            types.Insert(0, viewAll);
-            CatalogBrands = types;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
+
 using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;

@@ -23,6 +23,18 @@ namespace eShop.UWP
             set => SetSettingsValue("ServiceUrl", value);
         }
 
+        public string SqlConnectionString
+        {
+            get => GetSettingsValue("SqlConnectionString", @"Data Source=.\SQLExpress;Initial Catalog=eShopDb;Integrated Security=SSPI");
+            set => SetSettingsValue("SqlConnectionString", value);
+        }
+
+        public bool IsNotificationQueueEnabled
+        {
+            get => GetSettingsValue<bool>("IsNotificationQueueEnabled", false);
+            set => SetSettingsValue("IsNotificationQueueEnabled", value);
+        }
+
         private TResult GetSettingsValue<TResult>(string name, TResult defaultValue)
         {
             try

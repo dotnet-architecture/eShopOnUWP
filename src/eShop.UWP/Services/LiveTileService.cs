@@ -1,28 +1,27 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using eShop.UWP.Activation;
-using eShop.UWP.Helpers;
-using Microsoft.Toolkit.Uwp.Notifications;
+
 using Windows.ApplicationModel.Activation;
-using Windows.Storage;
 using Windows.UI.Notifications;
 using Windows.UI.StartScreen;
+
+using Microsoft.Toolkit.Uwp.Notifications;
+
+using eShop.UWP.Activation;
 
 namespace eShop.UWP.Services
 {
     internal class LiveTileService : ActivationHandler<LaunchActivatedEventArgs>
     {
-        private const string QueueEnabledKey = "NotificationQueueEnabled";
-        private const string ImageBaseUri = "ms-appx:///Assets/Tiles/";
+        private const string ImageBaseUri = "ms-appx:///Assets/Catalog/";
 
-        public async Task EnableQueueAsync()
+        public void EnableQueue()
         {
-            var queueEnabled = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(QueueEnabledKey);
-            if (!queueEnabled)
+            if (!AppSettings.Current.IsNotificationQueueEnabled)
             {
                 TileUpdateManager.CreateTileUpdaterForApplication().EnableNotificationQueue(true);
-                await ApplicationData.Current.LocalSettings.SaveAsync(QueueEnabledKey, true);
+                AppSettings.Current.IsNotificationQueueEnabled = true;
             }
         }
 
@@ -70,9 +69,14 @@ namespace eShop.UWP.Services
             return secondaryTiles.Any(t => t.Arguments == tile.Arguments);
         }
 
-        protected override async Task HandleInternalAsync(LaunchActivatedEventArgs args, Type defaultNavItem)
+        protected override Task HandleInternalAsync(LaunchActivatedEventArgs args)
         {
-            await Task.CompletedTask;
+            // If app is launched from a SecondaryTile, tile arguments property is contained in args.Arguments
+            // var secondaryTileArguments = args.Arguments;
+
+            // If app is launched from a LiveTile notification update, TileContent arguments property is contained in args.TileActivatedInfo.RecentlyShownNotifications
+            // var tileUpdatesArguments = args.TileActivatedInfo.RecentlyShownNotifications;
+            return Task.CompletedTask;
         }
 
         protected override bool CanHandleInternal(LaunchActivatedEventArgs args)
@@ -82,11 +86,15 @@ namespace eShop.UWP.Services
 
         private bool LaunchFromSecondaryTile(LaunchActivatedEventArgs args)
         {
+            // If app is launched from a SecondaryTile, tile arguments property is contained in args.Arguments
+            // TODO WTS: Implement your own logic to determine if you can handle the SecondaryTile activation
             return false;
         }
 
         private bool LaunchFromLiveTileUpdate(LaunchActivatedEventArgs args)
         {
+            // If app is launched from a LiveTile notification update, TileContent arguments property is contained in args.TileActivatedInfo.RecentlyShownNotifications
+            // TODO WTS: Implement your own logic to determine if you can handle the LiveTile notification update activation
             return false;
         }
 
@@ -96,14 +104,13 @@ namespace eShop.UWP.Services
             {
                 Images =
                 {
-                    new TileBasicImage { Source = $"{ImageBaseUri}1.png" },
-                    new TileBasicImage { Source = $"{ImageBaseUri}2.png" },
-                    new TileBasicImage { Source = $"{ImageBaseUri}3.png" },
-                    new TileBasicImage { Source = $"{ImageBaseUri}4.png" },
-                    new TileBasicImage { Source = $"{ImageBaseUri}5.png" }
+                    new TileBasicImage { Source = $"{ImageBaseUri}101004.jpg" },
+                    new TileBasicImage { Source = $"{ImageBaseUri}201006.jpg" },
+                    new TileBasicImage { Source = $"{ImageBaseUri}401001.jpg" },
+                    new TileBasicImage { Source = $"{ImageBaseUri}101002.jpg" },
+                    new TileBasicImage { Source = $"{ImageBaseUri}201004.jpg" },
                 }
             };
         }
     }
 }
-

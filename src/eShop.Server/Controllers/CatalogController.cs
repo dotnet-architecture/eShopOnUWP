@@ -74,7 +74,7 @@ namespace eShop.Server.Controllers
             {
                 long totalItems = db.CatalogItems.Where(c => c.Name.StartsWith(name)).LongCount();
 
-                var itemsOnPage = db.CatalogItems.Where(c => c.Name.StartsWith(name)).Skip(pageSize * pageIndex).Take(pageSize).ToList();
+                var itemsOnPage = db.CatalogItems.Where(c => c.Name.StartsWith(name)).Skip(pageSize * pageIndex).Take(pageSize).OrderBy(c => c.Name).ToList();
                 itemsOnPage = ChangeUriPlaceholder(itemsOnPage);
 
                 var model = new PaginatedItems<CatalogItem>(pageIndex, pageSize, totalItems, itemsOnPage);
@@ -92,18 +92,18 @@ namespace eShop.Server.Controllers
             {
                 IEnumerable<CatalogItem> items = db.CatalogItems;
 
-                if (catalogTypeId != null && catalogTypeId > 0)
+                if (catalogTypeId != null && catalogTypeId > -1)
                 {
                     items = items.Where(r => r.CatalogTypeId == catalogTypeId);
                 }
 
-                if (catalogBrandId != null && catalogBrandId > 0)
+                if (catalogBrandId != null && catalogBrandId > -1)
                 {
                     items = items.Where(r => r.CatalogBrandId == catalogBrandId);
                 }
 
                 long totalItems = items.LongCount();
-                var itemsOnPage = items.Skip(pageSize * pageIndex).Take(pageSize).ToList();
+                var itemsOnPage = items.Skip(pageSize * pageIndex).Take(pageSize).OrderBy(c => c.Name).ToList();
                 itemsOnPage = ChangeUriPlaceholder(itemsOnPage);
 
                 var model = new PaginatedItems<CatalogItem>(pageIndex, pageSize, totalItems, itemsOnPage);

@@ -1,12 +1,14 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using System;
 
-namespace eShop.UWP.Views.Login
+using Windows.UI.Xaml.Controls;
+
+namespace eShop.UWP.Views
 {
     public sealed partial class SignInWithHelloView : UserControl
     {
         public SignInWithHelloView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }

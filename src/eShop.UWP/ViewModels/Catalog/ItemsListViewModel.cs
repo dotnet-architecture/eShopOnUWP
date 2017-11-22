@@ -1,78 +1,201 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
-using eShop.Domain.Models;
-using eShop.Providers.Contracts;
-using eShop.UWP.Helpers;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
+
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+
 using Telerik.UI.Xaml.Controls.Grid;
-using Windows.UI.Xaml.Controls;
 
-namespace eShop.UWP.ViewModels.Catalog
+using eShop.Providers;
+using eShop.UWP.Models;
+using eShop.UWP.Services;
+using eShop.UWP.Helpers;
+
+namespace eShop.UWP.ViewModels
 {
-    public class ItemsListViewModel : ItemsContainViewModel
+    public enum ListCommandBarMode
     {
-        private List<CatalogBrand> _catalogBrands;
-        private List<CatalogType> _catalogTypes;
+        Idle,
+        ItemsSelected,
+        AllSelected
+    }
 
-        public ItemsListViewModel(ICatalogProvider catalogProvider) : base(catalogProvider)
+    public class ItemsListViewModel : ViewModelBase
+    {
+        public ItemsListViewModel(ICatalogProvider catalogProvider)
         {
-            LoadCatalogBrands();
-            LoadCatalogTypes();
+            DataProvider = catalogProvider;
         }
 
-        public List<CatalogType> CatalogTypes
+        public ICatalogProvider DataProvider { get; }
+
+        public RadDataGrid ItemsControl { get; set; }
+
+        public bool IsActive { get; set; }
+
+        public ListCommandBarMode Mode { get; set; }
+
+        private ObservableCollection<CatalogItemModel> _items = null;
+        public ObservableCollection<CatalogItemModel> Items
         {
-            get => _catalogTypes;
-            set => Set(ref _catalogTypes, value);
+            get { return _items; }
+            set { Set(ref _items, value); }
         }
 
-        public List<CatalogBrand> CatalogBrands
+        private IList<CatalogTypeModel> _catalogTypes = null;
+        public IList<CatalogTypeModel> CatalogTypes
         {
-            get => _catalogBrands;
-            set => Set(ref _catalogBrands, value);
+            get { return _catalogTypes; }
+            set { Set(ref _catalogTypes, value); }
         }
 
-        public override async Task DeleteSelection(object control)
+        private IList<CatalogBrandModel> _catalogBrands = null;
+        public IList<CatalogBrandModel> CatalogBrands
         {
-            var radDataGrid = control as RadDataGrid;
-            if (radDataGrid == null) return;
-            var selectedItems = radDataGrid.SelectedItems.Cast<ItemViewModel>().ToList();
-
-            var result = await ShowNotification(selectedItems);
-            if (result != ContentDialogResult.Secondary) return;
-
-            selectedItems.ForEach(item => DeleteItem(item, true));
-            radDataGrid.SelectedItem = null;
+            get { return _catalogBrands; }
+            set { Set(ref _catalogBrands, value); }
         }
 
-        public void ShowDetail(ItemViewModel item)
+        private bool _isCommandBarOpen = false;
+        public bool IsCommandBarOpen
         {
-            if (item == null) return;
-
-            item.Edit();
-            LastSelectedItem = item;
+            get { return _isCommandBarOpen; }
+            set { Set(ref _isCommandBarOpen, value); }
         }
 
-        public void SelectionChanged(RadDataGrid radGridView)
+        public bool IsSelectAllVisible => Mode != ListCommandBarMode.AllSelected;
+        public bool IsClearVisible => Mode == ListCommandBarMode.AllSelected;
+        public bool IsCancelVisible => Mode != ListCommandBarMode.Idle;
+        public bool IsSeparatorVisible => IsDeleteVisible;
+        public bool IsDeleteVisible => Mode == ListCommandBarMode.ItemsSelected || Mode == ListCommandBarMode.AllSelected;
+
+        public ICommand SelectionChangedCommand => new RelayCommand<DataGridSelectionChangedEventArgs>(OnSelectionChanged);
+
+        public ICommand SelectAllCommand => new RelayCommand(OnSelectAll);
+        public ICommand ClearCommand => new RelayCommand(OnClear);
+        public ICommand CancelCommand => new RelayCommand(OnCancel);
+        public ICommand DeleteCommand => new RelayCommand(OnDelete);
+
+        public void UpdateExternalSelection()
         {
-            SelectedItemsCount = radGridView.SelectedItems.Count == 1
-                ? Constants.CommandBarCoutItemKey.GetLocalized()
-                : string.Format(Constants.CommandBarCoutItemsKey.GetLocalized(), radGridView.SelectedItems.Count);
-            IsMultiselectionEnable = radGridView.SelectedItems.Any();
+            foreach (var item in Items.Where(r => r.IsSelected))
+            {
+                ItemsControl.SelectItem(item);
+            }
+            foreach (var item in Items.Where(r => !r.IsSelected))
+            {
+                ItemsControl.DeselectItem(item);
+            }
         }
 
-        private async void LoadCatalogBrands()
-        {
-            if (CatalogBrands != null) return;
+        private bool _cancelOnSelectionChanged = false;
 
-            CatalogBrands = (await CatalogProvider.GetCatalogBrandsAsync()).ToList();
+        private void OnSelectionChanged(DataGridSelectionChangedEventArgs args)
+        {
+            if (_cancelOnSelectionChanged)
+            {
+                return;
+            }
+
+            ApplySelection(args.AddedItems, true);
+            ApplySelection(args.RemovedItems, false);
+
+            int count = Items.Count(r => r.IsSelected);
+            if (count == 0)
+            {
+                IsCommandBarOpen = false;
+                Mode = ListCommandBarMode.Idle;
+            }
+            else if (count < Items.Count)
+            {
+                IsCommandBarOpen = true;
+                Mode = ListCommandBarMode.ItemsSelected;
+            }
+            else
+            {
+                IsCommandBarOpen = true;
+                Mode = ListCommandBarMode.AllSelected;
+            }
+
+            UpdateCommandBar();
         }
 
-        private async void LoadCatalogTypes()
+        private void OnSelectAll()
         {
-            if (CatalogTypes != null) return;
+            ApplySelection(Items, true);
+            ItemsControl.SelectAll();
+            Mode = ListCommandBarMode.AllSelected;
+            IsCommandBarOpen = true;
+            UpdateCommandBar();
+        }
 
-            CatalogTypes = (await CatalogProvider.GetCatalogTypesAsync()).ToList();
+        private void OnClear()
+        {
+            ApplySelection(Items, false);
+            ItemsControl.DeselectAll();
+            Mode = ListCommandBarMode.Idle;
+            IsCommandBarOpen = true;
+            UpdateCommandBar();
+        }
+
+        private void OnCancel()
+        {
+            ApplySelection(Items, false);
+            ItemsControl.DeselectAll();
+            Mode = ListCommandBarMode.Idle;
+            IsCommandBarOpen = false;
+            UpdateCommandBar();
+        }
+
+        private async void OnDelete()
+        {
+            if (await DialogBox.ShowAsync("Confirm Delete", "Are you sure you want to delete selected items?", "Ok", "Cancel"))
+            {
+                _cancelOnSelectionChanged = true;
+                try
+                {
+                    var selectedItems = Items.Where(r => r.IsSelected).ToArray();
+                    foreach (var item in selectedItems)
+                    {
+                        await DataProvider.DeleteItemAsync(item);
+                        Items.Remove(item);
+                    }
+
+                    if (selectedItems.Length == 1)
+                    {
+                        var item = selectedItems[0];
+                        ToastNotificationsService.Current.ShowToastNotification(Constants.NotificationDeletedItemTitleKey.GetLocalized(), item);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    await DialogBox.ShowAsync("Error deleting files", ex);
+                }
+                _cancelOnSelectionChanged = false;
+            }
+
+            IsCommandBarOpen = false;
+            UpdateCommandBar();
+        }
+
+        public void UpdateCommandBar()
+        {
+            RaisePropertyChanged("IsSelectAllVisible");
+            RaisePropertyChanged("IsClearVisible");
+            RaisePropertyChanged("IsCancelVisible");
+            RaisePropertyChanged("IsSeparatorVisible");
+            RaisePropertyChanged("IsDeleteVisible");
+        }
+
+        private void ApplySelection(IEnumerable<object> items, bool isSelected)
+        {
+            foreach (CatalogItemModel item in items)
+            {
+                item.IsSelected = isSelected;
+            }
         }
     }
 }

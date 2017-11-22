@@ -24,6 +24,6 @@ namespace eShop.Data
 
         public CatalogBrand CatalogBrand { get; set; }
 
-        public bool IsActive { get; set; }
+        public bool IsDisabled { get; set; }
     }
 }

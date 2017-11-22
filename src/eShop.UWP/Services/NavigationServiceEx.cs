@@ -1,19 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using Windows.UI.Core;
+using System.Collections.Generic;
+
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Media.Animation;
+
+using eShop.UWP.Helpers;
 
 namespace eShop.UWP.Services
 {
     public class NavigationServiceEx
     {
+        public event NavigatingCancelEventHandler Navigating;
+        public event NavigatedEventHandler Navigated;
+        public event NavigationStoppedEventHandler NavigationStopped;
+        public event NavigationFailedEventHandler NavigationFailed;
+
         private readonly Dictionary<string, Type> _pages = new Dictionary<string, Type>();
 
         private Frame _frame;
-
         public Frame Frame
         {
             get
@@ -21,42 +28,25 @@ namespace eShop.UWP.Services
                 if (_frame == null)
                 {
                     _frame = Window.Current.Content as Frame;
+                    RegisterFrameEvents();
                 }
-
                 return _frame;
             }
             set
             {
-                if(_frame != null)
-                {
-                    _frame.Navigated -= OnFrameNavigated;
-                }
-                if (value != null)
-                {
-                    value.Navigated += OnFrameNavigated;
-                }
+                UnregisterFrameEvents();
                 _frame = value;
+                RegisterFrameEvents();
             }
         }
 
         public bool CanGoBack => Frame.CanGoBack;
+
         public bool CanGoForward => Frame.CanGoForward;
 
         public void GoBack() => Frame.GoBack();
-        public void GoForward() => Frame.GoForward();
 
-        public bool Navigate(string pageKey, object parameter = null, NavigationTransitionInfo infoOverride = null)
-        {
-            lock (_pages)
-            {
-                if (!_pages.ContainsKey(pageKey))
-                {
-                    throw new ArgumentException($"Page not found: {pageKey}. Did you forget to call NavigationService.Configure?", "pageKey");
-                }
-                var navigationResult = Frame.Navigate(_pages[pageKey], parameter, infoOverride);
-                return navigationResult;
-            }
-        }
+        public void GoForward() => Frame.GoForward();
 
         public void Configure(string key, Type pageType)
         {
@@ -64,51 +54,80 @@ namespace eShop.UWP.Services
             {
                 if (_pages.ContainsKey(key))
                 {
-                    throw new ArgumentException($"The key {key} is already configured in NavigationService");
+                    throw new ArgumentException(string.Format("ExceptionNavigationServiceExKeyIsInNavigationService".GetLocalized(), key));
                 }
 
                 if (_pages.Any(p => p.Value == pageType))
                 {
-                    throw new ArgumentException($"This type is already configured with key {_pages.First(p => p.Value == pageType).Key}");
+                    throw new ArgumentException(string.Format("ExceptionNavigationServiceExTypeAlreadyConfigured".GetLocalized(), _pages.First(p => p.Value == pageType).Key));
                 }
 
                 _pages.Add(key, pageType);
             }
         }
 
+        public bool Navigate(string pageKey, object parameter = null, NavigationTransitionInfo infoOverride = null)
+        {
+            Type page;
+            lock (_pages)
+            {
+                if (!_pages.TryGetValue(pageKey, out page))
+                {
+                    throw new ArgumentException($"Page not found: {pageKey}. Did you forget to call NavigationService.Configure?", "pageKey");
+                }
+            }
+            var navigationResult = Frame.Navigate(page, parameter, infoOverride);
+            return navigationResult;
+        }
+
         public string GetNameOfRegisteredPage(Type page)
         {
             lock (_pages)
             {
-                if (_pages.ContainsValue(page))
-                {
-                    return _pages.FirstOrDefault(p => p.Value == page).Key;
-                }
-                else
-                {
-                    throw new ArgumentException($"The page '{page.Name}' is unknown by the NavigationService");
-                }
+                return _pages.FirstOrDefault(p => p.Value == page).Key;
             }
         }
 
-        public void CleanBackStack()
+        private void RegisterFrameEvents()
         {
-            lock (_pages)
+            if (_frame != null)
             {
-                Frame.BackStack.Clear();
-                SetBackButtonVisibility();
+                _frame.Navigating += OnNavigating;
+                _frame.Navigated += OnNavigated;
+                _frame.NavigationStopped += OnNavigationStopped;
+                _frame.NavigationFailed += OnNavigationFailed;
             }
         }
 
-        private void OnFrameNavigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
+        private void UnregisterFrameEvents()
         {
-            SetBackButtonVisibility();
+            if (_frame != null)
+            {
+                _frame.Navigating -= OnNavigating;
+                _frame.Navigated -= OnNavigated;
+                _frame.NavigationStopped -= OnNavigationStopped;
+                _frame.NavigationFailed -= OnNavigationFailed;
+            }
         }
 
-        private void SetBackButtonVisibility()
+        private void OnNavigating(object sender, NavigatingCancelEventArgs e)
         {
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = CanGoBack ?
-                            AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+            Navigating?.Invoke(sender, e);
+        }
+
+        private void OnNavigated(object sender, NavigationEventArgs e)
+        {
+            Navigated?.Invoke(sender, e);
+        }
+
+        private void OnNavigationStopped(object sender, NavigationEventArgs e)
+        {
+            NavigationStopped?.Invoke(sender, e);
+        }
+
+        private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
+        {
+            NavigationFailed?.Invoke(sender, e);
         }
     }
 }

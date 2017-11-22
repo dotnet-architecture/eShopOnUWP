@@ -2,27 +2,19 @@
   "CatalogTypes": [
     {
       "Id": 1,
-      "Type": "Mug"
-    },
-    {
-      "Id": 2,
       "Type": "T-Shirt"
     },
     {
+      "Id": 2,
+      "Type": "Cap"
+    },
+    {
       "Id": 3,
-      "Type": "Sheet"
+      "Type": "Pin"
     },
     {
       "Id": 4,
-      "Type": "USB Memory Stick"
-    },
-    {
-      "Id": 5,
-      "Type": "CatalogTypeTestOne"
-    },
-    {
-      "Id": 6,
-      "Type": "CatalogTypeTestTwo"
+      "Type": "Mug"
     }
   ],
   "CatalogBrands": [
@@ -32,185 +24,721 @@
     },
     {
       "Id": 2,
-      "Brand": ".NET"
+      "Brand": "Microsoft"
     },
     {
       "Id": 3,
-      "Brand": "Visual Studio"
+      "Brand": ".NET"
     },
     {
       "Id": 4,
-      "Brand": "SQL Server"
-    },
-    {
-      "Id": 5,
-      "Brand": "Other"
-    },
-    {
-      "Id": 6,
-      "Brand": "CatalogBrandTestOne"
-    },
-    {
-      "Id": 7,
-      "Brand": "CatalogBrandTestTwo"
+      "Brand": "Windows 10"
     }
   ],
   "CatalogItems": [
     {
-      "Id": 2,
-      "Name": ".NET Black & White Mug",
-      "Description": ".NET Black & White Mug",
-      "Price": 8.5,
-      "PictureFileName": "2.png",
-      "PictureUri": "ms-appx:///Assets/Images/Catalog/2.png",
+      "Id": 101009,
+      "Name": "Microsoft Azure White T-Shirt",
+      "Description": "Faucibus eu sagittis tempus molestie lobortis phasellus proin etiam morbi ullamcorper eros risus amet pharetra purus eget leo ligula ultricies ac libero lectus vel tortor bibendum donec orci laoreet adipiscing.\r\n\r\nConsectetur volutpat dolor risus justo suscipit donec ipsum dui eget sit faucibus quam lorem proin arcu eu adipiscing faucibus morbi ut risus proin dolor ultrices tortor lobortis metus libero mauris elit turpis velit non turpis etiam eu tempus sagittis facilisis eros leo arcu consectetur dui pharetra bibendum bibendum non ipsum.\r\n\r\nFacilisis ut donec sagittis ut molestie risus tempus est duis odio metus scelerisque suscipit metus in quis consectetur eu ipsum quam metus id lobortis suscipit phasellus ligula sollicitudin ullamcorper duis sollicitudin quis lacinia ullamcorper tempor non consectetur arcu dolor quis.\r\n",
+      "Price": 17.0,
+      "PictureFileName": "101009.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/101009.jpg",
       "CatalogTypeId": 1,
-      "CatalogType": null,
-      "CatalogBrandId": 2,
-      "CatalogBrand": null,
-      "IsActive": false
+      "CatalogBrandId": 1,
+      "IsDisabled": false
     },
     {
-      "Id": 6,
-      "Name": ".NET Blue Hoodie",
-      "Description": ".NET Blue Hoodie",
-      "Price": 12.0,
-      "PictureFileName": "6.png",
-      "PictureUri": "ms-appx:///Assets/Images/Catalog/6.png",
+      "Id": 101003,
+      "Name": "Microsoft Azure Cyan T-Shirt",
+      "Description": "Adipiscing eu sagittis laoreet donec ullamcorper fermentum amet sollicitudin velit odio ut quis volutpat egestas ipsum metus eget scelerisque dui libero ultrices lacinia vitae leo sit placerat orci tortor dignissim.\r\n\r\nRisus lorem nisl fermentum mauris et a velit phasellus laoreet sit egestas mauris eros phasellus proin egestas leo tempor fermentum ipsum id ipsum lectus lectus adipiscing tempus mauris dolor scelerisque pharetra sit fermentum duis est fermentum consectetur non suscipit ultricies in ligula sit etiam vel ligula et adipiscing est ac.\r\n\r\nAc ut vitae quis orci eros tempus faucibus elit ullamcorper scelerisque lobortis phasellus pharetra duis tempus pharetra placerat dolor dignissim purus consectetur libero vel mauris vel proin sagittis egestas consectetur quam id ligula ut fermentum phasellus purus volutpat phasellus fermentum.\r\n",
+      "Price": 18.0,
+      "PictureFileName": "101003.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/101003.jpg",
+      "CatalogTypeId": 1,
+      "CatalogBrandId": 1,
+      "IsDisabled": false
+    },
+    {
+      "Id": 101002,
+      "Name": "Microsoft Azure Gray T-Shirt",
+      "Description": "Fermentum libero ultricies in ipsum lacinia congue quis non vel phasellus adipiscing amet quam tempor eget tempus dolor facilisis ligula suscipit lectus orci bibendum sagittis mauris ac donec nunc etiam.\r\n\r\nVelit eros libero phasellus risus etiam bibendum fermentum nec congue et ac scelerisque arcu elit quam leo ipsum dolor lectus tempus scelerisque ac ligula est est id placerat faucibus nec ultricies amet odio morbi quam risus dignissim ipsum ultricies duis lorem elit ipsum ut dignissim turpis lacinia facilisis et etiam.\r\n\r\nSagittis nisl ultrices turpis eros congue placerat lacinia metus ultrices laoreet lectus et tempus a nisl a risus eu quis ac eget ut sollicitudin lectus id et arcu donec elit sit tempus id congue tempus adipiscing orci lobortis id tortor.\r\n",
+      "Price": 18.0,
+      "PictureFileName": "101002.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/101002.jpg",
+      "CatalogTypeId": 1,
+      "CatalogBrandId": 1,
+      "IsDisabled": false
+    },
+    {
+      "Id": 101001,
+      "Name": "Microsoft Azure Black T-Shirt",
+      "Description": "Nunc turpis ut molestie orci quam dolor placerat purus dui ipsum mauris consectetur sollicitudin eros dignissim ultrices vel bibendum suscipit fermentum tempus elit duis lobortis proin adipiscing morbi lorem leo.\r\n\r\nRisus justo eget lobortis proin lobortis dolor quis etiam in bibendum justo fermentum sollicitudin fermentum risus lorem vitae ac quam nisl dignissim id dolor vel ullamcorper id nec odio phasellus justo sit eros morbi adipiscing congue etiam ligula vitae mauris proin non velit nunc purus proin odio eros id volutpat.\r\n\r\nFermentum est vel placerat sit non in nisl in metus turpis proin adipiscing tempor elit nec eget vel pharetra vitae facilisis a tempus lectus est etiam lorem ac duis nisl vel amet odio turpis velit et est ac congue faucibus.\r\n",
+      "Price": 19.0,
+      "PictureFileName": "101001.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/101001.jpg",
+      "CatalogTypeId": 1,
+      "CatalogBrandId": 1,
+      "IsDisabled": false
+    },
+    {
+      "Id": 101004,
+      "Name": "Microsoft Azure Red T-Shirt",
+      "Description": "Molestie et leo arcu laoreet tempus ultricies eu lobortis amet nec mauris congue sollicitudin est quis ut bibendum non lectus orci tortor adipiscing egestas nunc libero pharetra ultrices velit dolor.\r\n\r\nArcu est placerat non nec quam arcu nec suscipit pharetra lorem nisl donec et ultrices scelerisque arcu scelerisque metus et lectus vitae leo consectetur suscipit egestas justo dui dui ipsum congue bibendum tempus sollicitudin leo risus suscipit lorem congue ultricies dolor laoreet lacinia id nisl nec dolor facilisis tempus adipiscing.\r\n\r\nAultricies velit metus nec pharetra nisl duis congue ut nunc et pharetra lectus tortor ligula nisl lectus ipsum a volutpat arcu sollicitudin eros eget ultrices ullamcorper ullamcorper turpis turpis lobortis molestie faucibus eget etiam bibendum amet pharetra volutpat lacinia.\r\n",
+      "Price": 18.0,
+      "PictureFileName": "101004.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/101004.jpg",
+      "CatalogTypeId": 1,
+      "CatalogBrandId": 1,
+      "IsDisabled": false
+    },
+    {
+      "Id": 201006,
+      "Name": "Microsoft Azure Blue Cap",
+      "Description": "Placerat mauris metus velit amet volutpat duis suscipit laoreet ligula nec id purus dui turpis eu facilisis justo orci proin non tortor arcu consectetur ultrices sit sollicitudin morbi vitae donec.\r\n\r\nDonec purus etiam congue egestas mauris phasellus facilisis leo et morbi facilisis libero faucibus lacinia lacinia placerat mauris dui dolor placerat sagittis tempus quam lorem eros velit proin amet facilisis donec laoreet ullamcorper donec amet ullamcorper consectetur libero dui justo scelerisque amet ullamcorper donec a placerat ac duis tortor fermentum.\r\n\r\nLaoreet quam in ultrices vitae et purus dignissim congue ligula ultricies duis proin ullamcorper etiam est nisl ultrices et bibendum congue ligula phasellus duis volutpat vitae pharetra in scelerisque quam in id suscipit adipiscing tortor fermentum non volutpat in donec.\r\n",
+      "Price": 10.0,
+      "PictureFileName": "201006.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/201006.jpg",
       "CatalogTypeId": 2,
-      "CatalogType": null,
-      "CatalogBrandId": 2,
-      "CatalogBrand": null,
-      "IsActive": false
+      "CatalogBrandId": 1,
+      "IsDisabled": false
     },
     {
-      "Id": 1,
-      "Name": ".NET Bot Black Hoodie",
-      "Description": ".NET Bot Black Hoodie",
+      "Id": 201002,
+      "Name": "Microsoft Azure Gray Cap",
+      "Description": "Lacinia facilisis suscipit turpis sollicitudin sagittis bibendum tempus est nunc fermentum libero odio orci ut elit leo tempor ipsum et volutpat nisl proin vel non etiam ultricies eget ac amet.\r\n\r\nPharetra ut amet turpis ligula consectetur phasellus est proin leo ultricies vel in lectus metus a lectus duis sagittis ligula scelerisque scelerisque fermentum dignissim velit tortor tempus vitae ullamcorper bibendum orci mauris arcu ultrices adipiscing suscipit quam metus egestas dui duis ultrices congue eget sollicitudin non bibendum fermentum velit libero.\r\n\r\nSit velit eu lobortis lobortis bibendum volutpat id ut etiam adipiscing proin vitae egestas eu proin vitae eget sollicitudin et ut ut mauris congue ut ullamcorper sollicitudin ut nisl volutpat lacinia dolor phasellus fermentum dignissim tortor metus in molestie suscipit.\r\n",
+      "Price": 10.0,
+      "PictureFileName": "201002.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/201002.jpg",
+      "CatalogTypeId": 2,
+      "CatalogBrandId": 1,
+      "IsDisabled": false
+    },
+    {
+      "Id": 201001,
+      "Name": "Microsoft Azure Black Cap",
+      "Description": "Eu lacinia sollicitudin etiam eget pharetra sit phasellus facilisis ligula sagittis tempor ipsum dui ut mauris amet consectetur dolor fermentum morbi metus ultricies molestie laoreet adipiscing id velit purus vitae.\r\n\r\nOrci proin tempor leo ac vitae arcu eros eget arcu quam leo turpis eu justo leo duis justo est lacinia in congue placerat volutpat purus quis quis tempor eu non vel risus risus placerat laoreet bibendum risus mauris ipsum congue elit a eu quis est id eros donec eros scelerisque.\r\n\r\nSuscipit ullamcorper fermentum sit facilisis et faucibus orci egestas elit facilisis justo ut proin tempor laoreet turpis in quis dolor turpis quam vel phasellus egestas velit nisl tortor sollicitudin id ullamcorper lacinia lectus eros turpis turpis purus turpis leo ac.\r\n",
+      "Price": 11.0,
+      "PictureFileName": "201001.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/201001.jpg",
+      "CatalogTypeId": 2,
+      "CatalogBrandId": 1,
+      "IsDisabled": false
+    },
+    {
+      "Id": 201004,
+      "Name": "Microsoft Azure Red Cap",
+      "Description": "Tempor lobortis fermentum facilisis purus lectus pharetra scelerisque quam suscipit sagittis ac duis est sollicitudin bibendum eu eros nunc lacinia amet ullamcorper volutpat dignissim quis turpis ipsum velit lorem laoreet.\r\n\r\nSuscipit metus adipiscing turpis metus placerat purus ac laoreet molestie id turpis sit ac amet consectetur ultricies nisl ultrices odio congue leo nec vel a molestie donec ac fermentum eu donec risus sagittis libero quis ac pharetra ullamcorper tempus dui donec vitae velit a ultricies amet ut pharetra eu donec.\r\n\r\nCongue donec a tempor justo scelerisque velit lectus ac tortor tempor odio faucibus mauris turpis velit dui ac phasellus volutpat nunc ultrices nisl et pharetra eget odio tortor sollicitudin velit purus fermentum nec placerat donec tempus ut ultricies metus laoreet.\r\n",
+      "Price": 10.0,
+      "PictureFileName": "201004.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/201004.jpg",
+      "CatalogTypeId": 2,
+      "CatalogBrandId": 1,
+      "IsDisabled": false
+    },
+    {
+      "Id": 201005,
+      "Name": "Microsoft Azure Green Cap",
+      "Description": "Molestie est sit lorem purus lacinia ullamcorper dui libero morbi bibendum risus justo etiam nec adipiscing sagittis phasellus dignissim tempus tempor mauris dolor lobortis id nisl quam ultricies et nunc.\r\n\r\nScelerisque phasellus suscipit lacinia purus eget ac lacinia dignissim tempor tempor est dolor bibendum volutpat ut ligula morbi ullamcorper lectus in ultricies mauris proin proin adipiscing morbi nec eget turpis quam morbi scelerisque placerat quam dolor elit arcu etiam mauris turpis et adipiscing suscipit nec non donec phasellus amet bibendum.\r\n\r\nCongue morbi consectetur lectus sit tortor faucibus dolor id congue turpis eu molestie scelerisque amet tempus in congue libero libero leo eros id laoreet nec laoreet nisl risus pharetra odio scelerisque lobortis phasellus a ipsum ultrices egestas volutpat eu pharetra.\r\n",
+      "Price": 10.0,
+      "PictureFileName": "201005.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/201005.jpg",
+      "CatalogTypeId": 2,
+      "CatalogBrandId": 1,
+      "IsDisabled": false
+    },
+    {
+      "Id": 301099,
+      "Name": "Microsoft Azure Pin",
+      "Description": "Ullamcorper consectetur sit orci facilisis nisl phasellus donec etiam sagittis a arcu libero faucibus purus eros dignissim turpis lobortis in mauris bibendum elit et placerat sollicitudin id ipsum ligula lacinia.\r\n\r\nLorem purus ligula sollicitudin facilisis ac consectetur faucibus sit lobortis eget sagittis elit ac id dignissim consectetur lacinia tempor et facilisis est a tempus nec turpis eros et non quam dui et sit amet velit laoreet molestie etiam lectus suscipit ullamcorper tempor sit volutpat tempor duis ipsum lectus suscipit bibendum.\r\n\r\nEtiam duis donec placerat proin a volutpat est volutpat a egestas egestas arcu nisl elit tortor orci dolor molestie fermentum eros justo id etiam laoreet a lacinia mauris vitae laoreet congue tortor libero placerat eros vel est tempor bibendum arcu.\r\n",
+      "Price": 2.5,
+      "PictureFileName": "301099.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/301099.jpg",
+      "CatalogTypeId": 3,
+      "CatalogBrandId": 1,
+      "IsDisabled": false
+    },
+    {
+      "Id": 401006,
+      "Name": "Microsoft Azure Blue Mug",
+      "Description": "Placerat faucibus vel pharetra justo suscipit lacinia ac morbi phasellus tortor ullamcorper laoreet nisl non quis est eget egestas fermentum quam adipiscing lobortis ut nec leo etiam donec metus lorem.\r\n\r\nBibendum volutpat dolor et adipiscing orci libero ligula turpis et egestas fermentum vitae lectus tempus odio volutpat dui quis tempus non velit volutpat ligula velit phasellus lobortis libero congue dignissim velit odio amet non velit vel quis sagittis in eros tortor lectus etiam bibendum scelerisque egestas vitae ipsum nec velit.\r\n\r\nVel suscipit duis molestie et consectetur tempus justo eu tortor ullamcorper tempus phasellus ut odio placerat id turpis tempor sollicitudin facilisis nisl velit ullamcorper lorem turpis metus quis placerat faucibus eros volutpat nisl ut laoreet vitae dolor risus phasellus amet.\r\n",
+      "Price": 8.0,
+      "PictureFileName": "401006.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/401006.jpg",
+      "CatalogTypeId": 4,
+      "CatalogBrandId": 1,
+      "IsDisabled": false
+    },
+    {
+      "Id": 401009,
+      "Name": "Microsoft Azure White Mug",
+      "Description": "Vel phasellus id nisl metus tempus lacinia odio laoreet elit risus non eu nunc proin morbi sollicitudin donec facilisis purus orci ultrices lobortis volutpat mauris ipsum dignissim egestas ut dui.\r\n\r\nLacinia bibendum ipsum ultrices dolor scelerisque vel sollicitudin vitae odio tempus eu consectetur ullamcorper eu eget quis eu mauris bibendum elit duis quis nisl nec pharetra id purus non tempus pharetra proin scelerisque placerat tortor faucibus eu est morbi dignissim pharetra lorem proin quam mauris odio ut ac ipsum lacinia.\r\n\r\nBibendum molestie laoreet non nisl dui eros egestas sollicitudin quis libero scelerisque a vitae mauris orci eros morbi libero ligula elit libero volutpat et ut adipiscing nunc morbi sollicitudin id phasellus eget sollicitudin est purus molestie ultrices suscipit arcu ultricies.\r\n",
+      "Price": 7.0,
+      "PictureFileName": "401009.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/401009.jpg",
+      "CatalogTypeId": 4,
+      "CatalogBrandId": 1,
+      "IsDisabled": false
+    },
+    {
+      "Id": 401002,
+      "Name": "Microsoft Azure Gray Mug",
+      "Description": "Pharetra sit in mauris bibendum est non dolor ac et etiam ultrices vel quam lacinia ipsum odio elit phasellus lectus justo velit turpis nisl dui fermentum sollicitudin adipiscing faucibus metus.\r\n\r\nOdio etiam congue odio scelerisque eu ultricies ut dignissim phasellus volutpat scelerisque proin quam in libero ligula nec elit ultricies ullamcorper leo consectetur lacinia odio ac sit proin elit bibendum velit ullamcorper quam tempor lorem odio leo volutpat eget arcu pharetra dignissim bibendum quis turpis risus elit elit morbi non.\r\n\r\nEgestas molestie elit in ligula proin risus ultrices tempus tortor duis donec leo arcu tortor sit est velit quam consectetur phasellus a lacinia dignissim ligula in a turpis sit ut quis ultrices phasellus ullamcorper non etiam leo odio facilisis velit.\r\n",
+      "Price": 8.0,
+      "PictureFileName": "401002.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/401002.jpg",
+      "CatalogTypeId": 4,
+      "CatalogBrandId": 1,
+      "IsDisabled": false
+    },
+    {
+      "Id": 401001,
+      "Name": "Microsoft Azure Black Mug",
+      "Description": "Ut dui volutpat et congue dolor morbi vitae nunc quam ultrices arcu scelerisque leo non libero egestas sit suscipit lobortis metus id quis dignissim donec faucibus justo ullamcorper ac lacinia.\r\n\r\nEgestas ultrices eu nunc lobortis leo ultricies ultricies consectetur velit justo ac morbi ultricies dui dui mauris orci proin quis ut etiam id justo dolor leo tempor fermentum phasellus etiam est duis scelerisque ligula ligula tempor lacinia ac proin dignissim eros dolor etiam vel facilisis orci purus sollicitudin tempus ipsum.\r\n\r\nLorem ac scelerisque elit bibendum est sit amet in nec morbi faucibus placerat duis molestie tempus ipsum ultrices congue ligula lacinia orci vitae congue ullamcorper faucibus lorem quam molestie id egestas ultrices tortor elit etiam metus ligula placerat non tortor.\r\n",
+      "Price": 9.0,
+      "PictureFileName": "401001.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/401001.jpg",
+      "CatalogTypeId": 4,
+      "CatalogBrandId": 1,
+      "IsDisabled": false
+    },
+    {
+      "Id": 401004,
+      "Name": "Microsoft Azure Red Mug",
+      "Description": "Pharetra congue phasellus leo molestie libero id laoreet proin adipiscing sagittis vitae suscipit sollicitudin volutpat tempor est nisl morbi ultricies ut ligula justo lorem orci amet lobortis etiam nunc purus.\r\n\r\nLigula proin purus etiam ultrices phasellus ipsum sollicitudin lectus nec vitae arcu quam orci egestas ligula et orci suscipit morbi et dui quis amet a lectus lobortis faucibus nisl id in donec molestie turpis lacinia ultrices lacinia eget ac id nec facilisis ac ullamcorper proin elit in ultricies mauris nunc.\r\n\r\nNisl metus suscipit pharetra placerat odio ultricies morbi mauris consectetur faucibus dui nisl fermentum est quam donec arcu nisl tempor sit ipsum egestas tortor libero ullamcorper lorem proin a elit faucibus orci facilisis tortor faucibus sit risus quam in scelerisque.\r\n",
+      "Price": 8.0,
+      "PictureFileName": "401004.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/401004.jpg",
+      "CatalogTypeId": 4,
+      "CatalogBrandId": 1,
+      "IsDisabled": false
+    },
+    {
+      "Id": 102009,
+      "Name": "Microsoft White T-Shirt",
+      "Description": "Scelerisque ipsum ligula eget nisl pharetra faucibus ullamcorper morbi sagittis ultricies nunc consectetur id in congue elit est odio donec libero quis volutpat sollicitudin laoreet tortor lobortis ultrices justo bibendum.\r\n\r\nBibendum lobortis id lorem ac phasellus lorem donec elit amet ipsum mauris velit quis proin ut ut dignissim eros dui vitae proin lorem consectetur elit amet fermentum vitae dui est orci quam placerat orci scelerisque odio bibendum ligula est dui faucibus id scelerisque metus non ligula eu nunc consectetur leo.\r\n\r\nSit purus eget ullamcorper ultrices quis volutpat etiam facilisis eget dignissim morbi phasellus eu ultrices in vitae ipsum facilisis libero molestie lacinia placerat molestie tortor nisl nunc turpis dui metus lacinia libero a amet lacinia placerat justo est sagittis adipiscing.\r\n",
+      "Price": 17.5,
+      "PictureFileName": "102009.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/102009.jpg",
+      "CatalogTypeId": 1,
+      "CatalogBrandId": 2,
+      "IsDisabled": false
+    },
+    {
+      "Id": 102003,
+      "Name": "Microsoft Cyan T-Shirt",
+      "Description": "Turpis nisl id placerat ligula sollicitudin dignissim ullamcorper odio ac faucibus elit eu leo consectetur libero tortor molestie lobortis pharetra sit ut volutpat phasellus scelerisque etiam proin ultrices lectus arcu.\r\n\r\nTortor sagittis mauris vel metus odio purus ultricies consectetur congue fermentum scelerisque laoreet dignissim duis egestas phasellus est amet eu morbi lacinia duis morbi donec est adipiscing consectetur ultricies pharetra pharetra dignissim et ac adipiscing in ultrices risus volutpat dolor est a ullamcorper eros adipiscing adipiscing pharetra fermentum sagittis sagittis.\r\n\r\nTurpis sit suscipit libero vel vel laoreet id mauris dui a tempor lorem nunc ipsum est lorem et amet facilisis turpis quis bibendum ipsum dui ullamcorper bibendum leo donec ullamcorper velit phasellus suscipit vitae fermentum donec odio suscipit justo proin.\r\n",
+      "Price": 18.5,
+      "PictureFileName": "102003.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/102003.jpg",
+      "CatalogTypeId": 1,
+      "CatalogBrandId": 2,
+      "IsDisabled": false
+    },
+    {
+      "Id": 102002,
+      "Name": "Microsoft Gray T-Shirt",
+      "Description": "Et sit orci consectetur eros adipiscing sagittis phasellus est vitae vel id odio ac metus etiam proin amet turpis lorem dui duis morbi leo nunc ullamcorper bibendum scelerisque quam justo.\r\n\r\nVelit sagittis nunc molestie elit mauris in scelerisque facilisis vel lobortis ligula egestas ligula leo est libero eros arcu purus sit tempor lacinia duis ultricies congue eget lacinia arcu sit congue etiam eros consectetur congue quam pharetra in facilisis suscipit facilisis donec et eros vel ultrices purus mauris adipiscing metus.\r\n\r\nDonec quis faucibus lectus sagittis leo leo velit lectus eget a lobortis dui lectus libero purus arcu non elit sollicitudin velit a ultrices amet suscipit leo duis facilisis ipsum ut id est quam donec eget eu eu tortor suscipit duis.\r\n",
+      "Price": 18.5,
+      "PictureFileName": "102002.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/102002.jpg",
+      "CatalogTypeId": 1,
+      "CatalogBrandId": 2,
+      "IsDisabled": false
+    },
+    {
+      "Id": 102001,
+      "Name": "Microsoft Black T-Shirt",
+      "Description": "Bibendum faucibus dui ac pharetra eu phasellus volutpat odio scelerisque tortor molestie dignissim leo et tempus sollicitudin ullamcorper orci metus nunc ultrices lectus justo ultricies congue proin ut egestas turpis.\r\n\r\nEt nisl non metus congue donec libero libero congue eu molestie scelerisque tempus suscipit proin tempus phasellus adipiscing turpis nisl nec tortor vitae in justo phasellus dolor tempus lorem ut egestas purus ullamcorper morbi tortor amet eget scelerisque ac id non sollicitudin eros adipiscing mauris eget scelerisque quis mauris tortor.\r\n\r\nLibero sollicitudin eros justo faucibus ultricies phasellus a amet libero lobortis non ut velit pharetra ut laoreet duis id ligula non pharetra lobortis est est eget orci nec lacinia eros quam quam quis dolor tortor lectus ultrices vitae a faucibus.\r\n",
       "Price": 19.5,
-      "PictureFileName": "1.png",
-      "PictureUri": "ms-appx:///Assets/Images/Catalog/1.png",
-      "CatalogTypeId": 2,
-      "CatalogType": null,
-      "CatalogBrandId": 2,
-      "CatalogBrand": null,
-      "IsActive": false
-    },
-    {
-      "Id": 10,
-      "Name": ".NET Foundation Sheet",
-      "Description": ".NET Foundation Sheet",
-      "Price": 12.0,
-      "PictureFileName": "10.png",
-      "PictureUri": "ms-appx:///Assets/Images/Catalog/10.png",
-      "CatalogTypeId": 3,
-      "CatalogType": null,
-      "CatalogBrandId": 2,
-      "CatalogBrand": null,
-      "IsActive": false
-    },
-    {
-      "Id": 4,
-      "Name": ".NET Foundation T-shirt",
-      "Description": ".NET Foundation T-shirt",
-      "Price": 12.0,
-      "PictureFileName": "4.png",
-      "PictureUri": "ms-appx:///Assets/Images/Catalog/4.png",
-      "CatalogTypeId": 2,
-      "CatalogType": null,
-      "CatalogBrandId": 2,
-      "CatalogBrand": null,
-      "IsActive": false
-    },
-    {
-      "Id": 11,
-      "Name": "Cup<T> Sheet",
-      "Description": "Cup<T> Sheet",
-      "Price": 8.5,
-      "PictureFileName": "11.png",
-      "PictureUri": "ms-appx:///Assets/Images/Catalog/11.png",
-      "CatalogTypeId": 3,
-      "CatalogType": null,
-      "CatalogBrandId": 2,
-      "CatalogBrand": null,
-      "IsActive": false
-    },
-    {
-      "Id": 9,
-      "Name": "Cup<T> White Mug",
-      "Description": "Cup<T> White Mug",
-      "Price": 12.0,
-      "PictureFileName": "9.png",
-      "PictureUri": "ms-appx:///Assets/Images/Catalog/9.png",
+      "PictureFileName": "102001.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/102001.jpg",
       "CatalogTypeId": 1,
-      "CatalogType": null,
-      "CatalogBrandId": 5,
-      "CatalogBrand": null,
-      "IsActive": false
+      "CatalogBrandId": 2,
+      "IsDisabled": false
     },
     {
-      "Id": 8,
-      "Name": "Kudu Purple Hoodie",
-      "Description": "Kudu Purple Hoodie",
-      "Price": 8.5,
-      "PictureFileName": "8.png",
-      "PictureUri": "ms-appx:///Assets/Images/Catalog/8.png",
+      "Id": 102004,
+      "Name": "Microsoft Red T-Shirt",
+      "Description": "Ultrices bibendum nisl laoreet eu lorem congue eget amet ac a est suscipit dignissim dolor elit placerat vel id sagittis faucibus mauris egestas sit lectus odio ligula lacinia in scelerisque.\r\n\r\nDignissim non mauris elit turpis facilisis eros elit nec lorem sollicitudin dignissim ipsum in etiam turpis ullamcorper mauris scelerisque eros velit elit arcu amet lobortis ac ullamcorper egestas facilisis id nec lacinia lectus et sollicitudin donec facilisis amet elit turpis est ultrices bibendum lectus non phasellus quam velit tortor dui.\r\n\r\nLaoreet velit vel ullamcorper eu amet mauris ut dui bibendum nisl sagittis a vitae etiam lorem odio volutpat volutpat sagittis ligula ultricies dui sollicitudin ipsum a id adipiscing ac ultricies etiam quis quam nunc fermentum dolor ullamcorper placerat orci tempor.\r\n",
+      "Price": 18.5,
+      "PictureFileName": "102004.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/102004.jpg",
+      "CatalogTypeId": 1,
+      "CatalogBrandId": 2,
+      "IsDisabled": false
+    },
+    {
+      "Id": 202006,
+      "Name": "Microsoft Blue Cap",
+      "Description": "Lorem in libero id metus mauris risus ultrices dolor etiam consectetur non purus turpis scelerisque egestas ultricies dui elit dignissim ullamcorper sit nisl ipsum ligula ac arcu suscipit sagittis leo.\r\n\r\nFacilisis mauris et nunc ultricies fermentum sit ultrices egestas lacinia est lectus turpis faucibus nunc sit eros dolor ut ultricies metus faucibus dui eu consectetur ultrices donec duis consectetur suscipit donec turpis lobortis duis ut ipsum ipsum adipiscing donec a ac phasellus nunc egestas a pharetra adipiscing ligula nisl leo.\r\n\r\nElit eget molestie morbi phasellus nisl phasellus velit metus ullamcorper placerat ligula proin lacinia phasellus elit vitae et fermentum quis dolor risus nunc molestie tortor sagittis phasellus proin adipiscing eget eros etiam lectus egestas sollicitudin a in lectus velit velit.\r\n",
+      "Price": 10.5,
+      "PictureFileName": "202006.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/202006.jpg",
       "CatalogTypeId": 2,
-      "CatalogType": null,
-      "CatalogBrandId": 5,
-      "CatalogBrand": null,
-      "IsActive": false
+      "CatalogBrandId": 2,
+      "IsDisabled": false
     },
     {
-      "Id": 12,
-      "Name": "Prism White TShirt",
-      "Description": "Prism White TShirt",
-      "Price": 12.0,
-      "PictureFileName": "12.png",
-      "PictureUri": "ms-appx:///Assets/Images/Catalog/12.png",
+      "Id": 202002,
+      "Name": "Microsoft Gray Cap",
+      "Description": "Facilisis lectus sollicitudin elit turpis duis egestas faucibus adipiscing nisl quam etiam ipsum nunc tempus risus ultrices vitae amet congue laoreet bibendum lacinia odio est scelerisque nec tortor eu ultricies.\r\n\r\nVitae laoreet ac molestie tempus ipsum nec tempus eros justo nunc sagittis in orci a suscipit egestas ligula lectus eget in sollicitudin sit quam lobortis placerat tempus in ipsum libero vel nisl morbi ullamcorper scelerisque lorem ligula laoreet consectetur suscipit faucibus faucibus adipiscing fermentum volutpat risus nisl vitae adipiscing ultrices.\r\n\r\nEst quis elit id phasellus faucibus lectus eros risus egestas dolor etiam tortor vitae ipsum lorem scelerisque eros pharetra sagittis adipiscing morbi morbi tortor facilisis eros congue adipiscing amet proin fermentum tempor vitae adipiscing risus proin odio etiam eget arcu.\r\n",
+      "Price": 10.5,
+      "PictureFileName": "202002.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/202002.jpg",
       "CatalogTypeId": 2,
-      "CatalogType": null,
-      "CatalogBrandId": 5,
-      "CatalogBrand": null,
-      "IsActive": false
+      "CatalogBrandId": 2,
+      "IsDisabled": false
     },
     {
-      "Id": 3,
-      "Name": "Prism White T-Shirt",
-      "Description": "Prism White T-Shirt",
-      "Price": 12.0,
-      "PictureFileName": "3.png",
-      "PictureUri": "ms-appx:///Assets/Images/Catalog/3.png",
+      "Id": 202001,
+      "Name": "Microsoft Black Cap",
+      "Description": "Velit fermentum nec leo eros turpis ut est arcu non vitae mauris id adipiscing quam phasellus tempus etiam purus sollicitudin congue metus dignissim morbi egestas tempor sit orci odio bibendum.\r\n\r\nOdio suscipit orci ac non eget elit nisl justo egestas a dignissim eros orci orci in sagittis odio lacinia faucibus velit quam vitae ligula proin egestas phasellus id eros tempor libero in tortor sollicitudin tempus arcu egestas vitae metus vitae bibendum dignissim egestas id arcu libero ligula odio volutpat congue.\r\n\r\nUltrices justo ullamcorper donec amet egestas lobortis placerat egestas ultrices odio bibendum ut ullamcorper adipiscing eros sagittis amet velit nec morbi facilisis tortor ac eu tempus lorem nisl eros odio proin eros eu velit sollicitudin metus eros in tempor placerat.\r\n",
+      "Price": 11.5,
+      "PictureFileName": "202001.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/202001.jpg",
       "CatalogTypeId": 2,
-      "CatalogType": null,
-      "CatalogBrandId": 5,
-      "CatalogBrand": null,
-      "IsActive": false
+      "CatalogBrandId": 2,
+      "IsDisabled": false
     },
     {
-      "Id": 5,
-      "Name": "Roslyn Red Sheet",
-      "Description": "Roslyn Red Sheet",
-      "Price": 8.5,
-      "PictureFileName": "5.png",
-      "PictureUri": "ms-appx:///Assets/Images/Catalog/5.png",
+      "Id": 202004,
+      "Name": "Microsoft Red Cap",
+      "Description": "Placerat eu egestas quis tortor lorem mauris elit ligula morbi velit eget fermentum dolor vitae sit metus consectetur bibendum faucibus scelerisque facilisis nisl sollicitudin purus etiam lobortis dui id volutpat.\r\n\r\nMorbi laoreet orci congue id nec risus sit purus sit egestas tempor orci ligula odio odio faucibus adipiscing bibendum placerat ipsum elit ut in in volutpat libero sollicitudin pharetra ut lorem turpis lacinia egestas purus leo arcu purus lorem bibendum dolor morbi vel purus morbi adipiscing turpis donec tortor eu.\r\n\r\nTempus a velit ut libero donec nisl sollicitudin molestie metus donec tortor quis justo dolor ultrices fermentum ac lorem proin placerat risus adipiscing lorem metus odio suscipit lacinia egestas duis id laoreet purus quis libero ligula ut a consectetur dignissim.\r\n",
+      "Price": 10.5,
+      "PictureFileName": "202004.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/202004.jpg",
+      "CatalogTypeId": 2,
+      "CatalogBrandId": 2,
+      "IsDisabled": false
+    },
+    {
+      "Id": 202005,
+      "Name": "Microsoft Green Cap",
+      "Description": "Sit sagittis et turpis volutpat amet in tortor lacinia purus orci donec fermentum justo phasellus velit vel duis eget tempor lorem congue nunc proin est dignissim odio nisl leo ultrices.\r\n\r\nId tempus lectus orci congue odio quam nunc eu congue nunc fermentum etiam nunc eget amet nisl vitae lectus lectus in eu ullamcorper quis quis ligula sollicitudin metus est arcu risus tempor tortor molestie proin donec duis ultrices risus eget ut lobortis nisl libero tempus ligula volutpat et nisl elit.\r\n\r\nFacilisis elit libero nisl volutpat lobortis ultricies ac sollicitudin id ullamcorper molestie lobortis placerat ultrices congue tempus dui ut ligula ligula et ut scelerisque metus lacinia laoreet fermentum quis volutpat a metus ultrices tempor sit donec velit volutpat risus duis.\r\n",
+      "Price": 10.5,
+      "PictureFileName": "202005.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/202005.jpg",
+      "CatalogTypeId": 2,
+      "CatalogBrandId": 2,
+      "IsDisabled": false
+    },
+    {
+      "Id": 302099,
+      "Name": "Microsoft Pin",
+      "Description": "Velit purus dignissim eros id bibendum tempus dolor mauris metus ligula adipiscing lobortis eu scelerisque non amet etiam congue faucibus sagittis nisl ut nunc lacinia vitae egestas lorem odio turpis.\r\n\r\nLibero elit lacinia suscipit placerat amet purus phasellus leo placerat nunc volutpat amet sit faucibus laoreet volutpat egestas pharetra tortor dignissim turpis etiam elit morbi metus sollicitudin nunc molestie donec arcu odio nec lectus ut fermentum amet ligula dignissim sit nunc non purus sit dui morbi justo ac suscipit etiam.\r\n\r\nCongue tempus placerat eu ut lectus vitae quam velit dolor odio quis purus est nisl elit nunc sagittis dui libero lectus ligula ultricies donec non volutpat laoreet purus mauris lorem amet odio ullamcorper dui ultrices fermentum arcu suscipit molestie pharetra.\r\n",
+      "Price": 3.0,
+      "PictureFileName": "302099.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/302099.jpg",
       "CatalogTypeId": 3,
-      "CatalogType": null,
-      "CatalogBrandId": 5,
-      "CatalogBrand": null,
-      "IsActive": false
+      "CatalogBrandId": 2,
+      "IsDisabled": false
     },
     {
-      "Id": 7,
-      "Name": "Roslyn Red T-Shirt",
-      "Description": "Roslyn Red T-Shirt",
-      "Price": 12.0,
-      "PictureFileName": "7.png",
-      "PictureUri": "ms-appx:///Assets/Images/Catalog/7.png",
+      "Id": 402006,
+      "Name": "Microsoft Blue Mug",
+      "Description": "Congue nunc egestas orci lacinia dolor purus tortor quam nisl molestie sit metus fermentum id faucibus tempor morbi arcu dui velit lorem proin vitae lectus leo dignissim etiam suscipit scelerisque.\r\n\r\nVelit placerat suscipit ut est ultrices phasellus bibendum congue lorem eu a ut dolor et vel dignissim nisl morbi nec in dui velit risus sagittis faucibus elit bibendum vel est a dignissim et faucibus risus nec eros sagittis velit lorem quis etiam ultricies fermentum tempor egestas risus eros tempus laoreet.\r\n\r\nIn ultricies elit turpis adipiscing quam sagittis orci placerat odio eros facilisis tempus lectus est velit lacinia ipsum eu vitae nisl fermentum justo tempor ligula ut dolor sagittis dolor ut sollicitudin vitae vel eu et morbi sit lacinia leo adipiscing.\r\n",
+      "Price": 8.5,
+      "PictureFileName": "402006.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/402006.jpg",
+      "CatalogTypeId": 4,
+      "CatalogBrandId": 2,
+      "IsDisabled": false
+    },
+    {
+      "Id": 402009,
+      "Name": "Microsoft White Mug",
+      "Description": "Tortor turpis eros proin dignissim ultricies etiam lobortis velit non suscipit morbi ut nisl vel id donec lorem est ullamcorper pharetra leo adipiscing volutpat bibendum odio congue orci libero metus.\r\n\r\nTempor et dolor ultricies quam sit risus dui lacinia sit ac quam proin suscipit scelerisque fermentum lobortis dolor metus lobortis ligula phasellus nec amet ultricies suscipit orci molestie leo proin duis eros eros non eros sagittis fermentum egestas velit ac eros nec ultrices quis lobortis leo velit tempor lacinia molestie.\r\n\r\nAdipiscing elit consectetur fermentum faucibus lobortis duis fermentum tempus purus facilisis nunc amet facilisis ligula quam etiam odio sit vitae lorem fermentum suscipit eros lacinia donec nec est ultricies dolor risus eget non elit sollicitudin dignissim sollicitudin suscipit sit vel.\r\n",
+      "Price": 7.5,
+      "PictureFileName": "402009.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/402009.jpg",
+      "CatalogTypeId": 4,
+      "CatalogBrandId": 2,
+      "IsDisabled": false
+    },
+    {
+      "Id": 402002,
+      "Name": "Microsoft Gray Mug",
+      "Description": "Laoreet lorem egestas quis non leo elit dolor ultrices mauris proin pharetra ultricies metus orci bibendum vel id eget scelerisque ac fermentum eros suscipit est tempus faucibus vitae ullamcorper lacinia.\r\n\r\nElit purus egestas ultrices ut pharetra dignissim etiam scelerisque faucibus congue molestie consectetur lobortis orci facilisis ultrices amet pharetra donec proin phasellus molestie est turpis arcu id quis vitae vel arcu ut velit risus morbi nec dui turpis placerat vitae amet tempus id ac egestas nec a tempor nisl vel.\r\n\r\nEu ultricies risus duis facilisis tempus scelerisque etiam vel volutpat purus ligula ut vel libero orci sagittis placerat suscipit fermentum nunc vel morbi nunc libero proin bibendum eros nec ullamcorper risus nec tortor sit ultrices ac ligula id etiam morbi.\r\n",
+      "Price": 8.5,
+      "PictureFileName": "402002.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/402002.jpg",
+      "CatalogTypeId": 4,
+      "CatalogBrandId": 2,
+      "IsDisabled": false
+    },
+    {
+      "Id": 402001,
+      "Name": "Microsoft Black Mug",
+      "Description": "Morbi congue ultricies lacinia ac vitae et pharetra ultrices dui tempus lectus eros eget amet placerat turpis sit purus donec egestas tempor mauris est eu molestie odio faucibus velit justo.\r\n\r\nMorbi sollicitudin fermentum laoreet vitae eget libero facilisis pharetra ullamcorper suscipit molestie libero a lectus risus scelerisque sagittis purus arcu adipiscing dolor sollicitudin facilisis suscipit scelerisque arcu in lectus nec turpis placerat turpis nec elit eu purus eget eget egestas bibendum tempor tortor nec fermentum vitae justo odio et molestie.\r\n\r\nSuscipit elit risus sagittis velit turpis tempus amet dolor etiam scelerisque sagittis sit dui eros ullamcorper egestas nisl elit libero arcu dolor sollicitudin orci risus nisl sit volutpat ultrices lobortis bibendum quam laoreet ullamcorper odio volutpat mauris faucibus dolor eget.\r\n",
+      "Price": 9.5,
+      "PictureFileName": "402001.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/402001.jpg",
+      "CatalogTypeId": 4,
+      "CatalogBrandId": 2,
+      "IsDisabled": false
+    },
+    {
+      "Id": 402004,
+      "Name": "Microsoft Red Mug",
+      "Description": "Eu tempor nisl lobortis nec ipsum pharetra ac placerat et egestas lectus sagittis id quis eros scelerisque lacinia eget orci est vitae faucibus justo laoreet turpis quam dignissim fermentum non.\r\n\r\nJusto dui fermentum placerat ultricies dolor velit scelerisque justo lorem sit vitae sollicitudin id volutpat ultrices tempus quis lacinia velit vitae elit faucibus faucibus faucibus dui egestas orci sagittis nec egestas risus sit amet nec donec ultricies duis molestie justo quis lacinia tempus facilisis consectetur consectetur laoreet placerat quam tempor.\r\n\r\nDignissim volutpat fermentum non odio velit tortor scelerisque etiam tortor nisl ipsum duis consectetur in metus vel turpis morbi arcu scelerisque risus dolor faucibus purus ullamcorper elit mauris leo et volutpat odio ultricies ultricies lorem sit purus ac purus ipsum.\r\n",
+      "Price": 8.5,
+      "PictureFileName": "402004.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/402004.jpg",
+      "CatalogTypeId": 4,
+      "CatalogBrandId": 2,
+      "IsDisabled": false
+    },
+    {
+      "Id": 103009,
+      "Name": "MS .NET White T-Shirt",
+      "Description": "Egestas ipsum leo in proin ac laoreet ut lacinia eros bibendum donec tempor justo libero scelerisque purus dolor quis nunc adipiscing amet eu turpis metus congue quam sagittis lobortis pharetra.\r\n\r\nSollicitudin vel volutpat dui metus turpis ipsum tempus vitae lorem amet arcu lacinia est tempor proin vel bibendum adipiscing odio ultrices nisl est orci lectus ligula in morbi proin eu placerat sollicitudin dolor leo purus libero ac est bibendum sit facilisis turpis sit et justo morbi id mauris molestie molestie.\r\n\r\nEtiam scelerisque faucibus consectetur morbi quis leo scelerisque egestas ullamcorper placerat eu velit fermentum pharetra odio laoreet metus dolor dignissim quis leo lorem dolor nisl vel placerat quis suscipit orci id risus nisl faucibus ac suscipit duis fermentum tempor nunc.\r\n",
+      "Price": 17.0,
+      "PictureFileName": "103009.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/103009.jpg",
+      "CatalogTypeId": 1,
+      "CatalogBrandId": 3,
+      "IsDisabled": false
+    },
+    {
+      "Id": 103003,
+      "Name": "MS .NET Cyan T-Shirt",
+      "Description": "Phasellus dolor dignissim congue tempor lobortis libero consectetur sollicitudin fermentum est volutpat nec nunc et ultricies dui amet non faucibus donec facilisis ac purus ipsum arcu mauris placerat vitae metus.\r\n\r\nMolestie purus pharetra duis lobortis laoreet metus metus velit bibendum ut adipiscing et ligula vitae bibendum quis amet scelerisque quam amet elit turpis laoreet lobortis tempus ultrices lectus tortor arcu orci donec phasellus orci velit id etiam sollicitudin scelerisque egestas sagittis eu scelerisque congue adipiscing nunc molestie vel pharetra nunc.\r\n\r\nDuis fermentum suscipit mauris duis bibendum adipiscing risus pharetra lobortis tempus scelerisque placerat sagittis adipiscing facilisis fermentum eu egestas nisl nisl mauris lobortis etiam scelerisque lacinia quam ipsum eros a quam turpis sagittis non turpis nec lacinia faucibus suscipit ultrices.\r\n",
+      "Price": 18.0,
+      "PictureFileName": "103003.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/103003.jpg",
+      "CatalogTypeId": 1,
+      "CatalogBrandId": 3,
+      "IsDisabled": false
+    },
+    {
+      "Id": 103002,
+      "Name": "MS .NET Gray T-Shirt",
+      "Description": "Est adipiscing lectus quam risus fermentum duis lobortis nec leo dolor odio lorem in amet velit dui libero facilisis scelerisque ultrices vitae sollicitudin laoreet dignissim tempor non eu faucibus morbi.\r\n\r\nLigula nisl leo pharetra sollicitudin donec elit id libero dolor est turpis in quis quis risus nec egestas laoreet in scelerisque sagittis sollicitudin congue ipsum tempus lobortis suscipit tempor tempor velit donec id eget tempor dignissim egestas vel turpis eu nec quis a scelerisque elit ultricies adipiscing sit molestie etiam.\r\n\r\nPhasellus suscipit est est duis lobortis donec lacinia egestas purus dolor vel nec proin id sagittis ligula ultrices pharetra a adipiscing ultrices ultrices donec nec adipiscing tortor eu non ut id ut ut id lobortis vitae est adipiscing velit elit.\r\n",
+      "Price": 18.0,
+      "PictureFileName": "103002.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/103002.jpg",
+      "CatalogTypeId": 1,
+      "CatalogBrandId": 3,
+      "IsDisabled": false
+    },
+    {
+      "Id": 103001,
+      "Name": "MS .NET Black T-Shirt",
+      "Description": "Ut id lobortis facilisis vitae arcu sagittis in libero laoreet pharetra velit nisl orci morbi nec ultrices donec mauris metus adipiscing suscipit dui congue odio duis tempor purus placerat dolor.\r\n\r\nPlacerat vel id donec risus egestas suscipit lacinia velit eget dignissim eget placerat mauris ultricies tortor dui bibendum morbi dui dolor sollicitudin vitae facilisis elit ultrices ut fermentum in etiam scelerisque ullamcorper etiam id eros nunc odio tortor volutpat ullamcorper bibendum phasellus placerat duis orci eros odio sollicitudin vel est.\r\n\r\nAmet scelerisque ac proin lorem volutpat arcu tortor ullamcorper est elit laoreet nisl molestie arcu donec lobortis et sollicitudin consectetur turpis faucibus egestas sagittis vitae facilisis leo lorem purus vitae quam sollicitudin morbi libero sollicitudin lorem sit fermentum id duis.\r\n",
+      "Price": 19.0,
+      "PictureFileName": "103001.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/103001.jpg",
+      "CatalogTypeId": 1,
+      "CatalogBrandId": 3,
+      "IsDisabled": false
+    },
+    {
+      "Id": 103004,
+      "Name": "MS .NET Red T-Shirt",
+      "Description": "Et eu scelerisque sollicitudin leo risus ipsum metus faucibus vel proin lorem dignissim phasellus ut est volutpat adipiscing velit ultrices a justo molestie sagittis eros libero arcu non donec dui.\r\n\r\nDonec nisl sit lectus lacinia tortor nec nunc turpis vitae dolor est sollicitudin libero leo bibendum sagittis lacinia nisl est elit dui adipiscing a donec adipiscing elit id scelerisque in ultrices mauris metus dui ullamcorper morbi dui arcu ut mauris laoreet risus justo ultrices bibendum placerat libero egestas nunc placerat.\r\n\r\nLacinia etiam justo risus nisl orci odio eros justo quam lectus vitae arcu molestie molestie leo ac vitae ipsum tempor morbi vel bibendum purus suscipit quis duis dignissim tempus vitae ullamcorper ultricies ac phasellus mauris phasellus in volutpat elit nunc.\r\n",
+      "Price": 18.0,
+      "PictureFileName": "103004.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/103004.jpg",
+      "CatalogTypeId": 1,
+      "CatalogBrandId": 3,
+      "IsDisabled": false
+    },
+    {
+      "Id": 203006,
+      "Name": "MS .NET Blue Cap",
+      "Description": "Et quam tempor suscipit risus ligula facilisis lobortis proin odio mauris turpis faucibus ultricies ipsum orci fermentum phasellus nunc purus eros morbi bibendum amet nec donec vitae ullamcorper molestie dolor.\r\n\r\nVel non placerat libero sagittis eget justo proin ligula dui adipiscing faucibus suscipit morbi consectetur ullamcorper eu ligula risus lacinia molestie lectus fermentum sagittis nisl morbi arcu phasellus tempus leo libero tempus vitae leo donec scelerisque ut volutpat quam libero suscipit libero tempus molestie donec tempor nec sagittis adipiscing elit.\r\n\r\nFermentum vitae purus volutpat turpis in mauris velit dignissim ultricies ultricies orci lectus in arcu elit vel scelerisque adipiscing donec tortor tempor velit sagittis suscipit purus lectus donec libero pharetra ut lacinia ipsum id scelerisque vitae a turpis risus duis.\r\n",
+      "Price": 10.0,
+      "PictureFileName": "203006.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/203006.jpg",
       "CatalogTypeId": 2,
-      "CatalogType": null,
-      "CatalogBrandId": 5,
-      "CatalogBrand": null,
-      "IsActive": false
+      "CatalogBrandId": 3,
+      "IsDisabled": false
+    },
+    {
+      "Id": 203002,
+      "Name": "MS .NET Gray Cap",
+      "Description": "Eros nisl eget sagittis adipiscing risus congue donec faucibus ultricies morbi phasellus justo orci lobortis turpis laoreet dui tortor volutpat ac tempor id pharetra ut purus eu arcu elit vel.\r\n\r\nJusto sit a est pharetra libero sollicitudin a velit mauris tempus est sollicitudin lectus ligula laoreet duis nisl donec tempor risus morbi donec laoreet lorem justo congue faucibus arcu nec dui non etiam duis risus ut odio elit dolor libero a congue faucibus odio libero facilisis consectetur laoreet ligula quis.\r\n\r\nTurpis tempor dui quis dui faucibus eget vitae est eget lectus duis duis tortor elit eget tempus dui phasellus justo egestas velit placerat consectetur faucibus sit a molestie quis elit nec sollicitudin tempor volutpat ac purus consectetur et sollicitudin bibendum.\r\n",
+      "Price": 10.0,
+      "PictureFileName": "203002.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/203002.jpg",
+      "CatalogTypeId": 2,
+      "CatalogBrandId": 3,
+      "IsDisabled": false
+    },
+    {
+      "Id": 203001,
+      "Name": "MS .NET Black Cap",
+      "Description": "Phasellus ipsum eu mauris congue arcu leo ut nec orci facilisis volutpat ligula risus quis lectus scelerisque metus adipiscing id turpis justo elit pharetra dui molestie placerat libero eros morbi.\r\n\r\nNisl non mauris pharetra velit vel a lobortis fermentum nec proin ultrices nunc quam volutpat eu facilisis dolor phasellus mauris quis volutpat nunc lacinia sit eros ligula in eros id eget phasellus turpis egestas sit odio proin egestas ultrices quam dui egestas velit quis etiam libero laoreet turpis fermentum leo.\r\n\r\nTempus elit ac vel in est dignissim proin donec eu et proin lacinia amet lacinia morbi justo sollicitudin mauris odio scelerisque duis adipiscing scelerisque phasellus morbi leo dolor ultrices dui laoreet elit nisl eget facilisis metus donec ultricies odio justo.\r\n",
+      "Price": 11.0,
+      "PictureFileName": "203001.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/203001.jpg",
+      "CatalogTypeId": 2,
+      "CatalogBrandId": 3,
+      "IsDisabled": false
+    },
+    {
+      "Id": 203004,
+      "Name": "MS .NET Red Cap",
+      "Description": "Phasellus tempus ipsum donec bibendum egestas id adipiscing mauris eu dignissim pharetra tortor morbi lorem elit quis orci laoreet nisl molestie ultricies placerat velit leo sollicitudin ac scelerisque justo eros.\r\n\r\nPlacerat eget eros sagittis sollicitudin ipsum tempor et sagittis metus lobortis in quam lectus tempus consectetur id justo suscipit nec libero ultrices nec tempus ullamcorper pharetra morbi dui faucibus ac ut purus egestas ligula ipsum tempor adipiscing ultrices donec metus sollicitudin id fermentum phasellus dui eget etiam dui sagittis nisl.\r\n\r\nPlacerat bibendum in odio odio eget vel eros quam adipiscing eu a ultrices tempor sollicitudin etiam morbi proin proin vitae tempus arcu mauris non eget quam fermentum amet dui phasellus proin bibendum metus phasellus orci molestie eget placerat faucibus mauris.\r\n",
+      "Price": 10.0,
+      "PictureFileName": "203004.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/203004.jpg",
+      "CatalogTypeId": 2,
+      "CatalogBrandId": 3,
+      "IsDisabled": false
+    },
+    {
+      "Id": 203005,
+      "Name": "MS .NET Green Cap",
+      "Description": "Ultricies justo odio ut ipsum libero fermentum duis placerat congue quam facilisis nunc lobortis ligula suscipit donec et molestie consectetur id est volutpat nisl vel risus pharetra lectus turpis tempor.\r\n\r\nTempor etiam leo suscipit non nunc morbi morbi morbi donec scelerisque suscipit dignissim odio facilisis lacinia odio arcu quam dignissim congue facilisis odio eu donec eget adipiscing quam risus faucibus justo ipsum ultrices morbi ultricies faucibus elit quis dui dui consectetur proin morbi sollicitudin laoreet ultricies amet ullamcorper etiam facilisis.\r\n\r\nPurus lobortis a ut dolor ligula ut phasellus duis dignissim metus consectetur tempus a quis et arcu et etiam nunc egestas laoreet et dignissim consectetur etiam sagittis faucibus nisl velit placerat non etiam etiam risus quam est nunc congue pharetra.\r\n",
+      "Price": 10.0,
+      "PictureFileName": "203005.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/203005.jpg",
+      "CatalogTypeId": 2,
+      "CatalogBrandId": 3,
+      "IsDisabled": false
+    },
+    {
+      "Id": 303099,
+      "Name": "MS .NET Pin",
+      "Description": "Tortor elit molestie sagittis lorem lectus faucibus nunc ultricies donec turpis leo vitae proin velit sit scelerisque bibendum mauris ipsum risus etiam justo dignissim morbi egestas libero lacinia eget quam.\r\n\r\nEtiam elit tortor consectetur arcu congue elit facilisis donec tempor suscipit nunc libero suscipit dui sollicitudin ultrices ultricies sit arcu justo lorem faucibus et lacinia tempor dolor pharetra eros fermentum lectus ut ipsum mauris dolor sit amet quis duis ultrices laoreet etiam ultricies elit lectus eros lobortis lobortis vel suscipit.\r\n\r\nMauris odio elit scelerisque eget est volutpat ullamcorper metus justo egestas et consectetur quam proin placerat nisl arcu eros et turpis libero bibendum phasellus dolor eget ut eget volutpat facilisis elit et et arcu in volutpat leo libero a vel.\r\n",
+      "Price": 2.5,
+      "PictureFileName": "303099.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/303099.jpg",
+      "CatalogTypeId": 3,
+      "CatalogBrandId": 3,
+      "IsDisabled": false
+    },
+    {
+      "Id": 403006,
+      "Name": "MS .NET Blue Mug",
+      "Description": "Scelerisque ullamcorper amet lorem eu ultricies risus est duis quam sollicitudin purus sagittis sit consectetur tempus eget nec arcu nunc velit orci facilisis etiam lobortis dignissim dui a libero pharetra.\r\n\r\nMorbi dignissim sit scelerisque et congue quam sollicitudin metus faucibus leo orci a fermentum vitae volutpat quam proin elit ultricies mauris faucibus tempus mauris donec facilisis dignissim purus ipsum ut lectus nec lectus metus ullamcorper lorem id arcu tempor faucibus placerat in tempus risus ac turpis ut egestas tempor volutpat.\r\n\r\nProin in tempor consectetur amet bibendum dignissim et eros ullamcorper ullamcorper lectus risus sollicitudin quam justo vitae id leo vitae congue turpis orci lobortis orci justo faucibus duis orci ultrices quis ullamcorper consectetur leo turpis dui ultricies purus duis metus.\r\n",
+      "Price": 8.0,
+      "PictureFileName": "403006.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/403006.jpg",
+      "CatalogTypeId": 4,
+      "CatalogBrandId": 3,
+      "IsDisabled": false
+    },
+    {
+      "Id": 403009,
+      "Name": "MS .NET White Mug",
+      "Description": "Proin scelerisque phasellus sagittis tortor ac mauris vel adipiscing eget egestas a facilisis velit bibendum arcu est turpis eu id lorem ligula metus amet sollicitudin dui leo volutpat ultrices quam.\r\n\r\nEgestas odio dignissim facilisis faucibus risus metus donec ullamcorper ut odio quis etiam et mauris ultrices velit bibendum sit tortor congue eu dignissim arcu scelerisque laoreet lorem consectetur ipsum congue non odio ac eu nec eget lacinia nunc nisl eget congue nec purus faucibus lectus nunc pharetra sagittis faucibus ac.\r\n\r\nConsectetur in id donec fermentum molestie phasellus bibendum et volutpat morbi vel mauris eros fermentum tempus suscipit ullamcorper vitae a sagittis risus etiam egestas eu faucibus faucibus egestas consectetur sit justo est non ullamcorper mauris bibendum nisl lectus molestie proin.\r\n",
+      "Price": 7.0,
+      "PictureFileName": "403009.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/403009.jpg",
+      "CatalogTypeId": 4,
+      "CatalogBrandId": 3,
+      "IsDisabled": false
+    },
+    {
+      "Id": 403002,
+      "Name": "MS .NET Gray Mug",
+      "Description": "Odio ullamcorper fermentum est congue et non ultrices ut lectus velit laoreet metus eu molestie duis scelerisque ultricies orci nunc quam consectetur vel lacinia mauris ipsum sagittis leo facilisis purus.\r\n\r\nIpsum arcu proin arcu non adipiscing bibendum faucibus elit suscipit duis vel vitae congue orci ullamcorper suscipit dolor est nunc non ultricies lacinia purus ac tempor ligula duis faucibus arcu dui nunc quam ut faucibus eu ac faucibus vel quis facilisis suscipit vel dolor nunc proin arcu consectetur ultricies ac.\r\n\r\nMetus nisl elit justo bibendum libero a amet scelerisque lectus eu fermentum lorem velit nisl lectus volutpat morbi nec eros sit quis ligula leo ac congue vel morbi nisl egestas lacinia tempor purus ipsum egestas phasellus odio nunc molestie arcu.\r\n",
+      "Price": 8.0,
+      "PictureFileName": "403002.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/403002.jpg",
+      "CatalogTypeId": 4,
+      "CatalogBrandId": 3,
+      "IsDisabled": false
+    },
+    {
+      "Id": 403001,
+      "Name": "MS .NET Black Mug",
+      "Description": "Elit eget sit quis consectetur arcu suscipit adipiscing quam ullamcorper vitae bibendum facilisis donec lobortis pharetra lacinia metus ultricies congue etiam volutpat tortor faucibus non nunc risus leo in ut.\r\n\r\nEst velit amet lectus quis ut est velit volutpat congue faucibus mauris egestas ligula egestas donec risus bibendum duis ac sollicitudin id volutpat nisl arcu adipiscing etiam congue id est donec nec metus bibendum tempor nec nunc etiam scelerisque non sollicitudin ipsum nisl etiam lacinia arcu ut lobortis volutpat elit.\r\n\r\nId adipiscing dignissim lectus sollicitudin facilisis non congue facilisis vitae tempor phasellus duis sollicitudin amet placerat odio leo adipiscing scelerisque bibendum laoreet sollicitudin turpis tempor risus dui lacinia egestas tempus libero bibendum elit purus laoreet ullamcorper lorem scelerisque et ligula.\r\n",
+      "Price": 9.0,
+      "PictureFileName": "403001.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/403001.jpg",
+      "CatalogTypeId": 4,
+      "CatalogBrandId": 3,
+      "IsDisabled": false
+    },
+    {
+      "Id": 403004,
+      "Name": "MS .NET Red Mug",
+      "Description": "Mauris morbi facilisis nec proin quam sollicitudin donec nunc elit faucibus phasellus id tortor molestie ultricies velit ipsum eget est dolor dui lorem ullamcorper eros tempus odio ac volutpat amet.\r\n\r\nTortor suscipit tempus vel placerat et tempor tempus id ultrices a ut eu eget nisl ligula congue lorem scelerisque in egestas odio purus vel amet etiam phasellus bibendum duis nunc tortor lacinia donec adipiscing sit ullamcorper est est non vitae purus ipsum volutpat facilisis molestie ligula ullamcorper volutpat facilisis amet.\r\n\r\nEst tempus phasellus ultricies leo congue elit sollicitudin nec faucibus molestie ac risus ac fermentum et facilisis bibendum in proin tortor suscipit et sagittis non mauris turpis lectus facilisis vitae odio ut metus a lobortis tortor donec dignissim pharetra in.\r\n",
+      "Price": 8.0,
+      "PictureFileName": "403004.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/403004.jpg",
+      "CatalogTypeId": 4,
+      "CatalogBrandId": 3,
+      "IsDisabled": false
+    },
+    {
+      "Id": 104009,
+      "Name": "Windows 10 White T-Shirt",
+      "Description": "Leo sit donec arcu eu odio elit ultrices suscipit metus bibendum consectetur laoreet ut id est tempus vel proin facilisis purus dignissim ullamcorper tortor etiam lacinia libero lorem eget justo.\r\n\r\nNisl vel vitae molestie lobortis ultrices ipsum nisl tortor molestie vitae orci pharetra et turpis duis proin quis a a morbi etiam dignissim orci lacinia a fermentum amet orci lacinia bibendum donec orci congue velit turpis donec ultricies nisl odio etiam ullamcorper justo scelerisque id nunc vel ut orci ac.\r\n\r\nTurpis donec bibendum risus ullamcorper non amet orci volutpat nunc tortor fermentum justo vel elit quam tempus tempus odio tempus egestas nisl tempus facilisis quis a volutpat tempor justo placerat tortor eget laoreet egestas sit volutpat eget nunc velit volutpat.\r\n",
+      "Price": 18.0,
+      "PictureFileName": "104009.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/104009.jpg",
+      "CatalogTypeId": 1,
+      "CatalogBrandId": 4,
+      "IsDisabled": false
+    },
+    {
+      "Id": 104003,
+      "Name": "Windows 10 Cyan T-Shirt",
+      "Description": "Donec ac id tortor metus proin vitae lorem placerat justo eget duis velit egestas eu molestie vel leo libero sit lobortis ullamcorper volutpat eros turpis faucibus laoreet non tempus ultrices.\r\n\r\nMorbi velit purus ligula risus ultrices elit dolor etiam mauris vitae lobortis pharetra libero sollicitudin est pharetra eros est lorem eros eget libero purus tempor etiam egestas tempor proin eget nunc lorem id odio turpis nunc duis est et lobortis phasellus ut lorem adipiscing adipiscing libero etiam et etiam turpis.\r\n\r\nJusto risus ut tempus elit metus lobortis lorem consectetur facilisis eu nunc sagittis eget a duis turpis quis lectus in libero lectus nunc bibendum suscipit odio nunc ultricies turpis dignissim lorem sagittis suscipit velit dignissim pharetra scelerisque facilisis sagittis quis.\r\n",
+      "Price": 19.0,
+      "PictureFileName": "104003.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/104003.jpg",
+      "CatalogTypeId": 1,
+      "CatalogBrandId": 4,
+      "IsDisabled": false
+    },
+    {
+      "Id": 104002,
+      "Name": "Windows 10 Gray T-Shirt",
+      "Description": "Est duis morbi ullamcorper eu placerat lobortis id etiam proin scelerisque volutpat ultricies velit nisl molestie laoreet phasellus facilisis sit justo ligula nec ac libero orci lectus dignissim ultrices suscipit.\r\n\r\nEu ut mauris eget tempus purus metus orci ligula nisl et turpis arcu est donec sagittis sagittis eu placerat in ipsum amet vitae adipiscing facilisis proin justo ac eget arcu suscipit orci ut leo donec in dui elit sit ultricies a pharetra tempus ligula sit lectus placerat molestie vel morbi.\r\n\r\nFermentum donec et vel proin vel vitae faucibus dui velit ullamcorper eros morbi proin faucibus metus velit faucibus nec vitae turpis consectetur duis suscipit velit in amet ac sit sit dui laoreet duis turpis tortor justo congue eu volutpat nisl.\r\n",
+      "Price": 19.0,
+      "PictureFileName": "104002.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/104002.jpg",
+      "CatalogTypeId": 1,
+      "CatalogBrandId": 4,
+      "IsDisabled": false
+    },
+    {
+      "Id": 104001,
+      "Name": "Windows 10 Black T-Shirt",
+      "Description": "Adipiscing tortor mauris id ultrices quis arcu velit odio morbi tempor etiam ipsum libero consectetur dui dignissim purus ultricies et quam volutpat dolor suscipit vitae donec eros ligula sagittis in.\r\n\r\nUltrices sollicitudin eget laoreet a metus placerat pharetra purus eu pharetra adipiscing lectus phasellus bibendum consectetur bibendum eu faucibus nec vel molestie purus facilisis vitae ipsum elit lectus id in lacinia eu eget lorem mauris metus adipiscing justo volutpat dignissim adipiscing tempus etiam vitae in purus nunc dui mauris lectus.\r\n\r\nNon id a eu orci mauris tempus dui egestas sagittis a ac purus leo libero in pharetra lectus dui facilisis tempus tortor morbi in consectetur justo dui dui libero ac mauris mauris justo ipsum purus lectus elit phasellus suscipit lorem.\r\n",
+      "Price": 20.0,
+      "PictureFileName": "104001.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/104001.jpg",
+      "CatalogTypeId": 1,
+      "CatalogBrandId": 4,
+      "IsDisabled": false
+    },
+    {
+      "Id": 104004,
+      "Name": "Windows 10 Red T-Shirt",
+      "Description": "Metus lobortis nunc arcu bibendum morbi lorem phasellus ut tempus turpis lectus dignissim proin suscipit elit ac non justo lacinia egestas congue duis libero tortor dui quis molestie ultricies dolor.\r\n\r\nElit sollicitudin ut quis consectetur mauris ut dignissim sagittis turpis justo id tempus facilisis eros egestas et etiam placerat in scelerisque lacinia sit lacinia libero libero dui elit ultricies bibendum eros et lacinia proin tempus tempor nunc purus ac tempus tempor lobortis et tempus lorem quam tortor lobortis lacinia lacinia.\r\n\r\nLaoreet dui sit phasellus non in morbi ligula est faucibus phasellus leo congue tortor proin ligula velit velit facilisis phasellus justo quam molestie in quam lectus eu amet risus facilisis non id placerat tempor odio placerat nunc donec odio egestas.\r\n",
+      "Price": 19.0,
+      "PictureFileName": "104004.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/104004.jpg",
+      "CatalogTypeId": 1,
+      "CatalogBrandId": 4,
+      "IsDisabled": false
+    },
+    {
+      "Id": 204006,
+      "Name": "Windows 10 Blue Cap",
+      "Description": "Tortor lobortis fermentum lectus vitae facilisis ultricies orci a faucibus eros congue egestas dui duis dignissim turpis tempor sit pharetra arcu bibendum consectetur nunc quam in ac quis laoreet ut.\r\n\r\nNisl risus bibendum tempor bibendum dolor nec tempor dignissim non lobortis metus ut consectetur ipsum quam a ultrices ligula donec ligula tempus tortor eget dui proin volutpat ligula a elit lacinia bibendum risus faucibus faucibus a lorem in sollicitudin quam molestie turpis in odio pharetra etiam elit mauris placerat eros.\r\n\r\nDignissim ipsum dolor eu risus nunc lacinia ligula bibendum in et nisl dui amet etiam nisl non dolor libero est egestas eros nec velit odio elit egestas turpis lacinia pharetra risus fermentum scelerisque in ultrices risus nec leo sollicitudin phasellus.\r\n",
+      "Price": 11.0,
+      "PictureFileName": "204006.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/204006.jpg",
+      "CatalogTypeId": 2,
+      "CatalogBrandId": 4,
+      "IsDisabled": false
+    },
+    {
+      "Id": 204002,
+      "Name": "Windows 10 Gray Cap",
+      "Description": "Scelerisque bibendum velit nunc a arcu sagittis odio duis consectetur sit ullamcorper molestie eros id ipsum egestas lacinia amet dolor ut donec ultricies laoreet orci adipiscing vitae in leo turpis.\r\n\r\nPurus ultrices molestie facilisis placerat vel scelerisque eget pharetra laoreet laoreet nec lobortis id odio eget phasellus in nisl nec lobortis purus morbi ipsum sit dignissim quis adipiscing phasellus est mauris dignissim sollicitudin egestas amet arcu congue risus eget eros volutpat orci arcu libero tempus tortor ullamcorper a laoreet tempor.\r\n\r\nVelit consectetur fermentum duis adipiscing lorem bibendum metus proin nec proin quis odio lectus eu lacinia nunc fermentum etiam molestie risus quis arcu libero lobortis ultricies etiam nec ipsum consectetur egestas nec dignissim nunc quam ullamcorper a dui ut amet.\r\n",
+      "Price": 11.0,
+      "PictureFileName": "204002.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/204002.jpg",
+      "CatalogTypeId": 2,
+      "CatalogBrandId": 4,
+      "IsDisabled": false
+    },
+    {
+      "Id": 204001,
+      "Name": "Windows 10 Black Cap",
+      "Description": "Morbi quis id vel tortor a eros adipiscing justo non libero volutpat sollicitudin orci nunc quam donec sit odio ut congue purus facilisis leo mauris ac nisl laoreet faucibus consectetur.\r\n\r\nEst volutpat eget id nunc ligula proin facilisis suscipit congue adipiscing phasellus congue odio lorem arcu suscipit ultricies congue pharetra orci mauris tortor donec vitae nunc etiam vitae lorem scelerisque phasellus dui justo ultricies suscipit mauris ultricies metus quis sollicitudin sit faucibus suscipit laoreet vitae in sit odio nisl congue.\r\n\r\nEros scelerisque elit proin arcu sagittis mauris ligula mauris lorem fermentum non facilisis leo non lobortis suscipit bibendum eget nisl ultricies non elit laoreet mauris mauris morbi amet in laoreet in ullamcorper suscipit metus mauris pharetra nisl nunc faucibus congue.\r\n",
+      "Price": 12.0,
+      "PictureFileName": "204001.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/204001.jpg",
+      "CatalogTypeId": 2,
+      "CatalogBrandId": 4,
+      "IsDisabled": false
+    },
+    {
+      "Id": 204004,
+      "Name": "Windows 10 Red Cap",
+      "Description": "Lorem congue tempor quis ligula ac mauris et placerat pharetra eros suscipit bibendum vitae in sagittis justo scelerisque libero leo turpis quam volutpat est facilisis morbi nisl proin phasellus orci.\r\n\r\nTempus odio tempor congue leo ullamcorper quam lectus elit placerat metus a velit nec bibendum et justo ipsum morbi in purus ipsum egestas et ultricies lorem orci velit donec eget eget donec amet phasellus placerat nec proin lacinia duis phasellus purus etiam ac ultricies volutpat lorem molestie faucibus faucibus ultrices.\r\n\r\nUt eros lorem sollicitudin placerat tortor egestas duis bibendum leo nisl faucibus justo congue laoreet congue orci dolor etiam dolor lobortis ac lacinia lobortis non arcu ut dignissim proin scelerisque pharetra mauris egestas turpis suscipit volutpat mauris odio sollicitudin quis.\r\n",
+      "Price": 11.0,
+      "PictureFileName": "204004.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/204004.jpg",
+      "CatalogTypeId": 2,
+      "CatalogBrandId": 4,
+      "IsDisabled": false
+    },
+    {
+      "Id": 204005,
+      "Name": "Windows 10 Green Cap",
+      "Description": "Ullamcorper volutpat eros risus vitae est ut id lectus eu congue ultricies placerat sit consectetur eget a nisl leo ac nunc lacinia sollicitudin suscipit libero proin duis scelerisque faucibus lorem.\r\n\r\nFermentum laoreet proin eu quis risus mauris fermentum lobortis quis laoreet dignissim in etiam dui sagittis adipiscing quis ultrices sit sagittis purus adipiscing fermentum nisl dolor tempus a etiam ipsum sit vel fermentum molestie adipiscing dignissim non id ipsum turpis lectus et dignissim nisl eros tempor a tempus proin suscipit.\r\n\r\nLacinia suscipit faucibus scelerisque est sagittis etiam suscipit facilisis placerat risus eget orci volutpat metus turpis a ipsum morbi molestie donec sagittis in vel nec lacinia mauris tempor orci congue eros lorem in ultrices duis dignissim tempor dui faucibus facilisis.\r\n",
+      "Price": 11.0,
+      "PictureFileName": "204005.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/204005.jpg",
+      "CatalogTypeId": 2,
+      "CatalogBrandId": 4,
+      "IsDisabled": false
+    },
+    {
+      "Id": 304099,
+      "Name": "Windows 10 Pin",
+      "Description": "Molestie congue tempus fermentum scelerisque eu volutpat amet velit dui nec duis faucibus libero ullamcorper odio non phasellus lacinia vel morbi sit metus dignissim tortor tempor est ultrices pharetra vitae.\r\n\r\nTempor et dolor quam tortor nec quam risus eros pharetra turpis egestas leo bibendum scelerisque placerat bibendum ultrices sollicitudin nec vel eget elit duis id dignissim ligula congue et faucibus metus placerat proin lorem non donec ut ultricies sollicitudin sit proin tempus bibendum ullamcorper donec ullamcorper libero ac sit ultricies.\r\n\r\nPurus lorem et ac dolor eu molestie sollicitudin lacinia est quis fermentum odio metus in placerat purus eget egestas etiam est lacinia dignissim tempor molestie justo sagittis non egestas quis mauris metus egestas tortor risus metus id quis tortor vitae.\r\n",
+      "Price": 3.5,
+      "PictureFileName": "304099.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/304099.jpg",
+      "CatalogTypeId": 3,
+      "CatalogBrandId": 4,
+      "IsDisabled": false
+    },
+    {
+      "Id": 404006,
+      "Name": "Windows 10 Blue Mug",
+      "Description": "Odio sollicitudin tempor arcu pharetra suscipit turpis id nec vitae risus orci eros bibendum ipsum proin dignissim ligula elit nisl amet molestie metus non sit eget quis ut dolor eu.\r\n\r\nNunc quis donec ultricies ultricies eget metus morbi scelerisque dignissim a nec dignissim ullamcorper donec molestie lacinia lobortis libero nisl molestie phasellus etiam molestie turpis ultricies congue donec tortor egestas congue morbi justo est in sollicitudin lacinia morbi lobortis facilisis lorem proin volutpat odio bibendum duis bibendum lorem eget tempor.\r\n\r\nScelerisque scelerisque suscipit dignissim tortor vitae ut odio purus tempus risus congue risus etiam ultricies ultricies laoreet placerat nec lectus non ipsum tempus egestas quis ultricies ut ullamcorper phasellus leo justo pharetra bibendum vitae sagittis vel eros adipiscing eros consectetur.\r\n",
+      "Price": 9.0,
+      "PictureFileName": "404006.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/404006.jpg",
+      "CatalogTypeId": 4,
+      "CatalogBrandId": 4,
+      "IsDisabled": false
+    },
+    {
+      "Id": 404009,
+      "Name": "Windows 10 White Mug",
+      "Description": "Bibendum scelerisque ultrices lobortis nec metus phasellus lacinia est risus molestie lectus eros ut orci leo justo purus dui lorem in consectetur ultricies egestas donec faucibus elit quam nisl amet.\r\n\r\nIn purus morbi nisl adipiscing nisl etiam pharetra orci lacinia purus lobortis eu placerat placerat a odio volutpat proin adipiscing proin quam phasellus non elit dui in risus id ipsum placerat amet sollicitudin morbi velit arcu odio purus duis in justo est molestie suscipit scelerisque dolor ullamcorper nec lacinia et.\r\n\r\nEtiam dui ut quis bibendum tempor pharetra dignissim vitae lobortis dolor adipiscing sollicitudin phasellus eget tempor etiam volutpat sagittis nisl laoreet dui molestie dui proin dolor metus vel elit consectetur tortor sagittis tortor et sagittis proin ullamcorper nisl faucibus leo.\r\n",
+      "Price": 8.0,
+      "PictureFileName": "404009.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/404009.jpg",
+      "CatalogTypeId": 4,
+      "CatalogBrandId": 4,
+      "IsDisabled": false
+    },
+    {
+      "Id": 404002,
+      "Name": "Windows 10 Gray Mug",
+      "Description": "Vitae orci faucibus pharetra molestie dignissim dolor bibendum ultricies lacinia arcu tortor quis ullamcorper nec nisl et sit donec proin elit metus laoreet libero sagittis amet sollicitudin phasellus ligula tempus.\r\n\r\nPharetra nec congue lorem elit lacinia in lectus ipsum a mauris laoreet lectus congue ac proin molestie sit eros consectetur eu sit ultricies sit tempor odio laoreet non sollicitudin suscipit bibendum justo risus placerat dui lectus proin nec odio congue turpis molestie lobortis egestas ac nunc amet lectus turpis volutpat.\r\n\r\nRisus morbi vitae morbi congue mauris turpis donec odio est eros ligula adipiscing velit tempus quis sagittis faucibus sagittis donec lorem dignissim lacinia dignissim quis fermentum scelerisque eros libero metus bibendum sit lectus sagittis velit dui fermentum ipsum quam suscipit.\r\n",
+      "Price": 9.0,
+      "PictureFileName": "404002.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/404002.jpg",
+      "CatalogTypeId": 4,
+      "CatalogBrandId": 4,
+      "IsDisabled": false
+    },
+    {
+      "Id": 404001,
+      "Name": "Windows 10 Black Mug",
+      "Description": "Nec bibendum suscipit ultricies eros facilisis vel et egestas phasellus ut pharetra amet non fermentum placerat tempor dignissim lectus tortor volutpat ligula laoreet lorem dui nunc metus scelerisque vitae molestie.\r\n\r\nScelerisque morbi lorem sagittis et elit congue quis ligula donec non ullamcorper proin pharetra arcu tempor eu velit facilisis id dolor tempus molestie et velit morbi dolor congue in mauris sollicitudin odio turpis ligula id tortor dignissim pharetra donec lectus facilisis eget phasellus vitae leo tortor ut dui laoreet lobortis.\r\n\r\nVelit egestas quis nisl odio ultricies nunc non sit tempor amet tempus lorem sagittis proin odio eros amet purus fermentum libero egestas faucibus dolor tortor mauris lectus sit lorem nec nec ut sollicitudin lacinia ultricies phasellus laoreet eu dui eget.\r\n",
+      "Price": 10.0,
+      "PictureFileName": "404001.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/404001.jpg",
+      "CatalogTypeId": 4,
+      "CatalogBrandId": 4,
+      "IsDisabled": false
+    },
+    {
+      "Id": 404004,
+      "Name": "Windows 10 Red Mug",
+      "Description": "Volutpat lobortis mauris laoreet est nunc ultrices leo velit orci ac morbi arcu sit dui phasellus molestie pharetra placerat libero suscipit ullamcorper faucibus vel duis tempor quis in ipsum amet.\r\n\r\nAultrices donec lectus dolor turpis est est turpis fermentum lorem volutpat facilisis etiam est vel dolor risus nisl odio congue velit bibendum turpis purus mauris laoreet in volutpat adipiscing ultricies ullamcorper elit placerat scelerisque pharetra morbi turpis proin eros turpis eget libero lacinia morbi purus donec risus ut orci.\r\n\r\nLaoreet odio bibendum ultrices quis amet morbi laoreet consectetur eget sollicitudin scelerisque vel lobortis ac ac ultricies libero in velit faucibus molestie id libero volutpat duis lobortis scelerisque tortor tempus tempus sagittis est et nec sagittis eu nec fermentum nunc.\r\n",
+      "Price": 9.0,
+      "PictureFileName": "404004.jpg",
+      "PictureUri": "ms-appx:///Assets/Catalog/404004.jpg",
+      "CatalogTypeId": 4,
+      "CatalogBrandId": 4,
+      "IsDisabled": false
     }
   ]
 }

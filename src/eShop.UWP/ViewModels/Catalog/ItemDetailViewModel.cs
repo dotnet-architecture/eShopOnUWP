@@ -1,429 +1,193 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using eShop.Cortana;
-using eShop.Domain.Models;
-using eShop.Providers.Contracts;
-using eShop.UWP.Helpers;
-using eShop.UWP.ViewModels.Base;
+
 using GalaSoft.MvvmLight.Command;
-using Microsoft.Toolkit.Uwp.UI.Controls;
-using Windows.UI.Core;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Media.Animation;
+
+using eShop.Providers;
+using eShop.UWP.Models;
 using eShop.UWP.Services;
+using eShop.UWP.Helpers;
 
-namespace eShop.UWP.ViewModels.Catalog
+namespace eShop.UWP.ViewModels
 {
-    public class ItemDetailViewModel : CustomViewModelBase
+    public class ItemDetailViewModel : CommonViewModel
     {
-        private readonly ICatalogProvider _catalogProvider;
-        private readonly SystemNavigationManager _systemNavigationManager;
-
-        private string _pictureUri;
-        private string _name;
-        private string _description;
-        private string _selectedItemsCount;
-        private double _price;
-        private bool _isActive;
-        private bool _isMultiselectionEnable;
-        private CatalogItem _item;
-        private CatalogType _selectedCatalogType;
-        private CatalogBrand _catalogBrand;
-        private List<bool> _catalogStates = new List<bool> { true, false };
-        private List<CatalogBrand> _catalogBrands;
-        private List<CatalogType> _catalogTypes;
-        private List<CatalogItem> _relatedItems;
-        private ObservableCollection<ItemViewModel> _itemsViewModel;
-
         public ItemDetailViewModel(ICatalogProvider catalogProvider)
         {
-            _catalogProvider = catalogProvider;
-            _systemNavigationManager = SystemNavigationManager.GetForCurrentView();
+            DataProvider = catalogProvider;
         }
 
-        public ObservableCollection<ItemViewModel> ItemsViewModel
+        public ICatalogProvider DataProvider { get; }
+
+        public ItemDetailState State { get; private set; }
+
+        private IList<CatalogTypeModel> _catalogTypes = null;
+        public IList<CatalogTypeModel> CatalogTypes
         {
-            get => _itemsViewModel;
-            set => Set(ref _itemsViewModel, value);
+            get { return _catalogTypes; }
+            set { Set(ref _catalogTypes, value); }
         }
 
-        public CatalogItem Item
+        private IList<CatalogBrandModel> _catalogBrands = null;
+        public IList<CatalogBrandModel> CatalogBrands
         {
-            get => _item;
-            set => Set(ref _item, value);
+            get { return _catalogBrands; }
+            set { Set(ref _catalogBrands, value); }
         }
 
-        public byte[] Picture { get; private set; }
-        public string PictureContentType { get; set; }
+        public override bool AlwaysShowHeader => false;
 
-        public string PictureUri
+        private CatalogItemModel _item;
+        public CatalogItemModel Item
         {
-            get => _pictureUri;
-            set => Set(ref _pictureUri, value);
+            get { return _item; }
+            set { Set(ref _item, value); }
         }
 
-        public string Name
+        private ObservableCollection<CatalogItemModel> _relatedItems = null;
+        public ObservableCollection<CatalogItemModel> RelatedItems
         {
-            get => _name;
-            set => Set(ref _name, value);
+            get { return _relatedItems; }
+            set { Set(ref _relatedItems, value); }
         }
 
-        public string Description
+        private bool _isUnavailable;
+        public bool IsUnavailable
         {
-            get => _description;
-            set => Set(ref _description, value);
+            get { return _isUnavailable; }
+            set { Set(ref _isUnavailable, value); }
         }
 
-        public double Price
+        private bool _isCommandBarOpen = false;
+        public bool IsCommandBarOpen
         {
-            get => _price;
-            set => Set(ref _price, value);
+            get { return _isCommandBarOpen; }
+            set { Set(ref _isCommandBarOpen, value); }
         }
 
-        public CatalogType SelectedCatalogType
+        public bool IsSaveVisible => true;
+        public bool IsSeparatorVisible => IsSaveVisible && IsDeleteVisible;
+        public bool IsDeleteVisible => Item?.Id != 0;
+
+        public ICommand SaveCommand => new RelayCommand(OnSave);
+        public ICommand DeleteCommand => new RelayCommand(OnDelete);
+
+        public ICommand SelectPictureCommand => new RelayCommand(OnSelectPicture);
+
+        private async void OnSave()
         {
-            get => _selectedCatalogType;
-            set
+            var result = Validate();
+            if (result.IsOk)
             {
-                Set(ref _selectedCatalogType, value);
-                LoadRelatedItems();
-            }
-        }
-
-        public List<CatalogType> CatalogTypes
-        {
-            get => _catalogTypes;
-            set => Set(ref _catalogTypes, value);
-        }
-
-        public CatalogBrand SelectedCatalogBrand
-        {
-            get => _catalogBrand;
-            set => Set(ref _catalogBrand, value);
-        }
-
-        public List<CatalogBrand> CatalogBrands
-        {
-            get => _catalogBrands;
-            set => Set(ref _catalogBrands, value);
-        }
-
-        public bool SelectedCatalogState
-        {
-            get => _isActive;
-            set => Set(ref _isActive, value);
-        }
-
-        public List<bool> CatalogStates
-        {
-            get => _catalogStates;
-            set => Set(ref _catalogStates, value);
-        }
-
-        public List<CatalogItem> RelatedItems
-        {
-            get => _relatedItems;
-            set => Set(ref _relatedItems, value);
-        }
-
-        public bool IsMultiselectionEnable
-        {
-            get => _isMultiselectionEnable;
-            set => Set(ref _isMultiselectionEnable, value);
-        }
-
-        public string SelectedItemsCount
-        {
-            get => _selectedItemsCount;
-            set => Set(ref _selectedItemsCount, value);
-        }
-
-        public ItemViewModel LastSelectedItem { get; set; }
-
-        public ICommand SetImageCommand => new RelayCommand(SetImage);
-
-        public ICommand DeleteCommand => new RelayCommand(Delete);
-
-        public ICommand SaveCommand => new RelayCommand(Save);
-
-        public ICommand ItemClickCommand => new RelayCommand<ItemClickEventArgs>(ShowDetail);
-
-        public ICommand LoadedCommand => new RelayCommand<AdaptiveGridView>(OnLoaded);
-
-        public ICommand SelectionChangedCommand => new RelayCommand<AdaptiveGridView>(SelectionChanged);
-
-        public ICommand CancelSelectionCommand => new RelayCommand<AdaptiveGridView>(CancelSelection);
-
-        public ICommand DeleteSelectionCommand => new RelayCommand<AdaptiveGridView>(async (adaptiveGridView) => await DeleteSelection(adaptiveGridView));
-
-        public ICommand SelectAllCommand => new RelayCommand<AdaptiveGridView>(SelectAll);
-
-        public override async void OnActivate(object parameter, bool isBack)
-        {
-            base.OnActivate(parameter, isBack);
-
-            if (parameter != null && parameter is CatalogVoiceCommand)
-            {
-                int.TryParse((parameter as CatalogVoiceCommand).Value, out int itemId);
-
-                var itemSelected = await _catalogProvider.GetItemByIdAsync(itemId);
-                SaveCatalogItem(itemSelected as CatalogItem ?? new CatalogItem());
+                try
+                {
+                    bool isNew = Item.Id == 0;
+                    Item.Commit();
+                    await DataProvider.SaveItemAsync(Item);
+                    NavigationService.GoBack();
+                    if (isNew)
+                    {
+                        ToastNotificationsService.Current.ShowToastNotification(Constants.NotificationAddedItemTitleKey.GetLocalized(), Item);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    await DialogBox.ShowAsync("Error saving item", ex);
+                }
             }
             else
             {
-                SaveCatalogItem(parameter as CatalogItem ?? new CatalogItem());
+                await DialogBox.ShowAsync(result);
             }
-
-            LoadCatalogBrands();
-            LoadCatalogTypes();
-            LoadRelatedItems();
         }
 
-        public override void OnDeactivate()
+        private async void OnDelete()
         {
-            base.OnDeactivate();
-
-            _systemNavigationManager.BackRequested -= OnBackRequested;
-            _systemNavigationManager.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
-        }
-
-        public async void SetImage()
-        {
-            var imagePicker = new ImagePicker();
-            Picture = await imagePicker.GetImageAsync();
-            PictureUri = imagePicker.FilePath;
-            PictureContentType = imagePicker.ContentType;
-        }
-
-        public void ShowDetail(ItemViewModel itemViewModel, AdaptiveGridView grid)
-        {
-            SetAnimation(itemViewModel, grid);
-        }
-
-        public async void DeleteItem(ItemViewModel itemViewModel, bool forceDelete)
-        {
-            if (!forceDelete)
+            if (await DialogBox.ShowAsync("Confirm Delete", "Are you sure you want to delete this item?", "Ok", "Cancel"))
             {
-                var dialog = new ContentDialog
+                try
                 {
-                    Title = Constants.ConfirmationDialogDeleteItemTitleKey.GetLocalized(),
-                    Content = Constants.ConfirmationDialogDeleteItemContentKey.GetLocalized(),
-                    PrimaryButtonText = Constants.ConfirmationDialogCancelKey.GetLocalized(),
-                    SecondaryButtonText = Constants.ConfirmationDialogDeleteKey.GetLocalized()
-                };
-
-                var result = await dialog.ShowAsync();
-                if (result != ContentDialogResult.Secondary) return;
-            }
-
-            await _catalogProvider.DeleteItemAsync(itemViewModel.Item);
-            _itemsViewModel.Remove(itemViewModel);
-
-            if (!forceDelete)
-            {
-                Singleton<ToastNotificationsService>.Instance.ShowToastNotification(Constants.NotificationDeletedItemTitleKey.GetLocalized(), itemViewModel.Item);
+                    await DataProvider.DeleteItemAsync(Item);
+                    NavigationService.GoBack();
+                    ToastNotificationsService.Current.ShowToastNotification(Constants.NotificationDeletedItemTitleKey.GetLocalized(), Item);
+                }
+                catch (Exception ex)
+                {
+                    await DialogBox.ShowAsync("Error deleting item", ex);
+                }
             }
         }
 
-        public async void DeleteItem(ItemViewModel itemViewModel)
+        private async void OnSelectPicture()
         {
-            await _catalogProvider.DeleteItemAsync(itemViewModel.Item);
-            _itemsViewModel.Remove(itemViewModel);
-        }
-
-        public async void Delete()
-        {
-            await _catalogProvider.DeleteItemAsync(_item);
-            Singleton<ToastNotificationsService>.Instance.ShowToastNotification(Constants.NotificationDeletedItemTitleKey.GetLocalized(), _item);
-            NavigationService.Navigate(typeof(CatalogViewModel).FullName);
-        }
-
-        public async void Save()
-        {
-            var itemId = _item.Id;
-
-            SelectedCatalogType = SelectedCatalogType ?? new CatalogType();
-            SelectedCatalogBrand = SelectedCatalogBrand ?? new CatalogBrand();
-
-            _item.Name = Name;
-            _item.Picture = Picture;
-            _item.PictureContentType = PictureContentType;
-            _item.PictureUri = PictureUri;
-            _item.Price = Price;
-            _item.Description = Description;
-            _item.CatalogType = SelectedCatalogType;
-            _item.CatalogTypeId = SelectedCatalogType.Id;
-            _item.CatalogBrand = SelectedCatalogBrand;
-            _item.CatalogBrandId = SelectedCatalogBrand.Id;
-            _item.IsActive = SelectedCatalogState;
-
-            await _catalogProvider.SaveItemAsync(_item);
-            if (itemId == 0)
+            var result = await ImagePicker.OpenAsync();
+            if (result != null)
             {
-                Singleton<ToastNotificationsService>.Instance.ShowToastNotification(Constants.NotificationAddedItemTitleKey.GetLocalized(), _item);
+                Item.Picture = result.ImageBytes;
+                Item.PictureFileName = result.FileName;
+                Item.PictureUri = result.ImageUri;
+                Item.PictureContentType = result.ContentType;
             }
-
-            NavigationService.Navigate(typeof(CatalogViewModel).FullName);
         }
 
-        private void CancelSelection(AdaptiveGridView adaptativeGridView)
+        private Result Validate()
         {
-            adaptativeGridView.DeselectRange(new ItemIndexRange(0, (uint)ItemsViewModel.Count));
-        }
-
-        private async Task DeleteSelection(AdaptiveGridView adaptativeGridView)
-        {
-            var selectedItems = adaptativeGridView.SelectedItems.Cast<ItemViewModel>().ToList();
-
-            var dialog = new ContentDialog
+            if (String.IsNullOrEmpty(Item.Name))
             {
-                Title = selectedItems.Count > 1
-                    ? Constants.ConfirmationDialogDeleteItemsTitleKey.GetLocalized()
-                    : Constants.ConfirmationDialogDeleteItemTitleKey.GetLocalized(),
-                Content = selectedItems.Count > 1
-                    ? Constants.ConfirmationDialogDeleteItemsContentKey.GetLocalized()
-                    : Constants.ConfirmationDialogDeleteItemContentKey.GetLocalized(),
-                PrimaryButtonText = Constants.ConfirmationDialogCancelKey.GetLocalized(),
-                SecondaryButtonText = Constants.ConfirmationDialogDeleteKey.GetLocalized()
-            };
-
-            var result = await dialog.ShowAsync();
-            if (result != ContentDialogResult.Secondary) return;
-
-            selectedItems.ForEach(item => DeleteItem(item, true));
-        }
-
-        private void SelectAll(AdaptiveGridView adaptativeGridView)
-        {
-            adaptativeGridView.SelectAll();
-        }
-
-        private async void ShowDetail(ItemClickEventArgs arg)
-        {
-            var selectedId = new CatalogItem();
-
-            if (arg.ClickedItem is ItemViewModel)
+                return Result.Error("Validation error", "Name cannot be null.");
+            }
+            if (Item.CatalogType.Id < 1)
             {
-                var itemSelected = arg.ClickedItem as ItemViewModel;
-                var itemSelectedId = await _catalogProvider.GetItemByIdAsync(itemSelected.Item.Id);
-                SaveCatalogItem(itemSelectedId as CatalogItem ?? new CatalogItem());
+                return Result.Error("Validation error", "Catalog type cannot be empty.");
+            }
+            if (Item.CatalogBrand.Id < 1)
+            {
+                return Result.Error("Validation error", "Catalog brand cannot be empty.");
+            }
+            if (!(Item.Price > 0))
+            {
+                return Result.Error("Validation error", "Price must be greater than zero.");
+            }
+            return Result.Ok();
+        }
+
+        public async Task LoadAsync(ItemDetailState state)
+        {
+            State = state;
+
+            CatalogTypes = await DataProvider.GetCatalogTypesAsync();
+            CatalogBrands = await DataProvider.GetCatalogBrandsAsync();
+
+            int typeId = 0;
+
+            if (state.Item != null)
+            {
+                var item = await DataProvider.GetItemByIdAsync(state.Item.Id);
+                if (item == null)
+                {
+                    item = state.Item;
+                    IsUnavailable = true;
+                }
+                typeId = item.CatalogType.Id;
+                Item = item;
             }
             else
             {
-                selectedId = arg.ClickedItem as CatalogItem;
-                SaveCatalogItem(selectedId);
+                Item = new CatalogItemModel();
             }
-
-            if (selectedId == null) return;
-
-            var item = _itemsViewModel.FirstOrDefault(itemId => itemId.Item.Id == selectedId.Id);
-
-            var itemViewModel = item as ItemViewModel;
-            var grid = arg.OriginalSource as AdaptiveGridView;
-
-            SetAnimation(itemViewModel, grid);
-
+            var relatedItems = await DataProvider.GetItemsAsync(typeId, -1, null);
+            var relatedItemsSkipCurrent = relatedItems.Where(r => r.Id != Item.Id);
+            RelatedItems = new ObservableCollection<CatalogItemModel>(relatedItemsSkipCurrent);
         }
 
-        private async void SetAnimation(ItemViewModel itemViewModel, AdaptiveGridView grid)
+        public Task UnloadAsync()
         {
-            if (itemViewModel == null) return;
-
-            var itemSelectedId = await _catalogProvider.GetItemByIdAsync(itemViewModel.Item.Id);
-            SaveCatalogItem(itemSelectedId as CatalogItem ?? new CatalogItem());
-
-            LastSelectedItem = itemViewModel;
-        }
-
-        private void SaveCatalogItem(CatalogItem selectedItem)
-        {
-            Item = selectedItem;
-            Name = selectedItem.Name;
-            PictureUri = selectedItem.PictureUri;
-            Price = selectedItem.Price;
-            Description = selectedItem.Description;
-            SelectedCatalogState = selectedItem.IsActive;
-            SelectedCatalogBrand = selectedItem.CatalogBrand;
-            SelectedCatalogType = selectedItem.CatalogType;
-        }
-
-        private void OnBackRequested(object sender, BackRequestedEventArgs e)
-        {
-            e.Handled = true;
-            NavigationService.GoBack();
-        }
-
-        private async void LoadCatalogBrands()
-        {
-            if (CatalogBrands != null) return;
-
-            CatalogBrands = (await _catalogProvider.GetCatalogBrandsAsync()).ToList();
-            SelectedCatalogBrand = _item.CatalogBrand ?? CatalogBrands.FirstOrDefault();
-        }
-
-        private async void LoadCatalogTypes()
-        {
-            if (CatalogTypes != null) return;
-
-            CatalogTypes = (await _catalogProvider.GetCatalogTypesAsync()).ToList();
-            SelectedCatalogType = _item.CatalogType ?? CatalogTypes.FirstOrDefault();
-        }
-
-        private async void LoadRelatedItems()
-        {
-            if (SelectedCatalogType == null) return;
-
-            var items = await _catalogProvider.RelatedItemsByTypeAsync(SelectedCatalogType.Id);
-            RelatedItems = items.ToList();
-
-            ItemsViewModel = new ObservableCollection<ItemViewModel>(items.Select(item => new ItemViewModel(item, DeleteItem)));
-        }
-
-        private void OnLoaded(AdaptiveGridView adaptiveGrid)
-        {
-            IsMultiselectionEnable = false;
-
-            if (adaptiveGrid == null || LastSelectedItem == null) return;
-
-            var selectedItem = _itemsViewModel.FirstOrDefault(item => item.Item.Id == LastSelectedItem.Item.Id);
-
-            if (selectedItem == null) return;
-
-            ConnectedAnimation animation = ConnectedAnimationService.GetForCurrentView().GetAnimation(Constants.ConnectedAnimationKey);
-            if (animation != null)
-            {
-                adaptiveGrid.ScrollIntoView(selectedItem, ScrollIntoViewAlignment.Default);
-                adaptiveGrid.UpdateLayout();
-
-                var containerObject = adaptiveGrid.ContainerFromItem(selectedItem);
-
-                if (containerObject is GridViewItem container)
-                {
-                    var root = (FrameworkElement)container.ContentTemplateRoot;
-                    var image = (Image)root.FindName("SourceImage");
-                    animation.TryStart(image);
-                }
-                else
-                {
-                    animation.Cancel();
-                }
-            }
-
-            LastSelectedItem = null;
-        }
-
-        private void SelectionChanged(AdaptiveGridView adaptativeGridView)
-        {
-            SelectedItemsCount = adaptativeGridView.SelectedItems.Count == 1
-                ? Constants.CommandBarCoutItemKey.GetLocalized()
-                : string.Format(Constants.CommandBarCoutItemsKey.GetLocalized(), adaptativeGridView.SelectedItems.Count);
-            IsMultiselectionEnable = adaptativeGridView.SelectedItems.Any();
+            RelatedItems = null;
+            return Task.CompletedTask;
         }
     }
 }

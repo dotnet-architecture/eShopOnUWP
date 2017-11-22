@@ -1,0 +1,102 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:eShop.UWP.Controls">
+
+    <SolidColorBrush x:Key="ToggleSwitchStrokeOff" Color="Gray" />
+
+    <DataTemplate x:Key="CatalogItem">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Grid x:Name="container">
+                <Grid x:Name="imageContainer">
+                    <Border>
+                        <Image x:Name="image" Margin="0,-32" Source="{Binding PictureUri}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <Grid.Clip>
+                        <RectangleGeometry Rect="0,0,400,200" />
+                    </Grid.Clip>
+                </Grid>
+                <Viewbox Width="150" Height="150" RenderTransformOrigin="0.5,0.5" Visibility="{Binding IsDisabled, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Grid>
+                        <TextBlock Text="INACTIVE" Foreground="#FF4343" FontFamily="Courier New" FontSize="40" FontWeight="ExtraBlack" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.65" />
+                    </Grid>
+                    <Viewbox.RenderTransform>
+                        <RotateTransform Angle="-30" />
+                    </Viewbox.RenderTransform>
+                </Viewbox>
+            </Grid>
+
+            <StackPanel Grid.Row="1" Padding="12,4" Background="#f4f4f4">
+                <TextBlock Text="{Binding Name}" FontWeight="Normal" />
+                <TextBlock Text="{Binding CatalogType.Name}" FontWeight="SemiLight" FontSize="14" />
+                <TextBlock Text="{Binding CatalogBrand.Name}" FontWeight="SemiLight" FontSize="14" />
+                <Grid Margin="0,-2,0,0">
+                    <ToggleSwitch OnContent="Active" OffContent="Inactive" FontWeight="SemiLight" IsOn="{Binding IsDisabled, Mode=TwoWay, Converter={StaticResource BoolNegationConverter}}" />
+                    <TextBlock Text="{Binding PriceDesc}" FontSize="17" FontWeight="Normal" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                </Grid>
+            </StackPanel>
+
+            <Border BorderThickness="1" BorderBrush="#eee" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="CatalogItemSmall">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="1.2*"/>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <Image x:Name="image" Margin="0" Source="{Binding PictureUri}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Grid>
+
+            <Grid Grid.Row="1" Background="#eee">
+                <TextBlock Margin="6" Text="{Binding Name}" FontSize="12" FontWeight="SemiLight" TextWrapping="Wrap" TextAlignment="Center" />
+            </Grid>
+
+            <Border BorderThickness="1" BorderBrush="#eee" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="CatalogToolbar">
+        <Grid Padding="12,0" Height="60" Background="#f4f4f4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="40"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="Type" VerticalAlignment="Center" Foreground="Gray" />
+                <Rectangle Width="12" />
+                <ComboBox Padding="6,0,0,0" ItemsSource="{Binding CatalogTypes}" BorderThickness="0,0,0,0" HorizontalAlignment="Stretch" MinWidth="80"
+                          SelectedValue="{Binding FilterTypeId, Mode=TwoWay}" SelectedValuePath="Id" DisplayMemberPath="Name" />
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="Brand" VerticalAlignment="Center" Foreground="Gray" />
+                <Rectangle Width="12" />
+                <ComboBox Padding="6,0,0,0" ItemsSource="{Binding CatalogBrands}" BorderThickness="0,0,0,0" HorizontalAlignment="Stretch" MinWidth="80"
+                          SelectedValue="{Binding FilterBrandId, Mode=TwoWay}" SelectedValuePath="Id" DisplayMemberPath="Name" />
+            </StackPanel>
+
+            <StackPanel Grid.Column="2" Margin="12,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <SymbolIcon Symbol="MapDrive" Foreground="Gray" />
+                <Rectangle Width="6" />
+                <TextBlock Text="{Binding ProviderName}" Foreground="Gray" VerticalAlignment="Center" />
+            </StackPanel>
+
+            <controls:IconRadioButton Grid.Column="3" Margin="0" GroupName="Toolbar" IsChecked="{Binding IsGridChecked, Mode=TwoWay}" Style="{StaticResource IconRadioButton}" Symbol="ViewAll" VerticalAlignment="Center" />
+            <controls:IconRadioButton Grid.Column="4" Margin="0" GroupName="Toolbar" IsChecked="{Binding IsListChecked, Mode=TwoWay}" Style="{StaticResource IconRadioButton}" Symbol="List" VerticalAlignment="Center" />
+        </Grid>
+    </DataTemplate>
+
+</ResourceDictionary>

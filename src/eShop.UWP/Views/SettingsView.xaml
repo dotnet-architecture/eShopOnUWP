@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    IsEnabled="{Binding IsIdle}"
+    IsEnabled="{Binding IsBusy, Converter={StaticResource BoolNegationConverter}}"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -27,36 +27,55 @@
                 </StackPanel>
             </Grid>
 
-            <Grid x:Name="column1" Grid.Row="1" Margin="16,0" MinWidth="320">
-                <StackPanel HorizontalAlignment="Left">
-                    <TextBlock Text="Settings" FontSize="26" LineHeight="52" />
-                    <TextBlock Text="Select Data Provider" FontSize="20" LineHeight="40" />
-                    <RadioButton Margin="0,0,0,20" GroupName="providers" IsChecked="{Binding IsLocalProvider, Mode=TwoWay}">
-                        <StackPanel>
-                            <TextBlock Text="Local Data Provider" LineHeight="26" />
-                            <TextBlock Text="Sample local data provider based on a Json file." TextWrapping="Wrap" Opacity="0.5" />
-                        </StackPanel>
-                    </RadioButton>
-                    <RadioButton Margin="0,0,0,20" GroupName="providers" IsChecked="{Binding IsRESTProvider, Mode=TwoWay}">
-                        <StackPanel>
-                            <TextBlock Text="REST Data Provider" LineHeight="26" />
-                            <TextBlock Text="Sample data provider accessing remote services through REST API calls." TextWrapping="Wrap" Opacity="0.5" />
-                            <Border Margin="4" />
-                            <TextBlock Text="Service Url" LineHeight="26" />
-                            <TextBox Text="{Binding ServiceUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsRESTProvider}" />
-                            <Border Margin="8" />
-                            <StackPanel Orientation="Horizontal">
-                                <Button Content="Validate connection" IsEnabled="{Binding IsRESTProvider}" Command="{Binding ValidateConnectionCommand}" />
-                                <ProgressRing Margin="16,8" IsActive="{Binding IsBusy}" />
+            <Grid x:Name="column1" Grid.Row="1" MinWidth="320">
+                <ScrollViewer Padding="16,0" VerticalScrollBarVisibility="Auto">
+                    <StackPanel HorizontalAlignment="Left">
+                        <TextBlock Text="Settings" FontSize="26" LineHeight="52" />
+                        <TextBlock Text="Select Data Provider" FontSize="20" LineHeight="40" />
+                        <RadioButton Margin="0,0,0,20" GroupName="providers" IsChecked="{Binding IsLocalProvider, Mode=TwoWay}">
+                            <StackPanel>
+                                <TextBlock Text="Local Data Provider" LineHeight="26" />
+                                <TextBlock Text="Sample local data provider based on a Json file." TextWrapping="Wrap" Opacity="0.5" />
+                                <Border Margin="8" />
+                                <Button Content="Reset data" IsEnabled="{Binding IsLocalProvider}" Command="{Binding ResetLocalDataCommand}" />
                             </StackPanel>
+                        </RadioButton>
+                        <RadioButton Margin="0,0,0,20" GroupName="providers" IsChecked="{Binding IsRESTProvider, Mode=TwoWay}">
+                            <StackPanel>
+                                <TextBlock Text="REST Data Provider" LineHeight="26" />
+                                <TextBlock Text="Sample data provider accessing remote services through REST API calls." TextWrapping="Wrap" Opacity="0.5" />
+                                <Border Margin="4" />
+                                <TextBlock Text="Service Url" LineHeight="26" />
+                                <TextBox Text="{Binding ServiceUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsRESTProvider}" />
+                                <Border Margin="8" />
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="Validate connection" IsEnabled="{Binding IsRESTProvider}" Command="{Binding ValidateRESTConnectionCommand}" />
+                                    <ProgressRing Margin="16,8" IsActive="{Binding IsRESTBusy}" />
+                                </StackPanel>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton Margin="0,0,0,20" GroupName="providers" IsChecked="{Binding IsSqlProvider, Mode=TwoWay}">
+                            <StackPanel>
+                                <TextBlock Text="Sql Data Provider" LineHeight="26" />
+                                <TextBlock Text="Sample data provider accessing Sql Server." TextWrapping="Wrap" Opacity="0.5" />
+                                <Border Margin="4" />
+                                <TextBlock Text="Sql Connection String" LineHeight="26" />
+                                <TextBox Text="{Binding SqlConnectionString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsSqlProvider}" />
+                                <Border Margin="8" />
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="Validate connection" IsEnabled="{Binding IsSqlProvider}" Command="{Binding ValidateSqlConnectionCommand}" />
+                                    <ProgressRing Margin="16,8" IsActive="{Binding IsSqlBusy}" />
+                                    <Button Content="Create Database" IsEnabled="{Binding IsSqlProvider}" Command="{Binding CreateDatabaseCommand}" />
+                                </StackPanel>
+                            </StackPanel>
+                        </RadioButton>
+                        <StackPanel Margin="0,32" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Content="Save" Width="80" Command="{Binding SaveCommand}" />
+                            <Border Margin="4" Visibility="{Binding CancelVisibility}" />
+                            <Button Content="Cancel" Width="80" Command="{Binding CancelCommand}" Visibility="{Binding CancelVisibility}" />
                         </StackPanel>
-                    </RadioButton>
-                    <StackPanel Margin="0,32" Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Content="Save" Width="80" Command="{Binding SaveCommand}" />
-                        <Border Margin="4" Visibility="{Binding CancelVisibility}" />
-                        <Button Content="Cancel" Width="80" Command="{Binding CancelCommand}" Visibility="{Binding CancelVisibility}" />
                     </StackPanel>
-                </StackPanel>
+                </ScrollViewer>
             </Grid>
         </Grid>
 

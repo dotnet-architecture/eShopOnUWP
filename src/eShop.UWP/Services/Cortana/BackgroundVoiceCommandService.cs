@@ -2,19 +2,17 @@
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Globalization;
+using System.Net.Http;
 using System.Threading.Tasks;
 
-using Windows.Storage;
 using Windows.ApplicationModel.AppService;
 using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.Resources.Core;
 using Windows.ApplicationModel.VoiceCommands;
+using Windows.Storage;
 
-using eShop.Domain.Models;
 using eShop.Providers;
-using eShop.Providers.Contracts;
 
 namespace eShop.Cortana
 {
@@ -25,7 +23,6 @@ namespace eShop.Cortana
         private ResourceMap _cortanaResourceMap;
         private ResourceContext _cortanaContext;
         private DateTimeFormatInfo _dateFormatInfo;
-        private ICatalogProvider _catalogProvider;
 
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
@@ -75,15 +72,11 @@ namespace eShop.Cortana
 
         private async Task SendCompletionMessageForFilter(string filter)
         {
-            var loadingSearchByType = string.Format(
-                   _cortanaResourceMap.GetValue("Cortana_Loading", _cortanaContext).ValueAsString, filter);
+            var loadingSearchByType = string.Format(_cortanaResourceMap.GetValue("Cortana_Loading", _cortanaContext).ValueAsString, filter);
             await ShowProgressScreen(loadingSearchByType);
 
-            var store = new CatalogItem();
-
-            // TODO: Get depending on configuration configuration
-            _catalogProvider = new LocalCatalogProvider();
-            var items = await _catalogProvider?.GetItemsByVoiceCommandAsync(filter);
+            var provider = new CatalogProvider();
+            var items = await provider.GetItemsByVoiceCommandAsync(filter);
 
             var userMessage = new VoiceCommandUserMessage();
 
@@ -99,7 +92,7 @@ namespace eShop.Cortana
             {
                 int cont = 1;
 
-                foreach (CatalogItem item in items.Take(10))
+                foreach (var item in items.Take(10))
                 {
                     var typeTile = new VoiceCommandContentTile();
                     typeTile.ContentTileType = VoiceCommandContentTileType.TitleWithText;

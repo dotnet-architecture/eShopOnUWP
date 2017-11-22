@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+
 using Windows.ApplicationModel.Activation;
 using Windows.Media.SpeechRecognition;
 

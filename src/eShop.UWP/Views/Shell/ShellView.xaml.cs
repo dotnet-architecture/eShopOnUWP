@@ -1,38 +1,31 @@
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
+﻿using System;
 
-using eShop.UWP.ViewModels.Shell;
-using eShop.UWP.Views.Base;
-using eShop.UWP.Services;
-using Microsoft.Practices.ServiceLocation;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+
 using eShop.UWP.ViewModels;
 
-namespace eShop.UWP.Views.Shell
+namespace eShop.UWP.Views
 {
-    public sealed partial class ShellView : PageBase
+    public sealed partial class ShellView : Page, IShell
     {
-        private ShellViewModel ViewModel => DataContext as ShellViewModel;
-
         public ShellView()
         {
             InitializeComponent();
+            ViewModel.Initialize(this);
         }
 
-        private NavigationServiceEx NavigationService => ServiceLocator.Current.GetInstance<NavigationServiceEx>();
+        public Frame NavigationFrame => shellFrame;
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        public NavigationViewItem SettingsItem => navigationView.SettingsItem as NavigationViewItem;
+
+        private ShellViewModel ViewModel => DataContext as ShellViewModel;
+
+        static public void Startup()
         {
-            base.OnNavigatedTo(e);
-
-            ViewModel.Initialize(shellFrame);
-        }
-
-        private void NavigationItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
-        {
-            if (args.IsSettingsInvoked)
-            {
-                NavigationService.Navigate(typeof(SettingsViewModel).FullName);
-            }
+            var shell = new ShellView();
+            Window.Current.Content = shell;
+            shell.NavigationFrame.Navigate(typeof(CatalogView), new CatalogState());
         }
     }
 }

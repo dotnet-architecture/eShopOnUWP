@@ -4,17 +4,19 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using eShop.Domain.Models;
-using eShop.Providers.Contracts;
-using eShop.UWP.Services;
 using eShop.UWP;
+using eShop.Data;
+using eShop.UWP.Models;
+using eShop.UWP.Services;
 
 namespace eShop.Providers
 {
     public class RESTCatalogProvider : ICatalogProvider
     {
-        private IList<CatalogType> _catalogTypes = null;
-        private IList<CatalogBrand> _catalogBrands = null;
+        private IList<CatalogTypeModel> _catalogTypes = null;
+        private IList<CatalogBrandModel> _catalogBrands = null;
+
+        public string Name => "REST";
 
         public async Task<Result> IsAvailableAsync()
         {
@@ -32,100 +34,97 @@ namespace eShop.Providers
             }
         }
 
-        public async Task<IList<CatalogType>> GetCatalogTypesAsync()
+        public async Task<IList<CatalogTypeModel>> GetCatalogTypesAsync()
         {
             if (_catalogTypes == null)
             {
                 using (var cli = new WebApiClient(BaseAddressUri))
                 {
-                    _catalogTypes = (await cli.GetAsync<IEnumerable<CatalogType>>("api/v1/catalog/CatalogTypes")).ToList();
+                    var records = (await cli.GetAsync<IEnumerable<CatalogType>>("api/v1/catalog/CatalogTypes"));
+                    _catalogTypes = records.Select(r => new CatalogTypeModel(r)).ToList();
                 }
             }
             return _catalogTypes;
         }
 
-        public async Task<IList<CatalogBrand>> GetCatalogBrandsAsync()
+        public async Task<IList<CatalogBrandModel>> GetCatalogBrandsAsync()
         {
             if (_catalogBrands == null)
             {
                 using (var cli = new WebApiClient(BaseAddressUri))
                 {
-                    _catalogBrands = (await cli.GetAsync<IEnumerable<CatalogBrand>>("api/v1/catalog/CatalogBrands")).ToList();
+                    var records = (await cli.GetAsync<IEnumerable<CatalogBrand>>("api/v1/catalog/CatalogBrands"));
+                    _catalogBrands = records.Select(r => new CatalogBrandModel(r)).ToList();
                 }
             }
             return _catalogBrands;
         }
 
-        public async Task<CatalogItem> GetItemByIdAsync(int id)
+
+        public async Task<CatalogItemModel> GetItemByIdAsync(int id)
         {
             using (var cli = new WebApiClient(BaseAddressUri))
             {
-                var item = await cli.GetAsync<CatalogItem>($"api/v1/catalog/items/{id}");
-                await Populate(item);
-                return item;
+                var record = await cli.GetAsync<CatalogItem>($"api/v1/catalog/items/{id}");
+                return new CatalogItemModel(record);
             }
         }
 
-        public async Task<IList<CatalogItem>> GetItemsAsync(CatalogType catalogType, CatalogBrand catalogBrand, string query)
+        public async Task<IList<CatalogItemModel>> GetItemsAsync(int typeId, int brandId, string query)
         {
-            int catalogTypeId = catalogType == null ? 0 : catalogType.Id;
-            int catalogBrandId = catalogBrand == null ? 0 : catalogBrand.Id;
-
-            string path = $"api/v1/catalog/items/type/{catalogTypeId}/brand/{catalogBrandId}";
+            string path = $"api/v1/catalog/items/type/{typeId}/brand/{brandId}";
 
             using (var cli = new WebApiClient(BaseAddressUri))
             {
                 var pagination = await cli.GetAsync<PaginatedItems<CatalogItem>>(path, QueryParam.Create("pageSize", 100));
-                var items = pagination.Data;
+                var records = pagination.Data;
 
                 if (!String.IsNullOrEmpty(query))
                 {
-                    items = items.Where(r => $"{r.Name}".ToUpper().Contains(query.ToUpper()));
+                    records = records.Where(r => $"{r.Name}".ToUpper().Contains(query.ToUpper()));
                 }
 
-                await Populate(items);
-                return items.ToList();
+                return records.Select(r => new CatalogItemModel(r)).ToList();
             }
         }
 
-        public async Task<IList<CatalogItem>> RelatedItemsByTypeAsync(int catalogTypeId)
+        public async Task<IList<CatalogItemModel>> RelatedItemsByTypeAsync(int catalogTypeId)
         {
             using (var cli = new WebApiClient(BaseAddressUri))
             {
                 var pagination = await cli.GetAsync<PaginatedItems<CatalogItem>>("api/v1/catalog/items", QueryParam.Create("pageSize", 100));
-                var items = pagination.Data;
-                items = items.Where(r => r.CatalogTypeId == catalogTypeId);
-                await Populate(items);
-                return items.ToList();
+                var records = pagination.Data;
+                records = records.Where(r => r.CatalogTypeId == catalogTypeId);
+                return records.Select(r => new CatalogItemModel(r)).ToList();
             }
         }
 
-        public async Task<IList<CatalogItem>> GetItemsByVoiceCommandAsync(string query)
+        public async Task<IList<CatalogItemModel>> GetItemsByVoiceCommandAsync(string query)
         {
             using (var cli = new WebApiClient(BaseAddressUri))
             {
                 var pagination = await cli.GetAsync<PaginatedItems<CatalogItem>>("api/v1/catalog/items", QueryParam.Create("pageSize", 100));
-                var items = pagination.Data;
+                var records = pagination.Data;
 
                 var queryIgnoreUpper = query?.ToUpperInvariant() ?? string.Empty;
 
-                var filterType = (await GetCatalogTypesAsync()).FirstOrDefault(item => item.Type.ToUpperInvariant().Contains(queryIgnoreUpper));
+                var filterType = (await GetCatalogTypesAsync()).FirstOrDefault(item => item.Name.ToUpperInvariant().Contains(queryIgnoreUpper));
                 if (filterType != null)
                 {
-                    items = items.Where(item => item.CatalogType.Id == filterType.Id);
+                    records = records.Where(item => item.CatalogTypeId == filterType.Id);
                 }
 
-                var filterBrand = (await GetCatalogBrandsAsync()).FirstOrDefault(item => item.Brand.ToUpperInvariant().Contains(queryIgnoreUpper));
+                var filterBrand = (await GetCatalogBrandsAsync()).FirstOrDefault(item => item.Name.ToUpperInvariant().Contains(queryIgnoreUpper));
                 if (filterBrand != null)
                 {
-                    items = items.Where(item => item.CatalogBrand.Id == filterBrand.Id);
+                    records = records.Where(item => item.CatalogBrandId == filterBrand.Id);
                 }
 
-                return (await Populate(items.ToArray())).OrderBy(r => r.Name).ToList();
+                return records.Select(r => new CatalogItemModel(r)).ToList();
             }
         }
 
-        public async Task SaveItemAsync(CatalogItem item)
+        public async Task SaveItemAsync(CatalogItemModel item)
         {
             var picture = item.Picture;
             var contentType = item.PictureContentType;
@@ -136,12 +135,13 @@ namespace eShop.Providers
                 if (item.Id == 0)
                 {
                     // Create (POST)
-                    item = await cli.PostAsync<CatalogItem>("api/v1/catalog/items", item);
+                    var record = await cli.PostAsync<CatalogItem>("api/v1/catalog/items", item.Source);
+                    item = new CatalogItemModel(record);
                 }
                 else
                 {
                     // Update (PUT)
-                    await cli.PutAsync<string>("api/v1/catalog/items", item);
+                    await cli.PutAsync<string>("api/v1/catalog/items", item.Source);
                 }
 
                 if (picture != null)
@@ -154,31 +154,12 @@ namespace eShop.Providers
             }
         }
 
-        public async Task DeleteItemAsync(CatalogItem item)
+        public async Task DeleteItemAsync(CatalogItemModel item)
         {
             using (var cli = new WebApiClient(BaseAddressUri))
             {
                 await cli.DeleteAsync($"api/v1/catalog/{item.Id}");
             }
-        }
-
-        private async Task<IEnumerable<CatalogItem>> Populate(IEnumerable<CatalogItem> items)
-        {
-            foreach (var item in items)
-            {
-                await Populate(item);
-            }
-            return items;
-        }
-
-        private async Task<CatalogItem> Populate(CatalogItem item)
-        {
-            if (item != null)
-            {
-                item.CatalogType = (await GetCatalogTypesAsync()).FirstOrDefault(r => r.Id == item.CatalogTypeId);
-                item.CatalogBrand = (await GetCatalogBrandsAsync()).FirstOrDefault(r => r.Id == item.CatalogBrandId);
-            }
-            return item;
         }
 
         static public string BaseAddressUri

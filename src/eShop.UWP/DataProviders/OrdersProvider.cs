@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using eShop.Domain.Models;
-using eShop.Providers.Contracts;
+using System.Collections.Generic;
+
+using eShop.UWP.Models;
 
 namespace eShop.Providers
 {
     public class OrdersProvider : IOrdersProvider
     {
-        private static readonly List<Order> Orders = GetPreconfiguredOrders();
+        private static readonly List<OrderModel> Orders = GetPreconfiguredOrders();
 
         public IList<DataPoint> GetOrdersByType(int id)
         {
@@ -21,11 +21,11 @@ namespace eShop.Providers
                 }).ToList();
         }
 
-        private static List<Order> GetPreconfiguredOrders()
+        private static List<OrderModel> GetPreconfiguredOrders()
         {
             // static numbers random between 40 and 300 for emulating a data source (for example a database).
             // there are 30 numbers for each array, each value corresponds to a sales day
-            var list = new List<Order>();
+            var list = new List<OrderModel>();
             list.AddRange(CreateOrdersByType(1, new[] { 150, 142, 252, 108, 299, 190, 207, 251, 208, 68, 109, 229, 188, 296, 71, 206, 141, 144, 136, 300, 98, 92,
                 100, 154, 242, 130, 116, 133, 269, 185, 183, 110, 194, 48, 195, 148, 246, 164, 111, 270, 137, 228, 239, 127, 274, 189, 118, 69, 115, 43, 112, 277,
                 181, 47, 78, 156, 257, 44, 147, 191 }));
@@ -41,10 +41,10 @@ namespace eShop.Providers
             return list;
         }
 
-        private static List<Order> CreateOrdersByType(int typeId, int[] values)
+        private static List<OrderModel> CreateOrdersByType(int typeId, int[] values)
         {
             var index = 0;
-            return values.Select(value => new Order
+            return values.Select(value => new OrderModel
             {
                 OrderTotal = values[index],
                 OrderDate = DateTime.Today.AddDays(-(index++)),

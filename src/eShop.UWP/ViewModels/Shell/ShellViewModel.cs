@@ -1,227 +1,231 @@
-using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Globalization;
+﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
-using Windows.ApplicationModel.VoiceCommands;
-using Windows.Storage;
+using System.Threading.Tasks;
+
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using eShop.Cortana;
-using eShop.Providers.Contracts;
-using eShop.UWP.Helpers;
-using eShop.UWP.Models;
-using eShop.UWP.ViewModels.Base;
-using eShop.UWP.ViewModels.Catalog;
-using eShop.UWP.ViewModels.Login;
+using Windows.ApplicationModel.Contacts;
+
+using Windows.System;
+
+using Microsoft.Practices.ServiceLocation;
+
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
-namespace eShop.UWP.ViewModels.Shell
+using eShop.UWP.Models;
+using eShop.UWP.Services;
+
+namespace eShop.UWP.ViewModels
 {
-    public class ShellViewModel : CustomViewModelBase
+    public class ShellViewModel : ViewModelBase
     {
-        private readonly CatalogViewModel _catalogViewModel;
-        private readonly ICatalogProvider _catalogProvider;
+        private readonly CommonViewModel DefaultViewModel = new CommonViewModel();
+
+        static public ShellViewModel Current { get; private set; }
+
+        static public NavigationServiceEx NavigationService => ServiceLocator.Current.GetInstance<NavigationServiceEx>();
+
+        public ShellViewModel()
+        {
+            Current = this;
+        }
+
+        private ObservableCollection<NavigationItemModel> _menuItems;
+        public ObservableCollection<NavigationItemModel> MenuItems
+        {
+            get { return _menuItems ?? (_menuItems = new ObservableCollection<NavigationItemModel>(GetMenuItems())); }
+            set { Set(ref _menuItems, value); }
+        }
+
+        private IShell Shell { get; set; }
+
+        public FrameworkElement FrameView => NavigationService.Frame.Content as FrameworkElement;
+
+        public CommonViewModel FrameViewModel => FrameView == null ? DefaultViewModel : (FrameView.DataContext as CommonViewModel) ?? DefaultViewModel;
+
+        private Contact _userContact = new Contact();
+        public Contact UserContact
+        {
+            get { return _userContact; }
+            set { Set(ref _userContact, value); }
+        }
+
+        private object _selectedItem;
+        public object SelectedItem
+        {
+            get { return _selectedItem; }
+            set { SetSelectedItem(value, navigate: true); }
+        }
 
         private string _query;
-        private ShellNavigationItem _selectedItem;
-        private ShellNavigationItem _lastSelectedItem;
-        private bool _isPaneOpen;
-        private ObservableCollection<ShellNavigationItem> _primaryItems = new ObservableCollection<ShellNavigationItem>();
-        private ObservableCollection<ShellNavigationItem> _secondaryItems = new ObservableCollection<ShellNavigationItem>();
-
-        public ShellViewModel(CatalogViewModel catalogViewModel, ICatalogProvider catalogProvider)
-        {
-            _catalogViewModel = catalogViewModel;
-            _catalogProvider = catalogProvider;
-        }
-
-        public string UserName => ApplicationData.Current.LocalSettings.Values[Constants.HelloUserIdKey] as string ?? string.Empty;
-
-
         public string Query
         {
-            get => _query;
-            set
+            get { return _query; }
+            set { Set(ref _query, value); }
+        }
+
+        private bool _isDisabled = false;
+        public bool IsDisabled
+        {
+            get { return _isDisabled; }
+            set { Set(ref _isDisabled, value); }
+        }
+
+        private double _disableOpacity = 1.0;
+        public double DisableOpacity
+        {
+            get { return _disableOpacity; }
+            set { Set(ref _disableOpacity, value); }
+        }
+
+        public ICommand ItemSelectedCommand => new RelayCommand<ItemClickEventArgs>(OnItemSelected);
+
+        public ICommand SearchCommand => new RelayCommand<AutoSuggestBoxQuerySubmittedEventArgs>(NavigateToCatalogSearch);
+
+        public ICommand LogoutCommand => new RelayCommand(OnLogout);
+
+        public async void Initialize(IShell shell)
+        {
+            Shell = shell;
+            NavigationService.Frame = Shell.NavigationFrame;
+            NavigationService.Navigated += OnNavigated;
+
+            UserContact = await GetUserContactAsync();
+        }
+
+        private IEnumerable<NavigationItemModel> GetMenuItems()
+        {
+            yield return new NavigationItemModel(Symbol.Shop, "Main Catalog", typeof(CatalogViewModel).FullName) { Execute = NavigateToCatalog };
+            yield return new NavigationItemModel(Symbol.TwoBars, "Statistics & Charts", typeof(StatisticsViewModel).FullName);
+            yield return new NavigationItemModel(Symbol.Add, "Add New Item", typeof(ItemDetailViewModel).FullName) { Execute = NavigateToNewCatalogItem };
+        }
+
+        private void SetSelectedItem(object value, bool navigate)
+        {
+            _selectedItem = value;
+            RaisePropertyChanged("SelectedItem");
+
+            if (navigate)
             {
-                Set(ref _query, value);
-                if (string.IsNullOrEmpty(_query))
+                OnItemSelected(value);
+            }
+        }
+
+        private void OnItemSelected(object selectedItem)
+        {
+            if (selectedItem is NavigationItemModel navigationItem)
+            {
+                ExecuteItem(navigationItem);
+            }
+            else if (selectedItem is NavigationViewItem navigationViewItem)
+            {
+                if (navigationViewItem.Name == "SettingsNavPaneItem")
                 {
-                    _catalogViewModel.Search(string.Empty);
+                    ExecuteSettings();
                 }
             }
         }
 
-        public ShellNavigationItem SelectedItem
+        private static void ExecuteItem(NavigationItemModel navigationItem)
         {
-            get => _selectedItem;
-            set
+            if (navigationItem.Execute != null)
             {
-                Set(ref _selectedItem, value);
-                Navigate(value);
-            }
-        }
-
-        public bool IsPaneOpen
-        {
-            get => _isPaneOpen;
-            set => Set(ref _isPaneOpen, value);
-        }
-
-        public ObservableCollection<ShellNavigationItem> PrimaryItems
-        {
-            get => _primaryItems;
-            set => Set(ref _primaryItems, value);
-        }
-
-        public ObservableCollection<ShellNavigationItem> SecondaryItems
-        {
-            get => _secondaryItems;
-            set => Set(ref _secondaryItems, value);
-        }
-
-        public ICommand LoadedCommand => new RelayCommand(SetInitialPage);
-
-        public ICommand LogoutCommand => new RelayCommand(Logout);
-
-        public ICommand OpenPaneCommand => new RelayCommand(() => IsPaneOpen = !_isPaneOpen);
-
-        public ICommand SearchCommand => new RelayCommand(Search);
-
-        public void Initialize(Frame frame)
-        {
-            NavigationService.Frame.BackStack.Clear();
-            NavigationService.Frame = frame;
-            NavigationService.Frame.Navigating += OnNavigating;
-            NavigationService.Frame.Navigated += NavigationServiceOnNavigated;
-            PopulateNavItems();
-        }
-
-        static private Type LastSourcePageType { get; set; }
-
-        private void OnNavigating(object sender, NavigatingCancelEventArgs e)
-        {
-            if (e.NavigationMode == NavigationMode.New)
-            {
-                if (e.SourcePageType == LastSourcePageType)
-                {
-                    e.Cancel = true;
-                }
-            }
-            LastSourcePageType = e.SourcePageType;
-        }
-
-        public async Task UpdateCatalogTypePhraseList()
-        {
-            try
-            {
-                string countryCode = CultureInfo.CurrentCulture.Name.ToLower();
-                if (countryCode.Length == 0)
-                {
-                    countryCode = Constants.DefaultCultureInfoName;
-                }
-
-                var commandSetName = string.Format(Constants.CortanaCommandSetName, countryCode);
-                if (VoiceCommandDefinitionManager.InstalledCommandDefinitions.TryGetValue(commandSetName, out VoiceCommandDefinition commandDefinitions))
-                {
-                    var catalogTypes = (await _catalogProvider.GetCatalogTypesAsync())?.Select(type => type.Type).ToList();
-                    await commandDefinitions.SetPhraseListAsync(Constants.CortanaPhraseListName, catalogTypes);
-
-                    Debug.WriteLine("Updating Phrase list for VCDs");
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Error updating Phrase list for VCDs: {ex.ToString()}");
-            }
-        }
-
-        private void SetInitialPage()
-        {
-            if (Parameter != null && Parameter is CatalogVoiceCommand)
-            {
-                NavigationService.Navigate(typeof(ItemDetailViewModel).FullName, Parameter);
-                Parameter = null;
+                navigationItem.Execute(navigationItem);
             }
             else
             {
-                SelectedItem = PrimaryItems.FirstOrDefault();
+                NavigationService.Navigate(navigationItem.Key);
             }
         }
 
-        private void PopulateNavItems()
+        private static void ExecuteSettings()
         {
-            _primaryItems.Clear();
-            _secondaryItems.Clear();
-
-            _primaryItems.Add(new ShellNavigationItem(Constants.ShellCatalogKey.GetLocalized(), Application.Current.Resources["CatalogIcon"] as string, typeof(CatalogViewModel).FullName));
-            _primaryItems.Add(new ShellNavigationItem(Constants.ShellStatisticsKey.GetLocalized(), Application.Current.Resources["StatisticsIcon"] as string, typeof(StatisticsViewModel).FullName));
-            _primaryItems.Add(new ShellNavigationItem(Constants.ShellAddItemKey.GetLocalized(), Application.Current.Resources["AddNewItemIcon"] as string, typeof(ItemDetailViewModel).FullName));
+            NavigationService.Navigate(typeof(SettingsViewModel).FullName);
         }
 
-        private void NavigationServiceOnNavigated(object sender, NavigationEventArgs e)
+        private void NavigateToCatalog(NavigationItemModel navigationItem)
         {
-            if (e != null)
-            {
-                var vm = NavigationService.GetNameOfRegisteredPage(e.SourcePageType);
-                var navigationItem = PrimaryItems?.FirstOrDefault(i => i.ViewModelName == vm);
+            NavigationService.Navigate(navigationItem.Key, new CatalogState());
+        }
 
-                if (navigationItem == null)
+        private void NavigateToCatalogSearch(AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            NavigationService.Navigate(typeof(CatalogViewModel).FullName, new CatalogState(args.QueryText));
+        }
+
+        private void NavigateToNewCatalogItem(NavigationItemModel navigationItem)
+        {
+            NavigationService.Navigate(navigationItem.Key, new ItemDetailState());
+        }
+
+        private async void OnLogout()
+        {
+            if (await DialogBox.ShowAsync("Confirm Logout", "Are you sure you want to logout?", "Ok", "Cancel"))
+            {
+                Views.LoginView.Startup();
+            }
+        }
+
+        private void OnNavigated(object sender, NavigationEventArgs e)
+        {
+            var viewModelName = NavigationService.GetNameOfRegisteredPage(e.SourcePageType);
+            var item = MenuItems.FirstOrDefault(r => r.Key == viewModelName);
+
+            // TODO: Review
+            if (viewModelName == typeof(ItemDetailViewModel).FullName)
+            {
+                var state = e.Parameter as ItemDetailState;
+                if (state == null || state.Item != null)
                 {
-                    navigationItem = SecondaryItems?.FirstOrDefault(i => i.ViewModelName == vm);
+                    item = null;
                 }
-
-                if (navigationItem != null)
-                {
-                    ChangeSelected(_lastSelectedItem, navigationItem);
-                    _lastSelectedItem = navigationItem;
-                }
-
-                SelectedItem = navigationItem;
             }
+
+            if (item != null)
+            {
+                SetSelectedItem(item, navigate: false);
+            }
+            else if (viewModelName == typeof(SettingsViewModel).FullName)
+            {
+                SetSelectedItem(Shell.SettingsItem, navigate: false);
+            }
+            else
+            {
+                // In order to unselect Settings, we need to select first a MenuItem
+                SetSelectedItem(MenuItems.FirstOrDefault(), navigate: false);
+                SetSelectedItem(null, navigate: false);
+            }
+            RaisePropertyChanged("FrameViewModel");
         }
 
-        private void ChangeSelected(ShellNavigationItem oldValue, ShellNavigationItem newValue)
+        private async Task<Contact> GetUserContactAsync()
         {
-            if (oldValue != null)
+            var users = (await User.FindAllAsync(UserType.LocalUser));
+            var user = users.Where(r => r.AuthenticationStatus == UserAuthenticationStatus.LocallyAuthenticated).FirstOrDefault();
+
+            var firstName = await user.GetPropertyAsync(KnownUserProperties.FirstName) as String;
+            var lastName = await user.GetPropertyAsync(KnownUserProperties.LastName) as String;
+            var displayName = await user.GetPropertyAsync(KnownUserProperties.DisplayName) as String;
+            var pictureStream = await user.GetPictureAsync(UserPictureSize.Size64x64);
+
+            return new Contact
             {
-                oldValue.IsSelected = false;
-            }
-            if (newValue != null)
-            {
-                newValue.IsSelected = true;
-            }
+                FirstName = firstName.ToString(),
+                LastName = lastName.ToString(),
+                DisplayNameOverride = displayName.ToString(),
+                SourceDisplayPicture = pictureStream,
+            };
         }
 
-        private void Navigate(object item)
+        public void EnableView(bool enable)
         {
-            var navigationItem = item as ShellNavigationItem;
-            if (navigationItem != null)
-            {
-                NavigationService.Navigate(navigationItem.ViewModelName);
-            }
-
-            if (navigationItem == null || !navigationItem.ViewModelName.Equals(typeof(CatalogViewModel).FullName) && !string.IsNullOrEmpty(Query))
-            {
-                Query = string.Empty;
-            }
-        }
-
-        private void Logout()
-        {
-            CleanBackStack();
-            NavigationService.Frame = Window.Current.Content as Frame;
-            NavigationService.Navigate(typeof(LoginViewModel).FullName);
-        }
-
-        private void Search()
-        {
-            var catalogViewModelName = typeof(CatalogViewModel).FullName;
-            SelectedItem = PrimaryItems.FirstOrDefault(item => catalogViewModelName.Equals(item.ViewModelName, StringComparison.CurrentCultureIgnoreCase));
-            _catalogViewModel.Search(Query);
+            IsDisabled = !enable;
+            DisableOpacity = enable ? 1.0 : 0.75;
         }
     }
 }

@@ -82,43 +82,30 @@ namespace eShop.Server.Controllers
             }
         }
 
-        private string GetImageMimeTypeFromImageFileExtension(string extension)
+        static public string GetContentTypeFromExtension(string extension)
         {
-            string mimetype;
-
             switch (extension)
             {
                 case ".png":
-                    mimetype = "image/png";
-                    break;
+                    return "image/png";
                 case ".gif":
-                    mimetype = "image/gif";
-                    break;
+                    return "image/gif";
                 case ".jpg":
                 case ".jpeg":
-                    mimetype = "image/jpeg";
-                    break;
+                    return "image/jpeg";
                 case ".bmp":
-                    mimetype = "image/bmp";
-                    break;
+                    return "image/bmp";
                 case ".tiff":
-                    mimetype = "image/tiff";
-                    break;
+                    return "image/tiff";
                 case ".wmf":
-                    mimetype = "image/wmf";
-                    break;
+                    return "image/wmf";
                 case ".jp2":
-                    mimetype = "image/jp2";
-                    break;
+                    return "image/jp2";
                 case ".svg":
-                    mimetype = "image/svg+xml";
-                    break;
+                    return "image/svg+xml";
                 default:
-                    mimetype = "application/octet-stream";
-                    break;
+                    return "application/octet-stream";
             }
-
-            return mimetype;
         }
     }
 }

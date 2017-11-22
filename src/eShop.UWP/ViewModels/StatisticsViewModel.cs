@@ -1,18 +1,20 @@
+﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using eShop.Domain.Models;
-using eShop.Providers.Contracts;
-using eShop.UWP.ViewModels.Base;
+
+using eShop.UWP.Models;
+using eShop.Providers;
 
 namespace eShop.UWP.ViewModels
 {
-    public class StatisticsViewModel : CustomViewModelBase
+    public class StatisticsViewModel : CommonViewModel
     {
         private const int NumberOfValuesForLastOneDay = 1;
         private const int NumberOfValuesForLastWeek = 7;
         private const int NumberOfValuesForLastMonth = 30;
         private const int InterpolationValue = 7;
+
         private readonly ICatalogProvider _catalogProvider;
         private readonly IOrdersProvider _ordersProvider;
         private readonly Dictionary<int, bool> _filterValues = new Dictionary<int, bool>();
@@ -25,8 +27,9 @@ namespace eShop.UWP.ViewModels
         private bool _isCheckedFirstTime;
         private bool _isCheckedSecondTime;
         private bool _isCheckedThirdTime;
+
         private double _totalSales;
-        private List<CatalogType> _catalogTypes;
+        private List<CatalogTypeModel> _catalogTypes;
         private ObservableCollection<List<DataPoint>> _series;
         private List<int> _filteredTotalOrders;
 
@@ -74,7 +77,7 @@ namespace eShop.UWP.ViewModels
                 Set(ref _fourthFilter, value);
                 ChangeFilter(3, value);
             }
-        }        
+        }
 
         public bool IsCheckedFirstTime
         {
@@ -90,7 +93,7 @@ namespace eShop.UWP.ViewModels
 
                 LoadSeries();
             }
-        }        
+        }
 
         public bool IsCheckedSecondTime
         {
@@ -106,7 +109,7 @@ namespace eShop.UWP.ViewModels
 
                 LoadSeries();
             }
-        }        
+        }
 
         public bool IsCheckedThirdTime
         {
@@ -142,15 +145,12 @@ namespace eShop.UWP.ViewModels
             set => Set(ref _filteredTotalOrders, value);
         }
 
-        public override void OnActivate(object parameter, bool isBack)
+        public void Load()
         {
-            base.OnActivate(parameter, isBack);
-
-            if(_catalogTypes == null)
+            if (_catalogTypes == null)
             {
                 LoadCatalogTypes();
             }
-
             LoadSeries();
         }
 
@@ -207,7 +207,7 @@ namespace eShop.UWP.ViewModels
             var interpolatedList = new List<DataPoint>();
             for (var i = 0; i + interpolationResult < listToInterpolate.Count; i = i + interpolationResult)
             {
-                interpolatedList.Add(new DataPoint{ Category = listToInterpolate[i].Category, Value = listToInterpolate[i].Value + listToInterpolate[i + interpolationResult].Value / interpolationResult });
+                interpolatedList.Add(new DataPoint { Category = listToInterpolate[i].Category, Value = listToInterpolate[i].Value + listToInterpolate[i + interpolationResult].Value / interpolationResult });
             }
 
             return interpolatedList;

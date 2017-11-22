@@ -1,80 +1,60 @@
-<UserControl
-    x:Class="eShop.UWP.Views.Catalog.ItemsGridView"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:controls1="using:eShop.UWP.Controls"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:i="using:Microsoft.Xaml.Interactivity"
-    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+﻿<UserControl x:Class="eShop.UWP.Views.ItemsGridView"
+             DataContext="{Binding ItemsGridViewModel, Source={StaticResource Locator}}"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i="using:Microsoft.Xaml.Interactivity"
+             xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+             xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+             xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+             mc:Ignorable="d">
 
     <UserControl.Resources>
-        <DataTemplate x:Key="ItemGridTemplate">
-            <controls1:CatalogItem EditClick="OnCatalogItemEditClick" ItemViewModel="{Binding}">
-                <controls1:CatalogItem.ContextFlyout>
-                    <MenuFlyout>
-                        <MenuFlyoutItem x:Uid="ContextFlayout_Select" Click="OnSelectItemClick" />
-                    </MenuFlyout>
-                </controls1:CatalogItem.ContextFlyout>
-            </controls1:CatalogItem>
+        <DataTemplate x:Key="BottomItem">
+            <Grid Width="50" Height="38">
+                <Image x:Name="image" Source="{Binding PictureUri}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Grid>
         </DataTemplate>
     </UserControl.Resources>
 
     <Grid>
-        <controls:AdaptiveGridView
-            x:Name="AdaptiveGrid"
-            Margin="{StaticResource ShellHorizontalContentMargin}"
-            animations:ReorderGridAnimation.Duration="300"
-            DesiredWidth="300"
-            IsItemClickEnabled="{Binding IsMultiselectionEnable, Converter={StaticResource BoolNegationConverter}}"
-            IsMultiSelectCheckBoxEnabled="{Binding IsMultiselectionEnable}"
-            ItemContainerStyle="{StaticResource AdaptativeGridViewItemStyle}"
-            ItemHeight="310"
-            ItemTemplate="{StaticResource ItemGridTemplate}"
-            ItemsSource="{Binding Items}"
-            OneRowModeEnabled="False"
-            SelectionMode="Multiple"
-            StretchContentForSingleRow="False">
+        <toolkit:AdaptiveGridView x:Name="gridView" Margin="12,0,12,24" ItemsSource="{Binding Items}" ItemTemplate="{StaticResource CatalogItem}"
+                                  SelectionMode="{Binding SelectionMode}" IsItemClickEnabled="True" IsRightTapEnabled="True" StretchContentForSingleRow="False"
+                                  DesiredWidth="300" ItemHeight="300" ContainerContentChanging="OnContainerContentChanging" ItemClickCommand="{Binding ItemClickCommand}"
+                                  ItemContainerTransitions="{x:Null}"
+                                  animations:ReorderGridAnimation.Duration="300">
             <i:Interaction.Behaviors>
-                <ic:EventTriggerBehavior EventName="ItemClick">
-                    <ic:InvokeCommandAction Command="{Binding ItemClickCommand}" />
+                <ic:EventTriggerBehavior EventName="RightTapped">
+                    <ic:InvokeCommandAction Command="{Binding PreSelectCommand}" />
                 </ic:EventTriggerBehavior>
                 <ic:EventTriggerBehavior EventName="SelectionChanged">
-                    <ic:InvokeCommandAction Command="{Binding SelectionChangedCommand}" CommandParameter="{Binding ElementName=AdaptiveGrid}" />
-                </ic:EventTriggerBehavior>
-                <ic:EventTriggerBehavior EventName="Loaded">
-                    <ic:InvokeCommandAction Command="{Binding LoadedCommand}" CommandParameter="{Binding ElementName=AdaptiveGrid}" />
+                    <ic:InvokeCommandAction Command="{Binding SelectionChangedCommand}" />
                 </ic:EventTriggerBehavior>
             </i:Interaction.Behaviors>
-        </controls:AdaptiveGridView>
-        <CommandBar
-            VerticalAlignment="Bottom"
-            ClosedDisplayMode="{Binding IsMultiselectionEnable, Converter={StaticResource BoolToCommandBarDisplayModeConverter}}"
-            IsOpen="{Binding IsMultiselectionEnable}"
-            RequestedTheme="Dark">
-            <AppBarButton
-                x:Uid="CommandBar_Cancel"
-                Click="Cancel_OnClick"
-                Icon="Cancel" />
-            <AppBarSeparator />
-            <AppBarButton
-                x:Uid="CommandBar_Delete"
-                Command="{Binding DeleteSelectionCommand}"
-                CommandParameter="{Binding ElementName=AdaptiveGrid}"
-                Icon="Delete" />
-            <AppBarButton
-                x:Uid="CommandBar_SelectAll"
-                Click="SelectAll_OnClick"
-                Icon="List" />
+        </toolkit:AdaptiveGridView>
+
+        <CommandBar IsOpen="{Binding IsCommandBarOpen, Mode=TwoWay}" IsSticky="True" RequestedTheme="Dark" ClosedDisplayMode="Minimal" VerticalAlignment="Bottom" IsDynamicOverflowEnabled="False" Style="{StaticResource CommandBarRevealStyle}">
             <CommandBar.Content>
-                <TextBlock
-                    Margin="12,14"
-                    VerticalAlignment="Center"
-                    Text="{Binding SelectedItemsCount}" />
+                <GridView x:Name="target" Margin="4,1,4,0" ItemTemplate="{StaticResource BottomItem}" ItemsSource="{Binding BarItems}" Height="58" IsSwipeEnabled="True"
+                          ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                    <GridView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ItemsWrapGrid Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
+                </GridView>
             </CommandBar.Content>
+            <AppBarButton Icon="Delete" Label="Delete" Command="{Binding DeleteCommand}" Visibility="{Binding IsDeleteVisible, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource AppBarButtonRevealStyle}" />
+            <AppBarSeparator Visibility="{Binding IsSeparatorVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+            <AppBarButton Icon="Cancel" Label="Cancel" Command="{Binding CancelCommand}" Visibility="{Binding IsCancelVisible, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource AppBarButtonRevealStyle}" />
+            <AppBarButton Icon="ClearSelection" Label="Clear" Command="{Binding ClearCommand}" Visibility="{Binding IsClearVisible, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource AppBarButtonRevealStyle}" />
+            <AppBarButton Icon="SelectAll" Label="Select All" Command="{Binding SelectAllCommand}" Visibility="{Binding IsSelectAllVisible, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource AppBarButtonRevealStyle}" />
+            <AppBarButton Label="Multi Select" Command="{Binding MultiSelectCommand}" Visibility="{Binding IsMultiSelectVisible, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource AppBarButtonRevealStyle}">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE762;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
         </CommandBar>
     </Grid>
 </UserControl>
