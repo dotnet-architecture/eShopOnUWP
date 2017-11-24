@@ -19,6 +19,7 @@ using GalaSoft.MvvmLight.Command;
 
 using eShop.UWP.Models;
 using eShop.UWP.Services;
+using eShop.UWP.Activation;
 
 namespace eShop.UWP.ViewModels
 {
@@ -89,11 +90,13 @@ namespace eShop.UWP.ViewModels
 
         public ICommand LogoutCommand => new RelayCommand(OnLogout);
 
-        public async void Initialize(IShell shell)
+        public async void Initialize(IShell shell, ActivationState activationState)
         {
             Shell = shell;
             NavigationService.Frame = Shell.NavigationFrame;
             NavigationService.Navigated += OnNavigated;
+
+            NavigationService.Navigate(activationState.ViewModel.ToString(), activationState.Parameter);
 
             UserContact = await GetUserContactAsync();
         }
@@ -167,7 +170,7 @@ namespace eShop.UWP.ViewModels
         {
             if (await DialogBox.ShowAsync("Confirm Logout", "Are you sure you want to logout?", "Ok", "Cancel"))
             {
-                Views.LoginView.Startup();
+                NavigationService.MainFrame.GoBack();
             }
         }
 

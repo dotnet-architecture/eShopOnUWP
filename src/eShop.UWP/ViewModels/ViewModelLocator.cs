@@ -18,12 +18,12 @@ namespace eShop.UWP.ViewModels
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             SimpleIoc.Default.Register(() => new NavigationServiceEx());
-            SimpleIoc.Default.Register<ShellViewModel>();
             SimpleIoc.Default.Register<ICatalogProvider, CatalogProvider>();
             SimpleIoc.Default.Register<IOrdersProvider, OrdersProvider>();
             SimpleIoc.Default.Register<VoiceCommandService>();
 
             Register<LoginViewModel, LoginView>();
+            Register<ShellViewModel, ShellView>();
             Register<CatalogViewModel, CatalogView>();
             Register<ItemsGridViewModel, ItemsGridView>();
             Register<ItemsListViewModel, ItemsListView>();

@@ -9,69 +9,76 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Windows.ApplicationModel.Activation;
 
-using eShop.UWP.Activation;
-using eShop.UWP.ViewModels;
+using Microsoft.Practices.ServiceLocation;
+
+using eShop.UWP.Services;
 using eShop.UWP.Helpers;
 
-namespace eShop.UWP.Services
+namespace eShop.UWP.Activation
 {
     // For more information on application activation see https://github.com/Microsoft/WindowsTemplateStudio/blob/master/docs/activation.md
     internal class ActivationService
     {
         private readonly App _app;
-        private readonly Type _defaultNavItem;
-        private readonly ViewState _navParameter;
-        private readonly UIElement _shell;
+        private readonly Type _view;
+        private readonly ActivationState _activationState;
 
-        public ActivationService(App app, Type defaultNavItem, ViewState navParameter, UIElement shell)
+        public ActivationService(App app, Type view, ActivationState state)
         {
             _app = app;
-            _defaultNavItem = defaultNavItem;
-            _navParameter = navParameter ?? new ViewState();
-            _shell = shell ?? new Frame();
+            _view = view;
+            _activationState = state;
         }
 
-        private ViewModelLocator Locator => Application.Current.Resources["Locator"] as ViewModels.ViewModelLocator;
+        private SystemNavigationManager CurrentView => SystemNavigationManager.GetForCurrentView();
+        private NavigationServiceEx NavigationService => ServiceLocator.Current.GetInstance<NavigationServiceEx>();
 
-        private NavigationServiceEx NavigationService => Locator.NavigationService;
-
-        public async Task ActivateAsync(object activationArgs)
+        public async Task ActivateAsync(IActivatedEventArgs activationArgs)
         {
+            bool isLaunch = false;
             if (IsInteractive(activationArgs))
             {
-                // Initialize things like registering background task before the app is loaded
-                await InitializeAsync();
-
                 // Do not repeat app initialization when the Window already has content,
                 // just ensure that the window is active
                 if (Window.Current.Content == null)
                 {
-                    // Create a Frame to act as the navigation context and navigate to the first page
-                    Window.Current.Content = _shell;
+                    isLaunch = true;
 
+                    // Initialize things like registering background task before the app is loaded
+                    await InitializeAsync();
+
+                    // Create a Frame to act as the navigation context and navigate to the first page
+                    var frame = new Frame();
+                    Window.Current.Content = frame;
+
+                    NavigationService.MainFrame = frame;
                     NavigationService.NavigationFailed += OnNavigationFailed;
                     NavigationService.Navigated += OnNavigated;
 
-                    if (SystemNavigationManager.GetForCurrentView() != null)
+                    if (CurrentView != null)
                     {
-                        SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+                        CurrentView.BackRequested += OnBackRequested;
                     }
                 }
             }
 
+            ActivationState activationState = null;
             var activationHandler = GetActivationHandlers().FirstOrDefault(h => h.CanHandle(activationArgs));
-
             if (activationHandler != null)
             {
-                await activationHandler.HandleAsync(activationArgs);
+                activationState = await activationHandler.HandleAsync(activationArgs);
             }
+            activationState = activationState ?? _activationState;
 
             if (IsInteractive(activationArgs))
             {
-                var defaultHandler = new DefaultLaunchActivationHandler(_defaultNavItem, _navParameter);
-                if (defaultHandler.CanHandle(activationArgs))
+                if (isLaunch)
                 {
-                    await defaultHandler.HandleAsync(activationArgs);
+                    NavigationService.Navigate(_view.FullName, activationState, mainFrame: true);
+                }
+                else
+                {
+                    NavigationService.Navigate(activationState.ViewModel.ToString(), activationState.Parameter);
                 }
 
                 // Ensure the current window is active

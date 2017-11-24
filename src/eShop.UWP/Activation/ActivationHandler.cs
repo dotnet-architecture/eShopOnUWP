@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 
+using Windows.ApplicationModel.Activation;
+
+using Microsoft.Practices.ServiceLocation;
+
 using eShop.UWP.Services;
 
 namespace eShop.UWP.Activation
@@ -8,16 +12,16 @@ namespace eShop.UWP.Activation
     // For more information on application activation see https://github.com/Microsoft/WindowsTemplateStudio/blob/master/docs/activation.md
     internal abstract class ActivationHandler
     {
-        protected NavigationServiceEx NavigationService => Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<NavigationServiceEx>();
+        protected NavigationServiceEx NavigationService => ServiceLocator.Current.GetInstance<NavigationServiceEx>();
 
-        public abstract bool CanHandle(object args);
+        public abstract bool CanHandle(IActivatedEventArgs args);
 
-        public abstract Task HandleAsync(object args);
+        public abstract Task<ActivationState> HandleAsync(IActivatedEventArgs args);
     }
 
-    internal abstract class ActivationHandler<T> : ActivationHandler where T : class
+    internal abstract class ActivationHandler<T> : ActivationHandler where T : class, IActivatedEventArgs
     {
-        public override bool CanHandle(object args)
+        public override bool CanHandle(IActivatedEventArgs args)
         {
             return args is T && CanHandleInternal(args as T);
         }
@@ -27,11 +31,11 @@ namespace eShop.UWP.Activation
             return true;
         }
 
-        public override async Task HandleAsync(object args)
+        public override async Task<ActivationState> HandleAsync(IActivatedEventArgs args)
         {
-            await HandleInternalAsync(args as T);
+            return await HandleInternalAsync(args as T);
         }
 
-        protected abstract Task HandleInternalAsync(T args);
+        protected abstract Task<ActivationState> HandleInternalAsync(T args);
     }
 }

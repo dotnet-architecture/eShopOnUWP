@@ -24,7 +24,7 @@ namespace eShop.UWP.Services
             ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(content.GetXml()));
         }
 
-        protected override async Task HandleInternalAsync(ToastNotificationActivatedEventArgs args)
+        protected override async Task<ActivationState> HandleInternalAsync(ToastNotificationActivatedEventArgs args)
         {
             if (NavigationService.Frame != null)
             {
@@ -34,10 +34,11 @@ namespace eShop.UWP.Services
                     var item = await provider.GetItemByIdAsync(id);
                     if (item != null)
                     {
-                        NavigationService.Navigate(typeof(ItemDetailViewModel).FullName, new ItemDetailState(item));
+                        return new ActivationState(typeof(ItemDetailViewModel), new ItemDetailState(item));
                     }
                 }
             }
+            return null;
         }
 
         private static ToastContent GenerateToastContent(string title, CatalogItemModel item)

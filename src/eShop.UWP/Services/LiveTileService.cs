@@ -69,14 +69,14 @@ namespace eShop.UWP.Services
             return secondaryTiles.Any(t => t.Arguments == tile.Arguments);
         }
 
-        protected override Task HandleInternalAsync(LaunchActivatedEventArgs args)
+        protected override Task<ActivationState> HandleInternalAsync(LaunchActivatedEventArgs args)
         {
             // If app is launched from a SecondaryTile, tile arguments property is contained in args.Arguments
             // var secondaryTileArguments = args.Arguments;
 
             // If app is launched from a LiveTile notification update, TileContent arguments property is contained in args.TileActivatedInfo.RecentlyShownNotifications
             // var tileUpdatesArguments = args.TileActivatedInfo.RecentlyShownNotifications;
-            return Task.CompletedTask;
+            return Task.FromResult<ActivationState>(null);
         }
 
         protected override bool CanHandleInternal(LaunchActivatedEventArgs args)

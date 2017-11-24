@@ -5,6 +5,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 using eShop.UWP.ViewModels;
+using eShop.UWP.Activation;
 
 namespace eShop.UWP.Views
 {
@@ -13,15 +14,17 @@ namespace eShop.UWP.Views
         public LoginView()
         {
             this.InitializeComponent();
-            ViewModel.Initialize();
         }
 
         private LoginViewModel ViewModel => DataContext as LoginViewModel;
 
-        static public void Startup()
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var login = new LoginView();
-            Window.Current.Content = login;
+            base.OnNavigatedTo(e);
+
+            var activationState = e.Parameter as ActivationState;
+            activationState = activationState ?? ActivationState.Default;
+            ViewModel.Initialize(activationState);
         }
     }
 }

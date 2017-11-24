@@ -12,7 +12,7 @@ namespace eShop.UWP.Services
 {
     internal class VoiceCommandActivationService : ActivationHandler<VoiceCommandActivatedEventArgs>
     {
-        protected override async Task HandleInternalAsync(VoiceCommandActivatedEventArgs args)
+        protected override Task<ActivationState> HandleInternalAsync(VoiceCommandActivatedEventArgs args)
         {
             var voiceCommandService = SimpleIoc.Default.GetInstance<VoiceCommandService>();
             var filterByVoiceCommand = voiceCommandService.RunCommand(args);
@@ -27,7 +27,7 @@ namespace eShop.UWP.Services
             //    NavigationService.Navigate(defaultNavItem.FullName, filterByVoiceCommand);
             //}
 
-            await Task.CompletedTask;
+            return Task.FromResult<ActivationState>(null);
         }
     }
 }

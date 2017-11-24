@@ -20,18 +20,12 @@ namespace eShop.UWP.Services
 
         private readonly Dictionary<string, Type> _pages = new Dictionary<string, Type>();
 
+        public Frame MainFrame { get; set; }
+
         private Frame _frame;
         public Frame Frame
         {
-            get
-            {
-                if (_frame == null)
-                {
-                    _frame = Window.Current.Content as Frame;
-                    RegisterFrameEvents();
-                }
-                return _frame;
-            }
+            get => _frame;
             set
             {
                 UnregisterFrameEvents();
@@ -66,7 +60,7 @@ namespace eShop.UWP.Services
             }
         }
 
-        public bool Navigate(string pageKey, object parameter = null, NavigationTransitionInfo infoOverride = null)
+        public bool Navigate(string pageKey, object parameter = null, bool mainFrame = false, NavigationTransitionInfo infoOverride = null)
         {
             Type page;
             lock (_pages)
@@ -76,7 +70,18 @@ namespace eShop.UWP.Services
                     throw new ArgumentException($"Page not found: {pageKey}. Did you forget to call NavigationService.Configure?", "pageKey");
                 }
             }
-            var navigationResult = Frame.Navigate(page, parameter, infoOverride);
+            return Navigate(page, parameter, mainFrame, infoOverride);
+        }
+
+        private bool Navigate(Type pageType, object parameter = null, bool mainFrame = false, NavigationTransitionInfo infoOverride = null)
+        {
+            var frame = mainFrame ? MainFrame : Frame;
+            frame = frame ?? MainFrame;
+            if (frame == null)
+            {
+                throw new InvalidOperationException("Navigation frame not initialized.");
+            }
+            var navigationResult = frame.Navigate(pageType, parameter, infoOverride);
             return navigationResult;
         }
 

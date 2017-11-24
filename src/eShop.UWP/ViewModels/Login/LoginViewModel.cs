@@ -6,18 +6,26 @@ using Windows.Storage;
 using Windows.UI.Xaml.Input;
 using Windows.ApplicationModel;
 
+using Microsoft.Practices.ServiceLocation;
+
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
 using eShop.UWP.Helpers;
+using eShop.UWP.Activation;
+using eShop.UWP.Services;
 
 namespace eShop.UWP.ViewModels
 {
     public class LoginViewModel : ViewModelBase
     {
+        private ActivationState _activationState = null;
+
         private string _userName;
         private string _password;
         private string _versionPackage;
+
+        private NavigationServiceEx NavigationService => ServiceLocator.Current.GetInstance<NavigationServiceEx>();
 
         public string UserName
         {
@@ -60,8 +68,10 @@ namespace eShop.UWP.ViewModels
 
         public ICommand KeyDownCommand => new RelayCommand<KeyRoutedEventArgs>(KeyDown);
 
-        public void Initialize()
+        public void Initialize(ActivationState activationState)
         {
+            _activationState = activationState;
+
             VersionPackage = string.Format(Constants.AuthenticationVersionCustomKey.GetLocalized(), GetAppVersion());
 
             UserName = Constants.AuthenticationUsernameDefaultCustomKey.GetLocalized();
@@ -81,11 +91,9 @@ namespace eShop.UWP.ViewModels
         {
             ApplicationData.Current.LocalSettings.Values[Constants.HelloUserIdKey] = UserName;
 
-            //UserName = string.Empty;
-            //Password = string.Empty;
-
             // TODO: Add here the logic to login with your authentication service.
-            Views.ShellView.Startup();
+            //NavigationService.Navigate(_activationState.View.ToString(), _activationState.Parameter, mainFrame: true);
+            NavigationService.Navigate(typeof(ShellViewModel).FullName, _activationState, mainFrame: true);
         }
 
         private void SetupHello()

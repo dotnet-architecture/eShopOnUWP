@@ -2,8 +2,10 @@
 
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 using eShop.UWP.ViewModels;
+using eShop.UWP.Activation;
 
 namespace eShop.UWP.Views
 {
@@ -12,20 +14,21 @@ namespace eShop.UWP.Views
         public ShellView()
         {
             InitializeComponent();
-            ViewModel.Initialize(this);
         }
+
+        private ShellViewModel ViewModel => DataContext as ShellViewModel;
 
         public Frame NavigationFrame => shellFrame;
 
         public NavigationViewItem SettingsItem => navigationView.SettingsItem as NavigationViewItem;
 
-        private ShellViewModel ViewModel => DataContext as ShellViewModel;
-
-        static public void Startup()
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var shell = new ShellView();
-            Window.Current.Content = shell;
-            shell.NavigationFrame.Navigate(typeof(CatalogView), new CatalogState());
+            base.OnNavigatedTo(e);
+
+            var activationState = e.Parameter as ActivationState;
+            activationState = activationState ?? ActivationState.Default;
+            ViewModel.Initialize(this, activationState);
         }
     }
 }

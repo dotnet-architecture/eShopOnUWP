@@ -1,14 +1,14 @@
 ﻿using System;
 
-using eShop.UWP.Views;
-using eShop.UWP.Services;
-
 using Windows.UI.Xaml;
 using Windows.UI.ViewManagement;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 
 using Microsoft.HockeyApp;
+
+using eShop.UWP.ViewModels;
+using eShop.UWP.Activation;
 
 namespace eShop.UWP
 {
@@ -46,7 +46,7 @@ namespace eShop.UWP
 
         private ActivationService CreateActivationService()
         {
-            return new ActivationService(this, null, null, new LoginView());
+            return new ActivationService(this, typeof(LoginViewModel), new ActivationState(typeof(CatalogViewModel), new CatalogState()));
         }
     }
 }
