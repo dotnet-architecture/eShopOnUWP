@@ -47,7 +47,7 @@ namespace eShop.UWP.Activation
                     // Initialize things like registering background task before the app is loaded
                     await InitializeAsync();
 
-                    // Create a Frame to act as the navigation context and navigate to the first page
+                    // Create a Frame to act as the navigation context to navigate to the first page
                     var frame = new Frame();
                     Window.Current.Content = frame;
 
@@ -75,17 +75,20 @@ namespace eShop.UWP.Activation
                 if (isLaunch)
                 {
                     NavigationService.Navigate(_view.FullName, activationState, mainFrame: true);
+
+                    // Ensure the current window is active
+                    Window.Current.Activate();
+
+                    // Tasks after activation
+                    await StartupAsync();
                 }
                 else
                 {
                     NavigationService.Navigate(activationState.ViewModel.ToString(), activationState.Parameter);
+
+                    // Ensure the current window is active
+                    Window.Current.Activate();
                 }
-
-                // Ensure the current window is active
-                Window.Current.Activate();
-
-                // Tasks after activation
-                await StartupAsync();
             }
         }
 

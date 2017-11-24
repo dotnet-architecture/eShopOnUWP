@@ -26,16 +26,13 @@ namespace eShop.UWP.Services
 
         protected override async Task<ActivationState> HandleInternalAsync(ToastNotificationActivatedEventArgs args)
         {
-            if (NavigationService.Frame != null)
+            if (Int32.TryParse(args.Argument, out int id))
             {
-                if (Int32.TryParse(args.Argument, out int id))
+                var provider = new CatalogProvider();
+                var item = await provider.GetItemByIdAsync(id);
+                if (item != null)
                 {
-                    var provider = new CatalogProvider();
-                    var item = await provider.GetItemByIdAsync(id);
-                    if (item != null)
-                    {
-                        return new ActivationState(typeof(ItemDetailViewModel), new ItemDetailState(item));
-                    }
+                    return new ActivationState(typeof(ItemDetailViewModel), new ItemDetailState(item));
                 }
             }
             return null;
