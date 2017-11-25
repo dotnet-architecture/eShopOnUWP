@@ -29,6 +29,11 @@ namespace eShop.UWP.Views
 
             var state = (e.Parameter as CatalogState) ?? new CatalogState();
             await ViewModel.LoadAsync(state);
+
+            if (state.SelectedItemId > 0)
+            {
+                await itemsGrid.DoConnectedAnimationAsync(state.SelectedItemId);
+            }
         }
 
         protected override async void OnNavigatingFrom(NavigatingCancelEventArgs e)
