@@ -44,8 +44,8 @@ namespace eShop.UWP.Views
                     await gridView.TryStartConnectedAnimationAsync(animation, item, "container");
                     return;
                 }
+                animation.Cancel();
             }
-            animation.Cancel();
         }
 
         private ExpressionAnimation CreateExpression()
