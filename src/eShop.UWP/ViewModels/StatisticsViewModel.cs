@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 using eShop.UWP.Models;
 using eShop.Providers;
@@ -145,11 +146,11 @@ namespace eShop.UWP.ViewModels
             set => Set(ref _filteredTotalOrders, value);
         }
 
-        public void Load()
+        public async void Load()
         {
             if (_catalogTypes == null)
             {
-                LoadCatalogTypes();
+                await LoadCatalogTypesAsync();
             }
             LoadSeries();
         }
@@ -160,7 +161,7 @@ namespace eShop.UWP.ViewModels
             LoadSeries();
         }
 
-        private async void LoadCatalogTypes()
+        private async Task LoadCatalogTypesAsync()
         {
             var types = await _catalogProvider.GetCatalogTypesAsync();
             _catalogTypes = types.ToList();
