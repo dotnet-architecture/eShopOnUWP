@@ -128,14 +128,7 @@ namespace eShop.UWP.ViewModels
             var result = await ValidateAndApplyChangesAsync();
             if (result.IsOk)
             {
-                if (NavigationService.Frame == Window.Current.Content)
-                {
-                    NavigationService.Navigate(typeof(ShellViewModel).FullName);
-                }
-                else
-                {
-                    NavigationService.Navigate(typeof(CatalogViewModel).FullName);
-                }
+                NavigationService.Navigate(typeof(CatalogViewModel).FullName, new CatalogState());
             }
         }
 

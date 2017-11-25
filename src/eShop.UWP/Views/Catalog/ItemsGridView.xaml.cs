@@ -36,13 +36,16 @@ namespace eShop.UWP.Views
             var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("ItemSelectedBack");
             if (animation != null)
             {
-                var item = ViewModel.Items.Where(r => r.Id == id).FirstOrDefault();
-                if (item != null)
+                if (id > 0)
                 {
-                    gridView.ScrollIntoView(item);
-                    await Task.Delay(10);
-                    await gridView.TryStartConnectedAnimationAsync(animation, item, "container");
-                    return;
+                    var item = ViewModel.Items.Where(r => r.Id == id).FirstOrDefault();
+                    if (item != null)
+                    {
+                        gridView.ScrollIntoView(item);
+                        await Task.Delay(10);
+                        await gridView.TryStartConnectedAnimationAsync(animation, item, "container");
+                        return;
+                    }
                 }
                 animation.Cancel();
             }
