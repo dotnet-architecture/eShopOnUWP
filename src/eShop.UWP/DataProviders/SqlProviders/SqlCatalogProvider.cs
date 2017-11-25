@@ -212,7 +212,8 @@ namespace eShop.Providers
 
             if (pictureFileName != null)
             {
-                var storage = new FileStorage(ApplicationData.Current.TemporaryFolder);
+                var folder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("Images", CreationCollisionOption.OpenIfExists);
+                var storage = new FileStorage(folder);
                 if (await storage.FileExsits(pictureFileName))
                 {
                     model.PictureUri = GetPictureUri(pictureFileName);
@@ -237,7 +238,7 @@ namespace eShop.Providers
 
         private string GetPictureUri(string fileName)
         {
-            return $"ms-appdata:///temp/{fileName}";
+            return $"ms-appdata:///local/images/{fileName}";
         }
 
         private int GenerateId()

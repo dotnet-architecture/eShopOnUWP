@@ -51,9 +51,10 @@ namespace eShop.UWP
 
         static private async Task<string> GetImageUriAsync(StorageFile file)
         {
+            var folder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("Images", CreationCollisionOption.OpenIfExists);
             string tempFileName = $"{DateTime.UtcNow.Ticks}{file.FileType}";
-            var destinationFile = await file.CopyAsync(ApplicationData.Current.TemporaryFolder, tempFileName);
-            return $"ms-appdata:///temp/{destinationFile.Name}";
+            var destinationFile = await file.CopyAsync(folder, tempFileName);
+            return $"ms-appdata:///local/images/{destinationFile.Name}";
         }
     }
 
