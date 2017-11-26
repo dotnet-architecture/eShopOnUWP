@@ -6,7 +6,7 @@ namespace eShop.UWP.Activation
 {
     public class ActivationState
     {
-        static public readonly ActivationState Default = new ActivationState(typeof(CatalogViewModel));
+        static public readonly ActivationState Default = new ActivationState(typeof(CatalogViewModel), new CatalogState());
 
         public ActivationState()
         {

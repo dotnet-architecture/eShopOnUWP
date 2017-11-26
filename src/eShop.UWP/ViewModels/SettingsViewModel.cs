@@ -283,10 +283,6 @@ namespace eShop.UWP.ViewModels
             }
         }
 
-        private void FillDatabase()
-        {
-        }
-
         public void ApplyChanges()
         {
             AppSettings.Current.DataProvider = DataProvider;

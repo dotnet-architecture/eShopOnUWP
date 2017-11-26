@@ -52,13 +52,6 @@ namespace eShop.UWP.ViewModels
             set { Set(ref _filterBrandId, value); RefreshItems(); }
         }
 
-        private string _providerName;
-        public string ProviderName
-        {
-            get { return _providerName; }
-            set { Set(ref _providerName, value); }
-        }
-
         private bool _isGridChecked = false;
         public bool IsGridChecked
         {
@@ -83,8 +76,6 @@ namespace eShop.UWP.ViewModels
             _cancelRefresh = true;
 
             State = state;
-
-            ProviderName = DataProvider.Name;
 
             FilterTypeId = 0;
             FilterBrandId = 0;
