@@ -68,15 +68,30 @@ namespace eShop.UWP.ViewModels
 
         public async Task LoadAsync(CatalogState state)
         {
+            State = state;
+
             GridViewModel.Items = null;
             ListViewModel.Items = null;
 
-            GridViewModel.CatalogState = state;
+            GridViewModel.State = state;
+            ListViewModel.State = state;
 
             _cancelRefresh = true;
+            await LoadFiltersAsync();
+            await RefreshItemsAsync();
+            _cancelRefresh = false;
 
-            State = state;
+            IsGridChecked = State.IsGridChecked;
+            IsListChecked = State.IsListChecked;
+            GridViewModel.Mode = GridCommandBarMode.Idle;
 
+            GridViewModel.UpdateCommandBar();
+
+            HeaderText = String.IsNullOrWhiteSpace(State.Query) ? "Catalog" : $"Catalog results for \"{State.Query}\"";
+        }
+
+        private async Task LoadFiltersAsync()
+        {
             FilterTypeId = 0;
             FilterBrandId = 0;
 
@@ -94,20 +109,8 @@ namespace eShop.UWP.ViewModels
             catalogBrands.Insert(0, new CatalogBrandModel(new Data.CatalogBrand { Id = -1, Brand = Constants.CatalogAllViewKey.GetLocalized() }));
             CatalogBrands = catalogBrands;
 
-            FilterTypeId = state.FilterTypeId;
-            FilterBrandId = state.FilterBrandId;
-
-            await RefreshItemsAsync();
-
-            IsGridChecked = State.IsGridChecked;
-            IsListChecked = State.IsListChecked;
-            GridViewModel.Mode = GridCommandBarMode.Idle;
-
-            GridViewModel.UpdateCommandBar();
-
-            HeaderText = State.Query == null ? "Catalog" : $"Catalog results for \"{State.Query}\"";
-
-            _cancelRefresh = false;
+            FilterTypeId = State.FilterTypeId;
+            FilterBrandId = State.FilterBrandId;
         }
 
         public async Task UnloadAsync()

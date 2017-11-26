@@ -4,7 +4,6 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 using eShop.UWP.ViewModels;
-using eShop.Providers;
 
 namespace eShop.UWP.Views
 {
@@ -29,8 +28,6 @@ namespace eShop.UWP.Views
 
             var state = (e.Parameter as CatalogState) ?? new CatalogState();
             await ViewModel.LoadAsync(state);
-
-            await itemsGrid.DoConnectedAnimationAsync(state.SelectedItemId);
         }
 
         protected override async void OnNavigatingFrom(NavigatingCancelEventArgs e)

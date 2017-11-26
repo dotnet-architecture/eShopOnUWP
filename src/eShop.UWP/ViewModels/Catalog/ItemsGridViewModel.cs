@@ -36,7 +36,7 @@ namespace eShop.UWP.ViewModels
 
         public ICatalogProvider DataProvider { get; }
 
-        public CatalogState CatalogState { get; set; }
+        public CatalogState State { get; set; }
 
         public GridView ItemsControl { get; set; }
         public GridView BarItemsControl { get; set; }
@@ -168,7 +168,7 @@ namespace eShop.UWP.ViewModels
             {
                 ItemsControl.PrepareConnectedAnimation("ItemSelected", item, "imageContainer");
                 ShellViewModel.NavigationService.Navigate(typeof(ItemDetailViewModel).FullName, new ItemDetailState(item));
-                CatalogState.SelectedItemId = item.Id;
+                State.SelectedItemId = item.Id;
             }
         }
 

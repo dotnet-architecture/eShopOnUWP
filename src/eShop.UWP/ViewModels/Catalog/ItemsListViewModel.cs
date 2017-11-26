@@ -32,6 +32,8 @@ namespace eShop.UWP.ViewModels
 
         public ICatalogProvider DataProvider { get; }
 
+        public CatalogState State { get; set; }
+
         public RadDataGrid ItemsControl { get; set; }
 
         public bool IsActive { get; set; }
