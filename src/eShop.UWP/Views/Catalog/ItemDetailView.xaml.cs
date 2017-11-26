@@ -19,6 +19,18 @@ namespace eShop.UWP.Views
             this.Loaded += OnLoaded;
         }
 
+        public ItemDetailViewModel ViewModel => DataContext as ItemDetailViewModel;
+
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            ApplyAnimations();
+
+            var state = (e.Parameter as ItemDetailState) ?? new ItemDetailState();
+            await ViewModel.LoadAsync(state);
+        }
+
         private void OnLoaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             var imageAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("ItemSelected");
@@ -26,18 +38,6 @@ namespace eShop.UWP.Views
             {
                 imageAnimation.TryStart(pictureContainer, new UIElement[] { itemContainer });
             }
-        }
-
-        public ItemDetailViewModel ViewModel => DataContext as ItemDetailViewModel;
-
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-
-            var state = (e.Parameter as ItemDetailState) ?? new ItemDetailState();
-            await ViewModel.LoadAsync(state);
-
-            ApplyAnimations();
         }
 
         protected override async void OnNavigatingFrom(NavigatingCancelEventArgs e)
