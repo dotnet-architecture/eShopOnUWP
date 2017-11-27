@@ -128,7 +128,7 @@ namespace eShop.UWP.ViewModels
             var result = await ValidateAndApplyChangesAsync();
             if (result.IsOk)
             {
-                NavigationService.Navigate(typeof(CatalogViewModel).FullName, new CatalogState());
+                NavigationService.GoBack();
             }
         }
 
