@@ -130,6 +130,8 @@
     <Compile Include="Activation\ActivationState.cs" />
     <Compile Include="AppSettings\AppSettings.cs" />
     <Compile Include="AppSettings\DataProviderType.cs" />
+    <Compile Include="Authentication\AuthenticationService.cs" />
+    <Compile Include="Authentication\ContactHelper.cs" />
     <Compile Include="Common\ContentTypes.cs" />
     <Compile Include="Common\DialogBox.cs" />
     <Compile Include="Common\ImagePicker.cs" />

@@ -1,5 +1,6 @@
 ﻿using System;
 
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace eShop.UWP.Views
@@ -8,7 +9,7 @@ namespace eShop.UWP.Views
     {
         public SignInWithPasswordView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -13,18 +14,28 @@ namespace eShop.UWP.Views
     {
         public LoginView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private LoginViewModel ViewModel => DataContext as LoginViewModel;
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
             var activationState = e.Parameter as ActivationState;
             activationState = activationState ?? ActivationState.Default;
-            ViewModel.Initialize(activationState);
+
+            await ViewModel.InitializeAsync(activationState);
+        }
+
+        protected override void OnKeyDown(KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                ViewModel.Login();
+            }
+            base.OnKeyDown(e);
         }
     }
 }

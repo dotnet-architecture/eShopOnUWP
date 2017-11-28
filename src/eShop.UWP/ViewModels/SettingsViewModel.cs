@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 
 using Windows.UI.Xaml;
-using Windows.ApplicationModel;
 
 using GalaSoft.MvvmLight.Command;
 
@@ -16,16 +15,9 @@ namespace eShop.UWP.ViewModels
 {
     public class SettingsViewModel : CommonViewModel
     {
-        public string DisplayName => Package.Current.DisplayName;
+        public string DisplayName => AppSettings.Current.DisplayName;
 
-        public string Version
-        {
-            get
-            {
-                var ver = Package.Current.Id.Version;
-                return $"Version {ver.Major}.{ver.Minor}.{ver.Build}.{ver.Revision}";
-            }
-        }
+        public string Version => $"Version {AppSettings.Current.Version}";
 
         public DataProviderType DataProvider
         {

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -30,6 +31,8 @@ namespace eShop.UWP.Activation
             _activationState = state;
         }
 
+        static public User CurrentUser { get; private set; }
+
         private SystemNavigationManager CurrentView => SystemNavigationManager.GetForCurrentView();
         private NavigationServiceEx NavigationService => ServiceLocator.Current.GetInstance<NavigationServiceEx>();
 
@@ -38,6 +41,12 @@ namespace eShop.UWP.Activation
             bool isLaunch = false;
             if (IsInteractive(activationArgs))
             {
+                // Retrieve current user if available
+                if (activationArgs is IActivatedEventArgsWithUser argsWithUser)
+                {
+                    CurrentUser = argsWithUser.User;
+                }
+
                 // Do not repeat app initialization when the Window already has content,
                 // just ensure that the window is active
                 if (Window.Current.Content == null)

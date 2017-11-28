@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Windows.Storage;
+using Windows.ApplicationModel;
 
 namespace eShop.UWP
 {
@@ -10,6 +11,29 @@ namespace eShop.UWP
         static public AppSettings Current => _current ?? (_current = new AppSettings());
 
         public ApplicationDataContainer LocalSettings => ApplicationData.Current.LocalSettings;
+
+        public string DisplayName => Package.Current.DisplayName;
+
+        public string Version
+        {
+            get
+            {
+                var ver = Package.Current.Id.Version;
+                return $"{ver.Major}.{ver.Minor}.{ver.Build}.{ver.Revision}";
+            }
+        }
+
+        public string UserName
+        {
+            get => GetSettingsValue("UserName", default(String));
+            set => SetSettingsValue("UserName", value);
+        }
+
+        public string WindowsHelloPublicKeyHint
+        {
+            get => GetSettingsValue("WindowsHelloPublicKeyHint", default(String));
+            set => SetSettingsValue("WindowsHelloPublicKeyHint", value);
+        }
 
         public DataProviderType DataProvider
         {

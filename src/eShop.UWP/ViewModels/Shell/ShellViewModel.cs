@@ -10,8 +10,6 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Windows.ApplicationModel.Contacts;
 
-using Windows.System;
-
 using Microsoft.Practices.ServiceLocation;
 
 using GalaSoft.MvvmLight;
@@ -20,6 +18,7 @@ using GalaSoft.MvvmLight.Command;
 using eShop.UWP.Models;
 using eShop.UWP.Services;
 using eShop.UWP.Activation;
+using eShop.UWP.Authentication;
 
 namespace eShop.UWP.ViewModels
 {
@@ -208,21 +207,7 @@ namespace eShop.UWP.ViewModels
 
         private async Task<Contact> GetUserContactAsync()
         {
-            var users = (await User.FindAllAsync(UserType.LocalUser));
-            var user = users.Where(r => r.AuthenticationStatus == UserAuthenticationStatus.LocallyAuthenticated).FirstOrDefault();
-
-            var firstName = await user.GetPropertyAsync(KnownUserProperties.FirstName) as String;
-            var lastName = await user.GetPropertyAsync(KnownUserProperties.LastName) as String;
-            var displayName = await user.GetPropertyAsync(KnownUserProperties.DisplayName) as String;
-            var pictureStream = await user.GetPictureAsync(UserPictureSize.Size64x64);
-
-            return new Contact
-            {
-                FirstName = firstName.ToString(),
-                LastName = lastName.ToString(),
-                DisplayNameOverride = displayName.ToString(),
-                SourceDisplayPicture = pictureStream,
-            };
+            return await ContactHelper.CreateContactFromLogonUserAsync();
         }
 
         public void EnableView(bool enable)
