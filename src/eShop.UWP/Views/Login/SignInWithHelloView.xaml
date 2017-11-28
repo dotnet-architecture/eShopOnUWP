@@ -8,10 +8,11 @@
     mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="320">
 
     <StackPanel>
-        <TextBlock Text="{Binding UserName}" HorizontalAlignment="Center" FontSize="24" />
+        <Grid HorizontalAlignment="Center">
+            <Border Background="White" Opacity="0.25" />
+            <TextBlock Margin="48,2" Text="{Binding UserName}" HorizontalAlignment="Center" FontSize="22" />
+        </Grid>
         <controls:ButtonControl IconSourcePath="{StaticResource HelloIcon}" Style="{StaticResource HelloButtonStyle}" Command="{Binding LoginWithHelloCommand}" Foreground="Black" UseSystemFocusVisuals="False" />
-        <Rectangle Margin="6" />
-        <HyperlinkButton Content="Sign in with another user" Foreground="RoyalBlue" FontSize="14" HorizontalAlignment="Center" Command="{Binding ShowLoginWithPasswordCommand}" />
     </StackPanel>
 
 </UserControl>

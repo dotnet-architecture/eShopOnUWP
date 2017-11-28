@@ -18,7 +18,7 @@
                     <Grid>
                         <StackPanel x:Name="content" Background="Transparent">
                             <Path Margin="16" Height="32" HorizontalAlignment="Center" Data="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IconSourcePath}" Fill="{TemplateBinding Foreground}" Stretch="Uniform" />
-                            <TextBlock Text="Windows Hello" FontSize="17" FontWeight="Normal" Foreground="{TemplateBinding Foreground}" HorizontalAlignment="Center" />
+                            <TextBlock Text="Windows Hello" FontSize="19" FontWeight="Normal" Foreground="{TemplateBinding Foreground}" HorizontalAlignment="Center" />
                         </StackPanel>
 
                         <VisualStateManager.VisualStateGroups>

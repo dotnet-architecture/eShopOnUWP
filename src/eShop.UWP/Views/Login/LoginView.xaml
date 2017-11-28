@@ -6,32 +6,54 @@
     xmlns:views="using:eShop.UWP.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:eShop.UWP.Controls"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
-            <RowDefinition Height="2*" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
         <TextBox Opacity="0" />
 
         <Grid>
-            <Image Source="ms-appx:///Assets/Images/BackgroundPhoto.jpg" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Top" Opacity="0.8" />
+            <Image Source="ms-appx:///Assets/Images/BackgroundPhoto.jpg" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Grid>
+                <Grid.Background>
+                    <controls:BackdropBlurBrush x:Name="brush" BlurAmount="5" />
+                </Grid.Background>
+            </Grid>
             <Image Margin="24" Source="ms-appx:///Assets/Images/LoginLogo.png" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="None" />
         </Grid>
 
-        <StackPanel Grid.Row="1" VerticalAlignment="Center">
-            <views:SignInWithPasswordView HorizontalAlignment="Center" Visibility="{Binding IsLoginWithPassword, Converter={StaticResource BoolToVisibilityConverter}}" IsEnabled="{Binding IsBusy, Converter={StaticResource BoolNegationConverter}}" />
-            <views:SignInWithHelloView HorizontalAlignment="Center" Visibility="{Binding IsLoginWithWindowsHello, Converter={StaticResource BoolToVisibilityConverter}}" IsEnabled="{Binding IsBusy, Converter={StaticResource BoolNegationConverter}}" />
-        </StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="4*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="1" VerticalAlignment="Center">
+                <Grid Margin="32,64,32,0">
+                    <views:SignInWithPasswordView HorizontalAlignment="Center" Visibility="{Binding IsLoginWithPassword, Converter={StaticResource BoolToVisibilityConverter}}" IsEnabled="{Binding IsBusy, Converter={StaticResource BoolNegationConverter}}" />
+                    <views:SignInWithHelloView HorizontalAlignment="Center" Visibility="{Binding IsLoginWithWindowsHello, Converter={StaticResource BoolToVisibilityConverter}}" IsEnabled="{Binding IsBusy, Converter={StaticResource BoolNegationConverter}}" />
+                </Grid>
+            </StackPanel>
+        </Grid>
 
-        <StackPanel Grid.Row="2" VerticalAlignment="Bottom">
-            <TextBlock Text="{Binding VersionPackage}" HorizontalAlignment="Center" Foreground="Gray" />
-            <Rectangle Margin="2" />
-            <TextBlock HorizontalAlignment="Center" FontSize="14"><Hyperlink IsTabStop="False" NavigateUri="https://github.com/dotnet-architecture/eShopOnUWP">dotnet-architecture/eShopOnUWP</Hyperlink></TextBlock>
-            <Rectangle Margin="12" />
-        </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+
+            <HyperlinkButton Content="Sign in with another user" Foreground="#222" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding IsLoginWithWindowsHello, Converter={StaticResource BoolToVisibilityConverter}}" Command="{Binding ShowLoginWithPasswordCommand}" />
+            <StackPanel Grid.Row="1" VerticalAlignment="Bottom">
+                <TextBlock Text="eShopUWP" HorizontalAlignment="Center" Foreground="DodgerBlue" FontWeight="SemiBold" FontSize="24" />
+                <TextBlock Text="{Binding VersionPackage}" HorizontalAlignment="Center" Foreground="DodgerBlue" />
+                <Rectangle Margin="2" />
+                <TextBlock HorizontalAlignment="Center" FontSize="14"><Hyperlink IsTabStop="False" NavigateUri="https://github.com/dotnet-architecture/eShopOnUWP">dotnet-architecture/eShopOnUWP</Hyperlink></TextBlock>
+                <Rectangle Margin="12" />
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>

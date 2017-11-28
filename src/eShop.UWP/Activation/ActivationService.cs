@@ -15,6 +15,7 @@ using Microsoft.Practices.ServiceLocation;
 
 using eShop.UWP.Services;
 using eShop.UWP.Helpers;
+using eShop.UWP.Authentication;
 
 namespace eShop.UWP.Activation
 {
@@ -46,6 +47,7 @@ namespace eShop.UWP.Activation
                 if (activationArgs is IActivatedEventArgsWithUser argsWithUser)
                 {
                     CurrentUser = argsWithUser.User;
+                    await ContactHelper.CreateContactFromLogonUserAsync();
                 }
 
                 // Do not repeat app initialization when the Window already has content,
