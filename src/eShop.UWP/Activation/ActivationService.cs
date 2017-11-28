@@ -8,6 +8,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.ApplicationModel.Activation;
 
 using Microsoft.Practices.ServiceLocation;
@@ -58,6 +59,8 @@ namespace eShop.UWP.Activation
 
                     // Create a Frame to act as the navigation context to navigate to the first page
                     var frame = new Frame();
+                    frame.ContentTransitions = new TransitionCollection();
+                    frame.ContentTransitions.Add(new NavigationThemeTransition());
                     Window.Current.Content = frame;
 
                     NavigationService.MainFrame = frame;

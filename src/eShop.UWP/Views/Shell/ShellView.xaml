@@ -28,7 +28,13 @@
                 <NavigationViewItem ContentTemplate="{StaticResource NavigationViewItemProfile}" Content="{Binding}" />
             </NavigationView.PaneFooter>
 
-            <Frame x:Name="shellFrame" />
+            <Frame x:Name="shellFrame">
+                <Frame.ContentTransitions>
+                    <TransitionCollection>
+                        <NavigationThemeTransition/>
+                    </TransitionCollection>
+                </Frame.ContentTransitions>
+            </Frame>
         </NavigationView>
 
         <Grid Visibility="{Binding IsDisabled, Converter={StaticResource BoolToVisibilityConverter}}">
