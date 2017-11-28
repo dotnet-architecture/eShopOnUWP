@@ -47,7 +47,7 @@ namespace eShop.UWP.Activation
                 if (activationArgs is IActivatedEventArgsWithUser argsWithUser)
                 {
                     CurrentUser = argsWithUser.User;
-                    await ContactHelper.CreateContactFromLogonUserAsync();
+                    await ContactHelper.CreateContactFromCurrentUserAsync();
                 }
 
                 // Do not repeat app initialization when the Window already has content,
