@@ -45,6 +45,16 @@ Once you have logged-in using Windows Hello, your user will be saved and the nex
 - Fingerprint
 - Etc.
 
+![Windows Hello](/docs/Login.gif)
+
+## Data Providers
+From the Settings page, you can select one of the following Data Providers, each supporting CRUD operations and demonstrating different data access technologies:
+- Local (json file)
+- REST API
+- SQL Server
+
+![Settings](/docs/Settings.jpg)
+
 ## Fluent Design
 
 ### Acrylic material
@@ -57,25 +67,13 @@ Once you have logged-in using Windows Hello, your user will be saved and the nex
 
 ![Connected animations](/docs/ConnectedAnimation.gif)
 
-
-
 ### Reveal
 [Reveal](https://docs.microsoft.com/es-es/windows/uwp/style/reveal) is a lighting effect that helps bring depth and focus to your app's interactive elements.
 
-![Connected animations](/docs/RevealFluent.gif)
+![Reveal](/docs/RevealFluent.gif)
 
-## ShyHeader
+### ShyHeader
 [ShyHeader](https://github.com/Microsoft/WindowsUIDevLabs/tree/master/SampleGallery/Samples/SDK%2014393/ShyHeader) demonstrates how to use ExpressionAnimations Tookit with a ScrollViewer to create a shinking header tied to scroll position.
 
 ![ShyHeader](/docs/ShyHeaderToolkit.gif)
 
-## Cortana
-You have to run Cortana at least once, because when done it installs the voice command definitions. Once it has been run, you can close the application and start using Cortana's search. 
-
-### Voice Commands
-These are some supported voice commands (Cortana may take time to refresh its voice commands):
-
-- "shop, show me __mug__ type products"
-- "shop, give me __shirt__ type products"
-- "shop, show me __cap__ type products"
-- "shop, show me __sheet__ type products"
