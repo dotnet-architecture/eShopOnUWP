@@ -4,11 +4,11 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Composition;
 
-namespace eShop.UWP
+namespace eShop.UWP.Animations
 {
-    static public class VisualAnimationExtensions
+    static public class ExpressionAnimationExtensions
     {
-        static public ExpressionAnimationWrapper AnimationExpression(this Compositor compositor, string expression)
+        static public ExpressionAnimationWrapper CreateExpressionWrapper(this Compositor compositor, string expression)
         {
             return new ExpressionAnimationWrapper(compositor, expression);
         }

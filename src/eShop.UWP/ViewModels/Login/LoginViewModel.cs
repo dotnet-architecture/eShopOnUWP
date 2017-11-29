@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Linq;
 using System.Windows.Input;
 using System.Threading.Tasks;
 
-using Windows.System;
 using Windows.Storage.Streams;
 using Windows.Security.Credentials;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
-using Windows.ApplicationModel.Contacts;
 
 using Microsoft.Practices.ServiceLocation;
 
@@ -111,6 +108,7 @@ namespace eShop.UWP.ViewModels
         public async void LoginWithPassword()
         {
             IsBusy = true;
+            Views.LoginView.CurrentEffectMode = Views.LoginView.EffectMode.Disabled;
             var result = ValidateInput();
             if (result.IsOk)
             {
@@ -126,18 +124,21 @@ namespace eShop.UWP.ViewModels
                 }
             }
             await DialogBox.ShowAsync(result);
+            Views.LoginView.CurrentEffectMode = Views.LoginView.EffectMode.Foreground;
             IsBusy = false;
         }
 
         public async void LoginWithHello()
         {
             IsBusy = true;
+            Views.LoginView.CurrentEffectMode = Views.LoginView.EffectMode.Disabled;
             var result = await SignInWithWindowsHelloAsync();
             if (result.IsOk)
             {
                 EnterApplication();
                 return;
             }
+            Views.LoginView.CurrentEffectMode = Views.LoginView.EffectMode.Foreground;
             await DialogBox.ShowAsync(result);
             IsBusy = false;
         }
@@ -209,7 +210,7 @@ namespace eShop.UWP.ViewModels
         {
             if (await KeyCredentialManager.IsSupportedAsync())
             {
-                if (await DialogBox.ShowAsync("Windows Hello", "Your device supports Windows Hello and you can use it to authenticate with the app.\r\nDo you want to enable Windows Hello for your next sign in?", "Ok", "Maybe later"))
+                if (await DialogBox.ShowAsync("Windows Hello", "Your device supports Windows Hello and you can use it to authenticate with the app.\r\n\r\nDo you want to enable Windows Hello for your next sign in?", "Ok", "Maybe later"))
                 {
                     await SetupWindowsHelloAsync(userName);
                 }
@@ -237,7 +238,6 @@ namespace eShop.UWP.ViewModels
             else
             {
                 await TryDeleteCredentialAccountAsync(userName);
-                await DialogBox.ShowAsync("Server Authentication Error", "Failed to register Windows Hello credential with the server.");
             }
         }
 

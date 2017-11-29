@@ -11,5 +11,10 @@ namespace eShop.UWP.Views
         {
             InitializeComponent();
         }
+
+        public void Focus()
+        {
+            userName.Focus(FocusState.Programmatic);
+        }
     }
 }

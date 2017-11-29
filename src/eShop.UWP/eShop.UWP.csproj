@@ -143,6 +143,7 @@
     <Compile Include="Controls\ToggleButtonControl.cs" />
     <Compile Include="DataProviders\Contracts\IOrdersProvider.cs" />
     <Compile Include="DataProviders\OrdersProvider.cs" />
+    <Compile Include="Extensions\AnimationExtensions.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Activation\ActivationService.cs" />
     <Compile Include="Services\Cortana\BackgroundVoiceCommandService.cs" />
@@ -222,7 +223,7 @@
     <Compile Include="Data\CatalogType.cs" />
     <Compile Include="Data\PaginatedItems.cs" />
     <Compile Include="Extensions\FrameExtensions.cs" />
-    <Compile Include="Extensions\VisualAnimationExtensions.cs" />
+    <Compile Include="Extensions\ExpressionAnimationExtensions.cs" />
     <Compile Include="Extensions\VisualTreeExtensions.cs" />
     <Compile Include="Helpers\ResourceExtensions.cs" />
     <Compile Include="Helpers\Resources.cs" />

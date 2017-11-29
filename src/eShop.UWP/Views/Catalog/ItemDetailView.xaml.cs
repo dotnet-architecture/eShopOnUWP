@@ -8,6 +8,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Animation;
 
 using eShop.UWP.ViewModels;
+using eShop.UWP.Animations;
 
 namespace eShop.UWP.Views
 {
@@ -62,17 +63,17 @@ namespace eShop.UWP.Views
             anim.Duration = TimeSpan.FromSeconds(0.250);
             ElementCompositionPreview.GetElementVisual(headerOffset).StartAnimation("Offset.Y", anim);
 
-            brush.BlurAmountExpression = compositor.AnimationExpression("Clamp(scroller.Translation.Y * parallaxFactor, 0, 360/10)")
+            brush.BlurAmountExpression = compositor.CreateExpressionWrapper("Clamp(scroller.Translation.Y * parallaxFactor, 0, 360/10)")
                 .Parameter("scroller", scrollerPropertySet)
                 .Parameter("parallaxFactor", -0.05f)
                 .Expression;
 
-            compositor.AnimationExpression("Clamp(scroller.Translation.Y * parallaxFactor, -360/2, 0)")
+            compositor.CreateExpressionWrapper("Clamp(scroller.Translation.Y * parallaxFactor, -360/2, 0)")
                 .Parameter("scroller", scrollerPropertySet)
                 .Parameter("parallaxFactor", 0.25f)
                 .Start(header, "Offset.Y");
 
-            compositor.AnimationExpression("Lerp(0, -300, scroller.Translation.Y * parallaxFactor / -340.0)")
+            compositor.CreateExpressionWrapper("Lerp(0, -300, scroller.Translation.Y * parallaxFactor / -340.0)")
                 .Parameter("scroller", scrollerPropertySet)
                 .Parameter("parallaxFactor", 0.5f)
                 .Start(pictureContainer, "Offset.Y");
