@@ -4,10 +4,12 @@ This repo contains a UWP sample application for Windows 10 Fall Creators Update.
 Some of the features showcased by this application include:
 
 - The MVVM Design Pattern
-- Use of [Fluent Design System](https://fluent.microsoft.com)
-- Ink Capabilities
+- Use of Fluent Design System
+- Multiple Data Providers
+- Common CRUD operations
+- .NET Standard 2.0
+- REST API requests
 - Windows Hello
-- Cortana
 - Telerik controls
 
 **CI Build**
@@ -16,21 +18,14 @@ Some of the features showcased by this application include:
 **CD Build**
 [![Build status](https://rido.visualstudio.com/_apis/public/build/definitions/989ddbdd-c86a-4fa8-8d80-89eb785d8056/83/badge)](https://aka.ms/eshopuwp)
 
-# What's new in version v 1.0.94
-- Support for multiple providers
-	- New local provider
-	- New REST API provider
-- Added Settings page
-	- Manage and switch providers
-- New project eShop.Server ASP.NET Core 2.0
-	- Emulates a Web API server with CRUD operations
-
 # Prerequisites
-System requirements:
-- Windows 10 Fall Creators Update. To run the application you should be running a Windows Version greater than 10.0.16299. You can get it as described [here](https://blogs.windows.com/windowsexperience/2017/10/17/get-windows-10-fall-creators-update)
+
+
+## System requirements:
+- Windows 10 Fall Creators Update. To run the application you should be running Windows version 10.0.16299 or above.
+	- You can get it as described [here](https://blogs.windows.com/windowsexperience/2017/10/17/get-windows-10-fall-creators-update)
 - Visual Studio 15.4 -> [Download](http://visualstudio.com/)
 	- Including the Windows 10 FCU SDK 10.0.16299
-
 
 # Getting Started
 
@@ -40,36 +35,22 @@ You can install a working version of the app from
 
 # Features
 
-
-## Windows Ink
-Select and edit multiple products using the Surface Pen. There are several signs with differents functions.
-This application recognizes a hand gesture and translate it to text. These are the supported forms:
-
-- __Circle - "o"__ : Select multiple items
-- __Tick - "v"__: Active or inactive the status
-- __Cross - "x"__ : Remove an item
-
-![Windows Ink](/docs/WindowInk.gif)
-
 ## Windows Hello
-There are two ways to log-in, either with user/password or using Windows Hello.
-The first time the application is run, the user/password log in option will appear by default. You will be able to log-in through Windows Hello once you enter the user name and the button enabling to log-in is activated. 
-Once you have logged-in using Windows Hello, your user will be saved and the next time you open the application Windows Hello authentication will appear as default. 
-Depending on how your Windows Hello settings are (Settings/Accounts/Sign-in options), you will be able to authenticate by using:
+There are two ways to log-in, either with user/password or using Windows Hello. The first time the application is run, the user/password log in option will appear by default. After log-in you will be prompted to enable Windows Hello for that user.
+
+Once you have logged-in using Windows Hello, your user will be saved and the next time you open the application Windows Hello authentication will appear as default. Depending on how your Windows Hello settings are (Settings/Accounts/Sign-in options), you will be able to authenticate by using:
 
 - Pin
 - Face recognition
 - Fingerprint
-- Et al.
+- Etc.
 
 ## Fluent Design
-
 
 ### Acrylic material
 [Acrylic material](https://docs.microsoft.com/es-es/windows/uwp/style/acrylic) is a type of Brush that creates a partially transparent texture.
 
 ![Acrylic material](/docs/AcrylicFluent.png)
-
 
 ### Connected animations
 [Connected animations](https://docs.microsoft.com/es-es/windows/uwp/style/connected-animation) let you create a dynamic and compelling navigation experience by animating the transition of an element between two different views.

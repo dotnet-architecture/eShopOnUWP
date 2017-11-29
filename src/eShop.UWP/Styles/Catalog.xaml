@@ -18,7 +18,7 @@
                         <Image x:Name="image" Margin="0,-32" Source="{Binding PictureUri}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
                     <Grid.Clip>
-                        <RectangleGeometry Rect="0,0,400,200" />
+                        <RectangleGeometry Rect="0,0,260,172" />
                     </Grid.Clip>
                 </Grid>
                 <Viewbox Width="150" Height="150" RenderTransformOrigin="0.5,0.5" Visibility="{Binding IsDisabled, Converter={StaticResource BoolToVisibilityConverter}}">
@@ -32,10 +32,10 @@
             </Grid>
 
             <StackPanel Grid.Row="1" Padding="12,4" Background="#f4f4f4">
-                <TextBlock Text="{Binding Name}" FontWeight="Normal" />
-                <TextBlock Text="{Binding CatalogType.Name}" FontWeight="SemiLight" FontSize="14" />
-                <TextBlock Text="{Binding CatalogBrand.Name}" FontWeight="SemiLight" FontSize="14" />
-                <Grid Margin="0,-2,0,0">
+                <TextBlock Text="{Binding Name}" FontWeight="Normal"  FontSize="14"/>
+                <TextBlock Text="{Binding CatalogType.Name}" FontWeight="SemiLight" FontSize="13" />
+                <TextBlock Text="{Binding CatalogBrand.Name}" FontWeight="SemiLight" FontSize="13" />
+                <Grid Margin="0,-6,0,0">
                     <ToggleSwitch OnContent="Active" OffContent="Inactive" FontWeight="SemiLight" IsOn="{Binding IsDisabled, Mode=TwoWay, Converter={StaticResource BoolNegationConverter}}" />
                     <TextBlock Text="{Binding PriceDesc}" FontSize="17" FontWeight="Normal" HorizontalAlignment="Right" VerticalAlignment="Center" />
                 </Grid>
