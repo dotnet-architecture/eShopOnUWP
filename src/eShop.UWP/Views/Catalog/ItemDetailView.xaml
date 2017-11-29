@@ -22,11 +22,11 @@
                             </Grid.ColumnDefinitions>
 
                             <StackPanel>
-                                <TextBlock Text="Name" LineHeight="20" Foreground="RoyalBlue" />
+                                <TextBlock Text="Name" LineHeight="20" Foreground="{ThemeResource SystemAccentColor}" />
                                 <TextBox Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" BorderThickness="0,0,0,1" />
                             </StackPanel>
                             <StackPanel Margin="16,0,0,0" Grid.Column="1">
-                                <TextBlock Text="Price" LineHeight="20" Foreground="RoyalBlue" />
+                                <TextBlock Text="Price" LineHeight="20" Foreground="{ThemeResource SystemAccentColor}" />
                                 <TextBox extensions:TextBoxRegex.ValidationType="Decimal" extensions:TextBoxRegex.ValidationMode="Forced" Text="{Binding Item.PriceString, Mode=TwoWay}" FontSize="20" BorderThickness="0,0,0,1" />
                             </StackPanel>
                         </Grid>
@@ -37,12 +37,12 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <StackPanel Margin="0" Grid.Column="0">
-                                <TextBlock Text="Catalog Type" LineHeight="20" Foreground="RoyalBlue" />
+                                <TextBlock Text="Catalog Type" LineHeight="20" Foreground="{ThemeResource SystemAccentColor}" />
                                 <ComboBox ItemsSource="{Binding CatalogTypes}" BorderThickness="0,0,0,1" HorizontalAlignment="Stretch"
                                       SelectedValue="{Binding Item.CatalogType.Id, Mode=TwoWay}" SelectedValuePath="Id" DisplayMemberPath="Name" />
                             </StackPanel>
                             <StackPanel Margin="16,0,0,0" Grid.Column="1">
-                                <TextBlock Text="Catalog Brand" LineHeight="20" Foreground="RoyalBlue" />
+                                <TextBlock Text="Catalog Brand" LineHeight="20" Foreground="{ThemeResource SystemAccentColor}" />
                                 <ComboBox ItemsSource="{Binding CatalogBrands}" BorderThickness="0,0,0,1" HorizontalAlignment="Stretch"
                                       SelectedValue="{Binding Item.CatalogBrand.Id, Mode=TwoWay}" SelectedValuePath="Id" DisplayMemberPath="Name" />
                             </StackPanel>
@@ -50,7 +50,7 @@
                     </StackPanel>
 
                     <StackPanel>
-                        <TextBlock Text="Description" LineHeight="20" Foreground="RoyalBlue" />
+                        <TextBlock Text="Description" LineHeight="20" Foreground="{ThemeResource SystemAccentColor}" />
                         <TextBox Text="{Binding Item.Description, Mode=TwoWay}" FontSize="15" TextWrapping="Wrap" AcceptsReturn="True" BorderThickness="0,0,0,1" />
                         <Border Margin="16" />
                     </StackPanel>
