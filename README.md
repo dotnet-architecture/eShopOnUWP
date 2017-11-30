@@ -20,7 +20,6 @@ Some of the features showcased by this application include:
 
 # Prerequisites
 
-
 ## System requirements:
 - Windows 10 Fall Creators Update. To run the application you should be running Windows version 10.0.16299 or above.
 	- You can get it as described [here](https://blogs.windows.com/windowsexperience/2017/10/17/get-windows-10-fall-creators-update)
@@ -32,6 +31,13 @@ Some of the features showcased by this application include:
 You can install a working version of the app from
 [https://aka.ms/eshopuwp](https://aka.ms/eshopuwp)
 
+If you want to execute the app from Visual Studio 2017, follow these steps:
+- Clone or download a Zip copy of the entire solution
+- Open the eShop.UWP.sln solution in Visual Studio 2017
+- Ensure eShop.UWP is the startup project
+- Start the project
+
+> Note: In Visual Studio 2017, the platform target defaults to ARM, so be sure to change that to x64 or x86 if you want to test on a non-ARM device
 
 # Features
 
@@ -58,17 +64,17 @@ From the Settings page, you can select one of the following Data Providers, each
 ## Fluent Design
 
 ### Acrylic material
-[Acrylic material](https://docs.microsoft.com/es-es/windows/uwp/style/acrylic) is a type of Brush that creates a partially transparent texture.
+[Acrylic material](https://docs.microsoft.com/windows/uwp/design/style/acrylic) is a type of Brush that creates a partially transparent texture.
 
 ![Acrylic material](/docs/AcrylicFluent.png)
 
 ### Connected animations
-[Connected animations](https://docs.microsoft.com/es-es/windows/uwp/style/connected-animation) let you create a dynamic and compelling navigation experience by animating the transition of an element between two different views.
+[Connected animations](https://docs.microsoft.com/windows/uwp/style/connected-animation) let you create a dynamic and compelling navigation experience by animating the transition of an element between two different views.
 
 ![Connected animations](/docs/ConnectedAnimation.gif)
 
 ### Reveal
-[Reveal](https://docs.microsoft.com/es-es/windows/uwp/style/reveal) is a lighting effect that helps bring depth and focus to your app's interactive elements.
+[Reveal](https://docs.microsoft.com/windows/uwp/style/reveal) is a lighting effect that helps bring depth and focus to your app's interactive elements.
 
 ![Reveal](/docs/RevealFluent.gif)
 
