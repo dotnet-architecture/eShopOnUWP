@@ -102,27 +102,30 @@ namespace eShop.UWP.ViewModels
                 return;
             }
 
-            ApplySelection(args.AddedItems, true);
-            ApplySelection(args.RemovedItems, false);
+            if (Items != null)
+            {
+                ApplySelection(args.AddedItems, true);
+                ApplySelection(args.RemovedItems, false);
 
-            int count = Items.Count(r => r.IsSelected);
-            if (count == 0)
-            {
-                IsCommandBarOpen = false;
-                Mode = ListCommandBarMode.Idle;
-            }
-            else if (count < Items.Count)
-            {
-                IsCommandBarOpen = true;
-                Mode = ListCommandBarMode.ItemsSelected;
-            }
-            else
-            {
-                IsCommandBarOpen = true;
-                Mode = ListCommandBarMode.AllSelected;
-            }
+                int count = Items.Count(r => r.IsSelected);
+                if (count == 0)
+                {
+                    IsCommandBarOpen = false;
+                    Mode = ListCommandBarMode.Idle;
+                }
+                else if (count < Items.Count)
+                {
+                    IsCommandBarOpen = true;
+                    Mode = ListCommandBarMode.ItemsSelected;
+                }
+                else
+                {
+                    IsCommandBarOpen = true;
+                    Mode = ListCommandBarMode.AllSelected;
+                }
 
-            UpdateCommandBar();
+                UpdateCommandBar();
+            }
         }
 
         private void OnSelectAll()

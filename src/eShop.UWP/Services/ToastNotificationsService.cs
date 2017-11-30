@@ -35,7 +35,7 @@ namespace eShop.UWP.Services
                     return new ActivationState(typeof(ItemDetailViewModel), new ItemDetailState(item));
                 }
             }
-            return null;
+            return new ActivationState(typeof(CatalogViewModel), new CatalogState());
         }
 
         private static ToastContent GenerateToastContent(string title, CatalogItemModel item)

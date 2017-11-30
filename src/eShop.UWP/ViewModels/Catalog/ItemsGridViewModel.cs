@@ -97,38 +97,41 @@ namespace eShop.UWP.ViewModels
         {
             _cancelOnSelectionChanged = true;
 
-            BarItems.Clear();
-            foreach (var item in Items.Where(r => r.IsSelected))
+            if (Items != null)
             {
-                BarItems.Add(item);
-            }
-
-            int selectedCount = Items.Count(r => r.IsSelected);
-            if (selectedCount > 0)
-            {
-                // Set SelectionMode = Multiple before selecting items
-                SelectionMode = ListViewSelectionMode.Multiple;
-                if (selectedCount < Items.Count)
+                BarItems.Clear();
+                foreach (var item in Items.Where(r => r.IsSelected))
                 {
-                    foreach (var item in Items)
+                    BarItems.Add(item);
+                }
+
+                int selectedCount = Items.Count(r => r.IsSelected);
+                if (selectedCount > 0)
+                {
+                    // Set SelectionMode = Multiple before selecting items
+                    SelectionMode = ListViewSelectionMode.Multiple;
+                    if (selectedCount < Items.Count)
                     {
-                        if (ItemsControl.ContainerFromItem(item) is GridViewItem container)
+                        foreach (var item in Items)
                         {
-                            container.IsSelected = item.IsSelected;
+                            if (ItemsControl.ContainerFromItem(item) is GridViewItem container)
+                            {
+                                container.IsSelected = item.IsSelected;
+                            }
                         }
+                    }
+                    else
+                    {
+                        SelecteAll();
                     }
                 }
                 else
                 {
-                    SelecteAll();
+                    Mode = GridCommandBarMode.Idle;
+                    DeselectAll();
                 }
+                UpdateCommandBar();
             }
-            else
-            {
-                Mode = GridCommandBarMode.Idle;
-                DeselectAll();
-            }
-            UpdateCommandBar();
 
             _cancelOnSelectionChanged = false;
         }
