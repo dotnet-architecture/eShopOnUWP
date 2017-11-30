@@ -157,7 +157,10 @@ namespace eShop.UWP.ViewModels
 
         private void NavigateToCatalogSearch(AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-            NavigationService.Navigate(typeof(CatalogViewModel).FullName, new CatalogState(args.QueryText));
+            if (!String.IsNullOrEmpty(args.QueryText))
+            {
+                NavigationService.Navigate(typeof(CatalogViewModel).FullName, new CatalogState(args.QueryText));
+            }
         }
 
         private void NavigateToNewCatalogItem(NavigationItemModel navigationItem)
