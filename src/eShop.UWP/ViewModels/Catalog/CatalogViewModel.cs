@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
+using Microsoft.Practices.ServiceLocation;
+
 using eShop.UWP.Models;
 using eShop.UWP.Helpers;
 using eShop.Providers;
@@ -12,12 +14,11 @@ namespace eShop.UWP.ViewModels
 {
     public class CatalogViewModel : CommonViewModel
     {
-        public CatalogViewModel(ICatalogProvider catalogProvider)
+        public CatalogViewModel()
         {
-            DataProvider = catalogProvider;
         }
 
-        public ICatalogProvider DataProvider { get; }
+        public ICatalogProvider DataProvider => ServiceLocator.Current.GetInstance<ICatalogProvider>();
 
         public CatalogState State { get; private set; }
 

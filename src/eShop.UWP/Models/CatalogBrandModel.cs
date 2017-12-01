@@ -41,5 +41,10 @@ namespace eShop.UWP.Models
             }
             return false;
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace eShop.UWP.Views
         public CatalogView()
         {
             InitializeComponent();
-            DataContext = new CatalogViewModel(new CatalogProvider());
+            DataContext = new CatalogViewModel();
         }
 
         public CatalogViewModel ViewModel => DataContext as CatalogViewModel;

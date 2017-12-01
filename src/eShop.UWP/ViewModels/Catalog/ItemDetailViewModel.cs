@@ -5,6 +5,8 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
+using Microsoft.Practices.ServiceLocation;
+
 using GalaSoft.MvvmLight.Command;
 
 using eShop.Providers;
@@ -16,16 +18,13 @@ namespace eShop.UWP.ViewModels
 {
     public class ItemDetailViewModel : CommonViewModel
     {
-        public ItemDetailViewModel(ICatalogProvider catalogProvider)
+        public ItemDetailViewModel()
         {
-            DataProvider = catalogProvider;
         }
 
-        public ICatalogProvider DataProvider { get; }
+        public ICatalogProvider DataProvider => ServiceLocator.Current.GetInstance<ICatalogProvider>();
 
         public ItemDetailState State { get; private set; }
-
-        public string CatalogImage => Item.CatalogType?.ImageUrl;
 
         private IList<CatalogTypeModel> _catalogTypes = null;
         public IList<CatalogTypeModel> CatalogTypes

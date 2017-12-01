@@ -28,7 +28,14 @@ namespace eShop.UWP.Models
             set { Set(ref _name, value); }
         }
 
-        public string ImageUrl => $"ms-appx:///Assets/CatalogTypes/CatalogType{Id}.jpg";
+        public string ImageUrl
+        {
+            get
+            {
+                int id = Id <= 4 ? Id : 0;
+                return $"ms-appx:///Assets/CatalogTypes/CatalogType{id}.jpg";
+            }
+        }
 
         public override int GetHashCode()
         {
@@ -42,6 +49,11 @@ namespace eShop.UWP.Models
                 return instance.Id == Id;
             }
             return false;
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }

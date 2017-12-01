@@ -1,6 +1,5 @@
 ﻿<Page
     x:Class="eShop.UWP.Views.ItemDetailView"
-    DataContext="{Binding ItemDetailViewModel, Source={StaticResource Locator}}"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -38,13 +37,11 @@
                             </Grid.ColumnDefinitions>
                             <StackPanel Margin="0" Grid.Column="0">
                                 <TextBlock Text="Catalog Type" LineHeight="20" Foreground="{ThemeResource SystemAccentColor}" />
-                                <ComboBox ItemsSource="{Binding CatalogTypes}" BorderThickness="0,0,0,1" HorizontalAlignment="Stretch"
-                                      SelectedValue="{Binding Item.CatalogType.Id, Mode=TwoWay}" SelectedValuePath="Id" DisplayMemberPath="Name" />
+                                <ComboBox ItemsSource="{Binding CatalogTypes}" BorderThickness="0,0,0,1" HorizontalAlignment="Stretch" SelectedValue="{Binding Item.CatalogType, Mode=TwoWay}" />
                             </StackPanel>
                             <StackPanel Margin="16,0,0,0" Grid.Column="1">
                                 <TextBlock Text="Catalog Brand" LineHeight="20" Foreground="{ThemeResource SystemAccentColor}" />
-                                <ComboBox ItemsSource="{Binding CatalogBrands}" BorderThickness="0,0,0,1" HorizontalAlignment="Stretch"
-                                      SelectedValue="{Binding Item.CatalogBrand.Id, Mode=TwoWay}" SelectedValuePath="Id" DisplayMemberPath="Name" />
+                                <ComboBox ItemsSource="{Binding CatalogBrands}" BorderThickness="0,0,0,1" HorizontalAlignment="Stretch" SelectedValue="{Binding Item.CatalogBrand, Mode=TwoWay}" />
                             </StackPanel>
                         </Grid>
                     </StackPanel>
@@ -64,7 +61,7 @@
 
         <Grid x:Name="header" Height="340" VerticalAlignment="Top" IsHitTestVisible="False" Opacity="1.0">
             <Grid x:Name="headerOffset">
-                <Image x:Name="background" Source="{Binding CatalogImage}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <Image x:Name="background" Source="{Binding Item.CatalogType.ImageUrl}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 <Grid>
                     <Grid.Background>
                         <controls:BackdropBlurBrush x:Name="brush" />
