@@ -64,7 +64,7 @@
 
         <Grid x:Name="header" Height="340" VerticalAlignment="Top" IsHitTestVisible="False" Opacity="1.0">
             <Grid x:Name="headerOffset">
-                <Image x:Name="background" Source="ms-appx:///Assets/Images/T-Shirts.jpg" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <Image x:Name="background" Source="{Binding CatalogImage}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 <Grid>
                     <Grid.Background>
                         <controls:BackdropBlurBrush x:Name="brush" />

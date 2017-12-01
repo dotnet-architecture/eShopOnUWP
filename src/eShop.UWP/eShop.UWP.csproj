@@ -311,7 +311,11 @@
     <Content Include="Assets\Icons\Brand.png" />
     <Content Include="Assets\Images\BackgroundPhoto.jpg" />
     <Content Include="Assets\Images\LoginLogo.png" />
-    <Content Include="Assets\Images\T-Shirts.jpg" />
+    <Content Include="Assets\CatalogTypes\CatalogType1.jpg" />
+    <Content Include="Assets\CatalogTypes\CatalogType0.jpg" />
+    <Content Include="Assets\CatalogTypes\CatalogType2.jpg" />
+    <Content Include="Assets\CatalogTypes\CatalogType3.jpg" />
+    <Content Include="Assets\CatalogTypes\CatalogType4.jpg" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />

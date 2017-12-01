@@ -25,6 +25,8 @@ namespace eShop.UWP.ViewModels
 
         public ItemDetailState State { get; private set; }
 
+        public string CatalogImage => Item.CatalogType?.ImageUrl;
+
         private IList<CatalogTypeModel> _catalogTypes = null;
         public IList<CatalogTypeModel> CatalogTypes
         {

@@ -28,6 +28,8 @@ namespace eShop.UWP.Models
             set { Set(ref _name, value); }
         }
 
+        public string ImageUrl => $"ms-appx:///Assets/CatalogTypes/CatalogType{Id}.jpg";
+
         public override int GetHashCode()
         {
             return Id;
