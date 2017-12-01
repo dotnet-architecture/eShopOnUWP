@@ -210,7 +210,7 @@ namespace eShop.UWP.ViewModels
         {
             if (await KeyCredentialManager.IsSupportedAsync())
             {
-                if (await DialogBox.ShowAsync("Windows Hello", "Your device supports Windows Hello and you can use it to authenticate with the app.\r\n\r\nDo you want to enable Windows Hello for your next sign in?", "Ok", "Maybe later"))
+                if (await DialogBox.ShowAsync("Windows Hello", "Your device supports Windows Hello and you can use it to authenticate with the app.\r\n\r\nDo you want to enable Windows Hello for your next sign in with this user?", "Ok", "Maybe later"))
                 {
                     await SetupWindowsHelloAsync(userName);
                 }
