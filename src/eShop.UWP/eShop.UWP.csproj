@@ -133,13 +133,15 @@
     <Compile Include="Authentication\AuthenticationService.cs" />
     <Compile Include="Authentication\ContactHelper.cs" />
     <Compile Include="Common\ContentTypes.cs" />
-    <Compile Include="Common\DialogBox.cs" />
     <Compile Include="Common\ImagePicker.cs" />
     <Compile Include="Common\IShell.cs" />
     <Compile Include="Common\Result.cs" />
     <Compile Include="Common\FileStorage.cs" />
     <Compile Include="Common\ViewState.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Controls\DialogBox.xaml.cs">
+      <DependentUpon>DialogBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ToggleButtonControl.cs" />
     <Compile Include="DataProviders\Contracts\IOrdersProvider.cs" />
     <Compile Include="DataProviders\OrdersProvider.cs" />
@@ -311,7 +313,11 @@
     <Content Include="Assets\Icons\Brand.png" />
     <Content Include="Assets\Images\BackgroundPhoto.jpg" />
     <Content Include="Assets\Images\LoginLogo.png" />
-    <Content Include="Assets\Images\T-Shirts.jpg" />
+    <Content Include="Assets\CatalogTypes\CatalogType1.jpg" />
+    <Content Include="Assets\CatalogTypes\CatalogType0.jpg" />
+    <Content Include="Assets\CatalogTypes\CatalogType2.jpg" />
+    <Content Include="Assets\CatalogTypes\CatalogType3.jpg" />
+    <Content Include="Assets\CatalogTypes\CatalogType4.jpg" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
@@ -343,6 +349,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\CompositionShadow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\DialogBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

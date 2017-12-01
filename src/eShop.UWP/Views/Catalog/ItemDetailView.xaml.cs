@@ -9,6 +9,7 @@ using Windows.UI.Xaml.Media.Animation;
 
 using eShop.UWP.ViewModels;
 using eShop.UWP.Animations;
+using eShop.Providers;
 
 namespace eShop.UWP.Views
 {
@@ -16,8 +17,9 @@ namespace eShop.UWP.Views
     {
         public ItemDetailView()
         {
-            this.InitializeComponent();
-            this.Loaded += OnLoaded;
+            InitializeComponent();
+            DataContext = new ItemDetailViewModel();
+            Loaded += OnLoaded;
         }
 
         public ItemDetailViewModel ViewModel => DataContext as ItemDetailViewModel;
