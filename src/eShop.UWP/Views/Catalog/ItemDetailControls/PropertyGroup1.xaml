@@ -1,0 +1,31 @@
+﻿<UserControl
+    x:Class="eShop.UWP.Views.PropertyGroup1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:eShop.UWP.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="300">
+
+    <StackPanel VerticalAlignment="Top">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <controls:LabelTextBox Label="Name" Text="{Binding Item.Name, Mode=TwoWay}" />
+            <controls:LabelTextBox Grid.Column="2" Label="Price" Text="{Binding Item.Price, Mode=TwoWay}" TextAlignment="Right" />
+        </Grid>
+        <Border Margin="6" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <controls:LabelComboBox Grid.Column="0" Label="Type" ItemsSource="{Binding CatalogTypes}" SelectedValue="{Binding Item.CatalogType, Mode=TwoWay}" />
+            <controls:LabelComboBox Grid.Column="2" Label="Brand" ItemsSource="{Binding CatalogBrands}" SelectedValue="{Binding Item.CatalogBrand, Mode=TwoWay}" />
+        </Grid>
+    </StackPanel>
+</UserControl>

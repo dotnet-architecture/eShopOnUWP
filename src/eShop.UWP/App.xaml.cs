@@ -24,7 +24,7 @@ namespace eShop.UWP
             _activationService = new Lazy<ActivationService>(CreateActivationService);
 
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
-            ApplicationView.PreferredLaunchViewSize = new Size(1280, 768);
+            ApplicationView.PreferredLaunchViewSize = new Size(1280, 840);
 
             HockeyClient.Current.Configure(Constants.HockeyAppID);
         }
@@ -46,7 +46,8 @@ namespace eShop.UWP
 
         private ActivationService CreateActivationService()
         {
-            return new ActivationService(this, typeof(LoginViewModel), new ActivationState(typeof(CatalogViewModel), new CatalogState()));
+            //return new ActivationService(this, typeof(LoginViewModel), new ActivationState(typeof(CatalogViewModel), new CatalogState()));
+            return new ActivationService(this, typeof(ShellViewModel), new ActivationState(typeof(CatalogViewModel), new CatalogState()));
         }
     }
 }

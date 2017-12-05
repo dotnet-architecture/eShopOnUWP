@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Linq;
-using System.Collections.Generic;
 
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Hosting;
+
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Animation;
 
 using eShop.UWP.ViewModels;
@@ -29,18 +28,18 @@ namespace eShop.UWP.Views
         {
             base.OnNavigatedTo(e);
 
-            PrepareAnimations();
+            ApplyAnimations();
 
             var state = (e.Parameter as ItemDetailState) ?? new ItemDetailState();
             await ViewModel.LoadAsync(state);
         }
 
-        private void OnLoaded(object sender, RoutedEventArgs e)
+        private void OnLoaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             var imageAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("ItemSelected");
             if (imageAnimation != null)
             {
-                imageAnimation.TryStart(picture, new UIElement[] { group1, group2 });
+                imageAnimation.TryStart(pictureContainer, new UIElement[] { itemContainer });
             }
         }
 
@@ -55,24 +54,31 @@ namespace eShop.UWP.Views
             await ViewModel.UnloadAsync();
         }
 
-        private void PrepareAnimations()
+        private void ApplyAnimations()
         {
-            float top = 338;
-
             var compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
             var scrollerPropertySet = ElementCompositionPreview.GetScrollViewerManipulationPropertySet(scrollViewer);
 
-            brush.BlurAmountExpression = compositor.CreateExpressionWrapper("Clamp(scroller.Translation.Y * parallaxFactor, 0, 200/10)")
+            var anim = compositor.CreateScalarKeyFrameAnimation();
+            anim.InsertKeyFrame(0.0f, -340.0f);
+            anim.InsertKeyFrame(1.0f, 0.0f);
+            anim.Duration = TimeSpan.FromSeconds(0.250);
+            ElementCompositionPreview.GetElementVisual(headerOffset).StartAnimation("Offset.Y", anim);
+
+            brush.BlurAmountExpression = compositor.CreateExpressionWrapper("Clamp(scroller.Translation.Y * parallaxFactor, 0, 360/10)")
                 .Parameter("scroller", scrollerPropertySet)
                 .Parameter("parallaxFactor", -0.05f)
                 .Expression;
 
-            ElementCompositionPreview.SetIsTranslationEnabled(header, true);
+            compositor.CreateExpressionWrapper("Clamp(scroller.Translation.Y * parallaxFactor, -360/2, 0)")
+                .Parameter("scroller", scrollerPropertySet)
+                .Parameter("parallaxFactor", 0.25f)
+                .Start(header, "Offset.Y");
 
-            scrollViewer.StopElementAtOffset(header, 200);
-            scrollViewer.StopElementAtOffset(picture, top);
-            scrollViewer.StopElementAtOffset(group1, 200);
-            scrollViewer.StopElementAtOffset(aside, top);
+            compositor.CreateExpressionWrapper("Lerp(0, -300, scroller.Translation.Y * parallaxFactor / -340.0)")
+                .Parameter("scroller", scrollerPropertySet)
+                .Parameter("parallaxFactor", 0.5f)
+                .Start(pictureContainer, "Offset.Y");
         }
     }
 }

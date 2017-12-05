@@ -11,6 +11,7 @@ namespace eShop.UWP.Models
     {
         public CatalogItemModel(int id = 0) : this(new CatalogItem { Id = id })
         {
+            CatalogType = new CatalogTypeModel();
         }
         public CatalogItemModel(CatalogItem source)
         {

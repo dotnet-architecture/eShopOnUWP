@@ -142,10 +142,13 @@
     <Compile Include="Controls\DialogBox.xaml.cs">
       <DependentUpon>DialogBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\LabelComboBox.cs" />
+    <Compile Include="Controls\LabelTextBox.cs" />
     <Compile Include="Controls\ToggleButtonControl.cs" />
     <Compile Include="DataProviders\Contracts\IOrdersProvider.cs" />
     <Compile Include="DataProviders\OrdersProvider.cs" />
     <Compile Include="Extensions\AnimationExtensions.cs" />
+    <Compile Include="Extensions\ScrollViewerExtensions.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Activation\ActivationService.cs" />
     <Compile Include="Services\Cortana\BackgroundVoiceCommandService.cs" />
@@ -171,6 +174,21 @@
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\Catalog\CatalogView.xaml.cs">
       <DependentUpon>CatalogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalog\ItemDetailControls\PivotProperties.xaml.cs">
+      <DependentUpon>PivotProperties.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalog\ItemDetailControls\PropertyGroup1.xaml.cs">
+      <DependentUpon>PropertyGroup1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalog\ItemDetailControls\PropertyGroup2.xaml.cs">
+      <DependentUpon>PropertyGroup2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalog\ItemDetailControls\RelatedItems.xaml.cs">
+      <DependentUpon>RelatedItems.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalog\ItemDetailControls\SideProperties.xaml.cs">
+      <DependentUpon>SideProperties.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Catalog\ItemDetailView.xaml.cs">
       <DependentUpon>ItemDetailView.xaml</DependentUpon>
@@ -424,7 +442,31 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Catalog\CatalogView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Catalog\ItemDetailControls\PivotProperties.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Catalog\ItemDetailControls\PropertyGroup1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Catalog\ItemDetailControls\PropertyGroup2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Catalog\ItemDetailControls\RelatedItems.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Catalog\ItemDetailControls\SideProperties.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

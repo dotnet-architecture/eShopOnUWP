@@ -1,0 +1,38 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:eShop.UWP.Controls">
+
+    <Style TargetType="controls:LabelTextBox" >
+        <Setter Property="Foreground" Value="Gray" />
+        <Setter Property="BorderBrush" Value="LightGray" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:LabelTextBox">
+                    <Grid>
+                        <TextBox Padding="6,24,6,6" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, Mode=TwoWay}" AcceptsReturn="{TemplateBinding AcceptsReturn}" TextWrapping="{TemplateBinding TextWrapping}"
+                                 FontSize="16" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" TextAlignment="{TemplateBinding TextAlignment}" />
+                        <TextBlock Padding="6,4" Text="{TemplateBinding Label}" FontSize="14" Typography.Capitals="SmallCaps" Foreground="{TemplateBinding Foreground}" IsHitTestVisible="False" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="controls:LabelComboBox" >
+        <Setter Property="Foreground" Value="Gray" />
+        <Setter Property="BorderBrush" Value="LightGray" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:LabelComboBox">
+                    <Grid>
+                        <ComboBox Padding="6,24,6,7" ItemsSource="{TemplateBinding ItemsSource}" SelectedValue="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SelectedValue, Mode=TwoWay}" FontSize="16" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" HorizontalAlignment="Stretch" />
+                        <TextBlock Padding="6,4" Text="{TemplateBinding Label}" FontSize="14" Typography.Capitals="SmallCaps" Foreground="{TemplateBinding Foreground}" IsHitTestVisible="False" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

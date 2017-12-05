@@ -4,87 +4,64 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
+    xmlns:views="using:eShop.UWP.Views"
     xmlns:controls="using:eShop.UWP.Controls"
-    mc:Ignorable="d">
+    mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="800">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="WhiteSmoke">
         <ScrollViewer x:Name="scrollViewer">
-            <Grid Margin="320,360,40,20">
-                <StackPanel>
-                    <StackPanel x:Name="itemContainer">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="338"/>
+                    <RowDefinition Height="146"/>
+                    <RowDefinition Height="134"/>
+                    <RowDefinition Height="180"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="324"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <!--Pivot Properties-->
+                <views:PivotProperties Grid.Row="3" Grid.Column="1" Margin="0,0,12,0" />
+
+                <!--Related Items-->
+                <views:RelatedItems Grid.Row="4" Grid.Column="1" Margin="0,0,12,36" />
+
+                <!--PropertyGroup 2-->
+                <Grid  x:Name="group2" Grid.Row="2" Grid.Column="1" Padding="0,0,12,12" Background="WhiteSmoke">
+                    <views:PropertyGroup2 />
+                </Grid>
+
+                <!--PropertyGroup 1-->
+                <Grid x:Name="group1" Grid.Row="1" Grid.Column="1" Padding="0,12,12,12" Background="WhiteSmoke">
+                    <views:PropertyGroup1 />
+                </Grid>
+
+                <!--Header-->
+                <Grid x:Name="header" Grid.Row="0" Grid.ColumnSpan="2"  Background="WhiteSmoke">
+                    <Image Source="{Binding Item.CatalogType.ImageUrl}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <Grid>
+                        <Grid.Background>
+                            <controls:BackdropBlurBrush x:Name="brush" />
+                        </Grid.Background>
+                    </Grid>
+                </Grid>
+
+                <!--Item Picture-->
+                <Border x:Name="picture" Grid.Row="1" Grid.RowSpan="2" Margin="12" BorderBrush="LightGray" BorderThickness="1" Width="300" Height="256" HorizontalAlignment="Left">
+                    <Button Padding="0" Background="Transparent" BorderThickness="0" Command="{Binding SelectPictureCommand}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
                         <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="1*"/>
-                            </Grid.ColumnDefinitions>
-
-                            <StackPanel>
-                                <TextBlock Text="Name" LineHeight="20" Foreground="{ThemeResource SystemAccentColor}" />
-                                <TextBox Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" BorderThickness="0,0,0,1" />
-                            </StackPanel>
-                            <StackPanel Margin="16,0,0,0" Grid.Column="1">
-                                <TextBlock Text="Price" LineHeight="20" Foreground="{ThemeResource SystemAccentColor}" />
-                                <TextBox extensions:TextBoxRegex.ValidationType="Decimal" extensions:TextBoxRegex.ValidationMode="Forced" Text="{Binding Item.PriceString, Mode=TwoWay}" FontSize="20" BorderThickness="0,0,0,1" />
-                            </StackPanel>
+                            <Image Source="{Binding Item.PictureUri}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Grid>
+                    </Button>
+                </Border>
 
-                        <Grid Margin="0,16">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <StackPanel Margin="0" Grid.Column="0">
-                                <TextBlock Text="Catalog Type" LineHeight="20" Foreground="{ThemeResource SystemAccentColor}" />
-                                <ComboBox ItemsSource="{Binding CatalogTypes}" BorderThickness="0,0,0,1" HorizontalAlignment="Stretch" SelectedValue="{Binding Item.CatalogType, Mode=TwoWay}" />
-                            </StackPanel>
-                            <StackPanel Margin="16,0,0,0" Grid.Column="1">
-                                <TextBlock Text="Catalog Brand" LineHeight="20" Foreground="{ThemeResource SystemAccentColor}" />
-                                <ComboBox ItemsSource="{Binding CatalogBrands}" BorderThickness="0,0,0,1" HorizontalAlignment="Stretch" SelectedValue="{Binding Item.CatalogBrand, Mode=TwoWay}" />
-                            </StackPanel>
-                        </Grid>
-                    </StackPanel>
-
-                    <StackPanel>
-                        <TextBlock Text="Description" LineHeight="20" Foreground="{ThemeResource SystemAccentColor}" />
-                        <TextBox Text="{Binding Item.Description, Mode=TwoWay}" FontSize="15" TextWrapping="Wrap" AcceptsReturn="True" BorderThickness="0,0,0,1" />
-                        <Border Margin="16" />
-                    </StackPanel>
-
-                    <TextBlock Text="Related Items" FontSize="28" LineHeight="60" Foreground="Gray" />
-                    <toolkit:AdaptiveGridView x:Name="gridView" ItemsSource="{Binding RelatedItems}" ItemTemplate="{StaticResource CatalogItemSmall}"
-                                              StretchContentForSingleRow="False" DesiredWidth="150" ItemHeight="150" />
-                </StackPanel>
+                <!--Aside-->
+                <views:SideProperties x:Name="aside" Grid.Row="3" Grid.RowSpan="2" Margin="12,0,12,36" />
             </Grid>
         </ScrollViewer>
-
-        <Grid x:Name="header" Height="340" VerticalAlignment="Top" IsHitTestVisible="False" Opacity="1.0">
-            <Grid x:Name="headerOffset">
-                <Image x:Name="background" Source="{Binding Item.CatalogType.ImageUrl}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                <Grid>
-                    <Grid.Background>
-                        <controls:BackdropBlurBrush x:Name="brush" />
-                    </Grid.Background>
-                </Grid>
-            </Grid>
-            <TextBlock Margin="24,12" Text="{Binding Item.Name}" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="28" Foreground="#eee" />
-        </Grid>
-
-        <Grid x:Name="pictureContainer">
-            <Grid Margin="12,354,12,0" Padding="8" BorderBrush="#eee" BorderThickness="0" Background="White" Width="300" Height="300" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Button Padding="0" Background="Transparent" BorderThickness="0" Command="{Binding SelectPictureCommand}">
-                    <Grid>
-                        <Viewbox>
-                            <SymbolIcon Margin="12" Symbol="BrowsePhotos" Foreground="LightGray" />
-                        </Viewbox>
-                        <Border BorderBrush="#eee" BorderThickness="1">
-                            <Image x:Name="picture" Source="{Binding Item.PictureUri}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        </Border>
-                    </Grid>
-                </Button>
-            </Grid>
-        </Grid>
 
         <CommandBar IsOpen="{Binding IsCommandBarOpen, Mode=TwoWay}" IsSticky="True" ClosedDisplayMode="Minimal" VerticalAlignment="Bottom" IsDynamicOverflowEnabled="False" RequestedTheme="Dark" Style="{StaticResource CommandBarRevealStyle}" >
             <AppBarButton Icon="Delete" Label="Delete" Command="{Binding DeleteCommand}" Visibility="{Binding IsDeleteVisible, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource AppBarButtonRevealStyle}" />
