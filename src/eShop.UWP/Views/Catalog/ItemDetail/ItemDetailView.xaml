@@ -50,9 +50,10 @@
                 </Grid>
 
                 <!--Item Picture-->
-                <Border x:Name="picture" Grid.Row="1" Grid.RowSpan="2" Margin="12" BorderBrush="LightGray" BorderThickness="1" Width="300" Height="256" HorizontalAlignment="Left">
-                    <Button Padding="0" Background="Transparent" BorderThickness="0" Command="{Binding SelectPictureCommand}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                <Border x:Name="picture" Grid.Row="1" Grid.RowSpan="2" Margin="12" BorderBrush="LightGray" BorderThickness="1" HorizontalAlignment="Left">
+                    <Button Padding="0" Background="Transparent" BorderThickness="1" Width="298" Height="254" Command="{Binding SelectPictureCommand}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
                         <Grid>
+                            <FontIcon Glyph="&#xEB9F;" FontSize="120" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="DarkGray" />
                             <Image Source="{Binding Item.PictureUri}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Grid>
                     </Button>
