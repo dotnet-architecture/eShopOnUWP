@@ -7,6 +7,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Composition;
 
 using eShop.UWP.ViewModels;
 using eShop.UWP.Animations;
@@ -57,8 +58,6 @@ namespace eShop.UWP.Views
 
         private void PrepareAnimations()
         {
-            float top = 338;
-
             var compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
             var scrollerPropertySet = ElementCompositionPreview.GetScrollViewerManipulationPropertySet(scrollViewer);
 
@@ -67,12 +66,12 @@ namespace eShop.UWP.Views
                 .Parameter("parallaxFactor", -0.05f)
                 .Expression;
 
-            ElementCompositionPreview.SetIsTranslationEnabled(header, true);
+            headerImage.TranslateY(250, -338, 0);
 
             scrollViewer.StopElementAtOffset(header, 200);
-            scrollViewer.StopElementAtOffset(picture, top);
+            scrollViewer.StopElementAtOffset(picture, 338);
             scrollViewer.StopElementAtOffset(group1, 200);
-            scrollViewer.StopElementAtOffset(aside, top);
+            scrollViewer.StopElementAtOffset(aside, 338);
         }
     }
 }

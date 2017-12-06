@@ -10,22 +10,36 @@ namespace eShop.UWP.Animations
 {
     static public class AnimationExtensions
     {
-        static public void Fade(this UIElement element, double milliseconds, double start, double end)
+        static public void Fade(this UIElement element, double milliseconds, double start, double end, CompositionEasingFunction easingFunction = null)
         {
-            element.StartAnimation(nameof(Visual.Opacity), CreateScalarAnimation(milliseconds, start, end));
+            element.StartAnimation(nameof(Visual.Opacity), CreateScalarAnimation(milliseconds, start, end, easingFunction));
         }
 
-        static public void Scale(this FrameworkElement element, double milliseconds, double start, double end)
+        static public void TranslateX(this UIElement element, double milliseconds, double start, double end, CompositionEasingFunction easingFunction = null)
+        {
+            ElementCompositionPreview.SetIsTranslationEnabled(element, true);
+            element.StartAnimation("Translation.X", CreateScalarAnimation(milliseconds, start, end, easingFunction));
+        }
+
+        static public void TranslateY(this UIElement element, double milliseconds, double start, double end, CompositionEasingFunction easingFunction = null)
+        {
+            ElementCompositionPreview.SetIsTranslationEnabled(element, true);
+            element.StartAnimation("Translation.Y", CreateScalarAnimation(milliseconds, start, end, easingFunction));
+        }
+
+        static public void Scale(this FrameworkElement element, double milliseconds, double start, double end, CompositionEasingFunction easingFunction = null)
         {
             element.SetCenterPoint(element.ActualWidth / 2.0, element.ActualHeight / 2.0);
-            element.StartAnimation(nameof(Visual.Scale), CreateScaleAnimation(milliseconds, start, end));
+            var vectorStart = new Vector3((float)start, (float)start, 0);
+            var vectorEnd = new Vector3((float)end, (float)end, 0);
+            element.StartAnimation(nameof(Visual.Scale), CreateVector3Animation(milliseconds, vectorStart, vectorEnd, easingFunction));
         }
 
-        static public void Blur(this UIElement element, double milliseconds, double start, double end)
+        static public void Blur(this UIElement element, double milliseconds, double start, double end, CompositionEasingFunction easingFunction = null)
         {
             var brush = CreateBlurEffectBrush();
             element.SetBrush(brush);
-            brush.StartAnimation("Blur.BlurAmount", CreateScalarAnimation(milliseconds, start, end));
+            brush.StartAnimation("Blur.BlurAmount", CreateScalarAnimation(milliseconds, start, end, easingFunction));
         }
 
         static public void SetBrush(this UIElement element, CompositionBrush brush)
@@ -62,20 +76,20 @@ namespace eShop.UWP.Animations
             visual.StartAnimation(propertyName, animation);
         }
 
-        static public CompositionAnimation CreateScalarAnimation(double milliseconds, double start, double end)
+        static public CompositionAnimation CreateScalarAnimation(double milliseconds, double start, double end, CompositionEasingFunction easingFunction = null)
         {
             var animation = Window.Current.Compositor.CreateScalarKeyFrameAnimation();
-            animation.InsertKeyFrame(0.0f, (float)start);
-            animation.InsertKeyFrame(1.0f, (float)end);
+            animation.InsertKeyFrame(0.0f, (float)start, easingFunction);
+            animation.InsertKeyFrame(1.0f, (float)end, easingFunction);
             animation.Duration = TimeSpan.FromMilliseconds(milliseconds);
             return animation;
         }
 
-        static public CompositionAnimation CreateScaleAnimation(double milliseconds, double start, double end)
+        static public CompositionAnimation CreateVector3Animation(double milliseconds, Vector3 start, Vector3 end, CompositionEasingFunction easingFunction = null)
         {
             var animation = Window.Current.Compositor.CreateVector3KeyFrameAnimation();
-            animation.InsertKeyFrame(0.0f, new Vector3((float)start, (float)start, 0));
-            animation.InsertKeyFrame(1.0f, new Vector3((float)end, (float)end, 0));
+            animation.InsertKeyFrame(0.0f, start);
+            animation.InsertKeyFrame(1.0f, end);
             animation.Duration = TimeSpan.FromMilliseconds(milliseconds);
             return animation;
         }

@@ -41,7 +41,7 @@
 
                 <!--Header-->
                 <Grid x:Name="header" Grid.Row="0" Grid.ColumnSpan="2"  Background="WhiteSmoke">
-                    <Image Source="{Binding Item.CatalogType.ImageUrl}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <Image x:Name="headerImage" Source="{Binding Item.CatalogType.ImageUrl}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     <Grid>
                         <Grid.Background>
                             <controls:BackdropBlurBrush x:Name="brush" />
