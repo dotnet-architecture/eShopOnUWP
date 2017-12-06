@@ -7,7 +7,7 @@ using eShop.Providers;
 
 namespace eShop.UWP.Models
 {
-    public class CatalogItemModel : ObservableObject
+    public partial class CatalogItemModel : ObservableObject
     {
         public CatalogItemModel(int id = 0) : this(new CatalogItem { Id = id })
         {
@@ -41,7 +41,7 @@ namespace eShop.UWP.Models
         public double Price
         {
             get { return _price; }
-            set { Set(ref _price, value); RaisePropertyChanged("PriceDesc"); }
+            set { Set(ref _price, value); RaisePropertyChanged("PriceDesc"); UpdateDiscountValue(); }
         }
 
         public string PriceDesc => $"${Price.ToString("0.00")}";

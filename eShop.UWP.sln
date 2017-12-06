@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShop.SqlProvider", "src\eS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShop.ClassicWPF", "src\eShop.ClassicWPF\eShop.ClassicWPF.csproj", "{4579B270-03E3-4F57-BF7C-8B191400E4C6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projects", "Projects", "{ACD058B0-0509-4927-AEA9-B36F3D5264AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,6 +98,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{338C74E3-7538-4C23-8955-7BDC5103A0D1} = {ACD058B0-0509-4927-AEA9-B36F3D5264AB}
+		{3795A9F7-5F55-4391-9828-AFE6940C4B5A} = {ACD058B0-0509-4927-AEA9-B36F3D5264AB}
+		{4579B270-03E3-4F57-BF7C-8B191400E4C6} = {ACD058B0-0509-4927-AEA9-B36F3D5264AB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1F21538D-009B-4C56-AF08-DB851E5BCB75}

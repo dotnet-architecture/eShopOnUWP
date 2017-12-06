@@ -143,12 +143,14 @@
       <DependentUpon>DialogBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\LabelComboBox.cs" />
+    <Compile Include="Controls\LabelTextBlock.cs" />
     <Compile Include="Controls\LabelTextBox.cs" />
     <Compile Include="Controls\ToggleButtonControl.cs" />
     <Compile Include="DataProviders\Contracts\IOrdersProvider.cs" />
     <Compile Include="DataProviders\OrdersProvider.cs" />
     <Compile Include="Extensions\AnimationExtensions.cs" />
     <Compile Include="Extensions\ScrollViewerExtensions.cs" />
+    <Compile Include="Models\CatalogItem\CatalogItemModel.Discount.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Activation\ActivationService.cs" />
     <Compile Include="Services\Cortana\BackgroundVoiceCommandService.cs" />
@@ -249,7 +251,7 @@
     <Compile Include="Helpers\Resources.cs" />
     <Compile Include="Helpers\Singleton.cs" />
     <Compile Include="Models\CatalogBrandModel.cs" />
-    <Compile Include="Models\CatalogItemModel.cs" />
+    <Compile Include="Models\CatalogItem\CatalogItemModel.cs" />
     <Compile Include="Models\CatalogTypeModel.cs" />
     <Compile Include="Models\NavigationItemModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
