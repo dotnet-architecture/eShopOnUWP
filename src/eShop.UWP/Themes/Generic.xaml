@@ -28,7 +28,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="controls:LabelComboBox">
                     <Grid>
-                        <ComboBox Padding="6,24,6,7" ItemsSource="{TemplateBinding ItemsSource}" SelectedValue="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SelectedValue, Mode=TwoWay}" FontSize="16" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" HorizontalAlignment="Stretch" />
+                        <ComboBox Padding="6,24,6,7" ItemsSource="{TemplateBinding ItemsSource}" SelectedValue="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SelectedValue, Mode=TwoWay}"
+                                  FontSize="16" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" HorizontalAlignment="Stretch" />
                         <TextBlock Padding="6,4" Text="{TemplateBinding Label}" FontSize="14" Typography.Capitals="SmallCaps" Foreground="{TemplateBinding Foreground}" IsHitTestVisible="False" />
                     </Grid>
                 </ControlTemplate>

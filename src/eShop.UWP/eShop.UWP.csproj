@@ -175,22 +175,22 @@
     <Compile Include="Views\Catalog\CatalogView.xaml.cs">
       <DependentUpon>CatalogView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Catalog\ItemDetailControls\PivotProperties.xaml.cs">
+    <Compile Include="Views\Catalog\ItemDetail\PivotProperties.xaml.cs">
       <DependentUpon>PivotProperties.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Catalog\ItemDetailControls\PropertyGroup1.xaml.cs">
+    <Compile Include="Views\Catalog\ItemDetail\PropertyGroup1.xaml.cs">
       <DependentUpon>PropertyGroup1.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Catalog\ItemDetailControls\PropertyGroup2.xaml.cs">
+    <Compile Include="Views\Catalog\ItemDetail\PropertyGroup2.xaml.cs">
       <DependentUpon>PropertyGroup2.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Catalog\ItemDetailControls\RelatedItems.xaml.cs">
+    <Compile Include="Views\Catalog\ItemDetail\RelatedItems.xaml.cs">
       <DependentUpon>RelatedItems.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Catalog\ItemDetailControls\SideProperties.xaml.cs">
+    <Compile Include="Views\Catalog\ItemDetail\SideProperties.xaml.cs">
       <DependentUpon>SideProperties.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Catalog\ItemDetailView.xaml.cs">
+    <Compile Include="Views\Catalog\ItemDetail\ItemDetailView.xaml.cs">
       <DependentUpon>ItemDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Catalog\ItemsGridView.xaml.cs">
@@ -450,27 +450,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Catalog\ItemDetailControls\PivotProperties.xaml">
+    <Page Include="Views\Catalog\ItemDetail\PivotProperties.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Catalog\ItemDetailControls\PropertyGroup1.xaml">
+    <Page Include="Views\Catalog\ItemDetail\PropertyGroup1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Catalog\ItemDetailControls\PropertyGroup2.xaml">
+    <Page Include="Views\Catalog\ItemDetail\PropertyGroup2.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Catalog\ItemDetailControls\RelatedItems.xaml">
+    <Page Include="Views\Catalog\ItemDetail\RelatedItems.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Catalog\ItemDetailControls\SideProperties.xaml">
+    <Page Include="Views\Catalog\ItemDetail\SideProperties.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Catalog\ItemDetailView.xaml">
+    <Page Include="Views\Catalog\ItemDetail\ItemDetailView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

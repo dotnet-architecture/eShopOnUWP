@@ -24,7 +24,10 @@
                 <ColumnDefinition Width="12"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <controls:LabelComboBox Grid.Column="0" Label="Type" ItemsSource="{Binding CatalogTypes}" SelectedValue="{Binding Item.CatalogType, Mode=TwoWay}" />
+            <Grid>
+                <ComboBox Padding="6,24,6,7" ItemsSource="{Binding CatalogTypes}" SelectedValue="{Binding Item.CatalogType, Mode=TwoWay}" FontSize="16" BorderThickness="1" BorderBrush="LightGray" HorizontalAlignment="Stretch" />
+                <TextBlock Padding="6,4" Text="Type" FontSize="14" Typography.Capitals="SmallCaps" Foreground="Gray" IsHitTestVisible="False" />
+            </Grid>
             <controls:LabelComboBox Grid.Column="2" Label="Brand" ItemsSource="{Binding CatalogBrands}" SelectedValue="{Binding Item.CatalogBrand, Mode=TwoWay}" />
         </Grid>
     </StackPanel>
