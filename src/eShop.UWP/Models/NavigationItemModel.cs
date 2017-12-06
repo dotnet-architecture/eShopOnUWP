@@ -8,12 +8,19 @@ namespace eShop.UWP.Models
 {
     public class NavigationItemModel : ObservableObject
     {
-        public NavigationItemModel(Symbol symbol, string label, string key)
+        public NavigationItemModel(string label, string key)
         {
-            Icon = new SymbolIcon(symbol);
             Content = label;
             Key = key;
             Execute = null;
+        }
+        public NavigationItemModel(Symbol symbol, string label, string key) : this(label, key)
+        {
+            Icon = new SymbolIcon(symbol);
+        }
+        public NavigationItemModel(int glyph, string label, string key) : this(label, key)
+        {
+            Icon = new FontIcon { Glyph = Char.ConvertFromUtf32(glyph).ToString() };
         }
 
         public IconElement Icon { get; set; }

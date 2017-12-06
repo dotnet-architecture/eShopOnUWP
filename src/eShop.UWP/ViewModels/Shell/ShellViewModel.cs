@@ -103,7 +103,7 @@ namespace eShop.UWP.ViewModels
         private IEnumerable<NavigationItemModel> GetMenuItems()
         {
             yield return new NavigationItemModel(Symbol.Shop, "Main Catalog", typeof(CatalogViewModel).FullName) { Execute = NavigateToCatalog };
-            yield return new NavigationItemModel(Symbol.TwoBars, "Statistics & Charts", typeof(StatisticsViewModel).FullName);
+            yield return new NavigationItemModel(0xEB05, "Statistics & Charts", typeof(StatisticsViewModel).FullName);
             yield return new NavigationItemModel(Symbol.Add, "Add New Item", typeof(ItemDetailViewModel).FullName) { Execute = NavigateToNewCatalogItem };
         }
 
