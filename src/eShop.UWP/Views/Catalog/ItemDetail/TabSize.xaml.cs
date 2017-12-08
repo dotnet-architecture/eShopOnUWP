@@ -3,13 +3,17 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
+using eShop.UWP.ViewModels;
+
 namespace eShop.UWP.Views
 {
-    public sealed partial class PivotProperties : UserControl
+    public sealed partial class TabSize : UserControl
     {
-        public PivotProperties()
+        public TabSize()
         {
             this.InitializeComponent();
         }
+
+        public ItemDetailViewModel ViewModel { get; set; }
     }
 }

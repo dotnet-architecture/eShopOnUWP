@@ -1,0 +1,56 @@
+﻿<UserControl
+    x:Class="eShop.UWP.Views.TabDiscount"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:eShop.UWP.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="140">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="12"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="12"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="12"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="12"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--Discount-->
+        <CheckBox x:Name="discountCheck" Content="Enable Discount" IsChecked="{x:Bind ViewModel.Item.IsDiscountEnabled, Mode=TwoWay}" />
+        <Slider x:Name="discountSlider" Grid.Row="0" Grid.Column="2" Margin="48,0,12,-6" TickFrequency="10" TickPlacement="Outside" SmallChange="5" VerticalAlignment="Center"
+                Value="{x:Bind ViewModel.Item.DiscountPercent, Mode=TwoWay}" Visibility="{x:Bind (x:Boolean) discountCheck.IsChecked, Mode=OneWay}" />
+        <TextBlock Grid.Row="0" Grid.Column="2" Text="{x:Bind discountSlider.Value, Mode=OneWay}" Visibility="{x:Bind discountCheck.IsChecked, Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Center" />
+
+        <!--Date From-->
+        <CheckBox x:Name="fromCheck" Grid.Row="2" Grid.Column="0" IsChecked="{x:Bind ViewModel.Item.IsDiscountFromEnabled, Mode=TwoWay}" Visibility="{x:Bind discountCheck.IsChecked, Mode=OneWay}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="From" />
+                <controls:CalendarDatePickerEx x:Name="dateFrom" Margin="0,-5,12,0" BorderThickness="0" Date="{x:Bind ViewModel.Item.DateFrom, Mode=TwoWay}"
+                                               Max="{x:Bind dateUntil.Date, Mode=OneWay}" Visibility="{x:Bind fromCheck.IsChecked, Mode=OneWay}" />
+            </StackPanel>
+        </CheckBox>
+
+        <!--Date Until-->
+        <CheckBox x:Name="untilCheck" Grid.Row="2" Grid.Column="2" IsChecked="{x:Bind ViewModel.Item.IsDiscountUntilEnabled, Mode=TwoWay}" Visibility="{x:Bind discountCheck.IsChecked, Mode=OneWay}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Until" />
+                <controls:CalendarDatePickerEx x:Name="dateUntil" Margin="0,-5,12,0" BorderThickness="0" Date="{x:Bind ViewModel.Item.DateUntil, Mode=TwoWay}"
+                                               Min="{x:Bind dateFrom.Date, Mode=OneWay}" Visibility="{x:Bind untilCheck.IsChecked, Mode=OneWay}" />
+            </StackPanel>
+        </CheckBox>
+
+        <!--Price Values-->
+        <controls:LabelTextBlock Grid.Row="0" Grid.Column="4" Height="40" BorderThickness="1" TextAlignment="Right" FontSize="20" Foreground="OrangeRed"
+                                 Label="Discount" Text="{x:Bind ViewModel.Item.DiscountValue, Mode=OneWay}" IsEnabled="{x:Bind (x:Boolean) discountCheck.IsChecked, Mode=OneWay}" />
+        <controls:LabelTextBlock Grid.Row="2" Grid.Column="4" Height="40" BorderThickness="1" TextAlignment="Right" FontSize="20" Foreground="RoyalBlue"
+                                 Label="Final Price" Text="{x:Bind ViewModel.Item.FinalPrice, Mode=OneWay}" />
+    </Grid>
+</UserControl>

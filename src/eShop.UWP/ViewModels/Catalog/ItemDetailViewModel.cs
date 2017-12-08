@@ -26,6 +26,8 @@ namespace eShop.UWP.ViewModels
 
         public ItemDetailState State { get; private set; }
 
+        public bool IsNewItem => Item?.Id == 0;
+
         private IList<CatalogTypeModel> _catalogTypes = null;
         public IList<CatalogTypeModel> CatalogTypes
         {

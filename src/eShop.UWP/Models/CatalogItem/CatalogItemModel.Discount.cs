@@ -8,59 +8,59 @@ namespace eShop.UWP.Models
         public bool IsDiscountEnabled
         {
             get { return _isDiscountEnabled; }
-            set { Set(ref _isDiscountEnabled, value); UpdateFinalPrice(); }
+            set { Set(ref _isDiscountEnabled, value); UpdateDiscount(); }
         }
 
         private double _discountPercent;
         public double DiscountPercent
         {
             get { return _discountPercent; }
-            set { if (Set(ref _discountPercent, value)) UpdateDiscountValue(); }
+            set { Set(ref _discountPercent, value); UpdateDiscount(); }
         }
 
-        private double _discountValue;
-        public double DiscountValue
+        public double DiscountValue => IsDiscountEnabled ? -Math.Round(Price * (DiscountPercent / 100.0), 2) : 0;
+
+        public double FinalPrice => Price + DiscountValue;
+
+        private void UpdateDiscount()
         {
-            get { return _discountValue; }
-            set { if (Set(ref _discountValue, value)) UpdateDiscountPercent(); }
+            RaisePropertyChanged(nameof(DiscountValue));
+            RaisePropertyChanged(nameof(FinalPrice));
         }
 
-        private double _finalPrice;
-        public double FinalPrice
+
+        private bool _isDiscountFromEnabled;
+        public bool IsDiscountFromEnabled
         {
-            get { return _finalPrice; }
-            set { Set(ref _finalPrice, value); }
+            get { return _isDiscountFromEnabled; }
+            set { Set(ref _isDiscountFromEnabled, value); UpdateDiscountDates(); }
         }
 
-        private void UpdateDiscountPercent()
+        private bool _isDiscountUntilEnabled;
+        public bool IsDiscountUntilEnabled
         {
-            if (Price > 0.0)
-            {
-                DiscountPercent = Math.Round(100 * (DiscountValue / Price), 2);
-            }
-            else
-            {
-                DiscountPercent = 0.0;
-            }
-            UpdateFinalPrice();
+            get { return _isDiscountUntilEnabled; }
+            set { Set(ref _isDiscountUntilEnabled, value); UpdateDiscountDates(); }
         }
 
-        private void UpdateDiscountValue()
+        private DateTimeOffset? _dateFrom;
+        public DateTimeOffset? DateFrom
         {
-            DiscountValue = Math.Round(Price * (DiscountPercent / 100.0), 2);
-            UpdateFinalPrice();
+            get { return _dateFrom; }
+            set { Set(ref _dateFrom, value); }
         }
 
-        private void UpdateFinalPrice()
+        private DateTimeOffset? _dateUntil;
+        public DateTimeOffset? DateUntil
         {
-            if (IsDiscountEnabled)
-            {
-                FinalPrice = Price - DiscountValue;
-            }
-            else
-            {
-                FinalPrice = Price;
-            }
+            get { return _dateUntil; }
+            set { Set(ref _dateUntil, value); }
+        }
+
+        private void UpdateDiscountDates()
+        {
+            DateFrom = IsDiscountFromEnabled ? DateFrom : null;
+            DateUntil = IsDiscountUntilEnabled ? DateUntil : null;
         }
     }
 }

@@ -5,7 +5,7 @@
     xmlns:controls="using:eShop.UWP.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="300">
+    mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="140">
 
     <StackPanel VerticalAlignment="Top">
         <Grid>
@@ -14,8 +14,8 @@
                 <ColumnDefinition Width="12"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <controls:LabelTextBox Label="Name" Text="{Binding Item.Name, Mode=TwoWay}" />
-            <controls:LabelTextBox Grid.Column="2" Label="Price" Text="{Binding Item.Price, Mode=TwoWay}" TextAlignment="Right" />
+            <controls:LabelTextBox Label="Name" Text="{x:Bind ViewModel.Item.Name, Mode=TwoWay}" />
+            <controls:LabelTextBox Grid.Column="2" Label="Price" Text="{x:Bind ViewModel.Item.Price, Mode=TwoWay}" TextAlignment="Right" />
         </Grid>
         <Border Margin="6" />
         <Grid>
@@ -25,10 +25,10 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid>
-                <ComboBox Padding="6,24,6,7" ItemsSource="{Binding CatalogTypes}" SelectedValue="{Binding Item.CatalogType, Mode=TwoWay}" FontSize="16" BorderThickness="1" BorderBrush="LightGray" HorizontalAlignment="Stretch" />
+                <ComboBox Padding="6,24,6,7" ItemsSource="{x:Bind ViewModel.CatalogTypes}" SelectedValue="{x:Bind ViewModel.Item.CatalogType, Mode=TwoWay}" FontSize="16" BorderThickness="1" BorderBrush="LightGray" HorizontalAlignment="Stretch" />
                 <TextBlock Padding="6,4" Text="Type" FontSize="14" Typography.Capitals="SmallCaps" Foreground="Gray" IsHitTestVisible="False" />
             </Grid>
-            <controls:LabelComboBox Grid.Column="2" Label="Brand" ItemsSource="{Binding CatalogBrands}" SelectedValue="{Binding Item.CatalogBrand, Mode=TwoWay}" />
+            <controls:LabelComboBox Grid.Column="2" Label="Brand" ItemsSource="{x:Bind ViewModel.CatalogBrands}" SelectedValue="{x:Bind ViewModel.Item.CatalogBrand, Mode=TwoWay}" />
         </Grid>
     </StackPanel>
 </UserControl>

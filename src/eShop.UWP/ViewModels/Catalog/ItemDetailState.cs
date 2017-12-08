@@ -6,9 +6,9 @@ namespace eShop.UWP.ViewModels
 {
     public class ItemDetailState : ViewState
     {
-        public ItemDetailState()
+        public ItemDetailState(int id = 0)
         {
-            Item = null;
+            Item = new CatalogItemModel(id);
         }
         public ItemDetailState(CatalogItemModel item) : this()
         {

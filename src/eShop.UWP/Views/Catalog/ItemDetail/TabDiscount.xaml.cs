@@ -7,13 +7,19 @@ using eShop.UWP.ViewModels;
 
 namespace eShop.UWP.Views
 {
-    public sealed partial class PropertyGroup2 : UserControl
+    public sealed partial class TabDiscount : UserControl
     {
-        public PropertyGroup2()
+        public TabDiscount()
         {
             this.InitializeComponent();
+
+            var date = dateFrom.MinDate;
+            var date2 = dateFrom.MaxDate;
+
         }
 
         public ItemDetailViewModel ViewModel { get; set; }
+
+        public UIHelper Helper => UIHelper.Current;
     }
 }

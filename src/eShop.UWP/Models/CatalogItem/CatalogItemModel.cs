@@ -11,7 +11,6 @@ namespace eShop.UWP.Models
     {
         public CatalogItemModel(int id = 0) : this(new CatalogItem { Id = id })
         {
-            CatalogType = new CatalogTypeModel();
         }
         public CatalogItemModel(CatalogItem source)
         {
@@ -41,7 +40,7 @@ namespace eShop.UWP.Models
         public double Price
         {
             get { return _price; }
-            set { Set(ref _price, value); RaisePropertyChanged("PriceDesc"); UpdateDiscountValue(); }
+            set { Set(ref _price, value); RaisePropertyChanged("PriceDesc"); }
         }
 
         public string PriceDesc => $"${Price.ToString("0.00")}";
@@ -66,7 +65,7 @@ namespace eShop.UWP.Models
         private string _pictureUri;
         public string PictureUri
         {
-            get { return _pictureUri; }
+            get { return _pictureUri ?? " "; }
             set { Set(ref _pictureUri, value); }
         }
 
@@ -141,6 +140,11 @@ namespace eShop.UWP.Models
             CatalogType = CatalogProvider.GetCatalogType(source.CatalogTypeId) ?? new CatalogTypeModel();
             CatalogBrand = CatalogProvider.GetCatalogBrand(source.CatalogBrandId) ?? new CatalogBrandModel();
             IsDisabled = source.IsDisabled;
+
+            IsMultipleSizes = true;
+            IsSizeS = true;
+            IsSizeM = true;
+            IsSizeL = true;
         }
 
         public void Commit()

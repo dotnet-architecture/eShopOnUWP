@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Linq;
-using System.Collections.Generic;
 
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Media.Animation;
-using Windows.UI.Composition;
 
 using eShop.UWP.ViewModels;
 using eShop.UWP.Animations;
-using eShop.Providers;
 
 namespace eShop.UWP.Views
 {
@@ -20,11 +16,14 @@ namespace eShop.UWP.Views
         public ItemDetailView()
         {
             InitializeComponent();
-            DataContext = new ItemDetailViewModel();
+            ViewModel = new ItemDetailViewModel();
+            DataContext = ViewModel;
             Loaded += OnLoaded;
         }
 
-        public ItemDetailViewModel ViewModel => DataContext as ItemDetailViewModel;
+        public ItemDetailViewModel ViewModel { get; private set; }
+
+        public UIHelper Helper => UIHelper.Current;
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -34,6 +33,8 @@ namespace eShop.UWP.Views
 
             var state = (e.Parameter as ItemDetailState) ?? new ItemDetailState();
             await ViewModel.LoadAsync(state);
+
+            Bindings.Update();
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)

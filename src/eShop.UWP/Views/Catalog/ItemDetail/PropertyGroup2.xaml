@@ -5,9 +5,9 @@
     xmlns:controls="using:eShop.UWP.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="300">
+    mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="140">
 
     <Grid>
-        <controls:LabelTextBox Label="Description" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding Item.Description, Mode=TwoWay}" />
+        <controls:LabelTextBox Label="Description" AcceptsReturn="True" TextWrapping="Wrap" Text="{x:Bind ViewModel.Item.Description, Mode=TwoWay}" />
     </Grid>
 </UserControl>

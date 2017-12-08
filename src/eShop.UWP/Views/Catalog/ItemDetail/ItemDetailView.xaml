@@ -24,24 +24,31 @@
                 </Grid.ColumnDefinitions>
 
                 <!--Pivot Properties-->
-                <views:PivotProperties Grid.Row="3" Grid.Column="1" Margin="0,0,12,0" />
+                <Pivot Grid.Row="3" Grid.Column="1" Margin="0,0,12,0" BorderBrush="LightGray" BorderThickness="1" Background="White">
+                    <PivotItem Header="Item Discount">
+                        <views:TabDiscount ViewModel="{x:Bind ViewModel}" />
+                    </PivotItem>
+                    <PivotItem Header="Item Size">
+                        <views:TabSize ViewModel="{x:Bind ViewModel}" />
+                    </PivotItem>
+                </Pivot>
 
                 <!--Related Items-->
-                <views:RelatedItems Grid.Row="4" Grid.Column="1" Margin="0,0,12,36" />
+                <views:RelatedItems Grid.Row="4" Grid.Column="1" Margin="0,0,12,36" ViewModel="{x:Bind ViewModel}" Visibility="{x:Bind Helper.Collapsed(ViewModel.IsNewItem)}" />
 
                 <!--PropertyGroup 2-->
                 <Grid  x:Name="group2" Grid.Row="2" Grid.Column="1" Padding="0,0,12,12" Background="WhiteSmoke">
-                    <views:PropertyGroup2 />
+                    <views:PropertyGroup2 ViewModel="{x:Bind ViewModel}" />
                 </Grid>
 
                 <!--PropertyGroup 1-->
                 <Grid x:Name="group1" Grid.Row="1" Grid.Column="1" Padding="0,12,12,12" Background="WhiteSmoke">
-                    <views:PropertyGroup1 />
+                    <views:PropertyGroup1 ViewModel="{x:Bind ViewModel}" />
                 </Grid>
 
                 <!--Header-->
                 <Grid x:Name="header" Grid.Row="0" Grid.ColumnSpan="2"  Background="WhiteSmoke">
-                    <Image x:Name="headerImage" Source="{Binding Item.CatalogType.ImageUrl}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <Image x:Name="headerImage" Source="{x:Bind ViewModel.Item.CatalogType.ImageUrl, Mode=OneWay}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     <Grid>
                         <Grid.Background>
                             <controls:BackdropBlurBrush x:Name="brush" />
@@ -51,10 +58,10 @@
 
                 <!--Item Picture-->
                 <Border x:Name="picture" Grid.Row="1" Grid.RowSpan="2" Margin="12" BorderBrush="LightGray" BorderThickness="1" HorizontalAlignment="Left">
-                    <Button Padding="0" Background="Transparent" BorderThickness="1" Width="298" Height="254" Command="{Binding SelectPictureCommand}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                    <Button Padding="0" Background="Transparent" BorderThickness="1" Width="298" Height="254" Command="{x:Bind ViewModel.SelectPictureCommand}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
                         <Grid>
                             <FontIcon Glyph="&#xEB9F;" FontSize="120" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="DarkGray" />
-                            <Image Source="{Binding Item.PictureUri}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <Image Source="{x:Bind ViewModel.Item.PictureUri, Mode=OneWay}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Grid>
                     </Button>
                 </Border>
@@ -64,10 +71,10 @@
             </Grid>
         </ScrollViewer>
 
-        <CommandBar IsOpen="{Binding IsCommandBarOpen, Mode=TwoWay}" IsSticky="True" ClosedDisplayMode="Minimal" VerticalAlignment="Bottom" IsDynamicOverflowEnabled="False" RequestedTheme="Dark" Style="{StaticResource CommandBarRevealStyle}" >
-            <AppBarButton Icon="Delete" Label="Delete" Command="{Binding DeleteCommand}" Visibility="{Binding IsDeleteVisible, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource AppBarButtonRevealStyle}" />
-            <AppBarSeparator Visibility="{Binding IsSeparatorVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
-            <AppBarButton Icon="Save" Label="Save" Command="{Binding SaveCommand}" Visibility="{Binding IsSaveVisible, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource AppBarButtonRevealStyle}" />
+        <CommandBar IsOpen="{x:Bind ViewModel.IsCommandBarOpen, Mode=TwoWay}" IsSticky="True" ClosedDisplayMode="Minimal" VerticalAlignment="Bottom" IsDynamicOverflowEnabled="False" RequestedTheme="Dark" Style="{StaticResource CommandBarRevealStyle}" >
+            <AppBarButton Icon="Delete" Label="Delete" Command="{x:Bind ViewModel.DeleteCommand}" Visibility="{x:Bind ViewModel.IsDeleteVisible, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource AppBarButtonRevealStyle}" />
+            <AppBarSeparator Visibility="{x:Bind ViewModel.IsSeparatorVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+            <AppBarButton Icon="Save" Label="Save" Command="{x:Bind ViewModel.SaveCommand}" Visibility="{x:Bind ViewModel.IsSaveVisible, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource AppBarButtonRevealStyle}" />
         </CommandBar>
     </Grid>
 </Page>

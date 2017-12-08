@@ -137,8 +137,10 @@
     <Compile Include="Common\IShell.cs" />
     <Compile Include="Common\Result.cs" />
     <Compile Include="Common\FileStorage.cs" />
+    <Compile Include="Common\UIHelper.cs" />
     <Compile Include="Common\ViewState.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Controls\CalendarDatePickerEx.cs" />
     <Compile Include="Controls\DialogBox.xaml.cs">
       <DependentUpon>DialogBox.xaml</DependentUpon>
     </Compile>
@@ -150,6 +152,7 @@
     <Compile Include="DataProviders\OrdersProvider.cs" />
     <Compile Include="Extensions\AnimationExtensions.cs" />
     <Compile Include="Extensions\ScrollViewerExtensions.cs" />
+    <Compile Include="Models\CatalogItem\CatalogItemModel.Size.cs" />
     <Compile Include="Models\CatalogItem\CatalogItemModel.Discount.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Activation\ActivationService.cs" />
@@ -176,9 +179,6 @@
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\Catalog\CatalogView.xaml.cs">
       <DependentUpon>CatalogView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Catalog\ItemDetail\PivotProperties.xaml.cs">
-      <DependentUpon>PivotProperties.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Catalog\ItemDetail\PropertyGroup1.xaml.cs">
       <DependentUpon>PropertyGroup1.xaml</DependentUpon>
@@ -218,6 +218,12 @@
     </Compile>
     <Compile Include="Views\StatisticsView.xaml.cs">
       <DependentUpon>StatisticsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalog\ItemDetail\TabDiscount.xaml.cs">
+      <DependentUpon>TabDiscount.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalog\ItemDetail\TabSize.xaml.cs">
+      <DependentUpon>TabSize.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -452,10 +458,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Catalog\ItemDetail\PivotProperties.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\Catalog\ItemDetail\PropertyGroup1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -505,6 +507,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\StatisticsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Catalog\ItemDetail\TabDiscount.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Catalog\ItemDetail\TabSize.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

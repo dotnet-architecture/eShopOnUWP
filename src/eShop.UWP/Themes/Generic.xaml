@@ -13,8 +13,7 @@
                     <Grid>
                         <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" />
                         <TextBlock Padding="6" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, Mode=TwoWay}" TextWrapping="{TemplateBinding TextWrapping}"
-                                   FontSize="{TemplateBinding FontSize}" TextAlignment="{TemplateBinding TextAlignment}" VerticalAlignment="Center"
-                                   Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsEnabled, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                   FontSize="{TemplateBinding FontSize}" TextAlignment="{TemplateBinding TextAlignment}" VerticalAlignment="Center" />
                         <TextBlock Padding="6,4" Text="{TemplateBinding Label}" FontSize="14" Foreground="Gray" Typography.Capitals="SmallCaps" />
                     </Grid>
                 </ControlTemplate>
