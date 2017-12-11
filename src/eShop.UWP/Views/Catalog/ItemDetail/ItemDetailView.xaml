@@ -57,7 +57,7 @@
                 </Grid>
 
                 <!--Item Picture-->
-                <Border x:Name="picture" Grid.Row="1" Grid.RowSpan="2" Margin="12" BorderBrush="LightGray" BorderThickness="1" HorizontalAlignment="Left">
+                <Border x:Name="picture" Grid.Row="1" Grid.RowSpan="2" Margin="12" BorderBrush="LightGray" BorderThickness="1" HorizontalAlignment="Left" Background="White">
                     <Button Padding="0" Background="Transparent" BorderThickness="1" Width="298" Height="254" Command="{x:Bind ViewModel.SelectPictureCommand}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
                         <Grid>
                             <FontIcon Glyph="&#xEB9F;" FontSize="120" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="DarkGray" />

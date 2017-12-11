@@ -35,19 +35,26 @@ namespace eShop.UWP
         {
             if (!args.PrelaunchActivated)
             {
+                SetPreferredMinSize();
                 await ActivationService.ActivateAsync(args);
             }
         }
 
         protected override async void OnActivated(IActivatedEventArgs args)
         {
+            SetPreferredMinSize();
             await ActivationService.ActivateAsync(args);
+        }
+
+        private void SetPreferredMinSize()
+        {
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(500, 500));
         }
 
         private ActivationService CreateActivationService()
         {
-            //return new ActivationService(this, typeof(LoginViewModel), new ActivationState(typeof(CatalogViewModel), new CatalogState()));
-            return new ActivationService(this, typeof(ShellViewModel), new ActivationState(typeof(CatalogViewModel), new CatalogState()));
+            return new ActivationService(this, typeof(LoginViewModel), new ActivationState(typeof(CatalogViewModel), new CatalogState()));
+            //return new ActivationService(this, typeof(ShellViewModel), new ActivationState(typeof(CatalogViewModel), new CatalogState()));
             //return new ActivationService(this, typeof(ShellViewModel), new ActivationState(typeof(ItemDetailViewModel), new ItemDetailState(102002)));
         }
     }
