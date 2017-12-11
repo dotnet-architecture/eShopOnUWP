@@ -143,11 +143,11 @@ namespace eShop.UWP.ViewModels
             {
                 return Result.Error("Validation error", "Name cannot be null.");
             }
-            if (Item.CatalogType.Id < 1)
+            if (Item.CatalogType == null || Item.CatalogType.Id < 1)
             {
                 return Result.Error("Validation error", "Catalog type cannot be empty.");
             }
-            if (Item.CatalogBrand.Id < 1)
+            if (Item.CatalogBrand == null || Item.CatalogBrand.Id < 1)
             {
                 return Result.Error("Validation error", "Catalog brand cannot be empty.");
             }

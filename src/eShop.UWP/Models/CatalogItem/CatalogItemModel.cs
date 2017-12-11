@@ -40,7 +40,7 @@ namespace eShop.UWP.Models
         public double Price
         {
             get { return _price; }
-            set { Set(ref _price, value); RaisePropertyChanged("PriceDesc"); }
+            set { Set(ref _price, value); RaisePropertyChanged("PriceDesc"); UpdateDiscount(); }
         }
 
         public string PriceDesc => $"${Price.ToString("0.00")}";
