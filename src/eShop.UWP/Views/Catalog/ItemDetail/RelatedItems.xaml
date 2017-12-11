@@ -15,7 +15,7 @@
         <TextBlock Text="Related Items" FontSize="24" Foreground="Gray" />
         <Border Grid.Row="1" Margin="0,12,0,0" BorderBrush="LightGray" BorderThickness="1" Background="White">
             <toolkit:AdaptiveGridView x:Name="gridView" ItemsSource="{x:Bind ViewModel.RelatedItems}" ItemTemplate="{StaticResource CatalogItemSmall}"
-                                              StretchContentForSingleRow="False" DesiredWidth="150" ItemHeight="150" />
+                                              StretchContentForSingleRow="False" DesiredWidth="150" ItemHeight="150" IsItemClickEnabled="True" ItemClick="{x:Bind ViewModel.RelatedItemSelected}" />
         </Border>
     </Grid>
 </UserControl>

@@ -15,5 +15,10 @@ namespace eShop.UWP.Views
         }
 
         public ItemDetailViewModel ViewModel { get; set; }
+
+        private void gridView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
     }
 }

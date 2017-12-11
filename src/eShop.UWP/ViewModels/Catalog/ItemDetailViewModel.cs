@@ -5,6 +5,8 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
+using Windows.UI.Xaml.Controls;
+
 using Microsoft.Practices.ServiceLocation;
 
 using GalaSoft.MvvmLight.Command;
@@ -80,6 +82,14 @@ namespace eShop.UWP.ViewModels
         public ICommand DeleteCommand => new RelayCommand(OnDelete);
 
         public ICommand SelectPictureCommand => new RelayCommand(OnSelectPicture);
+
+        public void RelatedItemSelected(object sender, ItemClickEventArgs e)
+        {
+            if (e.ClickedItem is CatalogItemModel item)
+            {
+                ShellViewModel.NavigationService.Navigate(typeof(ItemDetailViewModel).FullName, new ItemDetailState(item));
+            }
+        }
 
         private async void OnSave()
         {
