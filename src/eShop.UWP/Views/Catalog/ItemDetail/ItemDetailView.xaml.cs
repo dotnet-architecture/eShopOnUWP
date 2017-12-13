@@ -35,6 +35,8 @@ namespace eShop.UWP.Views
             await ViewModel.LoadAsync(state);
 
             Bindings.Update();
+            propertyGroup1.UpdateBindings();
+            relatedItems.UpdateBindings();
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)

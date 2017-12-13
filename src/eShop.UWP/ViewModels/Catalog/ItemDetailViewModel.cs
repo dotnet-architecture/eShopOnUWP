@@ -37,11 +37,35 @@ namespace eShop.UWP.ViewModels
             set { Set(ref _catalogTypes, value); }
         }
 
+        public CatalogTypeModel CatalogType
+        {
+            get => Item?.CatalogType;
+            set
+            {
+                if (Item != null)
+                {
+                    Item.CatalogType = value;
+                }
+            }
+        }
+
         private IList<CatalogBrandModel> _catalogBrands = null;
         public IList<CatalogBrandModel> CatalogBrands
         {
             get { return _catalogBrands; }
             set { Set(ref _catalogBrands, value); }
+        }
+
+        public CatalogBrandModel CatalogBrand
+        {
+            get => Item?.CatalogBrand;
+            set
+            {
+                if (Item != null)
+                {
+                    Item.CatalogBrand = value;
+                }
+            }
         }
 
         public override bool AlwaysShowHeader => false;

@@ -34,7 +34,7 @@
                 </Pivot>
 
                 <!--Related Items-->
-                <views:RelatedItems Grid.Row="4" Grid.Column="1" Margin="0,0,12,36" ViewModel="{x:Bind ViewModel}" Visibility="{x:Bind Helper.Collapsed(ViewModel.IsNewItem)}" />
+                <views:RelatedItems x:Name="relatedItems" Grid.Row="4" Grid.Column="1" Margin="0,0,12,36" ViewModel="{x:Bind ViewModel}" Visibility="{x:Bind Helper.Collapsed(ViewModel.IsNewItem)}" />
 
                 <!--PropertyGroup 2-->
                 <Grid  x:Name="group2" Grid.Row="2" Grid.Column="1" Padding="0,0,12,12" Background="WhiteSmoke">
@@ -43,7 +43,7 @@
 
                 <!--PropertyGroup 1-->
                 <Grid x:Name="group1" Grid.Row="1" Grid.Column="1" Padding="0,12,12,12" Background="WhiteSmoke">
-                    <views:PropertyGroup1 ViewModel="{x:Bind ViewModel}" />
+                    <views:PropertyGroup1 x:Name="propertyGroup1" ViewModel="{x:Bind ViewModel}" />
                 </Grid>
 
                 <!--Header-->

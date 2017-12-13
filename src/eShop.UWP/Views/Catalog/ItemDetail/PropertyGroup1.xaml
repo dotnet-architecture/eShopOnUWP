@@ -24,11 +24,14 @@
                 <ColumnDefinition Width="12"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Grid>
-                <ComboBox Padding="6,24,6,7" ItemsSource="{x:Bind ViewModel.CatalogTypes}" SelectedValue="{x:Bind ViewModel.Item.CatalogType, Mode=TwoWay}" FontSize="16" BorderThickness="1" BorderBrush="LightGray" HorizontalAlignment="Stretch" />
+            <Grid Grid.Column="0">
+                <ComboBox Padding="6,24,6,7" ItemsSource="{x:Bind ViewModel.CatalogTypes}" SelectedValue="{x:Bind ViewModel.CatalogType, Mode=TwoWay}" FontSize="16" BorderThickness="1" BorderBrush="LightGray" HorizontalAlignment="Stretch" />
                 <TextBlock Padding="6,4" Text="Type" FontSize="14" Typography.Capitals="SmallCaps" Foreground="Gray" IsHitTestVisible="False" />
             </Grid>
-            <controls:LabelComboBox Grid.Column="2" Label="Brand" ItemsSource="{x:Bind ViewModel.CatalogBrands}" SelectedValue="{x:Bind ViewModel.Item.CatalogBrand, Mode=TwoWay}" />
+            <Grid Grid.Column="2">
+                <ComboBox Padding="6,24,6,7" ItemsSource="{x:Bind ViewModel.CatalogBrands}" SelectedValue="{x:Bind ViewModel.CatalogBrand, Mode=TwoWay}" FontSize="16" BorderThickness="1" BorderBrush="LightGray" HorizontalAlignment="Stretch" />
+                <TextBlock Padding="6,4" Text="Brand" FontSize="14" Typography.Capitals="SmallCaps" Foreground="Gray" IsHitTestVisible="False" />
+            </Grid>
         </Grid>
     </StackPanel>
 </UserControl>

@@ -12,12 +12,11 @@ namespace eShop.UWP.Views
         public PropertyGroup1()
         {
             InitializeComponent();
-            Loaded += OnLoaded;
         }
 
         public ItemDetailViewModel ViewModel { get; set; }
 
-        private void OnLoaded(object sender, RoutedEventArgs e)
+        public void UpdateBindings()
         {
             Bindings.Update();
         }
