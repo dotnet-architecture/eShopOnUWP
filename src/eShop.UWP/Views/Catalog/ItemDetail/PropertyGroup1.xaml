@@ -15,7 +15,11 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <controls:LabelTextBox Label="Name" Text="{x:Bind ViewModel.Item.Name, Mode=TwoWay}" />
-            <controls:LabelTextBox Grid.Column="2" Label="Price" Text="{x:Bind ViewModel.Item.Price, Mode=TwoWay}" TextAlignment="Right" />
+
+            <Grid Grid.Column="2">
+                <TextBox Padding="6,24,6,6"  Text="{x:Bind ViewModel.Item.PriceString, Mode=TwoWay}" TextAlignment="Right" FontSize="16" BorderThickness="1" BorderBrush="LightGray" />
+                <TextBlock Padding="6,4" Text="Price" FontSize="14" Typography.Capitals="SmallCaps" Foreground="Gray" IsHitTestVisible="False" />
+            </Grid>
         </Grid>
         <Border Margin="6" />
         <Grid>

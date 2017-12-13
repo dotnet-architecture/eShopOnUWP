@@ -48,7 +48,7 @@ namespace eShop.UWP.Models
         public string PriceString
         {
             get { return Price.ToString("0.00"); }
-            set { Price = ParseDecimal(value); }
+            set { Price = ParseDecimal(value); RaisePropertyChanged("PriceString"); }
         }
 
         private double ParseDecimal(string value)
