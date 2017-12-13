@@ -73,7 +73,7 @@ namespace eShop.UWP.ViewModels
         private CatalogItemModel _item;
         public CatalogItemModel Item
         {
-            get { return _item; }
+            get { return _item ?? new CatalogItemModel(); }
             set { Set(ref _item, value); }
         }
 
