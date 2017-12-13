@@ -23,17 +23,10 @@ namespace eShop.UWP
             return value == false ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        // TODO: Remove
-        //public DateTimeOffset NonNullable(DateTimeOffset? value)
-        //{
-        //    // CalendarDatePicker is using Addyears(-100) as MinValue
-        //    return value != null ? value.Value : DateTimeOffset.UtcNow.AddYears(-99);
-        //}
-
-        //public DateTimeOffset NonNullableMax(DateTimeOffset? value)
-        //{
-        //    // CalendarDatePicker is using Addyears(+100) as MaxValue
-        //    return value != null ? value.Value : DateTimeOffset.UtcNow.AddYears(+99);
-        //}
+        public string Currency(double? value)
+        {
+            value = value ?? 0;
+            return value.Value.ToString("0.00");
+        }
     }
 }
