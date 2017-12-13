@@ -17,16 +17,6 @@ namespace eShop.UWP.Services
             var voiceCommandService = SimpleIoc.Default.GetInstance<VoiceCommandService>();
             var filterByVoiceCommand = voiceCommandService.RunCommand(args);
 
-            // TODO: 
-            //if (IsAuthenticated)
-            //{
-            //    NavigationService.Navigate(typeof(ItemDetailViewModel).FullName, filterByVoiceCommand);
-            //}
-            //else
-            //{
-            //    NavigationService.Navigate(defaultNavItem.FullName, filterByVoiceCommand);
-            //}
-
             return Task.FromResult<ActivationState>(null);
         }
     }
