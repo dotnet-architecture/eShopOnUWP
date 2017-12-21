@@ -48,9 +48,9 @@
         </CheckBox>
 
         <!--Price Values-->
-        <controls:LabelTextBlock Grid.Row="0" Grid.Column="4" Height="40" BorderThickness="1" TextAlignment="Right" FontSize="20" Foreground="OrangeRed"
+        <controls:LabelTextBlock Grid.Row="0" Grid.Column="4" BorderThickness="1" TextAlignment="Right" FontSize="20" Foreground="OrangeRed"
                                  Label="Discount" Text="{x:Bind Helper.Currency(ViewModel.Item.DiscountValue), Mode=OneWay}" IsEnabled="{x:Bind (x:Boolean) discountCheck.IsChecked, Mode=OneWay}" />
-        <controls:LabelTextBlock Grid.Row="2" Grid.Column="4" Height="40" BorderThickness="1" TextAlignment="Right" FontSize="20" Foreground="RoyalBlue"
+        <controls:LabelTextBlock Grid.Row="2" Grid.Column="4" BorderThickness="1" TextAlignment="Right" FontSize="20" Foreground="RoyalBlue"
                                  Label="Final Price" Text="{x:Bind Helper.Currency(ViewModel.Item.FinalPrice), Mode=OneWay}" />
     </Grid>
 </UserControl>

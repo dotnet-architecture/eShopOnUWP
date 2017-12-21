@@ -1,0 +1,78 @@
+﻿<Page
+    x:Class="eShop.UWP.Views.ItemShareView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:eShop.UWP.Controls"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid Background="#e6e6e6" VerticalAlignment="Top">
+            <InkToolbar x:Name="inkToolbar" VerticalAlignment="Top" HorizontalAlignment="Left" TargetInkCanvas="{x:Bind inkCanvas}" />
+            <Button Padding="12,6" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right">
+                <StackPanel>
+                    <SymbolIcon Symbol="Share" />
+                    <TextBlock Text="Share" FontSize="12" />
+                </StackPanel>
+            </Button>
+        </Grid>
+
+        <Viewbox Margin="0,58,0,0" VerticalAlignment="Top">
+            <Grid>
+                <Grid BorderBrush="Gray" BorderThickness="0" Width="1024" Height="748">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Margin="12,0,0,0" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="WhiteSmoke" />
+
+                    <Grid Margin="24,12,12,12" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center">
+                        <TextBlock Text="{x:Bind ViewModel.Item.Name}" FontSize="32" />
+                    </Grid>
+
+                    <Grid Grid.Row="1" Grid.Column="0">
+                        <Grid Margin="24,12,12,12" Padding="0" BorderThickness="1" BorderBrush="LightGray" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Image Source="{x:Bind ViewModel.Item.PictureUri}" />
+                        </Grid>
+                    </Grid>
+
+                    <StackPanel Margin="12" Grid.Row="1" Grid.Column="1">
+                        <controls:LabelTextBlock Label="Type" Text="{x:Bind ViewModel.Item.CatalogType}" Foreground="Black" BorderThickness="0" />
+                        <Rectangle Height="6" />
+                        <controls:LabelTextBlock Label="Brand" Text="{x:Bind ViewModel.Item.CatalogBrand}" Foreground="Black" BorderThickness="0" />
+                        <Rectangle Height="6" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <controls:LabelTextBlock Grid.Column="0" Label="Price" Text="{x:Bind ViewModel.Item.Price}" Foreground="Black" BorderThickness="0" />
+                            <controls:LabelTextBlock Grid.Column="1" Label="Discount" Text="{x:Bind ViewModel.Item.DiscountValue}" Foreground="Black" BorderThickness="0" />
+                            <controls:LabelTextBlock Grid.Column="2" Label="Final Price" Text="{x:Bind ViewModel.Item.FinalPrice}" Foreground="Black" BorderThickness="0" />
+                        </Grid>
+                    </StackPanel>
+
+                    <Grid Margin="12" Grid.Row="2" Grid.ColumnSpan="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="12"/>
+                            <RowDefinition Height="120" />
+                        </Grid.RowDefinitions>
+
+                        <controls:LabelTextBlock Grid.Row="0" TextWrapping="WrapWholeWords" Label="Description" Text="{x:Bind ViewModel.Item.Description}" Foreground="Black" BorderThickness="0" />
+                        <controls:LabelTextBlock Grid.Row="2" Label="Notes" Foreground="Black" BorderThickness="1" Height="120" />
+                    </Grid>
+                </Grid>
+                <InkCanvas x:Name="inkCanvas" />
+            </Grid>
+        </Viewbox>
+    </Grid>
+</Page>

@@ -172,6 +172,8 @@
     <Compile Include="ViewModels\Catalog\ItemsGridViewModel.cs" />
     <Compile Include="ViewModels\Catalog\ItemsListViewModel.cs" />
     <Compile Include="ViewModels\CommonViewModel.cs" />
+    <Compile Include="ViewModels\Catalog\ItemShareViewModel.cs" />
+    <Compile Include="ViewModels\Catalog\ItemShareState.cs" />
     <Compile Include="ViewModels\Login\LoginViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\Shell\ShellViewModel.cs" />
@@ -197,6 +199,9 @@
     </Compile>
     <Compile Include="Views\Catalog\ItemsGridView.xaml.cs">
       <DependentUpon>ItemsGridView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalog\ItemShareView.xaml.cs">
+      <DependentUpon>ItemShareView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Catalog\ItemsListView.xaml.cs">
       <DependentUpon>ItemsListView.xaml</DependentUpon>
@@ -479,6 +484,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Catalog\ItemsGridView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Catalog\ItemShareView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

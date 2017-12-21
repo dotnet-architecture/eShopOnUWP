@@ -104,6 +104,7 @@ namespace eShop.UWP.ViewModels
 
         public ICommand SaveCommand => new RelayCommand(OnSave);
         public ICommand DeleteCommand => new RelayCommand(OnDelete);
+        public ICommand ShareCommand => new RelayCommand(OnShare);
 
         public ICommand SelectPictureCommand => new RelayCommand(OnSelectPicture);
 
@@ -157,6 +158,11 @@ namespace eShop.UWP.ViewModels
                     await DialogBox.ShowAsync("Error deleting item", ex);
                 }
             }
+        }
+
+        private void OnShare()
+        {
+            NavigationService.Navigate(typeof(Views.ItemShareView), new ItemShareState(Item));
         }
 
         private async void OnSelectPicture()

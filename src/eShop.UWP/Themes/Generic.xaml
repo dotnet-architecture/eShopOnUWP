@@ -4,17 +4,21 @@
     xmlns:controls="using:eShop.UWP.Controls">
 
     <Style TargetType="controls:LabelTextBlock" >
+        <Setter Property="FontSize" Value="18" />
         <Setter Property="Foreground" Value="Gray" />
         <Setter Property="BorderBrush" Value="LightGray" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:LabelTextBlock">
-                    <Grid>
-                        <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" />
-                        <TextBlock Padding="6" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, Mode=TwoWay}" TextWrapping="{TemplateBinding TextWrapping}"
-                                   FontSize="{TemplateBinding FontSize}" TextAlignment="{TemplateBinding TextAlignment}" VerticalAlignment="Center" />
-                        <TextBlock Padding="6,4" Text="{TemplateBinding Label}" FontSize="14" Foreground="Gray" Typography.Capitals="SmallCaps" />
+                    <Grid BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Margin="6,2,6,0" Text="{TemplateBinding Label}" FontSize="14" Foreground="Gray" Typography.Capitals="SmallCaps" />
+                        <TextBlock Grid.Row="1" Margin="6,-2,6,2" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, Mode=TwoWay}" TextWrapping="{TemplateBinding TextWrapping}"
+                                   FontSize="{TemplateBinding FontSize}" TextAlignment="{TemplateBinding TextAlignment}" VerticalAlignment="Bottom" TextTrimming="WordEllipsis" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

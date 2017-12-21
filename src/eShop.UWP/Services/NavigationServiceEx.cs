@@ -73,7 +73,7 @@ namespace eShop.UWP.Services
             return Navigate(page, parameter, mainFrame, infoOverride);
         }
 
-        private bool Navigate(Type pageType, object parameter = null, bool mainFrame = false, NavigationTransitionInfo infoOverride = null)
+        public bool Navigate(Type pageType, object parameter = null, bool mainFrame = false, NavigationTransitionInfo infoOverride = null)
         {
             var frame = mainFrame ? MainFrame : Frame;
             frame = frame ?? MainFrame;

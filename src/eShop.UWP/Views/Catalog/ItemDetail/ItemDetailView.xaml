@@ -72,6 +72,8 @@
         </ScrollViewer>
 
         <CommandBar IsOpen="{x:Bind ViewModel.IsCommandBarOpen, Mode=TwoWay}" IsSticky="True" ClosedDisplayMode="Minimal" VerticalAlignment="Bottom" IsDynamicOverflowEnabled="False" RequestedTheme="Dark" Style="{StaticResource CommandBarRevealStyle}" >
+            <AppBarButton Icon="Share" Label="Share" Command="{x:Bind ViewModel.ShareCommand}" />
+            <AppBarSeparator />
             <AppBarButton Icon="Delete" Label="Delete" Command="{x:Bind ViewModel.DeleteCommand}" Visibility="{x:Bind ViewModel.IsDeleteVisible, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource AppBarButtonRevealStyle}" />
             <AppBarSeparator Visibility="{x:Bind ViewModel.IsSeparatorVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
             <AppBarButton Icon="Save" Label="Save" Command="{x:Bind ViewModel.SaveCommand}" Visibility="{x:Bind ViewModel.IsSaveVisible, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource AppBarButtonRevealStyle}" />
