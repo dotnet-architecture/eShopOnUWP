@@ -151,6 +151,7 @@
     <Compile Include="DataProviders\Contracts\IOrdersProvider.cs" />
     <Compile Include="DataProviders\OrdersProvider.cs" />
     <Compile Include="Extensions\AnimationExtensions.cs" />
+    <Compile Include="Extensions\ElementRenderExtension.cs" />
     <Compile Include="Extensions\ScrollViewerExtensions.cs" />
     <Compile Include="Models\CatalogItem\CatalogItemModel.Size.cs" />
     <Compile Include="Models\CatalogItem\CatalogItemModel.Discount.cs" />
@@ -200,11 +201,14 @@
     <Compile Include="Views\Catalog\ItemsGridView.xaml.cs">
       <DependentUpon>ItemsGridView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Catalog\ItemShareView.xaml.cs">
+    <Compile Include="Views\Catalog\ItemShare\ItemShareView.xaml.cs">
       <DependentUpon>ItemShareView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Catalog\ItemsListView.xaml.cs">
       <DependentUpon>ItemsListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalog\ItemShare\ItemSize.xaml.cs">
+      <DependentUpon>ItemSize.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Login\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
@@ -487,13 +491,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Catalog\ItemShareView.xaml">
+    <Page Include="Views\Catalog\ItemShare\ItemShareView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Catalog\ItemsListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Catalog\ItemShare\ItemSize.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Login\LoginView.xaml">
       <Generator>MSBuild:Compile</Generator>

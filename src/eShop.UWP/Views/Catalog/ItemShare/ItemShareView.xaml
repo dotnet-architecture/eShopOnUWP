@@ -4,13 +4,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="using:eShop.UWP.Views"
     xmlns:controls="using:eShop.UWP.Controls"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid Background="#e6e6e6" VerticalAlignment="Top">
             <InkToolbar x:Name="inkToolbar" VerticalAlignment="Top" HorizontalAlignment="Left" TargetInkCanvas="{x:Bind inkCanvas}" />
-            <Button Padding="12,6" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right">
+            <Button Padding="12,6" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right" Click="OnShareClick">
                 <StackPanel>
                     <SymbolIcon Symbol="Share" />
                     <TextBlock Text="Share" FontSize="12" />
@@ -19,8 +20,8 @@
         </Grid>
 
         <Viewbox Margin="0,58,0,0" VerticalAlignment="Top">
-            <Grid>
-                <Grid BorderBrush="Gray" BorderThickness="0" Width="1024" Height="748">
+            <Grid x:Name="document" Width="1024" Height="748" Background="White">
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -39,6 +40,9 @@
 
                     <Grid Grid.Row="1" Grid.Column="0">
                         <Grid Margin="24,12,12,12" Padding="0" BorderThickness="1" BorderBrush="LightGray" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Grid Background="White" Width="474" Height="266" Visibility="{x:Bind Helper.Collapsed(ViewModel.HasPicture)}">
+                                <FontIcon Glyph="&#xEB9F;" FontSize="260" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="DarkGray" />
+                            </Grid>
                             <Image Source="{x:Bind ViewModel.Item.PictureUri}" />
                         </Grid>
                     </Grid>
@@ -54,10 +58,12 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <controls:LabelTextBlock Grid.Column="0" Label="Price" Text="{x:Bind ViewModel.Item.Price}" Foreground="Black" BorderThickness="0" />
-                            <controls:LabelTextBlock Grid.Column="1" Label="Discount" Text="{x:Bind ViewModel.Item.DiscountValue}" Foreground="Black" BorderThickness="0" />
-                            <controls:LabelTextBlock Grid.Column="2" Label="Final Price" Text="{x:Bind ViewModel.Item.FinalPrice}" Foreground="Black" BorderThickness="0" />
+                            <controls:LabelTextBlock Grid.Column="0" Label="Price" Text="{x:Bind Helper.Currency(ViewModel.Item.Price)}" Foreground="Black" BorderThickness="0" />
+                            <controls:LabelTextBlock Grid.Column="1" Label="Discount" Text="{x:Bind Helper.Currency(ViewModel.Item.DiscountValue)}" Foreground="Black" BorderThickness="0" />
+                            <controls:LabelTextBlock Grid.Column="2" Label="Final Price" Text="{x:Bind Helper.Currency(ViewModel.Item.FinalPrice)}" Foreground="Black" BorderThickness="0" />
                         </Grid>
+                        <Rectangle Height="6" />
+                        <views:ItemSize Model="{x:Bind ViewModel.Item}" />
                     </StackPanel>
 
                     <Grid Margin="12" Grid.Row="2" Grid.ColumnSpan="2">

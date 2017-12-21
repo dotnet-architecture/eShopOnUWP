@@ -9,6 +9,8 @@ namespace eShop.UWP.Models
 {
     public partial class CatalogItemModel : ObservableObject
     {
+        static public readonly CatalogItemModel Empty = new CatalogItemModel();
+
         public CatalogItemModel(int id = 0) : this(new CatalogItem { Id = id })
         {
         }

@@ -17,7 +17,7 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" Margin="6,2,6,0" Text="{TemplateBinding Label}" FontSize="14" Foreground="Gray" Typography.Capitals="SmallCaps" />
-                        <TextBlock Grid.Row="1" Margin="6,-2,6,2" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, Mode=TwoWay}" TextWrapping="{TemplateBinding TextWrapping}"
+                        <TextBlock Grid.Row="1" Margin="6,0,6,2" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, Mode=TwoWay}" TextWrapping="{TemplateBinding TextWrapping}"
                                    FontSize="{TemplateBinding FontSize}" TextAlignment="{TemplateBinding TextAlignment}" VerticalAlignment="Bottom" TextTrimming="WordEllipsis" />
                     </Grid>
                 </ControlTemplate>
