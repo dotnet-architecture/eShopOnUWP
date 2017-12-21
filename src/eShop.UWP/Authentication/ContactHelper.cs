@@ -11,6 +11,7 @@ namespace eShop.UWP.Authentication
         static public async Task<Contact> CreateContactFromLogonUserAsync()
         {
             string userName = AppSettings.Current.UserName;
+            userName = userName ?? "Unknown";
 
             var contact = await CreateContactFromCurrentUserAsync();
             if (contact.DisplayName.Equals(userName, StringComparison.OrdinalIgnoreCase))

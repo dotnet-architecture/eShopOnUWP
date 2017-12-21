@@ -30,6 +30,8 @@ namespace eShop.UWP.ViewModels
 
         public bool IsNewItem => Item?.Id == 0;
 
+        public bool HasPicture => !String.IsNullOrWhiteSpace(Item?.PictureUri);
+
         private IList<CatalogTypeModel> _catalogTypes = null;
         public IList<CatalogTypeModel> CatalogTypes
         {
@@ -212,7 +214,8 @@ namespace eShop.UWP.ViewModels
                 var item = await DataProvider.GetItemByIdAsync(state.Item.Id);
                 if (item == null)
                 {
-                    item = state.Item;
+                    item = state.Item ?? CatalogItemModel.Empty;
+                    item.CatalogType = item.CatalogType ?? new CatalogTypeModel();
                     IsUnavailable = true;
                 }
                 typeId = item.CatalogType.Id;
