@@ -1,4 +1,8 @@
 # Introduction 
+
+>**NOTE**: This repo is obsolete. Please, visit the new project at [
+VanArsdel Inventory Sample](https://github.com/Microsoft/InventorySample)
+
 This repo contains a UWP sample application for Windows 10 Fall Creators Update. It is focused on Line of Business scenarios, showing how to use the latest Windows capabilities in Desktop applications.
 
 Some of the features showcased by this application include:
